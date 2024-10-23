@@ -1,17 +1,18 @@
 import { BrowserRouter, Route, Routes, Outlet } from 'react-router-dom'
 
 import './App.css'
-import Navbar from './containers/navbar/Navbar.jsx'
-import Footer from './containers/footer/Footer.jsx'
-import Home from './pages/Home'
+// import Navbar from './containers/navbar/Navbar.jsx'
+// import Footer from './containers/footer/Footer.jsx'
+import Home from './pages/home/components/Home'
 
 function App () {
   function LayoutWithNavbarAndFooter () {
     return (
       <div className='w-screen flex flex-col'>
-        <Navbar />
+        <h1 className='title'>Hola mundo</h1>
+        {/* <Navbar /> */}
         <Outlet />
-        <Footer />
+        {/* <Footer /> */}
       </div>
     )
   }
