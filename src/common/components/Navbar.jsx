@@ -1,6 +1,11 @@
 const Navbar = () => {
   return (
-    <nav className='' />
+    <>
+      <nav className='' />
+      <p>Logo</p>
+      <p>Login/SingUp</p>
+    </>
+
   )
 }
 
