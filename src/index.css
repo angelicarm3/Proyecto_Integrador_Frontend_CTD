@@ -6,7 +6,7 @@
 
 @layer components {
   .title {
-    @apply 
+    @apply text-red1 w-1/2 bg-black1
   }
 }
 
