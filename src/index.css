@@ -1,0 +1,26 @@
+@import url('https://fonts.cdnfonts.com/css/bankgothic-md-bt');
+@import url('https://fonts.cdnfonts.com/css/aurora-condensed');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .title {
+    @apply 
+  }
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+@media (max-width: 1279px) {
+}
+
+@layer base {
+}
