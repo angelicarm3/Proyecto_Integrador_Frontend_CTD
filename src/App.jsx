@@ -10,8 +10,7 @@ function App () {
   function LayoutWithNavbarAndFooter () {
     return (
       <div className='w-screen flex flex-col'>
-        <h1 className='title'>Hola mundo</h1>
-        {/* <Header /> */}
+        { <Header />}
         <Outlet />
         {<Footer />}
       </div>
