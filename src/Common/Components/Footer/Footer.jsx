@@ -1,7 +1,11 @@
 
 import React from "react";
 import {FaFacebook, FaInstagram, FaTwitter, FaYoutube, FaWhatsapp} from 'react-icons/fa'
+<<<<<<< HEAD
+import isoG from './img/isoG.svg';
+=======
 import isoG from "../img/isoG.svg"
+>>>>>>> e4a266f2604a0628b2cf75b1df858a1c1daf29a9
 
 const sections =[
     {
@@ -97,7 +101,6 @@ const Footer = () =>{
 
                 {/* Copyright & Social Icons*/}
                 <div className="flex flex-col max-w-[1240px] px-2 py-4 mx-auto justify-between sm:flex-row items-center text-center text-gray-500">
-
                     <div className="flex items-center">
                         <img src={isoG} alt="Isologotipo" className="w-32 h-32 sm:w-80 sm:h-50 mr-2" />
                         <p className="py-4">
