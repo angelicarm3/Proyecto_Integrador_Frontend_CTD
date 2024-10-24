@@ -4,17 +4,17 @@ import AdminPanel from './Common/Components/AdminPanel/AdminPanel'
 
 import './App.css'
 // import Navbar from './containers/navbar/Navbar.jsx'
-import Footer from './Common/Components/Footer/Footer'
+// import Footer from './containers/footer/Footer.jsx'
 import Home from './pages/home/components/Home'
-import Header from './Common/Components/Header/Header'
 
 function App () {
   function LayoutWithNavbarAndFooter () {
     return (
       <div className='w-screen flex flex-col'>
-        { <Header />}
+        <h1 className='title'>Hola mundo</h1>
+        {/* <Navbar /> */}
         <Outlet />
-        {<Footer />}
+        {/* <Footer /> */}
       </div>
     )
   }
