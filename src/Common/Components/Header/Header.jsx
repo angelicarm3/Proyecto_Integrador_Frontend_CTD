@@ -4,7 +4,7 @@ import React from 'react';
 function Header() {
     return (
       <header style={styles.header}>
-        <img src="../Header/img/logoSSMal.png" alt="logo" style={styles.logo} />
+        <img src="../../../assets/logoSSMal.png" alt="logo" style={styles.logo} />
         <Navbar />
         <div style={styles.authButtons}>
           <button style={styles.button}>Login</button>
