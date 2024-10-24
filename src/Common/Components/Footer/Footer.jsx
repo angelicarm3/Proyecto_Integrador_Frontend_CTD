@@ -1,18 +1,17 @@
 import React from "react";
 import {FaFacebook, FaInstagram, FaTwitter, FaYoutube, FaWhatsapp} from 'react-icons/fa'
-import isoG from "../img/isoG.svg"
 
 const sections =[
     {
-        title: 'Soluciones',
+        title: 'Solutions',
         items:['Marketing', 'Analytics', 'Commerce', 'Data', 'Cloud']
     },
     {
-        title: 'Soporte',
+        title: 'Support',
         items: ['Pricing', 'Documentation', 'Guides', 'API', 'Status' ]
     },
     {
-        title: 'Compañía',
+        title: 'Company',
         items: ['About', 'Blog', 'Jobs', 'Press', 'Partners' ]
     },
     {
@@ -30,7 +29,7 @@ const items = [
     {
         name: 'Instagram',
         icon: FaInstagram,
-        link: 'https://www.instagram.com/'
+        link: 'https://instagram.com/'
     },
     {
         name: 'Twitter',
@@ -45,7 +44,7 @@ const items = [
     {
         name: 'Whatsapp',
         icon: FaWhatsapp,
-        link: ''
+        link: 'https://whatsapp.com/'
     }
 ]
 
@@ -78,42 +77,37 @@ const Footer = () =>{
 
                 <div className="col-span-2 pt-8 md:pt-2">
                     <p className="font-bold uppercase" >
-                        Suscríbete a nuestro newsletter!
+                        Suscribe to our newsletter!
                     </p>
 
                     <p>
-                        Las últimas actualizaciones, artículos y recursos enviados a tu correo semanalmente.
+                        The latest updates, articles and resources, sent to your inbox weekly.
                     </p>
                     <form className="flex flex-col sm:flex-row">
                         <input type="email" placeholder="Enter email address"
                         className="w-full p-2 mr-4 rounded-md mb-4" />
                         <button className="p-2 mb-4">
-                            Subscríbete
+                            Subscribe
                         </button>
                     </form>
                 </div>
             </div>
 
                 {/* Copyright & Social Icons*/}
-                <div className="flex flex-col max-w-[1240px] px-2 py-4 mx-auto justify-between sm:flex-row items-center text-center text-gray-500">
-
-                    <div className="flex items-center">
-                        <img src={isoG} alt="Isologotipo" className="w-32 h-32 sm:w-80 sm:h-50 mr-2" />
-                        <p className="py-4">
-                            &copy; 2024 Royal Ride Spa. Todos los derechos reservados.
-                        </p>
-                    </div>
+                <div className="flex flex-col max-w-[1240px] px-2 py-4 mx-auto justify-between
+                sm:flex-row text-center text-gray-500">
+                    <p className="py-4">
+                        2024 Royal Ride Spa. All rights reserved.
+                    </p>
 
                     <div className="flex justify-between sm:w-[300px] pt-4 text-2xl">
                         {
-                        items.map((x, index) => (
-                        <a key={index} href={x.link} target="_blank" rel="noopener noreferrer">
-                            <x.icon className="hover:text-white cursor-pointer" />
-                            </a>
-                            ))
-                        }
-                            </div>
+                            items.map((x,index)=>{
+                                return <x.icon key={index} className="hover:text-white cursor-pointer"/>
+                            }
+                        )}
 
+                    </div>
                 </div>
         </div>
         </>
