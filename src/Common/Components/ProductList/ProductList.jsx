@@ -1,8 +1,9 @@
 import React from 'react'
 import ProductRow from '../ProductRow/ProductRow'
-import products from '../../../data/products'
+import { productsData } from '../../../data/products'
 
 const ProductList = () => {
+  console.log(productsData)
   return (
     <table className='min-w-full border border-gray-300'>
       <thead>
@@ -13,7 +14,7 @@ const ProductList = () => {
         </tr>
       </thead>
       <tbody>
-        {products.map(product => (
+        {productsData.products.map(product => (
           <ProductRow key={product.id} product={product} />
         ))}
       </tbody>
