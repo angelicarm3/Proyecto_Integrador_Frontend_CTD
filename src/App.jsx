@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes, Outlet } from 'react-router-dom'
 
 import './App.css'
-import Navbar from './components/Organisms/Navbar/Navbar.jsx'
+import Header from './components/Organisms/Header/Header.jsx'
 import Footer from './components/Organisms/Footer/Footer.jsx'
 import Home from './components/Pages/Home/Home'
 
@@ -9,7 +9,7 @@ function App () {
   function LayoutWithNavbarAndFooter () {
     return (
       <div className='w-screen flex flex-col'>
-        <Navbar />
+        <Header />
         <Outlet />
         <Footer />
       </div>
