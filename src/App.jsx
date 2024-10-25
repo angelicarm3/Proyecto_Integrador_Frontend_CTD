@@ -1,11 +1,11 @@
 import { BrowserRouter, Route, Routes, Outlet } from 'react-router-dom'
-import Admin from './pages/Admin'
-import AdminPanel from './Common/Components/AdminPanel/AdminPanel'
 
 import './App.css'
 import Navbar from './components/Organisms/Navbar/Navbar.jsx'
 import Footer from './components/Organisms/Footer/Footer.jsx'
 import Home from './components/Pages/Home/Home'
+import AdminPanel from './components/Pages/AdminPanel/AdminPanel.jsx'
+import AdminProducts from './components/Pages/AdminProducts/AdminProducts.jsx'
 
 function App () {
   function LayoutWithNavbarAndFooter () {
@@ -23,9 +23,9 @@ function App () {
       <Routes>
         <Route element={<LayoutWithNavbarAndFooter />}>
           <Route path='/' element={<Home />} />
+          <Route path='/admin' element={<AdminPanel />} />
+          <Route path='/admin/products' element={<AdminProducts />} />
         </Route>
-        <Route path='/AdminPanel' element={<AdminPanel />} />
-        <Route path='/products' element={<Admin />} />
       </Routes>
     </BrowserRouter>
   )

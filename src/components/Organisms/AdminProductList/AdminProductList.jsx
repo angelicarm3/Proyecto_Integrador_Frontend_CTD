@@ -1,8 +1,8 @@
 import React from 'react'
-import ProductRow from '../ProductRow/ProductRow'
+import ProductRow from '../../Molecules/ProductRow/ProductRow'
 import { productsData } from '../../../data/products'
 
-const ProductList = () => {
+const AdminProducts = () => {
   console.log(productsData)
   return (
     <table className='min-w-full border border-gray-300'>
@@ -22,4 +22,4 @@ const ProductList = () => {
   )
 }
 
-export default ProductList
+export default AdminProducts
