@@ -5,8 +5,11 @@
 @tailwind utilities;
 
 @layer components {
-  .title {
-    @apply text-red1 w-1/2 bg-black2
+  .primaryBtn {
+    @apply h-10 flex justify-center items-center font-Urbanist font-bold bg-yellow1 hover:opacity-50
+  }
+  .secondaryBtn {
+    @apply h-10 flex justify-center items-center font-Urbanist font-bold bg-black1 text-white hover:opacity-50
   }
 }
 

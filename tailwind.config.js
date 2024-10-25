@@ -8,11 +8,17 @@ export default {
         black2: '#1C1B20',
         yellow1: '#F3C02F',
         gray1: '#414A68',
-        red1: '#FF2801'
+        gray2: '#1E1E1E',
+        gray3: '#666666',
+        gray4: '#D9D9D9',
+        red1: '#FF2801',
+        white: '#FFFFFF'
       },
       fontFamily: {
         Aurora: ['Aurora Condensed', 'sans-serif'],
-        BankGothic: ['BankGothic', 'sans-serif']
+        BankGothic: ['BankGothic', 'sans-serif'],
+        Urbanist: ['Urbanist', 'sans-serif'],
+        Bodoni: ['Bodoni Moda', 'serif']
       }
     }
   },
