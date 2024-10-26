@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .category-btn {
+    @apply w-[200px] h-fit flex flex-col justify-center pb-2 hover:opacity-75 hover:bg-gray3 rounded-2xl
+  }
+  .category-img {
+    @apply w-11/12 h-[130px] object-contain 
+  }
+  .category-text {
+    @apply w-full font-semibold text-xl text-white text-center
+  }
+}

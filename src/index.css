@@ -5,11 +5,23 @@
 @tailwind utilities;
 
 @layer components {
-  .primaryBtn {
+  .primary-btn {
     @apply h-10 flex justify-center items-center font-Urbanist font-bold bg-yellow1 hover:opacity-50
   }
-  .secondaryBtn {
+  .secondary-btn {
     @apply h-10 flex justify-center items-center font-Urbanist font-bold bg-black1 text-white hover:opacity-50
+  }
+  .log-in-btn {
+    @apply w-24 rounded-3xl
+  }
+  .rent-now-btn {
+    @apply w-full rounded-3xl
+  }
+  .main-section {
+    @apply w-11/12 self-center my-6
+  }
+  .title {
+    @apply w-full font-semibold text-3xl text-white text-center mb-4
   }
 }
 

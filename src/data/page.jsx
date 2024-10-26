@@ -1,7 +1,8 @@
 import {
   premiumCar,
   sportsCar,
-  SUVCar
+  SUVCar,
+  allCars
 } from '../assets/pageImg'
 
 export const pageData = {
@@ -34,7 +35,24 @@ export const pageData = {
         img: SUVCar,
         text: 'SUV',
         filter: 'SUV'
+      },
+      {
+        img: allCars,
+        text: 'All',
+        filter: 'All'
       }
     ]
+  },
+  productCard: {
+    dia: '/día',
+    features: {
+      horsepower: 'CV',
+      speed: 'km/h',
+      timeframe: '0-100:',
+      acceleration: 's'
+    }
+  },
+  productDetail: {
+    seeMore: 'Ver más...'
   }
 }

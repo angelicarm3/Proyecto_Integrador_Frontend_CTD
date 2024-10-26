@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .recommendation-card-container {
+    @apply w-[440px] flex text-black bg-gray4 hover:opacity-50 rounded-2xl cursor-pointer
+  }
+  .recommendation-card-img {
+    @apply w-[220px] h-full rounded-l-2xl object-cover
+  }
+  .recommendation-info-container {
+    @apply w-full flex flex-col p-4 gap-3
+  }
+  .recommendation-name {
+    @apply h-[56px] font-semibold text-xl
+  }
+  .recommendation-daily-price {
+    @apply font-bold text-3xl
+  }
+  .recommendation-day-text {
+    @apply font-semibold text-gray3 text-base
+  }
+}

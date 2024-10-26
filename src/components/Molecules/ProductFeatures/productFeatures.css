@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .product-features-container {
+    @apply flex justify-around items-center text-center text-sm text-black bg-gray3 rounded-lg p-2
+  }
+  .product-features-card {
+    @apply flex flex-col items-center
+  }
+  .product-features-text {
+    @apply text-2xl mb-2
+  }
+}

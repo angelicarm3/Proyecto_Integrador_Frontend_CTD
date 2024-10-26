@@ -1,6 +1,8 @@
 import Banner from '../../Organisms/Banner/Banner'
 import Categories from '../../Organisms/Categories/Categories'
+import ProductsGrid from '../../Templates/ProductsGrid/ProductsGrid'
 import SearchBar from '../../Organisms/SearchBar/SearchBar'
+import RecommendationsGrid from '../../Templates/RecommendationsGrid/RecommendationsGrid'
 
 const Home = () => {
   return (
@@ -8,6 +10,8 @@ const Home = () => {
       <Banner />
       <SearchBar />
       <Categories />
+      <ProductsGrid />
+      <RecommendationsGrid />
     </>
   )
 }

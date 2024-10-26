@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .images-grid-container {
+    @apply w-[450px] h-[340px] flex gap-4
+  }
+  .main-img {
+    @apply w-[340px] h-full rounded-2xl object-cover cursor-pointer hover:opacity-75
+  }
+  .other-img {
+    @apply h-[66px] rounded-lg
+  }
+}

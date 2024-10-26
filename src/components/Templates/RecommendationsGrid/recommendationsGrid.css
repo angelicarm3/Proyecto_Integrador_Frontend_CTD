@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .recommendations-grid-container {
+    @apply w-full flex flex-col items-center bg-gray3 py-6 gap-4
+  }
+  .recommendations-grid-title {
+    @apply text-center
+  }
+  .recommendations-grid {
+    @apply flex flex-wrap justify-center rounded-2xl gap-8
+  }
+}

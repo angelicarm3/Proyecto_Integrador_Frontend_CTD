@@ -16,13 +16,28 @@ export const productsData = {
       precioDia: 400,
       año: '2023',
       estaActivo: true,
-      imagenes: {
-        AudiQ8SLine1,
-        AudiQ8SLine2,
-        AudiQ8SLine3,
-        AudiQ8SLine4,
-        AudiQ8SLine5
-      },
+      imagenes: [
+        {
+          img: AudiQ8SLine1,
+          es_principal: true
+        },
+        {
+          img: AudiQ8SLine2,
+          es_principal: false
+        },
+        {
+          img: AudiQ8SLine3,
+          es_principal: false
+        },
+        {
+          img: AudiQ8SLine4,
+          es_principal: false
+        },
+        {
+          img: AudiQ8SLine5,
+          es_principal: false
+        }
+      ],
       categorias: [
         'SUV'
       ]
@@ -39,13 +54,28 @@ export const productsData = {
       precioDia: 749,
       año: '2023',
       estaActivo: true,
-      imagenes: {
-        AudiRS6Avant1,
-        AudiRS6Avant2,
-        AudiRS6Avant3,
-        AudiRS6Avant4,
-        AudiRS6Avant5
-      },
+      imagenes: [
+        {
+          img: AudiRS6Avant1,
+          es_principal: true
+        },
+        {
+          img: AudiRS6Avant2,
+          es_principal: false
+        },
+        {
+          img: AudiRS6Avant3,
+          es_principal: false
+        },
+        {
+          img: AudiRS6Avant4,
+          es_principal: false
+        },
+        {
+          img: AudiRS6Avant5,
+          es_principal: false
+        }
+      ],
       categorias: [
         'Sports',
         'Premium'
@@ -63,12 +93,24 @@ export const productsData = {
       precioDia: 1199,
       año: '2023',
       estaActivo: true,
-      imagenes: {
-        BentleyContinentalGTC1,
-        BentleyContinentalGTC2,
-        BentleyContinentalGTC3,
-        BentleyContinentalGTC4
-      },
+      imagenes: [
+        {
+          img: BentleyContinentalGTC1,
+          es_principal: true
+        },
+        {
+          img: BentleyContinentalGTC2,
+          es_principal: false
+        },
+        {
+          img: BentleyContinentalGTC3,
+          es_principal: false
+        },
+        {
+          img: BentleyContinentalGTC4,
+          es_principal: false
+        }
+      ],
       categorias: [
         'Sports'
       ]
@@ -85,13 +127,28 @@ export const productsData = {
       precioDia: 599,
       año: '2023',
       estaActivo: true,
-      imagenes: {
-        BMWM4Cabrio1,
-        BMWM4Cabrio2,
-        BMWM4Cabrio3,
-        BMWM4Cabrio4,
-        BMWM4Cabrio5
-      },
+      imagenes: [
+        {
+          img: BMWM4Cabrio1,
+          es_principal: true
+        },
+        {
+          img: BMWM4Cabrio2,
+          es_principal: false
+        },
+        {
+          img: BMWM4Cabrio3,
+          es_principal: false
+        },
+        {
+          img: BMWM4Cabrio4,
+          es_principal: false
+        },
+        {
+          img: BMWM4Cabrio5,
+          es_principal: false
+        }
+      ],
       categorias: [
         'Sports',
         'Premium'
@@ -109,16 +166,40 @@ export const productsData = {
       precioDia: 449,
       año: '2023',
       estaActivo: true,
-      imagenes: {
-        BMWX740d1,
-        BMWX740d2,
-        BMWX740d3,
-        BMWX740d4,
-        BMWX740d5,
-        BMWX740d6,
-        BMWX740d7,
-        BMWX740d8
-      },
+      imagenes: [
+        {
+          img: BMWX740d1,
+          es_principal: true
+        },
+        {
+          img: BMWX740d2,
+          es_principal: false
+        },
+        {
+          img: BMWX740d3,
+          es_principal: false
+        },
+        {
+          img: BMWX740d4,
+          es_principal: false
+        },
+        {
+          img: BMWX740d5,
+          es_principal: false
+        },
+        {
+          img: BMWX740d6,
+          es_principal: false
+        },
+        {
+          img: BMWX740d7,
+          es_principal: false
+        },
+        {
+          img: BMWX740d8,
+          es_principal: false
+        }
+      ],
       categorias: [
         'SUV'
       ]
@@ -135,13 +216,28 @@ export const productsData = {
       precioDia: 1649,
       año: '2023',
       estaActivo: true,
-      imagenes: {
-        Ferrari296GTB1,
-        Ferrari296GTB2,
-        Ferrari296GTB3,
-        Ferrari296GTB4,
-        Ferrari296GTB5
-      },
+      imagenes: [
+        {
+          img: Ferrari296GTB1,
+          es_principal: true
+        },
+        {
+          img: Ferrari296GTB2,
+          es_principal: false
+        },
+        {
+          img: Ferrari296GTB3,
+          es_principal: false
+        },
+        {
+          img: Ferrari296GTB4,
+          es_principal: false
+        },
+        {
+          img: Ferrari296GTB5,
+          es_principal: false
+        }
+      ],
       categorias: [
         'Sports'
       ]
@@ -158,13 +254,31 @@ export const productsData = {
       precioDia: 1749,
       año: '2023',
       estaActivo: true,
-      imagenes: {
-        Ferrari296GTS1,
-        Ferrari296GTS2,
-        Ferrari296GTS3,
-        Ferrari296GTS4,
-        Ferrari296GTS5
-      }
+      imagenes: [
+        {
+          img: Ferrari296GTS1,
+          es_principal: true
+        },
+        {
+          img: Ferrari296GTS2,
+          es_principal: false
+        },
+        {
+          img: Ferrari296GTS3,
+          es_principal: false
+        },
+        {
+          img: Ferrari296GTS4,
+          es_principal: false
+        },
+        {
+          img: Ferrari296GTS5,
+          es_principal: false
+        }
+      ],
+      categorias: [
+        'Sports'
+      ]
     },
     {
       id: 8,
@@ -178,13 +292,28 @@ export const productsData = {
       precioDia: 1349,
       año: '2023',
       estaActivo: true,
-      imagenes: {
-        Ferrari488Spider1,
-        Ferrari488Spider2,
-        Ferrari488Spider3,
-        Ferrari488Spider4,
-        Ferrari488Spider5
-      },
+      imagenes: [
+        {
+          img: Ferrari488Spider1,
+          es_principal: true
+        },
+        {
+          img: Ferrari488Spider2,
+          es_principal: false
+        },
+        {
+          img: Ferrari488Spider3,
+          es_principal: false
+        },
+        {
+          img: Ferrari488Spider4,
+          es_principal: false
+        },
+        {
+          img: Ferrari488Spider5,
+          es_principal: false
+        }
+      ],
       categorias: [
         'Sports'
       ]
@@ -201,13 +330,28 @@ export const productsData = {
       precioDia: 1649,
       año: '2023',
       estaActivo: true,
-      imagenes: {
-        FerrariF8Spider1,
-        FerrariF8Spider2,
-        FerrariF8Spider3,
-        FerrariF8Spider4,
-        FerrariF8Spider5
-      },
+      imagenes: [
+        {
+          img: FerrariF8Spider1,
+          es_principal: true
+        },
+        {
+          img: FerrariF8Spider2,
+          es_principal: false
+        },
+        {
+          img: FerrariF8Spider3,
+          es_principal: false
+        },
+        {
+          img: FerrariF8Spider4,
+          es_principal: false
+        },
+        {
+          img: FerrariF8Spider5,
+          es_principal: false
+        }
+      ],
       categorias: [
         'Sports'
       ]
@@ -224,13 +368,28 @@ export const productsData = {
       precioDia: 1249,
       año: '2023',
       estaActivo: true,
-      imagenes: {
-        FerrariPortofino1,
-        FerrariPortofino2,
-        FerrariPortofino3,
-        FerrariPortofino4,
-        FerrariPortofino5
-      },
+      imagenes: [
+        {
+          img: FerrariPortofino1,
+          es_principal: true
+        },
+        {
+          img: FerrariPortofino2,
+          es_principal: false
+        },
+        {
+          img: FerrariPortofino3,
+          es_principal: false
+        },
+        {
+          img: FerrariPortofino4,
+          es_principal: false
+        },
+        {
+          img: FerrariPortofino5,
+          es_principal: false
+        }
+      ],
       categorias: [
         'Sports'
       ]
@@ -247,13 +406,28 @@ export const productsData = {
       precioDia: 400,
       año: '2023',
       estaActivo: true,
-      imagenes: {
-        FordMustangGTCabrio1,
-        FordMustangGTCabrio2,
-        FordMustangGTCabrio3,
-        FordMustangGTCabrio4,
-        FordMustangGTCabrio5
-      },
+      imagenes: [
+        {
+          img: FordMustangGTCabrio1,
+          es_principal: true
+        },
+        {
+          img: FordMustangGTCabrio2,
+          es_principal: false
+        },
+        {
+          img: FordMustangGTCabrio3,
+          es_principal: false
+        },
+        {
+          img: FordMustangGTCabrio4,
+          es_principal: false
+        },
+        {
+          img: FordMustangGTCabrio5,
+          es_principal: false
+        }
+      ],
       categorias: [
         'Sports'
       ]
@@ -270,18 +444,48 @@ export const productsData = {
       precioDia: 1499,
       año: '2023',
       estaActivo: true,
-      imagenes: {
-        LamborghiniHuracanEvoSpyder1,
-        LamborghiniHuracanEvoSpyder2,
-        LamborghiniHuracanEvoSpyder3,
-        LamborghiniHuracanEvoSpyder4,
-        LamborghiniHuracanEvoSpyder5,
-        LamborghiniHuracanEvoSpyder6,
-        LamborghiniHuracanEvoSpyder7,
-        LamborghiniHuracanEvoSpyder8,
-        LamborghiniHuracanEvoSpyder9,
-        LamborghiniHuracanEvoSpyder10
-      },
+      imagenes: [
+        {
+          img: LamborghiniHuracanEvoSpyder1,
+          es_principal: true
+        },
+        {
+          img: LamborghiniHuracanEvoSpyder2,
+          es_principal: false
+        },
+        {
+          img: LamborghiniHuracanEvoSpyder3,
+          es_principal: false
+        },
+        {
+          img: LamborghiniHuracanEvoSpyder4,
+          es_principal: false
+        },
+        {
+          img: LamborghiniHuracanEvoSpyder5,
+          es_principal: false
+        },
+        {
+          img: LamborghiniHuracanEvoSpyder6,
+          es_principal: false
+        },
+        {
+          img: LamborghiniHuracanEvoSpyder7,
+          es_principal: false
+        },
+        {
+          img: LamborghiniHuracanEvoSpyder8,
+          es_principal: false
+        },
+        {
+          img: LamborghiniHuracanEvoSpyder9,
+          es_principal: false
+        },
+        {
+          img: LamborghiniHuracanEvoSpyder10,
+          es_principal: false
+        }
+      ],
       categorias: [
         'Sports'
       ]
@@ -299,11 +503,26 @@ export const productsData = {
       año: '2023',
       estaActivo: true,
       imagenes: [
-        LamborghiniHuracanTecnica1,
-        LamborghiniHuracanTecnica2,
-        LamborghiniHuracanTecnica3,
-        LamborghiniHuracanTecnica4,
-        LamborghiniHuracanTecnica5
+        {
+          img: LamborghiniHuracanTecnica1,
+          es_principal: true
+        },
+        {
+          img: LamborghiniHuracanTecnica2,
+          es_principal: false
+        },
+        {
+          img: LamborghiniHuracanTecnica3,
+          es_principal: false
+        },
+        {
+          img: LamborghiniHuracanTecnica4,
+          es_principal: false
+        },
+        {
+          img: LamborghiniHuracanTecnica5,
+          es_principal: false
+        }
       ],
       categorias: [
         'Sports'
@@ -321,13 +540,28 @@ export const productsData = {
       precioDia: 1499,
       año: '2023',
       estaActivo: true,
-      imagenes: {
-        LamborghiniUrus1,
-        LamborghiniUrus2,
-        LamborghiniUrus3,
-        LamborghiniUrus4,
-        LamborghiniUrus5
-      },
+      imagenes: [
+        {
+          img: LamborghiniUrus1,
+          es_principal: true
+        },
+        {
+          img: LamborghiniUrus2,
+          es_principal: false
+        },
+        {
+          img: LamborghiniUrus3,
+          es_principal: false
+        },
+        {
+          img: LamborghiniUrus4,
+          es_principal: false
+        },
+        {
+          img: LamborghiniUrus5,
+          es_principal: false
+        }
+      ],
       categorias: [
         'Sports',
         'SUV'
@@ -345,14 +579,32 @@ export const productsData = {
       precioDia: 1649,
       año: '2023',
       estaActivo: true,
-      imagenes: {
-        LamborghiniUrusS1,
-        LamborghiniUrusS2,
-        LamborghiniUrusS3,
-        LamborghiniUrusS4,
-        LamborghiniUrusS5,
-        LamborghiniUrusS6
-      },
+      imagenes: [
+        {
+          img: LamborghiniUrusS1,
+          es_principal: true
+        },
+        {
+          img: LamborghiniUrusS2,
+          es_principal: false
+        },
+        {
+          img: LamborghiniUrusS3,
+          es_principal: false
+        },
+        {
+          img: LamborghiniUrusS4,
+          es_principal: false
+        },
+        {
+          img: LamborghiniUrusS5,
+          es_principal: false
+        },
+        {
+          img: LamborghiniUrusS6,
+          es_principal: false
+        }
+      ],
       categorias: [
         'Sports',
         'SUV'
@@ -370,11 +622,20 @@ export const productsData = {
       precioDia: 299,
       año: '2023',
       estaActivo: true,
-      imagenes: {
-        MercedesClaseV1,
-        MercedesClaseV2,
-        MercedesClaseV3
-      },
+      imagenes: [
+        {
+          img: MercedesClaseV1,
+          es_principal: true
+        },
+        {
+          img: MercedesClaseV2,
+          es_principal: false
+        },
+        {
+          img: MercedesClaseV3,
+          es_principal: false
+        }
+      ],
       categorias: [
         'Premium'
       ]
@@ -391,14 +652,32 @@ export const productsData = {
       precioDia: 949,
       año: '2023',
       estaActivo: true,
-      imagenes: {
-        MercedesG63AMG1,
-        MercedesG63AMG2,
-        MercedesG63AMG3,
-        MercedesG63AMG4,
-        MercedesG63AMG5,
-        MercedesG63AMG6
-      },
+      imagenes: [
+        {
+          img: MercedesG63AMG1,
+          es_principal: true
+        },
+        {
+          img: MercedesG63AMG2,
+          es_principal: false
+        },
+        {
+          img: MercedesG63AMG3,
+          es_principal: false
+        },
+        {
+          img: MercedesG63AMG4,
+          es_principal: false
+        },
+        {
+          img: MercedesG63AMG5,
+          es_principal: false
+        },
+        {
+          img: MercedesG63AMG6,
+          es_principal: false
+        }
+      ],
       categorias: [
         'Premium',
         'SUV'
@@ -416,15 +695,36 @@ export const productsData = {
       precioDia: 599,
       año: '2023',
       estaActivo: true,
-      imagenes: {
-        Porsche718BoxsterGTS1,
-        Porsche718BoxsterGTS2,
-        Porsche718BoxsterGTS3,
-        Porsche718BoxsterGTS4,
-        Porsche718BoxsterGTS5,
-        Porsche718BoxsterGTS6,
-        Porsche718BoxsterGTS7
-      },
+      imagenes: [
+        {
+          img: Porsche718BoxsterGTS1,
+          es_principal: true
+        },
+        {
+          img: Porsche718BoxsterGTS2,
+          es_principal: false
+        },
+        {
+          img: Porsche718BoxsterGTS3,
+          es_principal: false
+        },
+        {
+          img: Porsche718BoxsterGTS4,
+          es_principal: false
+        },
+        {
+          img: Porsche718BoxsterGTS5,
+          es_principal: false
+        },
+        {
+          img: Porsche718BoxsterGTS6,
+          es_principal: false
+        },
+        {
+          img: Porsche718BoxsterGTS7,
+          es_principal: false
+        }
+      ],
       categorias: [
         'Sports'
       ]
@@ -441,14 +741,32 @@ export const productsData = {
       precioDia: 949,
       año: '2023',
       estaActivo: true,
-      imagenes: {
-        Porsche992GT31,
-        Porsche992GT32,
-        Porsche992GT33,
-        Porsche992GT34,
-        Porsche992GT35,
-        Porsche992GT36
-      },
+      imagenes: [
+        {
+          img: Porsche992GT31,
+          es_principal: true
+        },
+        {
+          img: Porsche992GT32,
+          es_principal: false
+        },
+        {
+          img: Porsche992GT33,
+          es_principal: false
+        },
+        {
+          img: Porsche992GT34,
+          es_principal: false
+        },
+        {
+          img: Porsche992GT35,
+          es_principal: false
+        },
+        {
+          img: Porsche992GT36,
+          es_principal: false
+        }
+      ],
       categorias: [
         'Sports',
         'Premium'
@@ -466,14 +784,32 @@ export const productsData = {
       precioDia: 799,
       año: '2023',
       estaActivo: true,
-      imagenes: {
-        PorscheCarreraSCabrio1,
-        PorscheCarreraSCabrio2,
-        PorscheCarreraSCabrio3,
-        PorscheCarreraSCabrio4,
-        PorscheCarreraSCabrio5,
-        PorscheCarreraSCabrio6
-      },
+      imagenes: [
+        {
+          img: PorscheCarreraSCabrio1,
+          es_principal: true
+        },
+        {
+          img: PorscheCarreraSCabrio2,
+          es_principal: false
+        },
+        {
+          img: PorscheCarreraSCabrio3,
+          es_principal: false
+        },
+        {
+          img: PorscheCarreraSCabrio4,
+          es_principal: false
+        },
+        {
+          img: PorscheCarreraSCabrio5,
+          es_principal: false
+        },
+        {
+          img: PorscheCarreraSCabrio6,
+          es_principal: false
+        }
+      ],
       categorias: [
         'Sports',
         'Premium'
@@ -491,12 +827,24 @@ export const productsData = {
       precioDia: 449,
       año: '2023',
       estaActivo: true,
-      imagenes: {
-        RangeRoverSportDynamicSEMHEV1,
-        RangeRoverSportDynamicSEMHEV2,
-        RangeRoverSportDynamicSEMHEV3,
-        RangeRoverSportDynamicSEMHEV4
-      },
+      imagenes: [
+        {
+          img: RangeRoverSportDynamicSEMHEV1,
+          es_principal: true
+        },
+        {
+          img: RangeRoverSportDynamicSEMHEV2,
+          es_principal: false
+        },
+        {
+          img: RangeRoverSportDynamicSEMHEV3,
+          es_principal: false
+        },
+        {
+          img: RangeRoverSportDynamicSEMHEV4,
+          es_principal: false
+        }
+      ],
       categorias: [
         'SUV'
       ]

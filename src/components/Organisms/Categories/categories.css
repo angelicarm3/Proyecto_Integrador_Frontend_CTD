@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .categories-container {
+    @apply w-full h-fit flex justify-around
+  }
+}

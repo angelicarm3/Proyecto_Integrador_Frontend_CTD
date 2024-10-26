@@ -2,7 +2,7 @@ import { pageData } from '../../../data/page'
 
 const SignUpBtn = () => {
   return (
-    <button className='secondaryBtn w-24 rounded-3xl'>
+    <button className='secondary-btn log-in-btn'>
       {pageData.buttons.signUp}
     </button>
   )

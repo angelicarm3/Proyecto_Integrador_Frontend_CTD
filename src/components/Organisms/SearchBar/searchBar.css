@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .search-bar-container {
+    @apply h-14 flex justify-around items-center font-bold bg-gray3 rounded-xl px-2
+  }
+  .search-bar-title {
+    @apply mx-2
+  }
+  .search-bar-input {
+    @apply w-5/12 h-10 bg-gray4 rounded-lg outline-none px-4
+  }
+}

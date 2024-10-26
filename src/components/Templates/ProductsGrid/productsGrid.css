@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .products-grid-container {
+    @apply flex flex-col gap-4
+  }
+  .products-grid {
+    @apply flex flex-wrap justify-center rounded-2xl gap-8
+  }
+  .pagination {
+    @apply w-7 h-7 flex self-center justify-center items-center font-Urbanist font-bold text-white list-none cursor-pointer mt-0.5
+  }
+  .active {
+    @apply bg-yellow1 rounded-lg text-black1
+  }
+  .page-item  {
+    @apply w-7 h-7 flex justify-center items-center font-Urbanist list-none cursor-pointer rounded-lg hover:text-gray3 py-0.5 px-3 mt-0.5
+  }
+  .nav-arrow  {
+    @apply hover:opacity-50
+  }
+}

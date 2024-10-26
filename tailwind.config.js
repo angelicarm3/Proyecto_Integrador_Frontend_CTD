@@ -17,8 +17,7 @@ export default {
       fontFamily: {
         Aurora: ['Aurora Condensed', 'sans-serif'],
         BankGothic: ['BankGothic', 'sans-serif'],
-        Urbanist: ['Urbanist', 'sans-serif'],
-        Bodoni: ['Bodoni Moda', 'serif']
+        Urbanist: ['Urbanist', 'sans-serif']
       }
     }
   },

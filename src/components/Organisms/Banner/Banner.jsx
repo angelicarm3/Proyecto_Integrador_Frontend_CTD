@@ -1,12 +1,11 @@
+import './banner.css'
 import bannerVideo from '../../../assets/videos/banner.mp4'
 
 const Banner = () => {
   return (
-    <>
-      <video autoPlay loop muted className='object-cover h-[500px]'>
-        <source src={bannerVideo} type='video/mp4' />
-      </video>
-    </>
+    <video autoPlay loop muted className='video-container'>
+      <source src={bannerVideo} type='video/mp4' />
+    </video>
   )
 }
 

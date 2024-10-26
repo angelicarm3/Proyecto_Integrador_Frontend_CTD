@@ -4,6 +4,7 @@ import './App.css'
 import Header from './components/Organisms/Header/Header.jsx'
 import Footer from './components/Organisms/Footer/Footer.jsx'
 import Home from './components/Pages/Home/Home'
+import ProductDetail from './components/Pages/ProductDetail/ProductDetail.jsx'
 
 function App () {
   function LayoutWithNavbarAndFooter () {
@@ -21,6 +22,7 @@ function App () {
       <Routes>
         <Route element={<LayoutWithNavbarAndFooter />}>
           <Route path='/' element={<Home />} />
+          <Route path='product/:id' element={<ProductDetail />} />
         </Route>
       </Routes>
     </BrowserRouter>

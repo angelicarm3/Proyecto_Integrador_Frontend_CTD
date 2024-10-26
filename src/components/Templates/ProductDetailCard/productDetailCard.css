@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .product-detail-card-container {
+    @apply w-11/12 flex justify-between text-white rounded-2xl py-8 gap-4
+  }
+  .product-detail-info-container {
+    @apply flex flex-col p-4 gap-3
+  }
+  .product-detail-name {
+    @apply w-full font-semibold text-3xl text-white text-justify mb-4
+  }
+  .product-detail-daily-price {
+    @apply font-bold text-3xl
+  }
+  .product-detail-day-text {
+    @apply font-semibold text-gray3 text-base
+  }
+}
