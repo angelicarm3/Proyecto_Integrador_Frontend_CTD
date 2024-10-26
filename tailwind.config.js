@@ -6,7 +6,8 @@ export default {
       colors: {
         black1: '#080808',
         black2: '#1C1B20',
-        yellow1: '#F3C02F',
+        // yellow1: '#CCAD00',
+        yellow1: '#D4AF37',
         gray1: '#414A68',
         gray2: '#1E1E1E',
         gray3: '#666666',
@@ -17,7 +18,8 @@ export default {
       fontFamily: {
         Aurora: ['Aurora Condensed', 'sans-serif'],
         BankGothic: ['BankGothic', 'sans-serif'],
-        Urbanist: ['Urbanist', 'sans-serif']
+        Urbanist: ['Urbanist', 'sans-serif'],
+        Roboto: ['Roboto Slab', 'serif']
       }
     }
   },

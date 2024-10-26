@@ -38,7 +38,7 @@ export const pageData = {
       },
       {
         img: allCars,
-        text: 'All',
+        text: 'Todos',
         filter: 'All'
       }
     ]

@@ -1,14 +1,12 @@
-import { useEffect, useState } from 'react'
-
-import ReactPaginate from 'react-paginate'
-import { FaAngleLeft, FaAngleRight } from 'react-icons/fa'
-import { IconContext } from 'react-icons'
+import { useEffect, useRef, useState } from 'react'
 
 import './productsGrid.css'
 import { productsData } from '../../../data/products'
 import ProductCard from '../../Organisms/ProductCard/ProductCard'
+import Paginator from '../../Molecules/Paginator/Paginator'
 
 const ProductsGrid = () => {
+  const gridRef = useRef()
   const [page, setPage] = useState(0)
   const [filterData, setFilterData] = useState()
   const n = 9
@@ -21,9 +19,16 @@ const ProductsGrid = () => {
     )
   }, [page])
 
+  const onClick = (page) => {
+    setPage(page)
+    gridRef.current?.scrollIntoView({
+      behavior: 'smooth'
+    })
+  }
+
   return (
     <section className='main-section products-grid-container'>
-      <div className='products-grid'>
+      <div className='products-grid' ref={gridRef}>
         {
           filterData &&
           filterData.map((product, index) => (
@@ -31,25 +36,7 @@ const ProductsGrid = () => {
           ))
         }
       </div>
-
-      <ReactPaginate
-        containerClassName='pagination'
-        activeClassName='active'
-        pageClassName='page-item'
-        onPageChange={(event) => setPage(event.selected)}
-        breakLabel='...'
-        pageCount={Math.ceil(productsData.products.length / n)}
-        previousLabel={
-          <IconContext.Provider value={{ color: '#FFFFFF', size: '20px' }}>
-            <FaAngleLeft className='nav-arrow' />
-          </IconContext.Provider>
-        }
-        nextLabel={
-          <IconContext.Provider value={{ color: '#FFFFFF', size: '20px' }}>
-            <FaAngleRight className='nav-arrow' />
-          </IconContext.Provider>
-        }
-      />
+      <Paginator onClick={onClick} n={n} />
     </section>
   )
 }

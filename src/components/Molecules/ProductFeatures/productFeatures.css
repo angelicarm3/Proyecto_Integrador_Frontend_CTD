@@ -4,12 +4,15 @@
 
 @layer components {
   .product-features-container {
-    @apply flex justify-around items-center text-center text-sm text-black bg-gray3 rounded-lg p-2
+    @apply flex justify-around items-center text-center text-sm bg-gray3 rounded-lg p-2 
   }
   .product-features-card {
     @apply flex flex-col items-center
   }
+  .product-features-icons {
+    @apply text-gray4 text-2xl mb-2
+  }
   .product-features-text {
-    @apply text-2xl mb-2
+    @apply text-gray4
   }
 }

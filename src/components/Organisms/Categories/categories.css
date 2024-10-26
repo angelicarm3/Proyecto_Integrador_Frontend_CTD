@@ -4,6 +4,6 @@
 
 @layer components {
   .categories-container {
-    @apply w-full h-fit flex justify-around
+    @apply w-full h-fit flex justify-evenly 
   }
 }

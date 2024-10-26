@@ -10,14 +10,16 @@ const ProductCard = ({ product }) => {
 
   return (
     <Link to={`/product/${product.id}`} className='product-card-container'>
-      <img className='product-card-img' src={mainImg[0].img} alt='' />
       <div className='product-info-container'>
+        <img className='product-card-img' src={mainImg[0].img} alt='' />
         <p className='product-name'>{product.marca} {product.modelo}</p>
         <p className='product-daily-price'>
           ${product.precioDia}
           <span className='product-day-text'>{pageData.productCard.dia}</span>
         </p>
-        <ProductFeatures product={product} />
+      </div>
+      <div className='product-info-container'>
+        <ProductFeatures product={product} type='product' />
         <RentNowBtn />
       </div>
     </Link>

@@ -4,20 +4,20 @@ import { PiEngine, PiSpeedometer, PiTimer } from 'react-icons/pi'
 import './productFeatures.css'
 import { pageData } from '../../../data/page'
 
-const ProductFeatures = ({ product }) => {
+const ProductFeatures = ({ product, type }) => {
   return (
-    <div className='product-features-container'>
+    <div className={`product-features-container ${type === 'recommendation' ? 'mx-0' : 'mx-4'}`}>
       <div className='product-features-card'>
-        <PiEngine className='product-features-text' />
-        <p>{product.potenciaHp} {pageData.productCard.features.horsepower}</p>
+        <PiEngine className='product-features-icons' />
+        <p className='product-features-text'>{product.potenciaHp} {pageData.productCard.features.horsepower}</p>
       </div>
       <div className='product-features-card'>
-        <PiSpeedometer className='product-features-text' />
-        <p>{product.velocidad} {pageData.productCard.features.speed}</p>
+        <PiSpeedometer className='product-features-icons' />
+        <p className='product-features-text'>{product.velocidad} {pageData.productCard.features.speed}</p>
       </div>
       <div className='product-features-card'>
-        <PiTimer className='product-features-text' />
-        <p>{pageData.productCard.features.timeframe} {product.aceleracion} {pageData.productCard.features.acceleration}</p>
+        <PiTimer className='product-features-icons' />
+        <p className='product-features-text'>{pageData.productCard.features.timeframe} {product.aceleracion} {pageData.productCard.features.acceleration}</p>
       </div>
     </div>
   )

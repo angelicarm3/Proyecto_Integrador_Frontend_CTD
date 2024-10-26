@@ -1,27 +1,28 @@
 @import url('https://fonts.cdnfonts.com/css/bankgothic-md-bt');
 @import url('https://fonts.cdnfonts.com/css/aurora-condensed');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer components {
   .primary-btn {
-    @apply h-10 flex justify-center items-center font-Urbanist font-bold bg-yellow1 hover:opacity-50
+    @apply h-10 flex justify-center items-center font-Roboto font-bold bg-yellow1 hover:opacity-50
   }
   .secondary-btn {
-    @apply h-10 flex justify-center items-center font-Urbanist font-bold bg-black1 text-white hover:opacity-50
+    @apply h-10 flex justify-center items-center font-Roboto font-bold bg-black1 text-white hover:opacity-50
   }
   .log-in-btn {
     @apply w-24 rounded-3xl
   }
   .rent-now-btn {
-    @apply w-full rounded-3xl
+    @apply w-full text-black1 rounded-3xl mt-1
   }
   .main-section {
     @apply w-11/12 self-center my-6
   }
   .title {
-    @apply w-full font-semibold text-3xl text-white text-center mb-4
+    @apply w-full font-semibold text-3xl text-yellow1 text-center mb-4
   }
 }
 

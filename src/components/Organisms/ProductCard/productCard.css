@@ -4,21 +4,21 @@
 
 @layer components {
   .product-card-container {
-    @apply w-[280px] h-[455px] flex flex-col text-white  hover:opacity-50 border border-gray3 rounded-2xl cursor-pointer
+    @apply w-[280px] h-[435px] flex flex-col justify-between hover:opacity-50 rounded-xl cursor-pointer pb-4
   }
   .product-card-img {
-    @apply h-[187px] rounded-t-2xl
+    @apply h-[187px] rounded-t-xl object-cover
   }
   .product-info-container {
-    @apply w-full flex flex-col px-3 py-4 gap-3
+    @apply w-full flex flex-col justify-between gap-2
   }
   .product-name {
-    @apply h-[56px] font-semibold text-xl
+    @apply text-xl text-yellow1 px-4
   }
   .product-daily-price {
-    @apply font-bold text-3xl
+    @apply text-gray4 text-xl px-4  
   }
   .product-day-text {
-    @apply font-semibold text-gray3 text-base
+    @apply text-gray3 text-base
   }
 }
