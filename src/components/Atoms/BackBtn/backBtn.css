@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .back-btn {
+    @apply  w-fit flex self-end justify-center items-center text-lg text-gray4 hover:text-gray3 pb-3 gap-2
+  }
+}

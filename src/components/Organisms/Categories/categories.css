@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .categories-container {
+    @apply w-full h-fit flex flex-wrap md:flex-nowrap justify-evenly 
+  }
+  .categories-mobile-container {
+    @apply w-[300px]
+  }
+}

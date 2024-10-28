@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .images-grid-container {
+    @apply min-w-[325px] lg:min-w-[504px] flex flex-col lg:flex-row gap-3 px-2 md:px-0
+  }
+  .main-img {
+    @apply lg:w-[300px] h-full rounded-2xl object-cover
+  }
+  .secondary-grid {
+    @apply lg:w-[192px] h-fit flex flex-wrap justify-between gap-3
+  }
+  .other-img {
+    @apply w-[100px] lg:w-[90px] h-[85px] rounded-lg object-cover cursor-pointer hover:opacity-75
+  }
+  .see-more-btn {
+    @apply lg:w-full text-right text-yellow1 hover:opacity-75 px-2
+  }
+}

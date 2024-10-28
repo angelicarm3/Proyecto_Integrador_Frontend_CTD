@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .products-grid-container {
+    @apply flex flex-col gap-4
+  }
+  .products-grid {
+    @apply flex flex-wrap justify-center rounded-2xl gap-8
+  }
+}
