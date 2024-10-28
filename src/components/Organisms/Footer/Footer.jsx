@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './footer.css';
 import { FaFacebook, FaInstagram, FaLinkedin } from 'react-icons/fa';
-import isoWhite from '../../../assets/brand/isoWhite.svg';
+import isoWhite from '../../../assets/brand/isoWhite.png';
 
 const Footer = () => {
   return (
