@@ -1,16 +1,18 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import './footer.css'
-import { FaFacebook, FaInstagram, FaLinkedin } from 'react-icons/fa'
-import isoWhite from '../../../assets/brand/isoWhite.svg'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './footer.css';
+import { FaFacebook, FaInstagram, FaLinkedin } from 'react-icons/fa';
+import isoWhite from '../../../assets/brand/isoWhite.svg';
 
 const Footer = () => {
   return (
-    <footer className='footer'>
-      <div className='footer-container'>
-
-        <div className='footer-logo-container'>
-          <img src={isoWhite} alt='Logo de la marca' className='footer-logo' />
+    <footer className="footer">
+      <div className="footer-container">
+        
+        <div className="footer-logo-container">
+          <Link to="/home">
+            <img src={isoWhite} alt="Logo de la marca" className="footer-logo" />
+          </Link>
         </div>
 
         <div className='footer-newsletter'>
@@ -21,8 +23,8 @@ const Footer = () => {
           </form>
         </div>
 
-        <div className='footer-social'>
-          <Link to='https://facebook.com/' aria-label='Facebook' className='social-icon'>
+        <div className="footer-social">
+          <Link to="https://facebook.com/" aria-label="Facebook" className="social-icon">
             <FaFacebook />
           </Link>
           <Link to='https://instagram.com/' aria-label='Instagram' className='social-icon'>
@@ -34,11 +36,11 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className='footer-copyright'>
+      <div className="footer-copyright">
         <p>&copy; {new Date().getFullYear()} Royal Ride. Todos los derechos reservados.</p>
       </div>
     </footer>
   )
 }
 
-export default Footer
+export default Footer;
