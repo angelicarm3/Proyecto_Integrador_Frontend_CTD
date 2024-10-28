@@ -1,9 +1,11 @@
 const Navbar = () => {
   return (
     <>
-      <nav className='' />
-      <p>Logo</p>
-      <p>Login/SingUp</p>
+      <nav class='text-white flex items-between w-fit'>
+        <p>Link1</p>
+        <p>Link2</p>
+        <p>Link3</p>
+      </nav>
     </>
 
   )
