@@ -15,6 +15,7 @@ export default {
         gray4: '#D9D9D9',
         red1: '#FF2801',
         white: '#FFFFFF',
+        customDarkBlue: 'rgb(15, 23, 42)',
         popUpBg: '#000000b3'
       },
       fontFamily: {
