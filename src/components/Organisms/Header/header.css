@@ -4,7 +4,7 @@
 
 @layer components {
   .headerStyles {
-    @apply fixed w-full flex items-center justify-between py-2.5 px-5 bg-customDarkBlue bg-opacity-70
+    @apply fixed w-full h-[68px] flex justify-between py-2.5 px-5 bg-black1 
   }
 
 
