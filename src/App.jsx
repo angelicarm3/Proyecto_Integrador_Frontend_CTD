@@ -1,11 +1,12 @@
-import { BrowserRouter, Route, Routes, Outlet } from 'react-router-dom'
+import { Route, Routes, Outlet, useLocation } from 'react-router-dom'
 
 import './App.css'
 import Header from './components/Organisms/Header/Header.jsx'
 import Footer from './components/Organisms/Footer/Footer.jsx'
 import Home from './components/Pages/Home/Home'
-import AdminPanel from './components/Pages/AdminPanel/AdminPanel.jsx'
-import AdminProducts from './components/Pages/AdminProducts/AdminProducts.jsx'
+import ProductDetail from './components/Pages/ProductDetail/ProductDetail.jsx'
+import ImagesPopUp from './components/Templates/ImagesPopUp/ImagesPopUp.jsx'
+import RentNowPopUp from './components/Templates/RentNowPopUp/RentNowPopUp.jsx'
 
 function App() {
   const location = useLocation()
@@ -13,7 +14,7 @@ function App() {
 
   function LayoutWithNavbarAndFooter() {
     return (
-      <div className='w-screen flex flex-col'>
+      <div className='layout'>
         <Header />
         <Outlet />
         <Footer />
@@ -22,15 +23,27 @@ function App() {
   }
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<LayoutWithNavbarAndFooter />}>
-          <Route path='/' element={<Home />} />
-          <Route path='/admin' element={<AdminPanel />} />
-          <Route path='/admin/products' element={<AdminProducts />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route element={<LayoutWithNavbarAndFooter />}>
+        <Route path='/' element={<Home />} />
+        <Route path='producto/:id' element={<ProductDetail />} />
+      </Route>
+
+      {
+        previousLocation && (
+          <>
+            <Route path='producto/:id/galeria' element={<ImagesPopUp />} />
+            <Route path='rentar' element={<RentNowPopUp />} />
+          </>
+        )
+      }
+
+      <Route element={<LayoutWithNavbarAndFooter />}>
+        <Route path='/admin' element={<AdminPanel />} />
+        <Route path='/admin/products' element={<AdminProducts />} />
+      </Route>
+    </Routes>
+
   )
 }
 
