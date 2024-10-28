@@ -1,26 +1,24 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 import './productsGrid.css'
-import { productsData } from '../../../data/products'
+import { filterData, changePage } from '../../../context/slices/paginatorSlice'
 import ProductCard from '../../Organisms/ProductCard/ProductCard'
 import Paginator from '../../Molecules/Paginator/Paginator'
 
 const ProductsGrid = () => {
   const gridRef = useRef()
-  const [page, setPage] = useState(0)
-  const [filterData, setFilterData] = useState()
-  const n = window.innerWidth < 640 ? 3 : (window.innerWidth > 640 && window.innerWidth <= 768) ? 6 : 9
+  const dispatch = useDispatch()
+  const { pageData } = useSelector((state) => state.paginator)
+  const filteredProducts = useSelector((state) => state.product.filteredProducts)
 
   useEffect(() => {
-    setFilterData(
-      productsData.products.filter((item, index) => {
-        return (index >= page * n) & (index < (page + 1) * n)
-      })
-    )
-  }, [page, n])
+    dispatch(filterData(filteredProducts))
+  }, [dispatch, filteredProducts])
 
   const onClick = (page) => {
-    setPage(page)
+    dispatch(changePage(page))
+    dispatch(filterData(filteredProducts))
     gridRef.current?.scrollIntoView({
       behavior: 'smooth'
     })
@@ -30,13 +28,13 @@ const ProductsGrid = () => {
     <section className='main-section products-grid-container'>
       <div className='products-grid' ref={gridRef}>
         {
-          filterData &&
-          filterData.map((product, index) => (
+          pageData &&
+          pageData.map((product, index) => (
             <ProductCard key={index} product={product} />
           ))
         }
       </div>
-      <Paginator onClick={onClick} n={n} />
+      <Paginator onClick={onClick} />
     </section>
   )
 }
