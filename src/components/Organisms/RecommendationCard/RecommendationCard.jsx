@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import './recommendationCard.css'
 import { pageData } from '../../../data/page'
@@ -7,10 +7,11 @@ import RentNowBtn from '../../Atoms/RentNowBtn/RentNowBtn'
 import ProductFeatures from '../../Molecules/ProductFeatures/ProductFeatures'
 
 const ProductCard = ({ product }) => {
+  const navigate = useNavigate()
   const mainImg = product.imagenes.filter((img) => img.es_principal)
 
   return (
-    <Link to={`/product/${product.id}`} className='recommendation-card-container'>
+    <div className='recommendation-card-container' onClick={() => navigate(`/producto/${product.id}`)}>
       <img className='recommendation-card-img' src={mainImg[0].img} alt='' />
       <div className='recommendation-info-container'>
         <p className='recommendation-name'>{product.marca} {product.modelo}</p>
@@ -21,7 +22,7 @@ const ProductCard = ({ product }) => {
         <ProductFeatures product={product} type='recommendation' />
         <RentNowBtn />
       </div>
-    </Link>
+    </div>
 
   )
 }
