@@ -1,9 +1,8 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './footer.css';
 import { FaFacebook, FaInstagram, FaLinkedin } from 'react-icons/fa';
-import isoWhite from '../../../assets/brand/isoWhite.svg'
+import isoWhite from '../../../assets/brand/isoWhite.svg';
 
 const Footer = () => {
   return (
@@ -11,7 +10,9 @@ const Footer = () => {
       <div className="footer-container">
         
         <div className="footer-logo-container">
-          <img src={isoWhite} alt="Logo de la marca" className="footer-logo" />
+          <Link to="/home">
+            <img src={isoWhite} alt="Logo de la marca" className="footer-logo" />
+          </Link>
         </div>
 
         <div className="footer-newsletter">
@@ -22,7 +23,6 @@ const Footer = () => {
           </form>
         </div>
 
-       
         <div className="footer-social">
           <Link to="https://facebook.com/" aria-label="Facebook" className="social-icon">
             <FaFacebook />
@@ -36,13 +36,11 @@ const Footer = () => {
         </div>
       </div>
 
-     
       <div className="footer-copyright">
         <p>&copy; {new Date().getFullYear()} Royal Ride. Todos los derechos reservados.</p>
       </div>
     </footer>
   );
 }
-
 
 export default Footer;
