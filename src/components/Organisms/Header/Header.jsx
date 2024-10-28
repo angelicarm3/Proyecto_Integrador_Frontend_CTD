@@ -1,38 +1,24 @@
 import isoGold from '../../../assets/brand/isoGold.svg'
 import LogInBtn from '../../Atoms/LoginBtn/LoginBtn'
 import SignUpBtn from '../../Atoms/SignUpBtn/SignUpBtn'
-// import Navbar from '../../Molecules/Navbar/Navbar'
+import Navbar from '../../Molecules/Navbar/Navbar'
+import { Link } from 'react-router-dom'
+import './header.css'
+
 
 function Header () {
   return (
-    <header style={styles.header}>
-      <img src={isoGold} alt='logo' style={styles.logo} />
-      {/* <Navbar /> */}
-      <div style={styles.authButtons}>
+    <header className='headerStyles'>
+      <Link to='/'>
+        <img src={isoGold} alt='logo' class="h-12 mr-5"/>
+      </Link>
+      <Navbar />
+      <div class="flex gap-2.5 w-fit">
         <LogInBtn />
         <SignUpBtn />
       </div>
     </header>
   )
-}
-
-const styles = {
-  header: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: '10px 20px',
-    backgroundColor: 'rgb(15 23 42)'
-  },
-  logo: {
-    height: '50px',
-    marginRight: '20px'
-  },
-  authButtons: {
-    display: 'flex',
-    gap: '10px',
-    width: 'fit-content'
-  }
 }
 
 export default Header

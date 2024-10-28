@@ -13,7 +13,8 @@ export default {
         gray3: '#666666',
         gray4: '#D9D9D9',
         red1: '#FF2801',
-        white: '#FFFFFF'
+        white: '#FFFFFF',
+        customDarkBlue: 'rgb(15, 23, 42)'
       },
       fontFamily: {
         Aurora: ['Aurora Condensed', 'sans-serif'],
