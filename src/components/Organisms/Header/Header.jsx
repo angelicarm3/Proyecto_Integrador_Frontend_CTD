@@ -10,11 +10,15 @@ import logoGold from '../../../assets/brand/logoGold.png'
 import LogInBtn from '../../Atoms/LoginBtn/LoginBtn'
 import SignUpBtn from '../../Atoms/SignUpBtn/SignUpBtn'
 import Navbar from '../../Molecules/Navbar/Navbar'
+import { Link } from 'react-router-dom'
+import React, { useState } from 'react';
+import './header.css'
+
 
 function Header () {
-  const [isOpen, setIsOpen] = useState(false)
-  const toggleMenu = () => setIsOpen(!isOpen)
 
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleMenu = () => setIsOpen(!isOpen);
   return (
     <header className='headerStyles z-40'>
       <AiOutlineMenu size={30} className='text-yellow1 cursor-pointer md:hidden hover:opacity-75' />
@@ -30,6 +34,9 @@ function Header () {
         <LogInBtn />
         <SignUpBtn />
       </div>
+      <button onClick={toggleMenu} className="text-white sm:hidden focus:outline-none text-[rgb(212 175 55)]-50">
+          ☰
+      </button>
     </header>
   )
 }
