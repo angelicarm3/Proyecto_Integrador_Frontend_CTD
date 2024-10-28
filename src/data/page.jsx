@@ -9,6 +9,7 @@ export const pageData = {
   buttons: {
     logIn: 'Ingresar',
     signUp: 'Registro',
+    back: 'Atrás',
     rentNow: 'Rentar Ahora'
   },
   searchBar: {

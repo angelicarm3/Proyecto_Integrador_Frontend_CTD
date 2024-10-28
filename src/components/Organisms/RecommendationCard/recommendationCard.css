@@ -4,13 +4,13 @@
 
 @layer components {
   .recommendation-card-container {
-    @apply w-[480px] flex justify-between text-black bg-gray4 hover:opacity-50 rounded-xl cursor-pointer
+    @apply w-11/12 md:w-[480px] flex flex-col md:flex-row justify-between text-black bg-gray4 hover:opacity-50 rounded-xl cursor-pointer
   }
   .recommendation-card-img {
-    @apply w-[220px] h-full rounded-l-xl object-cover
+    @apply md:w-[220px] h-full rounded-t-xl md:rounded-l-xl object-cover
   }
   .recommendation-info-container {
-    @apply w-full flex flex-col justify-between gap-2 m-4
+    @apply w-full flex flex-col justify-between gap-2 p-4 md:p-0 md:m-4
   }
   .recommendation-name {
     @apply font-semibold text-xl

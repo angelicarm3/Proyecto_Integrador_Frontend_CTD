@@ -4,7 +4,7 @@ import CategoryBtn from '../../Atoms/CategoryBtn/CategoryBtn'
 
 const Categories = () => {
   return (
-    <section className='main-section'>
+    <section className='main-section hidden md:block'>
       <p className='title'>{pageData.categories.title}</p>
       <div className='categories-container'>
         {

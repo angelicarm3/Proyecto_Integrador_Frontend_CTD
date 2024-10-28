@@ -4,16 +4,19 @@
 
 @layer components {
   .product-detail-card-container {
-    @apply w-11/12 flex justify-between text-white rounded-2xl py-8 gap-4
+    @apply w-[940px] flex flex-col text-gray4 rounded-2xl pb-8
   }
   .product-detail-info-container {
-    @apply flex flex-col p-4 gap-3
+    @apply w-full flex flex-col md:flex-row justify-between gap-4
+  }
+  .product-detail-text-container {
+    @apply md:w-full flex flex-col mx-3 md:ml-4 md:mr-0 gap-3
   }
   .product-detail-name {
-    @apply w-full font-semibold text-3xl text-white text-justify mb-4
+    @apply w-full font-semibold text-3xl text-yellow1 text-justify mb-4
   }
   .product-detail-daily-price {
-    @apply font-bold text-3xl
+    @apply w-full font-semibold text-gray3 text-3xl
   }
   .product-detail-day-text {
     @apply font-semibold text-gray3 text-base
