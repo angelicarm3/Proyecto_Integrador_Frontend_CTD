@@ -27,6 +27,7 @@ function App () {
       <Route element={<LayoutWithNavbarAndFooter />}>
         <Route path='/' element={<Home />} />
         <Route path='producto/:id' element={<ProductDetail />} />
+        <Route path="*" element={<h1>404 Page Not Found</h1>}/>
       </Route>
 
       {
