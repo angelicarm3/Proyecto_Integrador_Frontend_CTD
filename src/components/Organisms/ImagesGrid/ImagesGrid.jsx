@@ -1,28 +1,25 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 import { Link, useLocation } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 
 import './imagesGrid.css'
 import { pageData } from '../../../data/page'
+import { arrangeImagesGrid, rearrangeImagesGrid } from '../../../context/slices/productSlice'
 
 const ImagesGrid = ({ product }) => {
-  const { id, imagenes } = product
   const location = useLocation()
-  const [mainImg, setMainImg] = useState([])
-  const [otherImg, setOtherImg] = useState([])
-
-  const clickChangeImg = (imgId) => {
-    setMainImg(imagenes.filter((img) => img.id === imgId))
-    setOtherImg(imagenes.filter((img) => img.id !== imgId))
-  }
+  const dispatch = useDispatch()
+  const { selectedProduct, mainImg, otherImg } = useSelector((state) => state.product)
 
   useEffect(() => {
-    setMainImg(imagenes.filter((img) => img.es_principal))
-    setOtherImg(imagenes.filter((img) => !img.es_principal))
-  }, [imagenes])
+    dispatch(arrangeImagesGrid())
+  }, [dispatch])
 
-  console.log(window.innerWidth)
+  const clickChangeImg = (imgId) => {
+    dispatch(rearrangeImagesGrid(imgId))
+  }
 
   return (
     <div className='images-grid-container'>
@@ -37,7 +34,7 @@ const ImagesGrid = ({ product }) => {
           ))
         }
 
-        <Link className='see-more-btn' to={`/producto/${id}/galeria`} state={{ previousLocation: location }}>
+        <Link className='see-more-btn' to={`/producto/${selectedProduct.id}/galeria`} state={{ previousLocation: location }}>
           {pageData.productDetail.seeMore}
         </Link>
       </div>
