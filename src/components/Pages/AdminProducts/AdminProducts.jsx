@@ -1,5 +1,5 @@
 import React from 'react'
-import ProductList from '../Common/Components/ProductList/ProductList'
+import AdminProductList from '../../Organisms/AdminProductList/AdminProductList'
 import { FaArrowCircleLeft } from "react-icons/fa";
 
 const Admin = () => {
@@ -31,7 +31,7 @@ const Admin = () => {
           Agregar Producto
         </button>
       </section>
-      <ProductList />
+      <AdminProductList />
     </div>
   )
 }

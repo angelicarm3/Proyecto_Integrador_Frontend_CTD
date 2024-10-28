@@ -1,12 +1,11 @@
-import { Route, Routes, Outlet, useLocation } from 'react-router-dom'
+import { BrowserRouter, Route, Routes, Outlet } from 'react-router-dom'
 
 import './App.css'
 import Header from './components/Organisms/Header/Header.jsx'
 import Footer from './components/Organisms/Footer/Footer.jsx'
 import Home from './components/Pages/Home/Home'
-import ProductDetail from './components/Pages/ProductDetail/ProductDetail.jsx'
-import ImagesPopUp from './components/Templates/ImagesPopUp/ImagesPopUp.jsx'
-import RentNowPopUp from './components/Templates/RentNowPopUp/RentNowPopUp.jsx'
+import AdminPanel from './components/Pages/AdminPanel/AdminPanel.jsx'
+import AdminProducts from './components/Pages/AdminProducts/AdminProducts.jsx'
 
 function App() {
   const location = useLocation()
@@ -23,22 +22,15 @@ function App() {
   }
 
   return (
-    <Routes>
-      <Route element={<LayoutWithNavbarAndFooter />}>
-        <Route path='/' element={<Home />} />
-        <Route path='producto/:id' element={<ProductDetail />} />
-      </Route>
-
-      {
-        previousLocation && (
-          <>
-            <Route path='producto/:id/galeria' element={<ImagesPopUp />} />
-            <Route path='rentar' element={<RentNowPopUp />} />
-          </>
-        )
-      }
-    </Routes>
-
+    <BrowserRouter>
+      <Routes>
+        <Route element={<LayoutWithNavbarAndFooter />}>
+          <Route path='/' element={<Home />} />
+          <Route path='/admin' element={<AdminPanel />} />
+          <Route path='/admin/products' element={<AdminProducts />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   )
 }
 
