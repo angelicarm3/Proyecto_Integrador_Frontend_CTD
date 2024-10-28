@@ -1,125 +1,48 @@
-import React from 'react'
-import { FaFacebook, FaInstagram, FaTwitter, FaYoutube, FaWhatsapp } from 'react-icons/fa'
-import isoGold from '../../../assets/brand/isoGold.svg'
 
-const sections = [
-  {
-    title: 'Soluciones',
-    items: ['Marketing', 'Analytics', 'Commerce', 'Data', 'Cloud']
-  },
-  {
-    title: 'Soporte',
-    items: ['Pricing', 'Documentation', 'Guides', 'API', 'Status']
-  },
-  {
-    title: 'Compañía',
-    items: ['About', 'Blog', 'Jobs', 'Press', 'Partners']
-  },
-  {
-    title: 'Legal',
-    items: ['Claims', 'Privacy', 'Terms', 'Policies', 'Conditions']
-  }
-]
-
-const items = [
-  {
-    name: 'Facebook',
-    icon: FaFacebook,
-    link: 'https://facebook.com/'
-  },
-  {
-    name: 'Instagram',
-    icon: FaInstagram,
-    link: 'https://www.instagram.com/'
-  },
-  {
-    name: 'Twitter',
-    icon: FaTwitter,
-    link: 'https://x.com/'
-  },
-  {
-    name: 'Youtube',
-    icon: FaYoutube,
-    link: 'https://Youtube.com/'
-  },
-  {
-    name: 'Whatsapp',
-    icon: FaWhatsapp,
-    link: ''
-  }
-]
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './footer.css';
+import { FaFacebook, FaInstagram, FaTwitter, FaLinkedin } from 'react-icons/fa';
+import isoWhite from '../../../assets/brand/isoWhite.svg'
 
 const Footer = () => {
   return (
-    <>
-      <div className='w-full bg-slate-900 text-gray-300 py-y px-2'>
-        <div className='max-w-[1240px] mx-auto grid grid-cols-2 md:grid-cols-6 border-b-2 border-gray-600 py-8'>
-          {
-
-                    sections.map((section, index) => (
-                      <div key={index}>
-                        <h6 className='font-bold uppercase pt-2'>
-                          {section.title}
-                        </h6>
-                        <ul>
-                          {section.items.map((item, i) => (
-                            <li
-                              key={i}
-                              className='py-1 text-gray-500 hover:text-white
-                                    cursor-pointer'
-                            >
-                              {item}
-
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))
-                }
-
-          <div className='col-span-2 pt-8 md:pt-2'>
-            <p className='font-bold uppercase'>
-              Suscríbete a nuestro newsletter!
-            </p>
-
-            <p>
-              Las últimas actualizaciones, artículos y recursos enviados a tu correo semanalmente.
-            </p>
-            <form className='flex flex-col sm:flex-row'>
-              <input
-                type='email' placeholder='Enter email address'
-                className='w-full p-2 mr-4 rounded-md mb-4'
-              />
-              <button className='p-2 mb-4'>
-                Subscríbete
-              </button>
-            </form>
-          </div>
+    <footer className="footer">
+      <div className="footer-container">
+        
+        <div className="footer-logo-container">
+          <img src={isoWhite} alt="Logo de la marca" className="footer-logo" />
         </div>
 
-        {/* Copyright & Social Icons */}
-        <div className='flex flex-col max-w-[1240px] px-2 py-4 mx-auto justify-between sm:flex-row items-center text-center text-gray-500'>
-          <div className='flex items-center'>
-            <img src={isoGold} alt='Isologotipo' className='w-32 h-32 sm:w-80 sm:h-50 mr-2' />
-            <p className='py-4'>
-              &copy; 2024 Royal Ride Spa. Todos los derechos reservados.
-            </p>
-          </div>
+        <div className="footer-newsletter">
+          <h4>Suscríbete a nuestro Newsletter</h4>
+          <form className="newsletter-form">
+            <input type="email" placeholder="Tu correo" className="newsletter-input" />
+            <button className="newsletter-button">Suscribirse</button>
+          </form>
+        </div>
 
-          <div className='flex justify-between sm:w-[300px] pt-4 text-2xl'>
-            {
-                        items.map((x, index) => (
-                          <a key={index} href={x.link} target='_blank' rel='noopener noreferrer'>
-                            <x.icon className='hover:text-white cursor-pointer' />
-                          </a>
-                        ))
-                        }
-          </div>
-
+       
+        <div className="footer-social">
+          <Link to="https://facebook.com/" aria-label="Facebook" className="social-icon">
+            <FaFacebook />
+          </Link>
+          <Link to="https://instagram.com/" aria-label="Instagram" className="social-icon">
+            <FaInstagram />
+          </Link>
+          <Link to="https://linkedin.com/" aria-label="LinkedIn" className="social-icon">
+            <FaLinkedin />
+          </Link>
         </div>
       </div>
-    </>
-  )
+
+     
+      <div className="footer-copyright">
+        <p>&copy; {new Date().getFullYear()} Royal Ride. Todos los derechos reservados.</p>
+      </div>
+    </footer>
+  );
 }
 
-export default Footer
+
+export default Footer;

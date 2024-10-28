@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.footer {
+  @apply bg-black text-white py-8;
+}
+
+.footer-container {
+  @apply flex flex-col md:flex-row items-center justify-between max-w-7xl mx-auto px-4;
+}
+
+.footer-logo-container {
+  @apply mb-4 md:mb-0 md:mr-8 flex justify-center md:justify-start w-full md:w-auto;
+}
+
+.footer-logo {
+  @apply max-w-[500px] transition-transform duration-300 ease-in-out;
+}
+
+.footer-logo:hover {
+  @apply scale-110;
+}
+
+.footer-content-right {
+  @apply flex flex-col items-center md:items-end w-full md:w-auto;
+}
+
+.footer-newsletter {
+  @apply text-center md:text-right mb-4;
+}
+
+.footer-newsletter h4 {
+  @apply text-2xl font-semibold mb-4;
+}
+
+.newsletter-form {
+  @apply flex flex-col sm:flex-row justify-center items-center w-full max-w-2xl;
+}
+
+.newsletter-input {
+  @apply p-3 text-lg rounded-t-md sm:rounded-l-md sm:rounded-t-none text-gray-800 w-full sm:w-auto flex-grow;
+}
+
+.newsletter-button {
+  @apply p-3 bg-blue-500 text-lg text-white rounded-b-md sm:rounded-r-md sm:rounded-b-none hover:bg-blue-600 transition-colors duration-300 w-full sm:w-auto;
+}
+
+.footer-social {
+  @apply flex space-x-4 text-3xl mt-4 justify-center md:justify-end;
+}
+
+.social-icon {
+  @apply text-white hover:text-blue-500 transition-colors duration-300;
+}
+
+.footer-copyright {
+  @apply text-center mt-8 text-sm text-gray-400 w-full;
+}
