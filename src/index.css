@@ -18,11 +18,17 @@
   .rent-now-btn {
     @apply w-full text-black1 rounded-3xl mt-1
   }
+  .close-btn {
+    @apply text-gray3 cursor-pointer hover:text-gray4 mx-auto z-40
+  }
   .main-section {
     @apply w-11/12 self-center my-6
   }
   .title {
     @apply w-full font-semibold text-3xl text-yellow1 text-center mb-4
+  }
+  .pop-up-bg {
+    @apply  w-full h-full absolute bg-popUpBg top-0 flex flex-col justify-center items-center gap-8
   }
 }
 

@@ -4,10 +4,10 @@
 
 @layer components {
   .category-btn {
-    @apply w-[200px] h-fit flex flex-col justify-center hover:opacity-75 hover:bg-gray3 rounded-2xl pb-2
+    @apply w-full md:w-[200px] h-fit flex flex-col justify-center hover:opacity-75 hover:bg-gray3 rounded-2xl pb-8 md:pb-2
   }
   .category-img {
-    @apply w-11/12 h-[130px] object-contain 
+    @apply w-11/12 h-[130px] object-contain self-center
   }
   .category-text {
     @apply w-full text-xl text-white text-center
