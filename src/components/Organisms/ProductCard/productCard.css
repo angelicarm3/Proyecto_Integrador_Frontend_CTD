@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .product-card-container {
+    @apply w-[280px] h-[435px] flex flex-col justify-between hover:opacity-50 rounded-xl cursor-pointer pb-4
+  }
+  .product-card-img {
+    @apply h-[187px] rounded-t-xl object-cover
+  }
+  .product-info-container {
+    @apply w-full flex flex-col justify-between gap-2
+  }
+  .product-name {
+    @apply text-xl text-yellow1 px-4
+  }
+  .product-daily-price {
+    @apply text-gray4 text-xl px-4  
+  }
+  .product-day-text {
+    @apply text-gray3 text-base
+  }
+}

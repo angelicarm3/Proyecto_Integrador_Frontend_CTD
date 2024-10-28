@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .product-detail-card-container {
+    @apply w-[940px] flex flex-col text-gray4 rounded-2xl pb-8
+  }
+  .product-detail-info-container {
+    @apply w-full flex flex-col md:flex-row justify-between gap-4
+  }
+  .product-detail-text-container {
+    @apply md:w-full flex flex-col mx-3 md:ml-4 md:mr-0 gap-3
+  }
+  .product-detail-name {
+    @apply w-full font-semibold text-3xl text-yellow1 text-justify mb-4
+  }
+  .product-detail-daily-price {
+    @apply w-full font-semibold text-gray3 text-3xl
+  }
+  .product-detail-day-text {
+    @apply font-semibold text-gray3 text-base
+  }
+}

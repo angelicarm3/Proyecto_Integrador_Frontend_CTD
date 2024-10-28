@@ -1,34 +1,44 @@
-import { BrowserRouter, Route, Routes, Outlet } from 'react-router-dom'
-import Admin from './pages/Admin'
-import AdminPanel from './Common/Components/AdminPanel/AdminPanel'
+import { Route, Routes, Outlet, useLocation } from 'react-router-dom'
 
 import './App.css'
-// import Navbar from './containers/navbar/Navbar.jsx'
-import Footer from './Common/Components/Footer/Footer'
-import Home from './pages/home/components/Home'
+import Header from './components/Organisms/Header/Header.jsx'
+import Footer from './components/Organisms/Footer/Footer.jsx'
+import Home from './components/Pages/Home/Home'
+import ProductDetail from './components/Pages/ProductDetail/ProductDetail.jsx'
+import ImagesPopUp from './components/Templates/ImagesPopUp/ImagesPopUp.jsx'
+import RentNowPopUp from './components/Templates/RentNowPopUp/RentNowPopUp.jsx'
 
-function App () {
-  function LayoutWithNavbarAndFooter () {
+function App() {
+  const location = useLocation()
+  const previousLocation = location.state?.previousLocation
+
+  function LayoutWithNavbarAndFooter() {
     return (
       <div className='w-screen flex flex-col'>
-        <h1 className='title'>Hola mundo</h1>
-        {/* <Navbar /> */}
+        <Header />
         <Outlet />
-        {<Footer />}
+        <Footer />
       </div>
     )
   }
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<LayoutWithNavbarAndFooter />}>
-          <Route path='/' element={<Home />} />
-        </Route>
-        <Route path='/AdminPanel' element={<AdminPanel />} />
-        <Route path='/products' element={<Admin />} />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route element={<LayoutWithNavbarAndFooter />}>
+        <Route path='/' element={<Home />} />
+        <Route path='producto/:id' element={<ProductDetail />} />
+      </Route>
+
+      {
+        previousLocation && (
+          <>
+            <Route path='producto/:id/galeria' element={<ImagesPopUp />} />
+            <Route path='rentar' element={<RentNowPopUp />} />
+          </>
+        )
+      }
+    </Routes>
+
   )
 }
 
