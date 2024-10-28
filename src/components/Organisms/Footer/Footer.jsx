@@ -15,11 +15,11 @@ const Footer = () => {
           </Link>
         </div>
 
-        <div className="footer-newsletter">
+        <div className='footer-newsletter'>
           <h4>Suscríbete a nuestro Newsletter</h4>
-          <form className="newsletter-form">
-            <input type="email" placeholder="Tu correo" className="newsletter-input" />
-            <button className="newsletter-button">Suscribirse</button>
+          <form className='newsletter-form'>
+            <input type='email' placeholder='Tu correo' className='newsletter-input' />
+            <button className='newsletter-button'>Suscribirse</button>
           </form>
         </div>
 
@@ -27,10 +27,10 @@ const Footer = () => {
           <Link to="https://facebook.com/" aria-label="Facebook" className="social-icon">
             <FaFacebook />
           </Link>
-          <Link to="https://instagram.com/" aria-label="Instagram" className="social-icon">
+          <Link to='https://instagram.com/' aria-label='Instagram' className='social-icon'>
             <FaInstagram />
           </Link>
-          <Link to="https://linkedin.com/" aria-label="LinkedIn" className="social-icon">
+          <Link to='https://linkedin.com/' aria-label='LinkedIn' className='social-icon'>
             <FaLinkedin />
           </Link>
         </div>
@@ -40,7 +40,7 @@ const Footer = () => {
         <p>&copy; {new Date().getFullYear()} Royal Ride. Todos los derechos reservados.</p>
       </div>
     </footer>
-  );
+  )
 }
 
 export default Footer;

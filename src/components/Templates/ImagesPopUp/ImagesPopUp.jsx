@@ -1,17 +1,16 @@
 /* eslint-disable react/prop-types */
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import { AiOutlineClose } from 'react-icons/ai'
 import Carousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
 
 import './imagesPopUp.css'
 import { responsive } from '../../../data/responsive'
-import { productsData } from '../../../data/products'
 
 const ImagesPopUp = () => {
   const navigate = useNavigate()
-  const { id } = useParams()
-  const product = productsData.products.filter((product) => product.id === parseInt(id))
+  const selectedProduct = useSelector((state) => state.product.selectedProduct)
 
   return (
     <div className='pop-up-bg'>
@@ -23,7 +22,7 @@ const ImagesPopUp = () => {
           showDots
         >
           {
-          product[0]?.imagenes.map((imagen, index) => (
+          selectedProduct?.imagenes.map((imagen, index) => (
             <img key={index} src={imagen.img} alt='' className='images-pop-up-img' />
           ))
         }
