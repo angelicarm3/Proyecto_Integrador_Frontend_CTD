@@ -6,7 +6,7 @@ import { pageData } from '../../../data/page'
 
 const ProductFeatures = ({ product, type }) => {
   return (
-    <div className={`product-features-container ${type === 'recommendation' ? 'mx-0' : 'mx-4'}`}>
+    <div className={`product-features-container ${type === 'product' ? 'mx-4' : 'mx-0'}`}>
       <div className='product-features-card'>
         <PiEngine className='product-features-icons' />
         <p className='product-features-text'>{product.potenciaHp} {pageData.productCard.features.horsepower}</p>

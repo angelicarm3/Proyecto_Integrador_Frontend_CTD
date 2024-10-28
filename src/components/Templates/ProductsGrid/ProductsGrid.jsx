@@ -9,7 +9,7 @@ const ProductsGrid = () => {
   const gridRef = useRef()
   const [page, setPage] = useState(0)
   const [filterData, setFilterData] = useState()
-  const n = 9
+  const n = window.innerWidth < 640 ? 3 : (window.innerWidth > 640 && window.innerWidth <= 768) ? 6 : 9
 
   useEffect(() => {
     setFilterData(
@@ -17,7 +17,7 @@ const ProductsGrid = () => {
         return (index >= page * n) & (index < (page + 1) * n)
       })
     )
-  }, [page])
+  }, [page, n])
 
   const onClick = (page) => {
     setPage(page)
