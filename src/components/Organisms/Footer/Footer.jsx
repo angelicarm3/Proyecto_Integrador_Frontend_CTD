@@ -15,14 +15,10 @@ const Footer = () => {
           </Link>
         </div>
 
-        <div className='footer-newsletter'>
-          <h4>Suscríbete a nuestro Newsletter</h4>
-          <form className='newsletter-form'>
-            <input type='email' placeholder='Tu correo' className='newsletter-input' />
-            <button className='newsletter-button'>Suscribirse</button>
-          </form>
-        </div>
-
+        <div className="footer-copyright">
+        <p>&copy; {new Date().getFullYear()} Royal Ride. Todos los derechos reservados.</p>
+      </div>
+    
         <div className="footer-social">
           <Link to="https://facebook.com/" aria-label="Facebook" className="social-icon">
             <FaFacebook />
@@ -34,10 +30,9 @@ const Footer = () => {
             <FaLinkedin />
           </Link>
         </div>
-      </div>
 
-      <div className="footer-copyright">
-        <p>&copy; {new Date().getFullYear()} Royal Ride. Todos los derechos reservados.</p>
+  
+
       </div>
     </footer>
   )
