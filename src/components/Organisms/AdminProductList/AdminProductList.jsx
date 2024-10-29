@@ -4,7 +4,7 @@ import { productsData } from '../../../data/products'
 
 const AdminProductsList = () => {
   return (
-    <table className='min-w-full border border-gray-300'>
+    <table className='min-w-full border border-gray-300 '>
       <thead>
         <tr>
           <th className='border px-4 py-2'>Id</th>

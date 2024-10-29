@@ -19,14 +19,14 @@ const Home = () => {
   }, [dispatch])
 
   return (
-    <>
+    <div className='main-page'>
       <Banner />
       <SearchBar />
       <Categories />
       <CategoriesMobile />
       <ProductsGrid />
       <RecommendationsGrid />
-    </>
+    </div>
   )
 }
 

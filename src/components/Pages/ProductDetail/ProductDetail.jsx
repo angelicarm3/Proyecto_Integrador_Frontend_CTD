@@ -17,7 +17,7 @@ const ProductDetail = () => {
   }, [dispatch, id])
 
   return (
-    <section className='main-section products-detail-container my-auto'>
+    <section className='main-section products-detail-container'>
       <ProductDetailCard />
     </section>
   )

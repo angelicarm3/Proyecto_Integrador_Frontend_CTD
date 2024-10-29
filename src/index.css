@@ -21,6 +21,9 @@
   .close-btn {
     @apply text-gray3 cursor-pointer hover:text-gray4 mx-auto z-40
   }
+  .main-page {
+    @apply w-full h-fit flex flex-col bg-gray2
+  }
   .main-section {
     @apply w-11/12 self-center my-6
   }

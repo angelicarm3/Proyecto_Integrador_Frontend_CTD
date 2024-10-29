@@ -16,6 +16,16 @@ function App() {
 
   function LayoutWithNavbarAndFooter() {
     return (
+      <div className='layout bg-gray2'>
+        <Header />
+        <Outlet />
+        <Footer />
+      </div>
+    )
+  }
+
+  function AdmonLayoutWithNavbarAndFooter() {
+    return (
       <div className='layout'>
         <Header />
         <Outlet />
@@ -32,6 +42,11 @@ function App() {
         <Route path="*" element={<h1>404 Page Not Found</h1>}/>
       </Route>
 
+      <Route element={<AdmonLayoutWithNavbarAndFooter />}>
+        <Route path='administracion' element={<AdminPanel />} />
+        <Route path='administracion/productos' element={<AdminProducts />} />
+      </Route>
+
       {
         previousLocation && (
           <>
@@ -40,11 +55,6 @@ function App() {
           </>
         )
       }
-
-      <Route element={<LayoutWithNavbarAndFooter />}>
-        <Route path='/administracion' element={<AdminPanel />} />
-        <Route path='/administracion/products' element={<AdminProducts />} />
-      </Route>
     </Routes>
 
   )

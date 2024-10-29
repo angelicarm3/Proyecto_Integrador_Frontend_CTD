@@ -9,7 +9,7 @@ const AdminProducts = () => {
   }
 
   return (
-    <div className='p-4 flex-column'>
+    <div className='p-4 flex-column mt-[68px]'>
       <h1 className='text-2xl font-bold'>Administración de Productos</h1>
       <section className='flex flex-row items-center'>
       <FaArrowCircleLeft />
