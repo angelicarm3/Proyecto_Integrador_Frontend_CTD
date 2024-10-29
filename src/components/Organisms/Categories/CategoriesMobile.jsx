@@ -8,7 +8,7 @@ import CategoryBtn from '../../Atoms/CategoryBtn/CategoryBtn'
 
 const CategoriesMobile = () => {
   return (
-    <section className='main-section w-fit block md:hidden'>
+    <section className='main-section categories-section-container'>
       <p className='title'>{pageData.categories.title}</p>
       <div className='categories-mobile-container'>
         <Carousel

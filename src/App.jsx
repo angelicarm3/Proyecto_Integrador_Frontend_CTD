@@ -7,12 +7,24 @@ import Home from './components/Pages/Home/Home'
 import ProductDetail from './components/Pages/ProductDetail/ProductDetail.jsx'
 import ImagesPopUp from './components/Templates/ImagesPopUp/ImagesPopUp.jsx'
 import RentNowPopUp from './components/Templates/RentNowPopUp/RentNowPopUp.jsx'
+import AdminPanel from './components/Pages/AdminPanel/AdminPanel'
+import AdminProducts from './components/Pages/AdminProducts/AdminProducts'
 
-function App () {
+function App() {
   const location = useLocation()
   const previousLocation = location.state?.previousLocation
 
-  function LayoutWithNavbarAndFooter () {
+  function LayoutWithNavbarAndFooter() {
+    return (
+      <div className='layout bg-gray2'>
+        <Header />
+        <Outlet />
+        <Footer />
+      </div>
+    )
+  }
+
+  function AdmonLayoutWithNavbarAndFooter() {
     return (
       <div className='layout'>
         <Header />
@@ -30,6 +42,11 @@ function App () {
         <Route path="*" element={<h1>404 Page Not Found</h1>}/>
       </Route>
 
+      <Route element={<AdmonLayoutWithNavbarAndFooter />}>
+        <Route path='administracion' element={<AdminPanel />} />
+        <Route path='administracion/productos' element={<AdminProducts />} />
+      </Route>
+
       {
         previousLocation && (
           <>
@@ -37,7 +54,7 @@ function App () {
             <Route path='rentar' element={<RentNowPopUp />} />
           </>
         )
-    }
+      }
     </Routes>
 
   )

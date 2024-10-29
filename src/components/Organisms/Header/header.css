@@ -4,7 +4,7 @@
 
 @layer components {
   .header {
-    @apply fixed w-full h-[68px] flex justify-between py-2.5 px-5 bg-black1 z-40
+    @apply fixed w-full h-[68px] flex justify-between items-center py-2.5 px-5 bg-black1 z-40
   }
   .hamburguer-icon {
     @apply text-yellow1 cursor-pointer md:hidden hover:opacity-75
