@@ -363,7 +363,7 @@ export const productsData = {
     {
       id: 9,
       matricula: 'VBN123',
-      descripcion: '',
+      descripcion: '¿Alguna vez has soñado con conducir un Ferrari? Ahora es tu oportunidad de hacerlo realidad. Alquila un Ferrari F8 Spider y experimenta la emoción de conducir un superdeportivo de alta gama por carreteras de ensueño.',
       marca: 'Ferrari',
       modelo: 'F8 Spider',
       potenciaHp: '720',

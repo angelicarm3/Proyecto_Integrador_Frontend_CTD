@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .header {
+    @apply fixed w-full h-[68px] flex justify-between py-2.5 px-5 bg-black1 z-40
+  }
+  .hamburguer-icon {
+    @apply text-yellow1 cursor-pointer md:hidden hover:opacity-75
+  }
+  .logo-container {
+    @apply w-full md:w-fit flex justify-center items-center self-center md:self-start
+  }
+  .isotipo {
+    @apply min-w-[70-px] h-12 mr-5
+  }
+  .logo-slogan-container {
+    @apply flex flex-col justify-center items-center gap-2
+  }
+  .logo {
+    @apply h-5 object-cover
+  }
+  .slogan {
+    @apply h-3 object-cover
+  }
+  .buttons-container {
+    @apply hidden md:flex gap-2.5 w-fit
+  }
+}

@@ -1,38 +1,37 @@
-import isoGold from '../../../assets/brand/isoGold.svg'
+import { useState } from 'react'
+
+import { Link } from 'react-router-dom'
+import { AiOutlineMenu } from 'react-icons/ai'
+
+import './header.css'
+import isoTipoGold from '../../../assets/brand/isoTipoGold.svg'
+import sloganGold from '../../../assets/brand/sloganGold.png'
+import logoGold from '../../../assets/brand/logoGold.png'
 import LogInBtn from '../../Atoms/LoginBtn/LoginBtn'
 import SignUpBtn from '../../Atoms/SignUpBtn/SignUpBtn'
-// import Navbar from '../../Molecules/Navbar/Navbar'
+import Navbar from '../../Molecules/Navbar/Navbar'
 
 function Header () {
+  const [isOpen, setIsOpen] = useState(false)
+  const toggleMenu = () => setIsOpen(!isOpen)
+
   return (
-    <header style={styles.header}>
-      <img src={isoGold} alt='logo' style={styles.logo} />
+    <header className='header'>
+      <AiOutlineMenu size={30} className='hamburguer-icon' />
+      <Link to='/' className='logo-container'>
+        <img src={isoTipoGold} alt='isotipo' className='isotipo' />
+        <div className='logo-slogan-container'>
+          <img src={logoGold} alt='logo' className='logo' />
+          <img src={sloganGold} alt='slogan' className='slogan' />
+        </div>
+      </Link>
       {/* <Navbar /> */}
-      <div style={styles.authButtons}>
+      <div className='buttons-container'>
         <LogInBtn />
         <SignUpBtn />
       </div>
     </header>
   )
-}
-
-const styles = {
-  header: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: '10px 20px',
-    backgroundColor: 'rgb(15 23 42)'
-  },
-  logo: {
-    height: '50px',
-    marginRight: '20px'
-  },
-  authButtons: {
-    display: 'flex',
-    gap: '10px',
-    width: 'fit-content'
-  }
 }
 
 export default Header

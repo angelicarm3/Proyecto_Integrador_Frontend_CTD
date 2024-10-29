@@ -1,18 +1,24 @@
-import { useState } from 'react'
+import { useEffect } from 'react'
 
 import { useParams } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
 import './productDetail.css'
-import { productsData } from '../../../data/products'
+import { getAllProducts, getProductById } from '../../../context/slices/productSlice'
 import ProductDetailCard from '../../Templates/ProductDetailCard/ProductDetailCard'
 
 const ProductDetail = () => {
   const { id } = useParams()
-  const product = productsData.products.filter((product) => product.id === parseInt(id))
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getAllProducts())
+    dispatch(getProductById(id))
+  }, [dispatch, id])
 
   return (
-    <section className='main-section products-detail-container'>
-      <ProductDetailCard product={product[0]} />
+    <section className='main-section products-detail-container my-auto'>
+      <ProductDetailCard />
     </section>
   )
 }

@@ -7,6 +7,7 @@ export default {
         black1: '#080808',
         black2: '#1C1B20',
         // yellow1: '#CCAD00',
+        // yellow1: '#DBA401',
         yellow1: '#D4AF37',
         gray1: '#414A68',
         gray2: '#1E1E1E',
@@ -14,6 +15,7 @@ export default {
         gray4: '#D9D9D9',
         red1: '#FF2801',
         white: '#FFFFFF',
+        customDarkBlue: 'rgb(15, 23, 42)',
         popUpBg: '#000000b3'
       },
       fontFamily: {
