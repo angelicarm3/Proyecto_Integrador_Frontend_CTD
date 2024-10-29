@@ -16,17 +16,17 @@ function Header () {
   const toggleMenu = () => setIsOpen(!isOpen)
 
   return (
-    <header className='headerStyles z-40'>
-      <AiOutlineMenu size={30} className='text-yellow1 cursor-pointer md:hidden hover:opacity-75' />
-      <Link to='/' className='w-full md:w-fit flex justify-center items-center self-center md:self-start'>
-        <img src={isoTipoGold} alt='logo' className='min-w-[70-px] h-12 mr-5' />
-        <div className='flex flex-col justify-center items-center gap-2'>
-          <img src={logoGold} alt='logo' className='h-5 object-cover' />
-          <img src={sloganGold} alt='logo' className='h-3 object-cover' />
+    <header className='header'>
+      <AiOutlineMenu size={30} className='hamburguer-icon' />
+      <Link to='/' className='logo-container'>
+        <img src={isoTipoGold} alt='isotipo' className='isotipo' />
+        <div className='logo-slogan-container'>
+          <img src={logoGold} alt='logo' className='logo' />
+          <img src={sloganGold} alt='slogan' className='slogan' />
         </div>
       </Link>
       {/* <Navbar /> */}
-      <div className='hidden md:flex gap-2.5 w-fit'>
+      <div className='buttons-container'>
         <LogInBtn />
         <SignUpBtn />
       </div>
