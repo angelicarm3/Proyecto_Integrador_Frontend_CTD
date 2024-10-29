@@ -2,8 +2,7 @@ import React from 'react'
 import ProductRow from '../../Molecules/ProductRow/ProductRow'
 import { productsData } from '../../../data/products'
 
-const AdminProducts = () => {
-  console.log(productsData)
+const AdminProductsList = () => {
   return (
     <table className='min-w-full border border-gray-300'>
       <thead>
@@ -22,4 +21,4 @@ const AdminProducts = () => {
   )
 }
 
-export default AdminProducts
+export default AdminProductsList

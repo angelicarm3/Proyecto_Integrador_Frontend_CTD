@@ -2,11 +2,12 @@ import React from 'react'
 import AdminProductList from '../../Organisms/AdminProductList/AdminProductList'
 import { FaArrowCircleLeft } from "react-icons/fa";
 
-const Admin = () => {
+const AdminProducts = () => {
   const handleAddProduct = () => {
     // Lógica para agregar el producto
     console.log(`Agregar producto ${product.id}`)
   }
+
   return (
     <div className='p-4 flex-column'>
       <h1 className='text-2xl font-bold'>Administración de Productos</h1>
@@ -36,4 +37,4 @@ const Admin = () => {
   )
 }
 
-export default Admin
+export default AdminProducts

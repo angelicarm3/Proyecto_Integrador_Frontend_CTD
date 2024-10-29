@@ -7,6 +7,8 @@ import Home from './components/Pages/Home/Home'
 import ProductDetail from './components/Pages/ProductDetail/ProductDetail.jsx'
 import ImagesPopUp from './components/Templates/ImagesPopUp/ImagesPopUp.jsx'
 import RentNowPopUp from './components/Templates/RentNowPopUp/RentNowPopUp.jsx'
+import AdminPanel from './components/Pages/AdminPanel/AdminPanel'
+import AdminProducts from './components/Pages/AdminProducts/AdminProducts'
 
 function App() {
   const location = useLocation()
@@ -39,8 +41,8 @@ function App() {
       }
 
       <Route element={<LayoutWithNavbarAndFooter />}>
-        <Route path='/admin' element={<AdminPanel />} />
-        <Route path='/admin/products' element={<AdminProducts />} />
+        <Route path='/administracion' element={<AdminPanel />} />
+        <Route path='/administracion/products' element={<AdminProducts />} />
       </Route>
     </Routes>
 
