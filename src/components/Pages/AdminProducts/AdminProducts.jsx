@@ -1,39 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import AdminProductList from '../../Organisms/AdminProductList/AdminProductList'
 import SearchBar from '../../../components/Organisms/SearchBar/SearchBar'
-import { productsData } from '../../../../src/data/products'
+
 import SearchBtn from '../../Atoms/SearchBtn/SearchBtn'
 import Dropdown from '../../Atoms/DropDown/DropDown'
 import Pagination from '../../Molecules/Pagination/Pagination';
 
+import { setItemsToShow, setPage } from '../../../context/slices/adminProductSlice'
+
+
 const AdminProducts = () => {
+  const options = [10, 20, 30, 40, 50]
+  const dispatch = useDispatch()
+
   const handleAddProduct = () => {
     // Lógica para agregar el producto
     console.log(`Agregar producto ${product.id}`)
   }
 
-  const [itemCount, setItemCount] = useState(10)
-  const [currentPage, setCurrentPage] = useState(1)
-  const options = [10, 20, 30, 40, 50]
+  const productsList = useSelector((state) => state.adminProducts.allProducts)
+  const itemsToShow = useSelector((state) => state.adminProducts.itemsToShow)
+  const currentPage = useSelector((state) => state.adminProducts.currentPage)
+
 
   const handleSelect = (count) => {
-    setItemCount(count)
-    setCurrentPage(1)
+    dispatch(setItemsToShow(count))
     console.log(`Mostrar ${count} elementos`)
   }
-
-  const filteredProducts = productsData.products.slice(0, itemCount)
-
-  const totalItems = productsData.products.length
-  const itemsToShow = itemCount
-
   const handlePageChange = (page) => {
-    setCurrentPage(page);
-  };
+    dispatch(setPage(page))
+  }
 
-  const startIndex = (currentPage - 1) * itemsToShow;
-  const endIndex = startIndex + itemsToShow;
-  const currentProducts = productsData.products.slice(startIndex, endIndex);
+  const filteredProducts = productsList.slice(0, itemsToShow)
+  const totalItems = productsList.length
+  const startIndex = (currentPage - 1) * itemsToShow
+  const endIndex = startIndex + itemsToShow
+  const currentProducts = productsList.slice(startIndex, endIndex)
 
 
   return (
@@ -62,7 +65,7 @@ const AdminProducts = () => {
       <AdminProductList products={currentProducts} />
       <div className='flex justify-between space-x-2'>
         <Pagination totalItems={totalItems} itemsPerPage={itemsToShow} onPageChange={handlePageChange} currentPage={currentPage} />
-        <p className='text-gray-500'>{`Resultados 1 a ${itemCount} de ${totalItems}`}</p>
+        <p className='text-gray-500'>{`Resultados ${startIndex + 1} a ${endIndex} de ${totalItems}`}</p>
       </div>
     </div>
   )

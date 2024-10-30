@@ -5,21 +5,20 @@ export const adminProductsSlice = createSlice({
   name: 'adminProducts',
   initialState: {
     allProducts: productsData.products,
-    itemCount: 10,
+    itemsToShow: 10,
     currentPage: 1,
-    options: [10, 20, 30, 40, 50]
 
   },
   reducers: {
-    setItemCount: (state, action) => {
-      state.itemCount = action.payload;
+    setItemsToShow: (state, action) => {
+      state.itemsToShow = action.payload;
       state.currentPage = 1
     },
-    changePage: (state, action) => {
+    setPage: (state, action) => {
       state.currentPage = action.payload;
     },
   },
 });
 
-export const { setItemCount, changePage } = adminProductsSlice.actions;
+export const { setItemsToShow, setPage } = adminProductsSlice.actions;
 export default adminProductsSlice.reducer;
