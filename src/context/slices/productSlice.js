@@ -1,6 +1,31 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import axios from 'axios'
 
 import { productsData } from '../../data/products'
+
+export const fetchAllProductsThunk = createAsyncThunk(
+  'product/fetchAll',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get('https://alluring-enchantment-production.up.railway.app/autos/list')
+      return response.data
+    } catch (error) {
+      return rejectWithValue('Error al obtener los datos')
+    }
+  }
+)
+
+function shuffleArray (array) {
+  const length = array.length
+  const shuffle = array.slice()
+  for (let i = length - 1; i > 0; i -= 1) {
+    const random = Math.floor(Math.random() * (i + 1))
+    const current = shuffle[i]
+    shuffle[i] = shuffle[random]
+    shuffle[random] = current
+  }
+  return shuffle
+}
 
 export const productSlice = createSlice({
   name: 'product',
@@ -9,29 +34,12 @@ export const productSlice = createSlice({
     filteredProducts: null,
     recommendedProducts: null,
     selectedCategory: 'All',
-    selectedProduct: {},
+    selectedProduct: null,
     mainImg: '',
     otherImg: []
   },
 
   reducers: {
-    getAllProducts: (state) => {
-      function shuffleArray (array) {
-        const length = array.length
-        const shuffle = array.slice()
-        for (let i = length - 1; i > 0; i -= 1) {
-          const random = Math.floor(Math.random() * (i + 1))
-          const current = shuffle[i]
-          shuffle[i] = shuffle[random]
-          shuffle[random] = current
-        }
-        return shuffle
-      }
-      state.allProducts = shuffleArray(productsData.products)
-      state.filteredProducts = state.allProducts
-      state.selectedCategory = 'All'
-      state.selectedProduct = {}
-    },
     getProductsByCategory: (state, action) => {
       if (action.payload === 'All') {
         state.filteredProducts = state.allProducts
@@ -49,13 +57,33 @@ export const productSlice = createSlice({
       state.selectedProduct = product[0]
     },
     arrangeImagesGrid: (state) => {
-      state.mainImg = state.selectedProduct.imagenes?.filter((img) => img.es_principal)
-      state.otherImg = state.selectedProduct.imagenes?.filter((img) => !img.es_principal)
+      state.mainImg = state.selectedProduct.imagenes?.filter((img) => img.esPrincipal)
+      state.otherImg = state.selectedProduct.imagenes?.filter((img) => !img.esPrincipal)
     },
     rearrangeImagesGrid: (state, action) => {
-      state.mainImg = state.selectedProduct.imagenes?.filter((img) => img.id === action.payload)
-      state.otherImg = state.selectedProduct.imagenes?.filter((img) => img.id !== action.payload)
+      const { selectedProduct, imgUrl } = action.payload
+      state.mainImg = selectedProduct.imagenes?.filter((img) => img.url === imgUrl)
+      state.otherImg = selectedProduct.imagenes?.filter((img) => img.url !== imgUrl)
     }
+  },
+  extraReducers: (builder) => {
+    builder
+    // submitForm
+      .addCase(fetchAllProductsThunk.pending, (state) => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(fetchAllProductsThunk.fulfilled, (state, action) => {
+        state.allProducts = action.payload
+        state.filteredProducts = shuffleArray(state.allProducts)
+        state.selectedCategory = 'All'
+        state.selectedProduct = null
+        state.loading = false
+      })
+      .addCase(fetchAllProductsThunk.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload || 'Error al enviar datos'
+      })
   }
 })
 
