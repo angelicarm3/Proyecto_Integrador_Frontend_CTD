@@ -91,7 +91,7 @@ const AdminProducts = () => {
       </section>
       <AdminProductList products={currentProducts} setShowConfirmDelete={setShowConfirmDelete} />
       <div className='flex justify-between space-x-2'>
-        <Pagination totalItems={totalItems} itemsPerPage={itemsToShow} onPageChange={handlePageChange} currentPage={currentPage} />
+        <Pagination totalItems={totalItems} itemsToShow={itemsToShow} handlePageChange={handlePageChange} currentPage={currentPage} />
         <p className='text-gray-500'>{`Resultados ${startIndex + 1} a ${endIndex} de ${totalItems}`}</p>
       </div>
       {
