@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { PiEngine, PiSpeedometer, PiTimer } from 'react-icons/pi'
 
 import './productFeatures.css'
@@ -9,7 +8,7 @@ const ProductFeatures = ({ product, type }) => {
     <div className={`product-features-container ${type === 'product' ? 'mx-4' : 'mx-0'}`}>
       <div className='product-features-card'>
         <PiEngine className='product-features-icons' />
-        <p className='product-features-text'>{product.potenciaHp} {pageData.productCard.features.horsepower}</p>
+        <p className='product-features-text'>{product.potenciaHP} {pageData.productCard.features.horsepower}</p>
       </div>
       <div className='product-features-card'>
         <PiSpeedometer className='product-features-icons' />

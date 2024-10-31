@@ -4,6 +4,6 @@
 
 @layer components {
   .products-detail-container {
-    @apply flex justify-center
+    @apply h-fit flex justify-center my-auto mt-[68px] pt-6 bg-gray2
   }
 }

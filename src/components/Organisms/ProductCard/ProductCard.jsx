@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useNavigate } from 'react-router-dom'
 
 import './productCard.css'
@@ -8,12 +7,12 @@ import ProductFeatures from '../../Molecules/ProductFeatures/ProductFeatures'
 
 const ProductCard = ({ product }) => {
   const navigate = useNavigate()
-  const mainImg = product.imagenes.filter((img) => img.es_principal)
+  const mainImg = product.imagenes.filter((img) => img.esPrincipal)
 
   return (
     <div className='product-card-container' onClick={() => navigate(`/producto/${product.id}`)}>
       <div className='product-info-container'>
-        <img className='product-card-img' src={mainImg[0].img} alt='' />
+        <img className='product-card-img' src={mainImg[0].url} alt='' />
         <p className='product-name'>{product.marca} {product.modelo}</p>
         <p className='product-daily-price'>
           ${product.precioDia}
