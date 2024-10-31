@@ -23,7 +23,7 @@ const ProductDetailCard = () => {
             ${selectedProduct.precioDia}
             <span className='product-detail-day-text'>{pageData.productCard.dia}</span>
           </p>
-          <p className='text-sm'>{selectedProduct.descripcion}</p>
+          <p className='product-detail-day-description'>{selectedProduct.descripcion}</p>
           <ProductFeatures product={selectedProduct} type='detail' />
           <RentNowBtn />
         </div>

@@ -66,17 +66,16 @@ const CreateProductForm = () => {
       dispatch(submitFormThunk(data))
     }
   }
-  console.log(data)
 
   return (
-    <form className='w-[630px] flex flex-col justify-center items-center bg-gray1 rounded-lg relative p-10' onSubmit={handleSubmit(onSubmit)}>
-      <div className='primary-btn w-fit flex flex-col justify-center rounded-3xl bg-black1 absolute top-10 left-10 px-3'>
+    <form className='create-product-form-container' onSubmit={handleSubmit(onSubmit)}>
+      <div className='primary-btn back-form-btn'>
         <BackBtn />
       </div>
-      <p className='title text-black1 mb-6'>{pageData.createProduct.title}</p>
+      <p className='title form-title'>{pageData.createProduct.title}</p>
 
-      <div className='w-full flex flex-wrap justify-center gap-x-10'>
-        <div className='w-5/12 flex flex-col pb-[10px] gap-2 mb-2'>
+      <div className='form-fields-container'>
+        <div className='field-container'>
           <label htmlFor='marca' className='label'>
             {pageData.createProduct.make}
           </label>
@@ -102,7 +101,7 @@ const CreateProductForm = () => {
         }
         </div>
 
-        <div className='w-5/12 flex flex-col pb-[10px] gap-2 mb-2'>
+        <div className='field-container'>
           <label htmlFor='modelo' className='label'>
             {pageData.createProduct.model}
           </label>
@@ -128,7 +127,7 @@ const CreateProductForm = () => {
           }
         </div>
 
-        <div className='w-5/12 flex flex-col pb-[10px] gap-2 mb-2'>
+        <div className='field-container'>
           <label htmlFor='matricula' className='label'>
             {pageData.createProduct.plate}
           </label>
@@ -161,7 +160,7 @@ const CreateProductForm = () => {
           }
         </div>
 
-        <div className='w-5/12 flex flex-col pb-[10px] gap-2 mb-2'>
+        <div className='field-container'>
           <label htmlFor='fechaFabricacion' className='label'>
             {pageData.createProduct.year}
           </label>
@@ -191,7 +190,7 @@ const CreateProductForm = () => {
           }
         </div>
 
-        <div className='w-5/12 flex flex-col pb-[10px] gap-2 mb-2'>
+        <div className='field-container'>
           <label htmlFor='potenciaHP' className='label'>
             {pageData.createProduct.horsepower}
           </label>
@@ -221,7 +220,7 @@ const CreateProductForm = () => {
           }
         </div>
 
-        <div className='w-5/12 flex flex-col pb-[10px] gap-2 mb-2'>
+        <div className='field-container'>
           <label htmlFor='velocidad' className='label'>
             {pageData.createProduct.speed}
           </label>
@@ -251,7 +250,7 @@ const CreateProductForm = () => {
           }
         </div>
 
-        <div className='w-5/12 flex flex-col pb-[10px] gap-2 mb-2'>
+        <div className='field-container'>
           <label htmlFor='aceleracion' className='label'>
             {pageData.createProduct.acceleration}
           </label>
@@ -281,7 +280,7 @@ const CreateProductForm = () => {
           }
         </div>
 
-        <div className='w-5/12 flex flex-col pb-[10px] gap-2 mb-2'>
+        <div className='field-container'>
           <label htmlFor='precioDia' className='label'>
             {pageData.createProduct.dayPrice}
           </label>
@@ -312,7 +311,7 @@ const CreateProductForm = () => {
           }
         </div>
 
-        {/* <div className='w-11/12 flex flex-col pb-[10px] gap-2 mb-2'>
+        {/* <div className='field-container w-11/12'>
           <label htmlFor='categorias' className='label'>
             {pageData.createProduct.category}
           </label>
@@ -338,7 +337,7 @@ const CreateProductForm = () => {
           }
         </div> */}
 
-        <div className='w-11/12 flex flex-col pb-[10px] relative gap-2 mb-2'>
+        <div className='field-container w-11/12'>
           <label htmlFor='descripcion' className='label'>
             {pageData.createProduct.description}
           </label>
@@ -346,7 +345,7 @@ const CreateProductForm = () => {
             id='descripcion'
             maxLength={maxDescriptionCharacters}
             value={data.descripcion}
-            className={`input h-[100px] pt-2 ${errors.descripcion && 'border-red1'}`}
+            className={`input description-input ${errors.descripcion && 'border-red1'}`}
             placeholder={pageData.createProduct.description}
             {...register('descripcion', {
               required: {
@@ -359,15 +358,15 @@ const CreateProductForm = () => {
               e.target.dispatchEvent(new Event('input', { bubbles: true }))
             }}
           />
-          <div className='text-xs font-Urbanist self-end'>
-            {maxDescriptionCharacters - (data.descripcion?.length || 0)} caracteres restantes
+          <div className='input-counter'>
+            {maxDescriptionCharacters - (data.descripcion?.length || 0)} {pageData.createProduct.characterCount}
           </div>
           {
           errors.descripcion && <FormErrorMessage message={errors.descripcion.message} error='description' />
           }
         </div>
 
-        <div className='w-11/12 flex flex-col pb-[10px] relative gap-2 mb-2'>
+        <div className='field-container w-11/12'>
           <label htmlFor='imagenes' className='label'>
             {pageData.createProduct.images}
           </label>
@@ -381,40 +380,40 @@ const CreateProductForm = () => {
             />
             <button
               type='button'
-              className={`input w-[100px] h-[100px] flex flex-col justify-center items-center hover:border-gray1 ${imagesRequiredError && 'border-red1'}`}
+              className={`input images-btn ${imagesRequiredError && 'border-red1'}`}
               onClick={() => document.getElementById('imagenes').click()}
             >
-              <AiOutlineFileImage size={40} className='text-gray1' />
-              <p className='text-xs text-gray1'>Seleccionar imágenes</p>
+              <AiOutlineFileImage size={40} className='img-icon' />
+              <p className='img-placeholder'>{pageData.createProduct.imgPlaceholder}</p>
             </button>
-            <div className='w-full h-full flex flex-wrap justify-start gap-3'>
+            <div className='preview-grid'>
               {filePreviews?.map((img, index) => (
-                <img key={index} src={img.url} alt={`Foto ${index + 1}`} className='w-[60px] h-[40px] object-cover' />
+                <img key={index} src={img.url} alt={`Foto ${index + 1}`} className='preview-img' />
               ))}
             </div>
           </div>
           {
             imagesRequiredError && <FormErrorMessage message={pageData.createProduct.requiredError} error='images' />
           }
-          <p className='text-right text-xs font-Urbanist'>{filePreviews.length} archivos seleccionados</p>
+          <p className='input-counter'>{filePreviews.length} {pageData.createProduct.fileCount}</p>
         </div>
 
-        <div className='flex gap-6 mt-4'>
+        <div className='btn-container'>
           <SaveBtn />
           <CancelBtn />
         </div>
       </div>
       {
         loading &&
-          <div className='pop-up-bg opacity-25 absolute rounded-lg '>
-            <AiOutlineLoading size={40} className='text-gray4 animate-spin' />
+          <div className='pop-up-bg loader-bg'>
+            <AiOutlineLoading size={40} className='loader-icon' />
           </div>
       }
       {
         success &&
-          <div className='pop-up-bg bg-transparent absolute rounded-lg'>
-            <div className='w-8/12 h-40 flex justify-center items-center bg-white border-2 border-gray1 rounded-lg'>
-              <p className='text-xl text-green1'>¡Producto creado con éxito!</p>
+          <div className='pop-up-bg success-bg'>
+            <div className='success-box'>
+              <p className='success-text'>{pageData.createProduct.successMessage}</p>
             </div>
           </div>
       }

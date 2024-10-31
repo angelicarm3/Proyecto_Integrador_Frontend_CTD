@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer components {
-  .video-container {
-    @apply h-[450px] object-cover
+  .admin-create-product-container {
+    @apply flex justify-center pt-6 mt-[68px]
   }
 }

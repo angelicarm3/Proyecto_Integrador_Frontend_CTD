@@ -3,7 +3,7 @@ import CreateProductForm from '../../Organisms/CreateProductForm/CreateProductFo
 
 const AdminCreateProduct = () => {
   return (
-    <section className='main-section flex justify-center pt-6 mt-[68px]'>
+    <section className='main-section admin-create-product-container'>
       <CreateProductForm />
     </section>
   )
