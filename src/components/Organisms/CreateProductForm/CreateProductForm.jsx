@@ -19,8 +19,9 @@ const CreateProductForm = () => {
   const [selectedImages, setSelectedImages] = useState([])
   const [filePreviews, setFilePreviews] = useState([])
   const [imagesRequiredError, setImagesRequiredError] = useState(false)
+  const [selectedCategories, setSelectedCategories] = useState([])
   const { data, loading, error, success } = useSelector((state) => state.form)
-  const maxDescriptionCharacters = 50
+  const maxDescriptionCharacters = 200
   const maxFiles = 10
 
   const {
@@ -49,6 +50,20 @@ const CreateProductForm = () => {
     })))
   }
 
+  const handleCategoryChange = (e, category) => {
+    const { checked } = e.target
+
+    setSelectedCategories((prev) =>
+      checked
+        ? [...prev, { id: category.id, nombre: category.nombre }] // Agrega el objeto completo
+        : prev.filter((selected) => selected.id !== category.id) // Elimina según el id
+    )
+  }
+
+  const handleCancelClick = () => {
+    navigate(-1)
+  }
+
   const handleInputChange = (e) => {
     const { id, value } = e.target
     if (id === 'matricula') {
@@ -58,16 +73,41 @@ const CreateProductForm = () => {
     dispatch(updateField({ field: id, value }))
   }
 
+  const categories = [
+    {
+      id: 1,
+      nombre: 'Sports'
+    },
+    {
+      id: 2,
+      nombre: 'Premium'
+    },
+    {
+      id: 3,
+      nombre: 'SUV'
+    }
+  ]
+
+  const updateData = async () => {
+    console.log('Añadiendo categorias e imagenes')
+    dispatch(updateField({ field: 'categorias', value: selectedCategories }))
+    await dispatch(uploadImagesThunk(selectedImages))
+    console.log('Añadidas')
+  }
+
   const onSubmit = async () => {
     if (selectedImages.length === 0) {
       setImagesRequiredError(true)
     } else {
-      await dispatch(uploadImagesThunk(selectedImages))
-      setTimeout(() => {
-        dispatch(submitFormThunk(data))
-      }, '2000')
+      await updateData()
+      console.log(data)
+      // setTimeout(() => {
+      //   console.log(data)
+      //   dispatch(submitFormThunk(data))
+      // }, '5000')
     }
   }
+  // console.log(data)
 
   return (
     <form className='create-product-form-container' onSubmit={handleSubmit(onSubmit)}>
@@ -313,33 +353,40 @@ const CreateProductForm = () => {
           }
         </div>
 
-        {/* <div className='field-container w-11/12'>
-          <label htmlFor='categorias' className='label'>
+        <div className='field-container w-11/12'>
+          <p className='label'>
             {pageData.createProduct.category}
-          </label>
-          <input
-            id='categorias'
-            maxLength={200}
-            value={data.categorias}
-            className={`input ${errors.categorias && 'border-red1'}`}
-            placeholder={pageData.createProduct.category}
-            {...register('categorias', {
-              required: {
-                value: true,
-                message: `${pageData.createProduct.requiredError}`
-              }
-            })}
-            onChange={(e) => {
-              handleInputChange(e)
-              e.target.dispatchEvent(new Event('input', { bubbles: true }))
-            }}
-          />
+          </p>
+          <div className='flex justify-between'>
+            {
+            categories.map((category, index) => (
+              <div key={index} className='flex items-center gap-3'>
+                <input
+                  type='checkbox'
+                  name={`${category.nombre}`}
+                  className={`input ${errors.categorias && 'border-red1'}`}
+                  // {...register('categorias', {
+                  //   required: {
+                  //     value: true,
+                  //     message: `${pageData.createProduct.requiredError}`
+                  //   }
+                  // })}
+                  onChange={(e) => {
+                    handleCategoryChange(e, category) // Pasamos el objeto completo
+                    e.target.dispatchEvent(new Event('input', { bubbles: true }))
+                  }}
+                />
+                <label htmlFor={category.nombre}>{category.nombre}</label>
+              </div>
+            ))
+            }
+          </div>
           {
           errors.categorias && <FormErrorMessage message={errors.categorias.message} />
           }
-        </div> */}
+        </div>
 
-        <div className='field-container w-11/12'>
+        <div className='field-container relative w-11/12'>
           <label htmlFor='descripcion' className='label'>
             {pageData.createProduct.description}
           </label>
@@ -402,7 +449,7 @@ const CreateProductForm = () => {
 
         <div className='btn-container'>
           <SaveBtn />
-          <CancelBtn handleClick={navigate(-1)} />
+          <CancelBtn handleClick={handleCancelClick} />
         </div>
       </div>
       {

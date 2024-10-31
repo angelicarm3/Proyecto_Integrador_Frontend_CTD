@@ -7,7 +7,7 @@ const CancelBtn = ({ handleClick }) => {
   const navigate = useNavigate()
 
   return (
-    <button className='cancel-btn' onClick={() => handleClick()}>
+    <button type='button' className='cancel-btn' onClick={() => handleClick()}>
       <p>{pageData.buttons.cancel}</p>
     </button>
   )

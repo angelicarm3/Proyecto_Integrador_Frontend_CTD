@@ -9,7 +9,7 @@ const AdminProductsList = ({ products, setShowConfirmDelete }) => {
         <tr>
           <th className='border px-4 py-2 bg-customLighterBlue text-white font-normal'>Id</th>
           <th className='border px-4 py-2  bg-customLighterBlue text-white font-normal'>Nombre</th>
-          {/* <th className='border px-4 py-2  bg-customLighterBlue text-white font-normal'>Categoria</th> */}
+          <th className='border px-4 py-2  bg-customLighterBlue text-white font-normal'>Categoria</th>
           <th className='border px-4 py-2  bg-customLighterBlue text-white font-normal'>Precio</th>
           <th className='border px-4 py-2  bg-customLighterBlue text-white font-normal'>Matrícula</th>
           <th className='border px-4 py-2  bg-customLighterBlue text-white font-normal'>Acciones</th>

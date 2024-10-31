@@ -25,12 +25,12 @@ const ProductRow = ({ product, setShowConfirmDelete }) => {
     console.log(`Editar producto ${product.id}`)
   }
 
-  // console.log()
+  console.log(product)
   return (
     <tr>
       <td className='border px-4 py-2 text-center'>{product.id}</td>
       <td className='border px-4 py-2'>{product.marca} {product.modelo}</td>
-      {/* <td className='border px-4 py-2 text-center'>{product.categorias[0]}</td> */}
+      <td className='border px-4 py-2 text-center'>{product.categorias[0].nombre}</td>
       <td className='border px-4 py-2 text-center'>{product.precioDia}</td>
       <td className='border px-4 py-2 text-center'>{product.matricula}</td>
       <td className='border px-4 py-2 w-1/4'>

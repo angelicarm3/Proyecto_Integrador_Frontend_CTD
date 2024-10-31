@@ -99,8 +99,8 @@ const AdminProducts = () => {
           <div className='pop-up-bg w-screen h-screen absolute top-[-68px] left-0'>
             <div className='w-8/12 h-40 flex flex-col justify-center items-center bg-white border-2 border-gray1 rounded-lg'>
               <p className='text-xl text-black1'>¿Desea eliminar este producto?</p>
-              <div className='btn-container' onClick={() => handleDeleteClick(selectedProduct.id)}>
-                <button className='w-24 flex justify-center items-center bg-green1 text-base text-gray4 font-bold rounded-3xl hover:opacity-75 p-2' type='button'>
+              <div className='btn-container'>
+                <button className='w-24 flex justify-center items-center bg-green1 text-base text-gray4 font-bold rounded-3xl hover:opacity-75 p-2' type='button' onClick={() => handleDeleteClick(selectedProduct.id)}>
                   <p>Eliminar</p>
                 </button>
                 <CancelBtn handleClick={handleClick} />

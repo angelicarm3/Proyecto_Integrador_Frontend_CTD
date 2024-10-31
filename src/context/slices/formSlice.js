@@ -8,6 +8,7 @@ export const uploadImagesThunk = createAsyncThunk(
   async (files, { rejectWithValue }) => {
     try {
       const urls = await handleFileUpload(files)
+      console.log(urls)
       return urls
     } catch (error) {
       return rejectWithValue('Error al subir archivos')
@@ -41,8 +42,9 @@ const initialState = {
     velocidad: '',
     aceleracion: '',
     precioDia: '',
-    descripcion: ''
-    // Otros campos
+    categorias: [],
+    descripcion: '',
+    imagenes: []
   },
   loading: false,
   error: null,
@@ -75,6 +77,7 @@ const formSlice = createSlice({
     builder
       // uploadImages
       .addCase(uploadImagesThunk.pending, (state) => {
+        // state.loading = true
         state.error = null
       })
       .addCase(uploadImagesThunk.fulfilled, (state, action) => {
