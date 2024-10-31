@@ -13,6 +13,8 @@ const ImagesGrid = () => {
   const clickChangeImg = (imgUrl) => {
     dispatch(rearrangeImagesGrid({ selectedProduct, imgUrl }))
   }
+  console.log(mainImg)
+  console.log(otherImg)
 
   return (
     <div className='images-grid-container'>
@@ -23,7 +25,7 @@ const ImagesGrid = () => {
           otherImg.map((imagen, index) => (
             window.innerWidth < 1024 && index < 3
               ? <img key={index} className='other-img' src={imagen.url} alt='' onClick={() => clickChangeImg(imagen.url)} />
-              : window.innerWidth >= 1024 && index < 4 && <img key={index} className='other-img' src={imagen.url} alt='' onClick={() => clickChangeImg(imagen.id)} />
+              : window.innerWidth >= 1024 && index < 4 && <img key={index} className='other-img' src={imagen.url} alt='' onClick={() => clickChangeImg(imagen.url)} />
           ))
         }
 

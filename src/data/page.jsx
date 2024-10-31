@@ -25,16 +25,19 @@ export const pageData = {
     title: 'Categorías',
     buttons: [
       {
+        id: 1,
         img: sportsCar,
         text: 'Deportivo',
         filter: 'Sports'
       },
       {
+        id: 2,
         img: premiumCar,
         text: 'Premium',
         filter: 'Premium'
       },
       {
+        id: 3,
         img: SUVCar,
         text: 'SUV',
         filter: 'SUV'

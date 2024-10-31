@@ -19,8 +19,9 @@ const CreateProductForm = () => {
   const [selectedImages, setSelectedImages] = useState([])
   const [filePreviews, setFilePreviews] = useState([])
   const [imagesRequiredError, setImagesRequiredError] = useState(false)
-  const { data, loading, error, success } = useSelector((state) => state.form)
-  const maxDescriptionCharacters = 50
+  const [selectedCategories, setSelectedCategories] = useState([])
+  const { data, loading, error, success, imgSuccess } = useSelector((state) => state.form)
+  const maxDescriptionCharacters = 200
   const maxFiles = 10
 
   const {
@@ -49,6 +50,20 @@ const CreateProductForm = () => {
     })))
   }
 
+  const handleCategoryChange = (e, category) => {
+    const { checked } = e.target
+
+    setSelectedCategories((prev) =>
+      checked
+        ? [...prev, { nombre: category.filter }]
+        : prev.filter((selected) => selected.id !== category.id)
+    )
+  }
+
+  const handleCancelClick = () => {
+    navigate(-1)
+  }
+
   const handleInputChange = (e) => {
     const { id, value } = e.target
     if (id === 'matricula') {
@@ -58,14 +73,26 @@ const CreateProductForm = () => {
     dispatch(updateField({ field: id, value }))
   }
 
-  const onSubmit = async () => {
+  const onSubmit = () => {
     if (selectedImages.length === 0) {
       setImagesRequiredError(true)
     } else {
-      await dispatch(uploadImagesThunk(selectedImages))
-      dispatch(submitFormThunk(data))
+      dispatch(updateField({ field: 'categorias', value: selectedCategories }))
+      dispatch(uploadImagesThunk(selectedImages))
     }
   }
+
+  useEffect(() => {
+    if (imgSuccess && data.imagenes.length > 0) {
+      dispatch(submitFormThunk(data))
+    }
+    console.log('Objeto creado')
+  }, [imgSuccess, data])
+
+  console.log(data)
+  console.log(success)
+  console.log(imgSuccess)
+  console.log(error)
 
   return (
     <form className='create-product-form-container' onSubmit={handleSubmit(onSubmit)}>
@@ -311,33 +338,34 @@ const CreateProductForm = () => {
           }
         </div>
 
-        {/* <div className='field-container w-11/12'>
-          <label htmlFor='categorias' className='label'>
+        <div className='field-container w-11/12'>
+          <p className='label'>
             {pageData.createProduct.category}
-          </label>
-          <input
-            id='categorias'
-            maxLength={200}
-            value={data.categorias}
-            className={`input ${errors.categorias && 'border-red1'}`}
-            placeholder={pageData.createProduct.category}
-            {...register('categorias', {
-              required: {
-                value: true,
-                message: `${pageData.createProduct.requiredError}`
-              }
-            })}
-            onChange={(e) => {
-              handleInputChange(e)
-              e.target.dispatchEvent(new Event('input', { bubbles: true }))
-            }}
-          />
+          </p>
+          <div className='flex justify-between'>
+            {
+            pageData.categories.buttons.map((category, index) => (
+              <div key={index} className='flex items-center gap-3'>
+                <input
+                  type='checkbox'
+                  name={`${category.filter}`}
+                  className={`input ${errors.categorias ? 'border-red1' : category.filter === 'All' && 'hidden'}`}
+                  onChange={(e) => {
+                    handleCategoryChange(e, category)
+                    e.target.dispatchEvent(new Event('input', { bubbles: true }))
+                  }}
+                />
+                <label htmlFor={category.filter} className={` ${category.filter === 'All' && 'hidden'}`}>{category.text}</label>
+              </div>
+            ))
+            }
+          </div>
           {
           errors.categorias && <FormErrorMessage message={errors.categorias.message} />
           }
-        </div> */}
+        </div>
 
-        <div className='field-container w-11/12'>
+        <div className='field-container relative w-11/12'>
           <label htmlFor='descripcion' className='label'>
             {pageData.createProduct.description}
           </label>
@@ -400,7 +428,7 @@ const CreateProductForm = () => {
 
         <div className='btn-container'>
           <SaveBtn />
-          <CancelBtn />
+          <CancelBtn handleClick={handleCancelClick} />
         </div>
       </div>
       {

@@ -45,7 +45,7 @@ export const productSlice = createSlice({
         state.filteredProducts = state.allProducts
         state.selectedCategory = 'All'
       } else {
-        state.filteredProducts = state.allProducts.filter((product) => product.categorias.includes(action.payload))
+        state.filteredProducts = state.allProducts.filter((product) => product.categorias.some((categoria) => categoria.nombre === action.payload))
         state.selectedCategory = action.payload
       }
     },

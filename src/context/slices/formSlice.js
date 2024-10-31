@@ -41,12 +41,14 @@ const initialState = {
     velocidad: '',
     aceleracion: '',
     precioDia: '',
-    descripcion: ''
-    // Otros campos
+    categorias: [],
+    descripcion: '',
+    imagenes: []
   },
   loading: false,
   error: null,
-  success: false
+  success: false,
+  imgSuccess: false
 }
 
 const formSlice = createSlice({
@@ -83,7 +85,7 @@ const formSlice = createSlice({
           url,
           esPrincipal: index === 0
         }))
-        state.loading = false
+        state.imgSuccess = true
       })
       .addCase(uploadImagesThunk.rejected, (state, action) => {
         state.error = action.payload || 'Error al subir archivos'
@@ -101,6 +103,7 @@ const formSlice = createSlice({
       .addCase(submitFormThunk.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload || 'Error al enviar datos'
+        state.imgSuccess = false
       })
   }
 })
