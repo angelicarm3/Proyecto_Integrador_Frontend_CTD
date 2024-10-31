@@ -75,7 +75,6 @@ const formSlice = createSlice({
     builder
       // uploadImages
       .addCase(uploadImagesThunk.pending, (state) => {
-        state.loading = true
         state.error = null
       })
       .addCase(uploadImagesThunk.fulfilled, (state, action) => {
@@ -83,7 +82,6 @@ const formSlice = createSlice({
           url,
           esPrincipal: index === 0
         }))
-        state.loading = false
       })
       .addCase(uploadImagesThunk.rejected, (state, action) => {
         state.error = action.payload || 'Error al subir archivos'

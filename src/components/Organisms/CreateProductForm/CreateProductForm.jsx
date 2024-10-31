@@ -63,7 +63,9 @@ const CreateProductForm = () => {
       setImagesRequiredError(true)
     } else {
       await dispatch(uploadImagesThunk(selectedImages))
-      dispatch(submitFormThunk(data))
+      setTimeout(() => {
+        dispatch(submitFormThunk(data))
+      }, '2000')
     }
   }
 
@@ -400,7 +402,7 @@ const CreateProductForm = () => {
 
         <div className='btn-container'>
           <SaveBtn />
-          <CancelBtn />
+          <CancelBtn handleClick={navigate(-1)} />
         </div>
       </div>
       {
