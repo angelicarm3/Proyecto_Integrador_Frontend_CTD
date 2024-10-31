@@ -1,11 +1,14 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import AdminProductList from '../../Organisms/AdminProductList/AdminProductList'
 import { FaArrowCircleLeft } from "react-icons/fa";
 
 const AdminProducts = () => {
+  const navigate = useNavigate()
   const handleAddProduct = () => {
     // Lógica para agregar el producto
-    console.log(`Agregar producto ${product.id}`)
+    console.log(`Agregar producto`)
+    navigate('/administracion/agregar-producto')
   }
 
   return (
@@ -27,7 +30,7 @@ const AdminProducts = () => {
         </div>
         <button
           className='bg-blue-500 text-white px-4 py-2  h-8 rounded hover:bg-blue-600 transition duration-200'
-          onClick={handleAddProduct}
+          onClick={() => handleAddProduct()}
         >
           Agregar Producto
         </button>

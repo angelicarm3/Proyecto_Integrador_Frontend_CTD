@@ -1,6 +1,6 @@
 @import url('https://fonts.cdnfonts.com/css/bankgothic-md-bt');
 @import url('https://fonts.cdnfonts.com/css/aurora-condensed');
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -13,13 +13,13 @@
     @apply h-10 flex justify-center items-center font-Roboto font-bold bg-black1 text-white hover:opacity-50
   }
   .log-in-btn {
-    @apply w-24 rounded-3xl
+    @apply w-32 rounded-3xl
   }
   .rent-now-btn {
     @apply w-full text-black1 rounded-3xl mt-1
   }
   .close-btn {
-    @apply text-gray3 cursor-pointer hover:text-gray4 mx-auto z-40
+    @apply text-gray4 cursor-pointer hover:text-gray3 mx-auto z-40
   }
   .main-page {
     @apply w-full h-fit flex flex-col bg-gray2
@@ -31,7 +31,22 @@
     @apply w-full font-semibold text-3xl text-yellow1 text-center mb-4
   }
   .pop-up-bg {
-    @apply  w-full h-full absolute bg-popUpBg top-0 flex flex-col justify-center items-center gap-8
+    @apply  w-full h-full bg-popUpBg1 flex flex-col justify-center items-center gap-8 z-10
+  }
+  .label {
+    @apply flex text-base font-medium
+}
+  .input {
+    @apply h-10 bg-white rounded-lg border-2 border-beige1 outline-gray4 px-4 font-Urbanist placeholder:font-Urbanist placeholder:text-gray1
+  }
+  .form-error-container {
+    @apply flex items-center gap-1.5
+  }
+  .form-error-icon {
+    @apply text-red1 mb-0.5
+  }
+  .form-error-text {
+    @apply font-Urbanist text-[12px] text-red1
   }
 }
 
@@ -42,6 +57,14 @@ body::-webkit-scrollbar {
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
+}
+
+.modal-wrapper {
+  position: fixed;
+  right: 0;
+  top: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 @media (max-width: 1279px) {

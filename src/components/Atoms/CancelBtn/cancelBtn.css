@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .cancel-btn {
+    @apply w-24 flex justify-center items-center bg-red1 text-base text-gray4 font-bold rounded-3xl hover:opacity-75 p-2
+  }
+}

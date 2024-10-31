@@ -6,23 +6,30 @@ export default {
       colors: {
         black1: '#080808',
         black2: '#1C1B20',
+        beige1: 'F3EDE7',
         // yellow1: '#CCAD00',
         // yellow1: '#DBA401',
         yellow1: '#D4AF37',
-        gray1: '#414A68',
+        gray1: '#4D414A6B',
+        gray5: '#414A6B',
         gray2: '#1E1E1E',
         gray3: '#666666',
         gray4: '#D9D9D9',
-        red1: '#FF2801',
+        green1: '#09A334',
+        red1: '#CC4043',
         white: '#FFFFFF',
         customDarkBlue: 'rgb(15, 23, 42)',
-        popUpBg: '#000000b3'
+        popUpBg1: '#000000b3',
+        popUpBg2: '#40414A6B'
       },
       fontFamily: {
         Aurora: ['Aurora Condensed', 'sans-serif'],
         BankGothic: ['BankGothic', 'sans-serif'],
         Urbanist: ['Urbanist', 'sans-serif'],
         Roboto: ['Roboto Slab', 'serif']
+      },
+      animation: {
+        'spin-slow': 'spin 1.5s linear infinite'
       }
     }
   },

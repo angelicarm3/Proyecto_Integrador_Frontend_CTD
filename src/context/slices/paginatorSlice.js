@@ -6,7 +6,7 @@ export const paginatorSlice = createSlice({
     page: 0,
     pageData: [],
     pageCount: 0,
-    n: window.innerWidth < 640 ? 3 : (window.innerWidth > 640 && window.innerWidth <= 768) ? 6 : 9
+    n: window.innerWidth < 640 ? 3 : (window.innerWidth > 640 && window.innerWidth <= 768) ? 6 : 8
   },
 
   reducers: {
@@ -17,7 +17,6 @@ export const paginatorSlice = createSlice({
       state.pageCount = Math.ceil(action.payload?.length / state.n)
     },
     changePage: (state, action) => {
-      console.log(action.payload)
       state.page = action.payload
     }
   }

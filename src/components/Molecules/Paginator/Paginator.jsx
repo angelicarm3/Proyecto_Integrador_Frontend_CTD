@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import ReactPaginate from 'react-paginate'
 import { useSelector } from 'react-redux'
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa'

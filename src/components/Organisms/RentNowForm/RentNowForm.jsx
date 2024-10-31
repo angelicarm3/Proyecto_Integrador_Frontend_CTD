@@ -13,7 +13,6 @@ const RentNowForm = () => {
   } = useForm({ mode: 'onBlur' })
 
   const onSubmit = (data) => {
-    console.log(data)
   }
 
   return (

@@ -1,36 +1,29 @@
-/* eslint-disable react/prop-types */
-import { useEffect } from 'react'
-
 import { Link, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 import './imagesGrid.css'
 import { pageData } from '../../../data/page'
-import { arrangeImagesGrid, rearrangeImagesGrid } from '../../../context/slices/productSlice'
+import { rearrangeImagesGrid } from '../../../context/slices/productSlice'
 
-const ImagesGrid = ({ product }) => {
+const ImagesGrid = () => {
   const location = useLocation()
   const dispatch = useDispatch()
   const { selectedProduct, mainImg, otherImg } = useSelector((state) => state.product)
 
-  useEffect(() => {
-    dispatch(arrangeImagesGrid())
-  }, [dispatch])
-
-  const clickChangeImg = (imgId) => {
-    dispatch(rearrangeImagesGrid(imgId))
+  const clickChangeImg = (imgUrl) => {
+    dispatch(rearrangeImagesGrid({ selectedProduct, imgUrl }))
   }
 
   return (
     <div className='images-grid-container'>
-      <img className='main-img' src={mainImg[0]?.img} alt='' />
+      <img className='main-img' src={mainImg[0]?.url} alt='' />
       <div className='secondary-grid'>
         {
           otherImg &&
           otherImg.map((imagen, index) => (
             window.innerWidth < 1024 && index < 3
-              ? <img key={index} className='other-img' src={imagen.img} alt='' onClick={() => clickChangeImg(imagen.id)} />
-              : window.innerWidth >= 1024 && index < 4 && <img key={index} className='other-img' src={imagen.img} alt='' onClick={() => clickChangeImg(imagen.id)} />
+              ? <img key={index} className='other-img' src={imagen.url} alt='' onClick={() => clickChangeImg(imagen.url)} />
+              : window.innerWidth >= 1024 && index < 4 && <img key={index} className='other-img' src={imagen.url} alt='' onClick={() => clickChangeImg(imagen.id)} />
           ))
         }
 

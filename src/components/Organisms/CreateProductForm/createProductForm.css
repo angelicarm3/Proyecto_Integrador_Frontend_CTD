@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .create-product-form-container {
+    @apply w-[630px] flex flex-col justify-center items-center bg-gray1 rounded-lg relative p-10
+  }
+  .back-form-btn {
+    @apply w-fit flex flex-col justify-center rounded-3xl bg-black1 absolute top-10 left-10 px-3
+  }
+  .form-title {
+    @apply text-black1 mb-6
+  }
+  .form-fields-container {
+    @apply w-full flex flex-wrap justify-center gap-x-10
+  }
+  .field-container {
+    @apply w-5/12 flex flex-col pb-[10px] gap-2 mb-2
+  }
+  .images-btn {
+    @apply w-[100px] h-[100px] flex flex-col justify-center items-center hover:border-gray1
+  }
+  .description-input {
+    @apply h-[100px] pt-2
+  }
+  .input-counter {
+    @apply text-xs font-Urbanist self-end
+  }
+  .img-icon {
+    @apply text-gray1
+  }
+  .img-placeholder {
+    @apply text-xs text-gray1
+  }
+  .preview-grid {
+    @apply w-full h-full flex flex-wrap justify-start gap-3
+  }
+  .preview-img {
+    @apply w-[60px] h-[40px] object-cover
+  }
+  .btn-container {
+    @apply flex gap-6 mt-4
+  }
+  .loader-bg {
+    @apply opacity-25 absolute rounded-lg
+  }
+  .loader-icon {
+    @apply text-gray4 animate-spin
+  }
+  .success-bg {
+    @apply bg-transparent absolute rounded-lg
+  }
+  .success-box {
+    @apply w-8/12 h-40 flex justify-center items-center bg-white border-2 border-gray1 rounded-lg
+  }
+  .success-text {
+    @apply text-xl text-green1
+  }
+}
