@@ -20,7 +20,7 @@ const CreateProductForm = () => {
   const [filePreviews, setFilePreviews] = useState([])
   const [imagesRequiredError, setImagesRequiredError] = useState(false)
   const [selectedCategories, setSelectedCategories] = useState([])
-  const { data, loading, error, success } = useSelector((state) => state.form)
+  const { data, loading, error, success, imgSuccess } = useSelector((state) => state.form)
   const maxDescriptionCharacters = 200
   const maxFiles = 10
 
@@ -55,8 +55,8 @@ const CreateProductForm = () => {
 
     setSelectedCategories((prev) =>
       checked
-        ? [...prev, { id: category.id, nombre: category.nombre }] // Agrega el objeto completo
-        : prev.filter((selected) => selected.id !== category.id) // Elimina según el id
+        ? [...prev, { nombre: category.filter }]
+        : prev.filter((selected) => selected.id !== category.id)
     )
   }
 
@@ -73,41 +73,26 @@ const CreateProductForm = () => {
     dispatch(updateField({ field: id, value }))
   }
 
-  const categories = [
-    {
-      id: 1,
-      nombre: 'Sports'
-    },
-    {
-      id: 2,
-      nombre: 'Premium'
-    },
-    {
-      id: 3,
-      nombre: 'SUV'
-    }
-  ]
-
-  const updateData = async () => {
-    console.log('Añadiendo categorias e imagenes')
-    dispatch(updateField({ field: 'categorias', value: selectedCategories }))
-    await dispatch(uploadImagesThunk(selectedImages))
-    console.log('Añadidas')
-  }
-
-  const onSubmit = async () => {
+  const onSubmit = () => {
     if (selectedImages.length === 0) {
       setImagesRequiredError(true)
     } else {
-      await updateData()
-      console.log(data)
-      // setTimeout(() => {
-      //   console.log(data)
-      //   dispatch(submitFormThunk(data))
-      // }, '5000')
+      dispatch(updateField({ field: 'categorias', value: selectedCategories }))
+      dispatch(uploadImagesThunk(selectedImages))
     }
   }
-  // console.log(data)
+
+  useEffect(() => {
+    if (imgSuccess && data.imagenes.length > 0) {
+      dispatch(submitFormThunk(data))
+    }
+    console.log('Objeto creado')
+  }, [imgSuccess, data])
+
+  console.log(data)
+  console.log(success)
+  console.log(imgSuccess)
+  console.log(error)
 
   return (
     <form className='create-product-form-container' onSubmit={handleSubmit(onSubmit)}>
@@ -359,24 +344,18 @@ const CreateProductForm = () => {
           </p>
           <div className='flex justify-between'>
             {
-            categories.map((category, index) => (
+            pageData.categories.buttons.map((category, index) => (
               <div key={index} className='flex items-center gap-3'>
                 <input
                   type='checkbox'
-                  name={`${category.nombre}`}
-                  className={`input ${errors.categorias && 'border-red1'}`}
-                  // {...register('categorias', {
-                  //   required: {
-                  //     value: true,
-                  //     message: `${pageData.createProduct.requiredError}`
-                  //   }
-                  // })}
+                  name={`${category.filter}`}
+                  className={`input ${errors.categorias ? 'border-red1' : category.filter === 'All' && 'hidden'}`}
                   onChange={(e) => {
-                    handleCategoryChange(e, category) // Pasamos el objeto completo
+                    handleCategoryChange(e, category)
                     e.target.dispatchEvent(new Event('input', { bubbles: true }))
                   }}
                 />
-                <label htmlFor={category.nombre}>{category.nombre}</label>
+                <label htmlFor={category.filter} className={` ${category.filter === 'All' && 'hidden'}`}>{category.text}</label>
               </div>
             ))
             }

@@ -12,7 +12,6 @@ const handleFileUpload = async (files) => {
         return await getDownloadURL(storageRef)
       })
     )
-    console.log(urls)
     return urls
   } catch (error) {
     console.error('Error al subir archivos:', error)
