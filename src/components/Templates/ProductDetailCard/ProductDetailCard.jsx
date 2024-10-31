@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useSelector } from 'react-redux'
 
 import './productDetailCard.css'
@@ -10,13 +9,15 @@ import RentNowBtn from '../../Atoms/RentNowBtn/RentNowBtn'
 
 const ProductDetailCard = () => {
   const selectedProduct = useSelector((state) => state.product.selectedProduct)
-console.log(selectedProduct)
+
   return (
     <div className='product-detail-card-container'>
-      <BackBtn />
+      <div className='back'>
+        <BackBtn />
+      </div>
       <p className='product-detail-name'>{selectedProduct.marca} {selectedProduct.modelo}</p>
       <div className='product-detail-info-container'>
-        <ImagesGrid product={selectedProduct} />
+        <ImagesGrid />
         <div className='product-detail-text-container'>
           <p className='product-detail-daily-price'>
             ${selectedProduct.precioDia}

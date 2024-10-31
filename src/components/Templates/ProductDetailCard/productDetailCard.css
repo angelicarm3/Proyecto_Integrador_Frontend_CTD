@@ -21,4 +21,7 @@
   .product-detail-day-text {
     @apply font-semibold text-gray3 text-base
   }
+  .back {
+    @apply self-end
+  }
 }
