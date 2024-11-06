@@ -4,11 +4,13 @@ import { FaEdit } from 'react-icons/fa'
 import TashCan from '../../../assets/icons/eliminar.png'
 import { setSelectedProduct } from '../../../context/slices/adminProductSlice'
 import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 const ProductRow = ({ product, setShowConfirmDelete }) => {
-  console.log(product)
   const dispatch = useDispatch()
-
+  const navigate = useNavigate()
+  console.log(product)
+  console.log(product.categorias[0])
   const handleHide = () => {
     // Lógica para eliminar el producto
     console.log(`Ocultar producto ${product.id}`)
@@ -26,16 +28,26 @@ const ProductRow = ({ product, setShowConfirmDelete }) => {
     // Lógica para elditar el producto
     console.log(`Editar producto ${product.id}`)
   }
-  // TODO fix categories intead of product.categorias[0].nombre must have all the categories with a edit btn
+  const handleEditCategory = () => {
+    console.log('Agregar producto')
+    navigate('/administracion/agregar-producto')
+  }
 
   return (
-    <tr>
-      <td className='border px-4 py-2 text-center'>{product.id}</td>
-      <td className='border px-4 py-2'>{product.marca} {product.modelo}</td>
-      <td className='border px-4 py-2 text-center'>{product.categorias[0].nombre}</td>
-      <td className='border px-4 py-2 text-center'>{product.precioDia}</td>
-      <td className='border px-4 py-2 text-center'>{product.matricula}</td>
-      <td className='border px-4 py-2 w-1/4'>
+    <tr className='border'>
+      <td className='border-l border-r px-4 py-2 text-center'>{product.id}</td>
+      <td className='border-l border-r px-4 py-2'>{product.marca} {product.modelo}</td>
+      <td className='border-l border-r px-4 py-2 text-center flex flex-col'>
+        <div className='self-end'>
+          <FaEdit className='text-gray-500' onClick={handleEditCategory} />
+        </div>
+        {product.categorias.map((categorie) => (
+          <span key={categorie.id}>{categorie.nombre}</span>
+        ))}
+      </td>
+      <td className='border-l border-r px-4 py-2 text-center'>{product.precioDia}</td>
+      <td className='border-l border-r px-4 py-2 text-center'>{product.matricula}</td>
+      <td className='border-l border-r px-4 py-2 w-1/4'>
         <div className='flex space-x-3 justify-center'>
           <button
             className='bg-green-500  text-black px-4 py-2 rounded text-xl'
