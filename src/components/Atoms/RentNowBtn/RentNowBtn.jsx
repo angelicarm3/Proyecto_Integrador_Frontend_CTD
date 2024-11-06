@@ -1,13 +1,13 @@
 import { Link, useLocation } from 'react-router-dom'
 
-import { pageData } from '../../../data/page'
+import { pageLabels } from '../../../data/pageLabels'
 
 const RentNowBtn = () => {
   const location = useLocation()
 
   return (
     <Link to='/rentar' state={{ previousLocation: location }} className='primary-btn rent-now-btn'>
-      {pageData.buttons.rentNow}
+      {pageLabels.buttons.rentNow}
     </Link>
   )
 }

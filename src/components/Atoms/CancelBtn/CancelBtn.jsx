@@ -1,14 +1,14 @@
 import { useNavigate } from 'react-router-dom'
 
 import './cancelBtn.css'
-import { pageData } from '../../../data/page'
+import { pageLabels } from '../../../data/pageLabels'
 
 const CancelBtn = ({ handleClick }) => {
   const navigate = useNavigate()
 
   return (
     <button type='button' className='cancel-btn' onClick={() => handleClick()}>
-      <p>{pageData.buttons.cancel}</p>
+      <p>{pageLabels.buttons.cancel}</p>
     </button>
   )
 }
