@@ -5,7 +5,7 @@ import {
   allCars
 } from '../assets/pageImg'
 
-export const pageData = {
+export const pageLabels = {
   buttons: {
     logIn: 'Iniciar sesión',
     signUp: 'Crear cuenta',
@@ -83,5 +83,20 @@ export const pageData = {
     validYearError: 'Ingrese un año válido',
     validNumberError: 'Ingrese un número válido',
     existingProductError: 'Esta matrícula ya está registrada'
+  },
+  adminPanel: {
+    mobileMessage: 'No disponible en dispositivos móviles',
+    mainTitle: 'Panel de Administración',
+    productsList: 'Lista de productos'
+  },
+  addBtn: {
+    label: '+ Añadir'
+  },
+  adminProducts: {
+    confirmDelation: '¿Desea eliminar este producto?',
+    delete: 'Eliminar'
+  },
+  adminSearchBar: {
+    placeholder: 'Palabra Clave'
   }
 }

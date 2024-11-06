@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .admin-panel-container {
+        @apply h-full flex flex-col justify-center p-4 mt-[168px]
+    }
+
+    .admin-panel-mobile-message-div {
+        @apply block sm:hidden text-center text-red-500
+    }
+
+    .admin-panel-mobile-message-text {
+        @apply text-xl font-semibold
+    }
+
+    .admin-panel-seccion-conatiner {
+        @apply hidden sm:flex flex-col items-center gap-4
+    }
+
+    .admin-panel-main-title {
+        @apply text-2xl font-bold
+    }
+
+    .admin-panel-link {
+        @apply mt-4 bg-yellow1 text-white px-4 py-2 rounded
+    }
+}
