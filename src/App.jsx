@@ -48,6 +48,7 @@ function App () {
           <Route path='administracion' element={<AdminPanel />} />
           <Route path='administracion/productos' element={<AdminProducts />} />
           <Route path='administracion/agregar-producto' element={<AdminCreateProduct />} />
+          
         </Route>
       </Routes>
 
