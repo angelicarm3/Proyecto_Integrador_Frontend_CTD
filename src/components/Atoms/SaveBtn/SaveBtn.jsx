@@ -1,10 +1,10 @@
 import './saveBtn.css'
-import { pageData } from '../../../data/page'
+import { pageLabels } from '../../../data/pageLabels'
 
 const SaveBtn = () => {
   return (
     <button className='save-btn' type='submit'>
-      <p>{pageData.buttons.save}</p>
+      <p>{pageLabels.buttons.save}</p>
     </button>
   )
 }

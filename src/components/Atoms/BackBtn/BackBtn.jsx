@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import { AiOutlineArrowLeft } from 'react-icons/ai'
 
 import './backBtn.css'
-import { pageData } from '../../../data/page'
+import { pageLabels } from '../../../data/pageLabels'
 
 const BackBtn = () => {
   const navigate = useNavigate()
@@ -10,7 +10,7 @@ const BackBtn = () => {
   return (
     <button className='back-btn' onClick={() => navigate(-1)}>
       <AiOutlineArrowLeft size={20} />
-      <p>{pageData.buttons.back}</p>
+      <p>{pageLabels.buttons.back}</p>
     </button>
   )
 }

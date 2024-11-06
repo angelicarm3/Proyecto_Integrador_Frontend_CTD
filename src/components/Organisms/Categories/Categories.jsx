@@ -1,14 +1,14 @@
 import './categories.css'
-import { pageData } from '../../../data/page'
+import { pageLabels } from '../../../data/pageLabels'
 import CategoryBtn from '../../Atoms/CategoryBtn/CategoryBtn'
 
 const Categories = () => {
   return (
     <section className='main-section categories-section'>
-      <p className='title'>{pageData.categories.title}</p>
+      <p className='title'>{pageLabels.categories.title}</p>
       <div className='categories-container'>
         {
-          pageData.categories.buttons.map((category, index) => (
+          pageLabels.categories.buttons.map((category, index) => (
             <CategoryBtn key={index} category={category} />
           ))
         }

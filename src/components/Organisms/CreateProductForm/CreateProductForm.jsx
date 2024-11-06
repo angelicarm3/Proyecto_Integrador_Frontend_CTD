@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { AiOutlineFileImage, AiOutlineLoading } from 'react-icons/ai'
 
 import './createProductForm.css'
-import { pageData } from '../../../data/page'
+import { pageLabels } from '../../../data/pageLabels'
 import { submitFormThunk, uploadImagesThunk, updateField, clearError, resetForm } from '../../../context/slices/formSlice'
 import BackBtn from '../../Atoms/BackBtn/BackBtn'
 import CancelBtn from '../../Atoms/CancelBtn/CancelBtn'
@@ -99,23 +99,23 @@ const CreateProductForm = () => {
       <div className='primary-btn back-form-btn'>
         <BackBtn />
       </div>
-      <p className='title form-title'>{pageData.createProduct.title}</p>
+      <p className='title form-title'>{pageLabels.createProduct.title}</p>
 
       <div className='form-fields-container'>
         <div className='field-container'>
           <label htmlFor='marca' className='label'>
-            {pageData.createProduct.make}
+            {pageLabels.createProduct.make}
           </label>
           <input
             id='marca'
             type='text'
             value={data.marca}
             className={`input ${errors.marca && 'border-red1'}`}
-            placeholder={pageData.createProduct.make}
+            placeholder={pageLabels.createProduct.make}
             {...register('marca', {
               required: {
                 value: true,
-                message: `${pageData.createProduct.requiredError}`
+                message: `${pageLabels.createProduct.requiredError}`
               }
             })}
             onChange={(e) => {
@@ -130,18 +130,18 @@ const CreateProductForm = () => {
 
         <div className='field-container'>
           <label htmlFor='modelo' className='label'>
-            {pageData.createProduct.model}
+            {pageLabels.createProduct.model}
           </label>
           <input
             id='modelo'
             type='text'
             value={data.modelo}
             className={`input ${errors.modelo && 'border-red1'}`}
-            placeholder={pageData.createProduct.model}
+            placeholder={pageLabels.createProduct.model}
             {...register('modelo', {
               required: {
                 value: true,
-                message: `${pageData.createProduct.requiredError}`
+                message: `${pageLabels.createProduct.requiredError}`
               }
             })}
             onChange={(e) => {
@@ -156,22 +156,22 @@ const CreateProductForm = () => {
 
         <div className='field-container'>
           <label htmlFor='matricula' className='label'>
-            {pageData.createProduct.plate}
+            {pageLabels.createProduct.plate}
           </label>
           <input
             id='matricula'
             type='text'
             value={data.matricula}
             className={`input ${(errors.matricula || error?.includes('ya existe en el sistema')) && 'border-red1'}`}
-            placeholder={pageData.createProduct.plate}
+            placeholder={pageLabels.createProduct.plate}
             {...register('matricula', {
               required: {
                 value: true,
-                message: `${pageData.createProduct.requiredError}`
+                message: `${pageLabels.createProduct.requiredError}`
               },
               pattern: {
                 value: /^[A-Z]{3}\d{3}$/,
-                message: `${pageData.createProduct.validPlateError}`
+                message: `${pageLabels.createProduct.validPlateError}`
               }
             })}
             onChange={(e) => {
@@ -183,28 +183,28 @@ const CreateProductForm = () => {
           errors.matricula && <FormErrorMessage message={errors.matricula.message} />
           }
           {
-          error && error.includes('ya existe en el sistema') && <FormErrorMessage message={pageData.createProduct.existingProductError} />
+          error && error.includes('ya existe en el sistema') && <FormErrorMessage message={pageLabels.createProduct.existingProductError} />
           }
         </div>
 
         <div className='field-container'>
           <label htmlFor='fechaFabricacion' className='label'>
-            {pageData.createProduct.year}
+            {pageLabels.createProduct.year}
           </label>
           <input
             id='fechaFabricacion'
             type='text'
             value={data.fechaFabricacion}
             className={`input ${errors.fechaFabricacion && 'border-red1'}`}
-            placeholder={pageData.createProduct.year}
+            placeholder={pageLabels.createProduct.year}
             {...register('fechaFabricacion', {
               required: {
                 value: true,
-                message: `${pageData.createProduct.requiredError}`
+                message: `${pageLabels.createProduct.requiredError}`
               },
               pattern: {
                 value: /\b(19|20)\d{2}\b/,
-                message: `${pageData.createProduct.validYearError}`
+                message: `${pageLabels.createProduct.validYearError}`
               }
             })}
             onChange={(e) => {
@@ -219,22 +219,22 @@ const CreateProductForm = () => {
 
         <div className='field-container'>
           <label htmlFor='potenciaHP' className='label'>
-            {pageData.createProduct.horsepower}
+            {pageLabels.createProduct.horsepower}
           </label>
           <input
             id='potenciaHP'
             type='text'
             value={data.potenciaHP}
             className={`input ${errors.potenciaHP && 'border-red1'}`}
-            placeholder={pageData.createProduct.horsepower}
+            placeholder={pageLabels.createProduct.horsepower}
             {...register('potenciaHP', {
               required: {
                 value: true,
-                message: `${pageData.createProduct.requiredError}`
+                message: `${pageLabels.createProduct.requiredError}`
               },
               pattern: {
                 value: /^\d{1,4}(\.\d{1,2})?$/,
-                message: `${pageData.createProduct.validNumberError}`
+                message: `${pageLabels.createProduct.validNumberError}`
               }
             })}
             onChange={(e) => {
@@ -249,22 +249,22 @@ const CreateProductForm = () => {
 
         <div className='field-container'>
           <label htmlFor='velocidad' className='label'>
-            {pageData.createProduct.speed}
+            {pageLabels.createProduct.speed}
           </label>
           <input
             id='velocidad'
             type='text'
             value={data.velocidad}
             className={`input ${errors.velocidad && 'border-red1'}`}
-            placeholder={pageData.createProduct.speed}
+            placeholder={pageLabels.createProduct.speed}
             {...register('velocidad', {
               required: {
                 value: true,
-                message: `${pageData.createProduct.requiredError}`
+                message: `${pageLabels.createProduct.requiredError}`
               },
               pattern: {
                 value: /^([1-9][0-9]{0,2}|1000)$/,
-                message: `${pageData.createProduct.validNumberError}`
+                message: `${pageLabels.createProduct.validNumberError}`
               }
             })}
             onChange={(e) => {
@@ -279,22 +279,22 @@ const CreateProductForm = () => {
 
         <div className='field-container'>
           <label htmlFor='aceleracion' className='label'>
-            {pageData.createProduct.acceleration}
+            {pageLabels.createProduct.acceleration}
           </label>
           <input
             id='aceleracion'
             type='text'
             value={data.aceleracion}
             className={`input ${errors.aceleracion && 'border-red1'}`}
-            placeholder={pageData.createProduct.acceleration}
+            placeholder={pageLabels.createProduct.acceleration}
             {...register('aceleracion', {
               required: {
                 value: true,
-                message: `${pageData.createProduct.requiredError}`
+                message: `${pageLabels.createProduct.requiredError}`
               },
               pattern: {
                 value: /^([1-9]|[1-9]\d|[1-9]\d\.\d|10|10\.0|[1-9]\.\d{1,2})$/,
-                message: `${pageData.createProduct.validNumberError}`
+                message: `${pageLabels.createProduct.validNumberError}`
               }
             })}
             onChange={(e) => {
@@ -309,22 +309,22 @@ const CreateProductForm = () => {
 
         <div className='field-container'>
           <label htmlFor='precioDia' className='label'>
-            {pageData.createProduct.dayPrice}
+            {pageLabels.createProduct.dayPrice}
           </label>
           <input
             id='precioDia'
             type='number'
             value={data.precioDia}
             className={`input ${errors.precioDia && 'border-red1'}`}
-            placeholder={pageData.createProduct.dayPrice}
+            placeholder={pageLabels.createProduct.dayPrice}
             {...register('precioDia', {
               required: {
                 value: true,
-                message: `${pageData.createProduct.requiredError}`
+                message: `${pageLabels.createProduct.requiredError}`
               },
               pattern: {
                 value: /^(0|[1-9]\d*)(\.\d{1,2})?$/,
-                message: `${pageData.createProduct.validNumberError}`
+                message: `${pageLabels.createProduct.validNumberError}`
               }
             })}
             onChange={(e) => {
@@ -340,11 +340,11 @@ const CreateProductForm = () => {
 
         <div className='field-container w-11/12'>
           <p className='label'>
-            {pageData.createProduct.category}
+            {pageLabels.createProduct.category}
           </p>
           <div className='flex justify-between'>
             {
-            pageData.categories.buttons.map((category, index) => (
+            pageLabels.categories.buttons.map((category, index) => (
               <div key={index} className='flex items-center gap-3'>
                 <input
                   type='checkbox'
@@ -367,18 +367,18 @@ const CreateProductForm = () => {
 
         <div className='field-container relative w-11/12'>
           <label htmlFor='descripcion' className='label'>
-            {pageData.createProduct.description}
+            {pageLabels.createProduct.description}
           </label>
           <textarea
             id='descripcion'
             maxLength={maxDescriptionCharacters}
             value={data.descripcion}
             className={`input description-input ${errors.descripcion && 'border-red1'}`}
-            placeholder={pageData.createProduct.description}
+            placeholder={pageLabels.createProduct.description}
             {...register('descripcion', {
               required: {
                 value: true,
-                message: `${pageData.createProduct.requiredError}`
+                message: `${pageLabels.createProduct.requiredError}`
               }
             })}
             onChange={(e) => {
@@ -387,7 +387,7 @@ const CreateProductForm = () => {
             }}
           />
           <div className='input-counter'>
-            {maxDescriptionCharacters - (data.descripcion?.length || 0)} {pageData.createProduct.characterCount}
+            {maxDescriptionCharacters - (data.descripcion?.length || 0)} {pageLabels.createProduct.characterCount}
           </div>
           {
           errors.descripcion && <FormErrorMessage message={errors.descripcion.message} error='description' />
@@ -396,7 +396,7 @@ const CreateProductForm = () => {
 
         <div className='field-container w-11/12'>
           <label htmlFor='imagenes' className='label'>
-            {pageData.createProduct.images}
+            {pageLabels.createProduct.images}
           </label>
           <div className='flex gap-4'>
             <input
@@ -412,7 +412,7 @@ const CreateProductForm = () => {
               onClick={() => document.getElementById('imagenes').click()}
             >
               <AiOutlineFileImage size={40} className='img-icon' />
-              <p className='img-placeholder'>{pageData.createProduct.imgPlaceholder}</p>
+              <p className='img-placeholder'>{pageLabels.createProduct.imgPlaceholder}</p>
             </button>
             <div className='preview-grid'>
               {filePreviews?.map((img, index) => (
@@ -421,9 +421,9 @@ const CreateProductForm = () => {
             </div>
           </div>
           {
-            imagesRequiredError && <FormErrorMessage message={pageData.createProduct.requiredError} error='images' />
+            imagesRequiredError && <FormErrorMessage message={pageLabels.createProduct.requiredError} error='images' />
           }
-          <p className='input-counter'>{filePreviews.length} {pageData.createProduct.fileCount}</p>
+          <p className='input-counter'>{filePreviews.length} {pageLabels.createProduct.fileCount}</p>
         </div>
 
         <div className='btn-container'>
@@ -441,7 +441,7 @@ const CreateProductForm = () => {
         success &&
           <div className='pop-up-bg success-bg'>
             <div className='success-box'>
-              <p className='success-text'>{pageData.createProduct.successMessage}</p>
+              <p className='success-text'>{pageLabels.createProduct.successMessage}</p>
             </div>
           </div>
       }

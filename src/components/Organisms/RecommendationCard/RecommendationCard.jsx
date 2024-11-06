@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 
 import './recommendationCard.css'
-import { pageData } from '../../../data/page'
+import { pageLabels } from '../../../data/pageLabels'
 import RentNowBtn from '../../Atoms/RentNowBtn/RentNowBtn'
 import ProductFeatures from '../../Molecules/ProductFeatures/ProductFeatures'
 
@@ -16,7 +16,7 @@ const RecommendationCard = ({ product }) => {
         <p className='recommendation-name'>{product.marca} {product.modelo}</p>
         <p className='recommendation-daily-price'>
           ${product.precioDia}
-          <span className='recommendation-day-text'>{pageData.productCard.dia}</span>
+          <span className='recommendation-day-text'>{pageLabels.productCard.dia}</span>
         </p>
         <ProductFeatures product={product} type='recommendation' />
         <RentNowBtn />
