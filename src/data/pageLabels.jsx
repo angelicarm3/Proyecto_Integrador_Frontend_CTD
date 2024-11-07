@@ -4,6 +4,7 @@ import {
   SUVCar,
   allCars
 } from '../assets/pageImg'
+import AddBtnUsers from '../components/Atoms/AddBtnUsers/AddBtnUsers'
 
 export const pageLabels = {
   buttons: {
@@ -93,9 +94,17 @@ export const pageLabels = {
   addBtn: {
     label: '+ Añadir'
   },
+  AddBtnUsers: {
+    label: '+ Añadir'
+  },
+
   adminProducts: {
     confirmDelation: '¿Desea eliminar este producto?',
     delete: 'Eliminar'
+  },
+  adminUsers: {
+    confirmDelate: '¿Desea eliminar este usuario',
+    deleteUser: 'Eliminar'
   },
   adminSearchBar: {
     placeholder: 'Palabra Clave'
