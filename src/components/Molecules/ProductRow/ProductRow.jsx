@@ -9,8 +9,7 @@ import { useNavigate } from 'react-router-dom'
 const ProductRow = ({ product, setShowConfirmDelete }) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  console.log(product)
-  console.log(product.categorias[0])
+
   const handleHide = () => {
     // Lógica para eliminar el producto
     console.log(`Ocultar producto ${product.id}`)
@@ -28,9 +27,10 @@ const ProductRow = ({ product, setShowConfirmDelete }) => {
     // Lógica para elditar el producto
     console.log(`Editar producto ${product.id}`)
   }
+
   const handleEditCategory = () => {
-    console.log('Agregar producto')
-    navigate('/administracion/agregar-producto')
+    console.log('Editar producto', product.id)
+    navigate(`/administracion/productos/editar/${product.id}`)
   }
 
   return (
@@ -39,7 +39,7 @@ const ProductRow = ({ product, setShowConfirmDelete }) => {
       <td className='border-l border-r px-4 py-2'>{product.marca} {product.modelo}</td>
       <td className='border-l border-r px-4 py-2 text-center flex flex-col'>
         <div className='self-end'>
-          <FaEdit className='text-gray-500' onClick={handleEditCategory} />
+          <FaEdit className='text-gray-500' onClick={() => { handleEditCategory(product.id) }} />
         </div>
         {product.categorias.map((categorie) => (
           <span key={categorie.id}>{categorie.nombre}</span>

@@ -10,6 +10,7 @@ import AdminProducts from './components/Pages/AdminProducts/AdminProducts'
 import AdminCreateProduct from './components/Pages/AdminCreateProduct/AdminCreateProduct.jsx'
 import ImagesPopUp from './components/Templates/ImagesPopUp/ImagesPopUp.jsx'
 import RentNowPopUp from './components/Templates/RentNowPopUp/RentNowPopUp.jsx'
+import AdminEditProduct from './components/Pages/AdminEditProduct/AdminEditProduct'
 
 function App () {
   const location = useLocation()
@@ -48,6 +49,7 @@ function App () {
           <Route path='administracion' element={<AdminPanel />} />
           <Route path='administracion/productos' element={<AdminProducts />} />
           <Route path='administracion/agregar-producto' element={<AdminCreateProduct />} />
+          <Route path='administracion/productos/editar/:id' element={<AdminEditProduct />} />
         </Route>
       </Routes>
 
