@@ -1,0 +1,148 @@
+/* AdminUsers.css */
+
+/* Contenedor principal */
+.admin-users-container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+  }
+  
+  /* Sección de encabezado y búsqueda */
+  .admin-users-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .admin-search-bar-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .admin-users-dropDown-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .admin-users-dropDown-container span {
+    margin-right: 10px;
+    font-weight: bold;
+  }
+  
+  /* Lista de usuarios */
+  .admin-users-list-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+  }
+  
+  .admin-users-list {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+  }
+  
+  .admin-users-list-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    background-color: #f3f4f6;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .admin-users-list-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid #e5e7eb;
+  }
+  
+  .admin-users-list-item:hover {
+    background-color: #f9fafb;
+  }
+  
+  /* Paginación */
+  .admin-users-pagination-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .admin-users-p {
+    font-size: 14px;
+    color: #6b7280;
+  }
+  
+  /* Confirmación de eliminación */
+  .admin-users-confirm-deletion-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .admin-users-confirm-deletion-modal {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    width: 300px;
+    text-align: center;
+  }
+  
+  .confirm-btn {
+    background-color: #f87171;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 15px;
+    width: 100%;
+  }
+  
+  .confirm-btn:hover {
+    background-color: #ef4444;
+  }
+  
+  /* Loading y Success */
+  .admin-users-loading,
+  .admin-users-success {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .admin-users-success {
+    background-color: rgba(0, 255, 0, 0.2);
+    color: green;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+  }
+  
+  .admin-users-loading {
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  
+  /* Responsividad */
+  @media (max-width: 768px) {
+    .admin-users-list {
+      grid-template-columns: 1fr;
+    }
+  }
+  
