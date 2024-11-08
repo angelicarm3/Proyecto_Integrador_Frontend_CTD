@@ -1,4 +1,3 @@
-// En adminUserSlice.js
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
@@ -44,9 +43,13 @@ export const deleteUserThunk = createAsyncThunk(
 // Obtener todos los usuarios
 export const fetchAllUsersAdminThunk = createAsyncThunk(
   'adminUsers/fetchAllUsersAdmin',
-  async (_, { dispatch }) => {
-    const response = await axios.get('https://yourapi.com/users');
-    return response.data;
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get('https://alluring-enchantment-production.up.railway.app/users/list')
+      return response.data
+    } catch (error) {
+      return rejectWithValue('Error al obtener los datos')
+    }
   }
 );
 
@@ -81,57 +84,21 @@ export const adminUserSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      
       .addCase(fetchAllUsersAdminThunk.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
+      
       .addCase(fetchAllUsersAdminThunk.fulfilled, (state, action) => {
         state.users = action.payload;
+        state.selectedAdminUser = null;
         state.loading = false;
       })
+      
       .addCase(fetchAllUsersAdminThunk.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload || 'Error al obtener usuarios';
-      })
-      .addCase(assignAdminRole.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(assignAdminRole.fulfilled, (state, action) => {
-        state.loading = false;
-        state.success = true;
-        state.users.push(action.payload);
-      })
-      .addCase(assignAdminRole.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload || 'Error al asignar rol de administrador';
-      })
-      .addCase(removeAdminRole.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(removeAdminRole.fulfilled, (state, action) => {
-        state.loading = false;
-        state.success = true;
-        state.users = state.users.filter(user => user.id !== action.meta.arg);
-      })
-      .addCase(removeAdminRole.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload || 'Error al quitar rol de administrador';
-      })
-      // Manejo de la acción deleteUserThunk
-      .addCase(deleteUserThunk.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(deleteUserThunk.fulfilled, (state, action) => {
-        state.loading = false;
-        state.success = true;
-        state.users = state.users.filter(user => user.id !== action.meta.arg); // Filtra el usuario eliminado
-      })
-      .addCase(deleteUserThunk.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload || 'Error al eliminar usuario';
       });
   },
 });

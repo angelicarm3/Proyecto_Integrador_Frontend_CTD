@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { pageLabels } from '../../../data/pageLabels'
-
+import './AddBtn.css'
 
 const AddBtn = ({ navigateTo }) => {
   const navigate = useNavigate()

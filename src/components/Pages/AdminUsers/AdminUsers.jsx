@@ -10,7 +10,6 @@ import Pagination from '../../Molecules/Pagination/Pagination';
 import CancelBtn from '../../Atoms/CancelBtn/CancelBtn';
 import { AiOutlineLoading } from 'react-icons/ai';
 import { pageLabels } from '../../../data/pageLabels';
-import AddBtnUsers from '../../Atoms/AddBtnUsers/AddBtnUsers'; // Importar el botón para añadir usuario
 import './AdminUsers.css';
 
 const AdminUsers = () => {
@@ -19,7 +18,7 @@ const AdminUsers = () => {
   const headers = ['ID', 'Nombre', 'Email', 'Rol', 'Acciones'];
 
   const [showConfirmDelete, setShowConfirmDelete] = useState(false);
-  const { selectedUser, loading, error, success } = useSelector((state) => state.adminUsers);
+  const { users, selectedUser, loading, error, success, itemsToShow, currentPage } = useSelector((state) => state.adminUsers);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -35,9 +34,6 @@ const AdminUsers = () => {
     }
   }, [success, dispatch]);
 
-  const usersList = useSelector((state) => state.adminUsers.allUsers) || [];
-  const itemsToShow = useSelector((state) => state.adminUsers.itemsToShow);
-  const currentPage = useSelector((state) => state.adminUsers.currentPage);
 
   const handleSelect = (count) => {
     dispatch(setItemsToShow(count));
@@ -56,18 +52,19 @@ const AdminUsers = () => {
     dispatch(setPage(page));
   };
 
-  const totalItems = usersList.length;
+  const totalItems = users.length;
   const startIndex = (currentPage - 1) * itemsToShow;
   const endIndex = startIndex + itemsToShow;
-  const currentUsers = usersList.slice(startIndex, endIndex);
+  const currentUsers = users.slice(startIndex, endIndex);
+
+console.log(users);
 
   return (
     <div className='admin-users-container'>
       <section className='admin-users-section'>
-        <AddBtnUsers navigateTo='/administracion/agregar-usuario' /> {/* Botón de añadir usuario */}
-
+        
         <div className='admin-search-bar-container'>
-          <AdminSearchBar usersList={usersList} />
+          <AdminSearchBar usersList={users} />
           <SearchBtn />
         </div>
 

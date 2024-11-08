@@ -4,7 +4,6 @@ import {
   SUVCar,
   allCars
 } from '../assets/pageImg'
-import AddBtnUsers from '../components/Atoms/AddBtnUsers/AddBtnUsers'
 
 export const pageLabels = {
   buttons: {
