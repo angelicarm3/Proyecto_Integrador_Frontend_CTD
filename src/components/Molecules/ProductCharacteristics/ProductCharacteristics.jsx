@@ -1,10 +1,10 @@
 import './productCharacteristics.css'
-import { pageData } from '../../../data/page'
+import { pageLabels } from '../../../data/pageLabels'
 
 const ProductCharacteristics = ({ characteristics }) => {
   return (
     <div className='product-characteristics-container'>
-      <p className='product-characteristics-title'>{pageData.characteristics.title}</p>
+      <p className='product-characteristics-title'>{pageLabels.characteristics.title}</p>
       <div className='product-characteristics-grid'>
         {
         characteristics.map((characteristic, index) => (

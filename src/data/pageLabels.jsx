@@ -1,10 +1,3 @@
-import {
-  premiumCar,
-  sportsCar,
-  SUVCar,
-  allCars
-} from '../assets/pageImg'
-
 export const pageLabels = {
   buttons: {
     logIn: 'Iniciar sesión',
