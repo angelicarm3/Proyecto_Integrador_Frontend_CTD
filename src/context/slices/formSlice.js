@@ -49,7 +49,8 @@ const initialState = {
   loading: false,
   error: null,
   success: false,
-  imgSuccess: false
+  imgSuccess: false,
+  hasSubmited: false
 }
 
 const formSlice = createSlice({
@@ -67,6 +68,9 @@ const formSlice = createSlice({
           state.productData[field] = value
         }
       }
+    },
+    updateHasSubmited: (state) => {
+      state.hasSubmited = !state.hasSubmited
     },
     clearError: (state) => {
       state.error = null
@@ -114,5 +118,5 @@ const formSlice = createSlice({
   }
 })
 
-export const { updateField, clearError, resetForm } = formSlice.actions
+export const { updateField, clearError, resetForm, updateHasSubmited } = formSlice.actions
 export default formSlice.reducer
