@@ -91,6 +91,7 @@ const AdminProducts = () => {
         <Pagination totalItems={totalItems} itemsToShow={itemsToShow} handlePageChange={handlePageChange} currentPage={currentPage} />
         <p className='admin-products-p'>{`Resultados ${startIndex + 1} a ${endIndex} de ${totalItems}`}</p>
       </div>
+
       {
         showConfirmDelete &&
           <div className='admin-products-confirm-delation-container pop-up-bg '>

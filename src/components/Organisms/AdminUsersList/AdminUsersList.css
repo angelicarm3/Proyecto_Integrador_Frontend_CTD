@@ -1,0 +1,33 @@
+.admin-users-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .table-cell {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .icon-button {
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .grant-btn {
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  .revoke-btn {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .icon-button:hover {
+    opacity: 0.8;
+  }
+  

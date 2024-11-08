@@ -18,6 +18,13 @@ const AdminPanel = () => {
         >
           {pageLabels.adminPanel.productsList}
         </Link>
+
+        <Link
+          to='/administracion/usuarios'
+          className='admin-panel-link'
+        >
+          {pageLabels.adminPanel.usersList}
+        </Link>
       </section>
     </div>
   )

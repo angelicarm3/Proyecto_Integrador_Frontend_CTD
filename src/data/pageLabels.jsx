@@ -1,10 +1,3 @@
-import {
-  premiumCar,
-  sportsCar,
-  SUVCar,
-  allCars
-} from '../assets/pageImg'
-
 export const pageLabels = {
   buttons: {
     logIn: 'Iniciar sesión',
@@ -23,31 +16,11 @@ export const pageLabels = {
   },
   categories: {
     title: 'Categorías',
-    buttons: [
-      {
-        id: 1,
-        img: sportsCar,
-        text: 'Deportivo',
-        filter: 'Sports'
-      },
-      {
-        id: 2,
-        img: premiumCar,
-        text: 'Premium',
-        filter: 'Premium'
-      },
-      {
-        id: 3,
-        img: SUVCar,
-        text: 'SUV',
-        filter: 'SUV'
-      },
-      {
-        img: allCars,
-        text: 'Todos',
-        filter: 'All'
-      }
-    ]
+    resultCountOne: ' coincidencia de ',
+    resultCount: ' coincidencias de '
+  },
+  characteristics: {
+    title: 'Características'
   },
   productCard: {
     dia: '/día',
@@ -70,15 +43,17 @@ export const pageLabels = {
     horsepower: 'Potencia del motor (CV)',
     speed: 'Velocidad máxima (km/h)',
     acceleration: 'Aceleración (0-100km)',
-    dayPrice: 'Precio por día',
-    category: 'Categorías',
-    description: 'Descripción',
-    images: 'Imágenes (max. 10 archivos)',
+    dayPrice: 'Precio por día ($)',
+    characteristic: 'Características (Seleccione todas las que apliquen)',
+    category: 'Categorías (Seleccione todas las que apliquen)',
+    description: 'Descripción (Máximo 200 caracteres)',
+    images: 'Imágenes (Máximo 10 archivos)',
     characterCount: 'caracteres restantes',
     imgPlaceholder: 'Seleccionar imágenes',
     fileCount: 'archivos seleccionados',
     successMessage: '¡Producto creado con éxito!',
     requiredError: 'Este campo es obligatorio',
+    requiredSelectionError: 'Por favor selecciona al menos una opción',
     validPlateError: 'Ingrese una matrícula válida',
     validYearError: 'Ingrese un año válido',
     validNumberError: 'Ingrese un número válido',
@@ -87,14 +62,23 @@ export const pageLabels = {
   adminPanel: {
     mobileMessage: 'No disponible en dispositivos móviles',
     mainTitle: 'Panel de Administración',
-    productsList: 'Lista de productos'
+    productsList: 'Lista de productos',
+    usersList: 'Usuarios'
   },
   addBtn: {
     label: '+ Añadir'
   },
+  AddBtnUsers: {
+    label: '+ Añadir'
+  },
+
   adminProducts: {
     confirmDelation: '¿Desea eliminar este producto?',
     delete: 'Eliminar'
+  },
+  adminUsers: {
+    confirmDelate: '¿Desea eliminar este usuario',
+    deleteUser: 'Eliminar'
   },
   adminSearchBar: {
     placeholder: 'Palabra Clave'

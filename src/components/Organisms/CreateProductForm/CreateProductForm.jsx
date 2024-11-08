@@ -3,65 +3,46 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import { AiOutlineFileImage, AiOutlineLoading } from 'react-icons/ai'
+import { AiOutlineClose, AiOutlineFileImage, AiOutlineLoading } from 'react-icons/ai'
 
 import './createProductForm.css'
 import { pageLabels } from '../../../data/pageLabels'
-import { submitFormThunk, uploadImagesThunk, updateField, clearError, resetForm } from '../../../context/slices/formSlice'
+import useImageUpload from '../../../hooks/useImageUpload'
+import { createProductFormFields } from '../../../service/createProductService'
+import { fetchAllCategoriesThunk } from '../../../context/slices/categorySlice'
+import { fetchAllCharacteristicsThunk } from '../../../context/slices/characteristicSlice'
+import { submitFormThunk, uploadImagesThunk, updateField, clearError, resetForm, updateHasSubmited } from '../../../context/slices/formSlice'
 import BackBtn from '../../Atoms/BackBtn/BackBtn'
+import FormField from '../../Molecules/FormField/FormField'
 import CancelBtn from '../../Atoms/CancelBtn/CancelBtn'
 import SaveBtn from '../../Atoms/SaveBtn/SaveBtn'
 import FormErrorMessage from '../../Atoms/FormErrorMessage/FormErrorMessage'
+import ButtonField from '../../Molecules/CheckboxField/ButtonField'
 
 const CreateProductForm = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const [selectedImages, setSelectedImages] = useState([])
-  const [filePreviews, setFilePreviews] = useState([])
-  const [imagesRequiredError, setImagesRequiredError] = useState(false)
-  const [selectedCategories, setSelectedCategories] = useState([])
-  const { data, loading, error, success, imgSuccess } = useSelector((state) => state.form)
+  const { productData, loading, error, success, imgSuccess } = useSelector((state) => state.form)
+  const allCategories = useSelector((state) => state.category.allCategories)
+  const allCharacteristics = useSelector((state) => state.characteristic.allCharacteristics)
+  const { selectedImages, filePreviews, imagesRequiredError, setImagesRequiredError, handleFileChange, removeImage } = useImageUpload()
   const maxDescriptionCharacters = 200
-  const maxFiles = 10
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    clearErrors
-  } = useForm({ mode: 'onBlur' })
+  const [selectedCategories, setSelectedCategories] = useState([])
+  const [selectedCharacteristics, setSelectedCharacteristics] = useState([])
+  const { register, handleSubmit, formState: { errors }, clearErrors } = useForm({ mode: 'onBlur' })
 
   useEffect(() => {
-    if (success) {
-      window.scrollTo(0, 0)
-      setTimeout(() => {
-        dispatch(resetForm())
-        navigate(-1)
-      }, '3000')
-    }
-  }, [success, navigate, dispatch])
+    window.scrollTo(0, 0)
+    dispatch(fetchAllCategoriesThunk())
+    dispatch(fetchAllCharacteristicsThunk())
+  }, [dispatch])
 
-  const handleFileChange = (event) => {
-    setImagesRequiredError(false)
-    const files = Array.from(event.target.files)
-    setSelectedImages(files.slice(0, maxFiles))
-    setFilePreviews(files.slice(0, maxFiles).map((file) => ({
-      url: URL.createObjectURL(file)
-    })))
-  }
-
-  const handleCategoryChange = (e, category) => {
-    const { checked } = e.target
-
-    setSelectedCategories((prev) =>
-      checked
-        ? [...prev, { nombre: category.filter }]
-        : prev.filter((selected) => selected.id !== category.id)
+  const handleSelectionChange = (item, setState) => {
+    setState((prev) =>
+      prev.some(selected => selected.id === item.id)
+        ? prev.filter(selected => selected.id !== item.id)
+        : [...prev, item]
     )
-  }
-
-  const handleCancelClick = () => {
-    navigate(-1)
   }
 
   const handleInputChange = (e) => {
@@ -70,29 +51,43 @@ const CreateProductForm = () => {
       dispatch(clearError())
     }
     clearErrors(id)
-    dispatch(updateField({ field: id, value }))
+    dispatch(updateField({ field: id, value, form: 'createProduct' }))
+  }
+
+  const handleCancelClick = () => {
+    navigate(-1)
   }
 
   const onSubmit = () => {
+    window.scrollTo(0, 0)
+    dispatch(updateHasSubmited())
     if (selectedImages.length === 0) {
       setImagesRequiredError(true)
     } else {
-      dispatch(updateField({ field: 'categorias', value: selectedCategories }))
-      dispatch(uploadImagesThunk(selectedImages))
+      dispatch(updateField({ field: 'categorias', value: selectedCategories, form: 'createProduct' }))
+      dispatch(updateField({ field: 'caracteristicas', value: selectedCharacteristics, form: 'createProduct' }))
+      dispatch(uploadImagesThunk({ files: selectedImages, form: 'createProduct' }))
     }
   }
 
   useEffect(() => {
-    if (imgSuccess && data.imagenes.length > 0) {
-      dispatch(submitFormThunk(data))
+    if (imgSuccess && productData.imagenes.length > 0) {
+      dispatch(submitFormThunk({ formData: productData, formURL: 'autos/register' }))
     }
-    console.log('Objeto creado')
-  }, [imgSuccess, data])
+  }, [imgSuccess, productData, dispatch])
 
-  console.log(data)
-  console.log(success)
-  console.log(imgSuccess)
-  console.log(error)
+  useEffect(() => {
+    if (success) {
+      setTimeout(() => {
+        dispatch(resetForm())
+        navigate(-1)
+      }, '3000')
+    }
+  }, [success, navigate, dispatch])
+
+  console.log(productData)
+  console.log(selectedCategories)
+  console.log(selectedCharacteristics)
 
   return (
     <form className='create-product-form-container' onSubmit={handleSubmit(onSubmit)}>
@@ -102,268 +97,41 @@ const CreateProductForm = () => {
       <p className='title form-title'>{pageLabels.createProduct.title}</p>
 
       <div className='form-fields-container'>
-        <div className='field-container'>
-          <label htmlFor='marca' className='label'>
-            {pageLabels.createProduct.make}
-          </label>
-          <input
-            id='marca'
-            type='text'
-            value={data.marca}
-            className={`input ${errors.marca && 'border-red1'}`}
-            placeholder={pageLabels.createProduct.make}
-            {...register('marca', {
-              required: {
-                value: true,
-                message: `${pageLabels.createProduct.requiredError}`
-              }
-            })}
-            onChange={(e) => {
-              handleInputChange(e)
-              e.target.dispatchEvent(new Event('input', { bubbles: true }))
-            }}
-          />
-          {
-          errors.marca && <FormErrorMessage message={errors.marca.message} />
+        {
+          createProductFormFields.map(({ id, label, validation, extraErrorMessage }) => (
+            <FormField
+              key={id}
+              id={id}
+              label={label}
+              value={productData[id]}
+              register={register}
+              validation={{
+                required: { value: true, message: pageLabels.createProduct.requiredError },
+                ...validation
+              }}
+              onChange={handleInputChange}
+              error={errors[id]}
+              promiseError={error}
+              extraErrorMessage={extraErrorMessage}
+            />
+          ))
         }
-        </div>
 
-        <div className='field-container'>
-          <label htmlFor='modelo' className='label'>
-            {pageLabels.createProduct.model}
-          </label>
-          <input
-            id='modelo'
-            type='text'
-            value={data.modelo}
-            className={`input ${errors.modelo && 'border-red1'}`}
-            placeholder={pageLabels.createProduct.model}
-            {...register('modelo', {
-              required: {
-                value: true,
-                message: `${pageLabels.createProduct.requiredError}`
-              }
-            })}
-            onChange={(e) => {
-              handleInputChange(e)
-              e.target.dispatchEvent(new Event('input', { bubbles: true }))
-            }}
-          />
-          {
-          errors.modelo && <FormErrorMessage message={errors.modelo.message} />
-          }
-        </div>
+        <ButtonField
+          items={allCharacteristics}
+          label={pageLabels.createProduct.characteristic}
+          selectedItems={selectedCharacteristics}
+          onChange={(item) => handleSelectionChange(item, setSelectedCharacteristics)}
+          errorMessage={pageLabels.createProduct.requiredSelectionError}
+        />
 
-        <div className='field-container'>
-          <label htmlFor='matricula' className='label'>
-            {pageLabels.createProduct.plate}
-          </label>
-          <input
-            id='matricula'
-            type='text'
-            value={data.matricula}
-            className={`input ${(errors.matricula || error?.includes('ya existe en el sistema')) && 'border-red1'}`}
-            placeholder={pageLabels.createProduct.plate}
-            {...register('matricula', {
-              required: {
-                value: true,
-                message: `${pageLabels.createProduct.requiredError}`
-              },
-              pattern: {
-                value: /^[A-Z]{3}\d{3}$/,
-                message: `${pageLabels.createProduct.validPlateError}`
-              }
-            })}
-            onChange={(e) => {
-              handleInputChange(e)
-              e.target.dispatchEvent(new Event('input', { bubbles: true }))
-            }}
-          />
-          {
-          errors.matricula && <FormErrorMessage message={errors.matricula.message} />
-          }
-          {
-          error && error.includes('ya existe en el sistema') && <FormErrorMessage message={pageLabels.createProduct.existingProductError} />
-          }
-        </div>
-
-        <div className='field-container'>
-          <label htmlFor='fechaFabricacion' className='label'>
-            {pageLabels.createProduct.year}
-          </label>
-          <input
-            id='fechaFabricacion'
-            type='text'
-            value={data.fechaFabricacion}
-            className={`input ${errors.fechaFabricacion && 'border-red1'}`}
-            placeholder={pageLabels.createProduct.year}
-            {...register('fechaFabricacion', {
-              required: {
-                value: true,
-                message: `${pageLabels.createProduct.requiredError}`
-              },
-              pattern: {
-                value: /\b(19|20)\d{2}\b/,
-                message: `${pageLabels.createProduct.validYearError}`
-              }
-            })}
-            onChange={(e) => {
-              handleInputChange(e)
-              e.target.dispatchEvent(new Event('input', { bubbles: true }))
-            }}
-          />
-          {
-          errors.fechaFabricacion && <FormErrorMessage message={errors.fechaFabricacion.message} />
-          }
-        </div>
-
-        <div className='field-container'>
-          <label htmlFor='potenciaHP' className='label'>
-            {pageLabels.createProduct.horsepower}
-          </label>
-          <input
-            id='potenciaHP'
-            type='text'
-            value={data.potenciaHP}
-            className={`input ${errors.potenciaHP && 'border-red1'}`}
-            placeholder={pageLabels.createProduct.horsepower}
-            {...register('potenciaHP', {
-              required: {
-                value: true,
-                message: `${pageLabels.createProduct.requiredError}`
-              },
-              pattern: {
-                value: /^\d{1,4}(\.\d{1,2})?$/,
-                message: `${pageLabels.createProduct.validNumberError}`
-              }
-            })}
-            onChange={(e) => {
-              handleInputChange(e)
-              e.target.dispatchEvent(new Event('input', { bubbles: true }))
-            }}
-          />
-          {
-          errors.potenciaHP && <FormErrorMessage message={errors.potenciaHP.message} />
-          }
-        </div>
-
-        <div className='field-container'>
-          <label htmlFor='velocidad' className='label'>
-            {pageLabels.createProduct.speed}
-          </label>
-          <input
-            id='velocidad'
-            type='text'
-            value={data.velocidad}
-            className={`input ${errors.velocidad && 'border-red1'}`}
-            placeholder={pageLabels.createProduct.speed}
-            {...register('velocidad', {
-              required: {
-                value: true,
-                message: `${pageLabels.createProduct.requiredError}`
-              },
-              pattern: {
-                value: /^([1-9][0-9]{0,2}|1000)$/,
-                message: `${pageLabels.createProduct.validNumberError}`
-              }
-            })}
-            onChange={(e) => {
-              handleInputChange(e)
-              e.target.dispatchEvent(new Event('input', { bubbles: true }))
-            }}
-          />
-          {
-          errors.velocidad && <FormErrorMessage message={errors.velocidad.message} />
-          }
-        </div>
-
-        <div className='field-container'>
-          <label htmlFor='aceleracion' className='label'>
-            {pageLabels.createProduct.acceleration}
-          </label>
-          <input
-            id='aceleracion'
-            type='text'
-            value={data.aceleracion}
-            className={`input ${errors.aceleracion && 'border-red1'}`}
-            placeholder={pageLabels.createProduct.acceleration}
-            {...register('aceleracion', {
-              required: {
-                value: true,
-                message: `${pageLabels.createProduct.requiredError}`
-              },
-              pattern: {
-                value: /^([1-9]|[1-9]\d|[1-9]\d\.\d|10|10\.0|[1-9]\.\d{1,2})$/,
-                message: `${pageLabels.createProduct.validNumberError}`
-              }
-            })}
-            onChange={(e) => {
-              handleInputChange(e)
-              e.target.dispatchEvent(new Event('input', { bubbles: true }))
-            }}
-          />
-          {
-          errors.aceleracion && <FormErrorMessage message={errors.aceleracion.message} />
-          }
-        </div>
-
-        <div className='field-container'>
-          <label htmlFor='precioDia' className='label'>
-            {pageLabels.createProduct.dayPrice}
-          </label>
-          <input
-            id='precioDia'
-            type='number'
-            value={data.precioDia}
-            className={`input ${errors.precioDia && 'border-red1'}`}
-            placeholder={pageLabels.createProduct.dayPrice}
-            {...register('precioDia', {
-              required: {
-                value: true,
-                message: `${pageLabels.createProduct.requiredError}`
-              },
-              pattern: {
-                value: /^(0|[1-9]\d*)(\.\d{1,2})?$/,
-                message: `${pageLabels.createProduct.validNumberError}`
-              }
-            })}
-            onChange={(e) => {
-              const value = e.target.value
-              handleInputChange({ target: { id: 'precioDia', value: parseFloat(value) } })
-              e.target.dispatchEvent(new Event('input', { bubbles: true }))
-            }}
-          />
-          {
-          errors.precioDia && <FormErrorMessage message={errors.precioDia.message} />
-          }
-        </div>
-
-        <div className='field-container w-11/12'>
-          <p className='label'>
-            {pageLabels.createProduct.category}
-          </p>
-          <div className='flex justify-between'>
-            {
-            pageLabels.categories.buttons.map((category, index) => (
-              <div key={index} className='flex items-center gap-3'>
-                <input
-                  type='checkbox'
-                  name={`${category.filter}`}
-                  className={`input ${errors.categorias ? 'border-red1' : category.filter === 'All' && 'hidden'}`}
-                  onChange={(e) => {
-                    handleCategoryChange(e, category)
-                    e.target.dispatchEvent(new Event('input', { bubbles: true }))
-                  }}
-                />
-                <label htmlFor={category.filter} className={` ${category.filter === 'All' && 'hidden'}`}>{category.text}</label>
-              </div>
-            ))
-            }
-          </div>
-          {
-          errors.categorias && <FormErrorMessage message={errors.categorias.message} />
-          }
-        </div>
+        <ButtonField
+          items={allCategories}
+          label={pageLabels.createProduct.category}
+          selectedItems={selectedCategories}
+          onChange={(item) => handleSelectionChange(item, setSelectedCategories)}
+          errorMessage={pageLabels.createProduct.requiredSelectionError}
+        />
 
         <div className='field-container relative w-11/12'>
           <label htmlFor='descripcion' className='label'>
@@ -372,7 +140,7 @@ const CreateProductForm = () => {
           <textarea
             id='descripcion'
             maxLength={maxDescriptionCharacters}
-            value={data.descripcion}
+            value={productData.descripcion}
             className={`input description-input ${errors.descripcion && 'border-red1'}`}
             placeholder={pageLabels.createProduct.description}
             {...register('descripcion', {
@@ -387,14 +155,14 @@ const CreateProductForm = () => {
             }}
           />
           <div className='input-counter'>
-            {maxDescriptionCharacters - (data.descripcion?.length || 0)} {pageLabels.createProduct.characterCount}
+            {maxDescriptionCharacters - (productData.descripcion?.length || 0)} {pageLabels.createProduct.characterCount}
           </div>
           {
           errors.descripcion && <FormErrorMessage message={errors.descripcion.message} error='description' />
           }
         </div>
 
-        <div className='field-container w-11/12'>
+        <div className='field-container relative w-11/12'>
           <label htmlFor='imagenes' className='label'>
             {pageLabels.createProduct.images}
           </label>
@@ -415,9 +183,14 @@ const CreateProductForm = () => {
               <p className='img-placeholder'>{pageLabels.createProduct.imgPlaceholder}</p>
             </button>
             <div className='preview-grid'>
-              {filePreviews?.map((img, index) => (
-                <img key={index} src={img.url} alt={`Foto ${index + 1}`} className='preview-img' />
-              ))}
+              {
+                filePreviews?.map((img, index) => (
+                  <div key={index} className='relative'>
+                    <img src={img.url} alt={`Foto ${index + 1}`} className='preview-img' />
+                    <AiOutlineClose className='absolute top-0 right-0 cursor-pointer hover:text-gray3' size={20} onClick={() => removeImage(index)} />
+                  </div>
+                ))
+              }
             </div>
           </div>
           {

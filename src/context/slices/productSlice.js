@@ -29,23 +29,28 @@ export const productSlice = createSlice({
   name: 'product',
   initialState: {
     allProducts: [],
+    totalProducts: 0,
     filteredProducts: null,
+    resultsQuantity: 0,
     recommendedProducts: null,
-    selectedCategory: 'All',
+    selectedCategory: 'Todos',
     selectedProduct: null,
     mainImg: '',
-    otherImg: []
+    otherImg: [],
+    loading: false,
+    error: null
   },
 
   reducers: {
     getProductsByCategory: (state, action) => {
-      if (action.payload === 'All') {
+      if (action.payload === 'Todos') {
         state.filteredProducts = state.allProducts
-        state.selectedCategory = 'All'
+        state.selectedCategory = 'Todos'
       } else {
         state.filteredProducts = state.allProducts.filter((product) => product.categorias.some((categoria) => categoria.nombre === action.payload))
         state.selectedCategory = action.payload
       }
+      state.resultsQuantity = state.filteredProducts.length
     },
     getRecommendedProducts: (state) => {
       state.recommendedProducts = state.allProducts
@@ -74,7 +79,9 @@ export const productSlice = createSlice({
       .addCase(fetchAllProductsThunk.fulfilled, (state, action) => {
         state.allProducts = action.payload
         state.filteredProducts = shuffleArray(state.allProducts)
-        state.selectedCategory = 'All'
+        state.totalProducts = state.allProducts.length
+        state.resultsQuantity = state.filteredProducts.length
+        state.selectedCategory = 'Todos'
         state.selectedProduct = null
         state.loading = false
       })
