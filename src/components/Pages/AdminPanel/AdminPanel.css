@@ -4,7 +4,7 @@
 
 @layer components {
     .admin-panel-container {
-        @apply h-full flex flex-col justify-center p-4 mt-[168px]
+        @apply h-full flex flex-col  p-4 mt-[100px]
     }
 
     .admin-panel-mobile-message-div {
@@ -24,6 +24,6 @@
     }
 
     .admin-panel-link {
-        @apply mt-4 bg-yellow1 text-white px-4 py-2 rounded
+        @apply w-[200px] mt-4 bg-yellow1 text-white text-center px-4 py-2 rounded
     }
 }
