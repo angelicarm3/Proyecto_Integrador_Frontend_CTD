@@ -13,7 +13,7 @@ const UserRow = ({ user, setShowConfirmDelete }) => {
       <td className="px-4 py-2">{user.id}</td>
       <td className="px-4 py-2">{user.nombre} {user.apellido}</td>
       <td className="px-4 py-2">{user.email}</td>
-      <td className="px-4 py-2">{user.esAdmin}</td>
+      <td className="px-4 py-2">{user.esAdmin ? "Administrador" : "Usuario"}</td>
       <td className="px-4 py-2">
         <div className='flex space-x-3 justify-center'>
           <button
