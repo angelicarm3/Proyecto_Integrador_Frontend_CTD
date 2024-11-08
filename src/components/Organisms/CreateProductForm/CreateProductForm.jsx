@@ -359,7 +359,7 @@ const CreateProductForm = () => {
 
         <div className='field-container w-11/12'>
           <p className='label'>
-            {pageData.createProduct.characteristic}
+            {pageLabels.createProduct.characteristic}
           </p>
           <div className='flex flex-wrap gap-x-6'>
             {
@@ -436,7 +436,7 @@ const CreateProductForm = () => {
             }}
           />
           <div className='input-counter'>
-            {maxDescriptionCharacters - (data.descripcion?.length || 0)} {pageLabels.createProduct.characterCount}
+            {maxDescriptionCharacters - (productData.descripcion?.length || 0)} {pageLabels.createProduct.characterCount}
           </div>
           {
           errors.descripcion && <FormErrorMessage message={errors.descripcion.message} error='description' />

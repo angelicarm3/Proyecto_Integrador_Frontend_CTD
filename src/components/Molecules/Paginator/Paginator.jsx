@@ -4,7 +4,7 @@ import { FaAngleLeft, FaAngleRight } from 'react-icons/fa'
 import { IconContext } from 'react-icons'
 
 import './paginator.css'
-import { pageData } from '../../../data/page'
+import { pageLabels } from '../../../data/pageLabels'
 
 const Paginator = ({ onClick }) => {
   const pageCount = useSelector((state) => state.paginator.pageCount)
@@ -32,7 +32,7 @@ const Paginator = ({ onClick }) => {
           </IconContext.Provider>
         }
       />
-      <p className='results-container'>{resultsQuantity}{resultsQuantity === 1 ? pageData.categories.resultCountOne : pageData.categories.resultCount}{totalProducts}</p>
+      <p className='results-container'>{resultsQuantity}{resultsQuantity === 1 ? pageLabels.categories.resultCountOne : pageLabels.categories.resultCount}{totalProducts}</p>
     </div>
   )
 }
