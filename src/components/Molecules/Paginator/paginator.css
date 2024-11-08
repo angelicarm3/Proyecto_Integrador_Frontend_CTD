@@ -4,7 +4,7 @@
 
 @layer components {
   .paginator-container {
-    @apply w-full flex justify-between items-center
+    @apply w-10/12 md:w-full flex justify-between self-center items-center
   }
   .pagination {
     @apply w-7 h-7 flex self-center justify-center items-center font-Roboto font-bold text-white list-none cursor-pointer mt-0.5

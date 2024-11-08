@@ -1,0 +1,77 @@
+/* Contenedor principal de la página de usuarios */
+.admin-users-container {
+  @apply p-6 flex flex-col mt-8;
+}
+
+/* Sección superior que contiene el botón de añadir usuario, barra de búsqueda y dropdown */
+.admin-users-section {
+  @apply flex flex-col md:flex-row items-center justify-between gap-4 mb-6;
+}
+
+/* Contenedor de la barra de búsqueda */
+.admin-search-bar-container {
+  @apply flex flex-1 gap-4;
+}
+
+/* Contenedor del dropdown para seleccionar los resultados */
+.admin-users-dropDown-container {
+  @apply flex items-center gap-4 text-lg text-gray-700;
+}
+
+/* Contenedor para el listado de usuarios */
+.admin-users-list-container {
+  @apply mt-6;
+}
+
+/* Contenedor para la paginación y resultados */
+.admin-users-pagination-container {
+  @apply flex justify-between items-center mt-4;
+}
+
+.admin-users-p {
+  @apply text-sm text-gray-500;
+}
+
+/* Confirmación de eliminación de usuario */
+.admin-users-confirm-deletion-container {
+  @apply fixed inset-0 bg-opacity-50 bg-gray-800 flex justify-center items-center z-50;
+}
+
+.admin-users-confirm-deletion-modal {
+  @apply w-10/12 md:w-8/12 h-44 flex flex-col justify-center items-center bg-white border-2 border-gray-300 rounded-lg shadow-lg;
+}
+
+.admin-users-confirm-deletion-modal-p {
+  @apply text-xl font-semibold text-black;
+}
+
+.admin-users-confirm-deletion-modal-btn {
+  @apply w-24 h-10 mt-4 bg-red-500 text-white font-bold rounded-lg hover:bg-red-600 transition-all duration-300;
+}
+
+/* Botón de cancelación */
+.admin-users-cancel-btn {
+  @apply mt-4 w-24 h-10 bg-gray-300 text-gray-800 font-bold rounded-lg hover:bg-gray-400 transition-all duration-300;
+}
+
+/* Contenedor de carga */
+.admin-users-loading {
+  @apply fixed inset-0 bg-opacity-50 bg-gray-800 flex justify-center items-center z-50;
+}
+
+.loader-icon {
+  @apply text-white animate-spin;
+}
+
+/* Contenedor de éxito de eliminación */
+.admin-users-success {
+  @apply fixed inset-0 bg-opacity-50 bg-gray-800 flex justify-center items-center z-50;
+}
+
+.admin-users-success {
+  @apply h-40 flex justify-center items-center bg-white border-2 border-green-400 rounded-lg shadow-lg;
+}
+
+.admin-users-success p {
+  @apply text-xl text-green-600 font-semibold;
+}

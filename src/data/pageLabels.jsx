@@ -61,14 +61,23 @@ export const pageLabels = {
   adminPanel: {
     mobileMessage: 'No disponible en dispositivos móviles',
     mainTitle: 'Panel de Administración',
-    productsList: 'Lista de productos'
+    productsList: 'Lista de productos',
+    usersList: 'Usuarios'
   },
   addBtn: {
     label: '+ Añadir'
   },
+  AddBtnUsers: {
+    label: '+ Añadir'
+  },
+
   adminProducts: {
     confirmDelation: '¿Desea eliminar este producto?',
     delete: 'Eliminar'
+  },
+  adminUsers: {
+    confirmDelate: '¿Desea eliminar este usuario',
+    deleteUser: 'Eliminar'
   },
   adminSearchBar: {
     placeholder: 'Palabra Clave'

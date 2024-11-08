@@ -6,6 +6,7 @@ import characteristicReducer from './slices/characteristicSlice'
 import paginatorReducer from './slices/paginatorSlice'
 import formReducer from './slices/formSlice'
 import adminProductsReducer from './slices/adminProductSlice'
+import adminUserReducer from './slices/adminUserSlice';
 
 export default configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export default configureStore({
     characteristic: characteristicReducer,
     paginator: paginatorReducer,
     form: formReducer,
-    adminProducts: adminProductsReducer
+    adminProducts: adminProductsReducer,
+    adminUsers: adminUserReducer
   }
 })
