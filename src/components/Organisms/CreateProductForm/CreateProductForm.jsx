@@ -7,6 +7,8 @@ import { AiOutlineFileImage, AiOutlineLoading } from 'react-icons/ai'
 
 import './createProductForm.css'
 import { pageLabels } from '../../../data/pageLabels'
+import { fetchAllCategoriesThunk } from '../../../context/slices/categorySlice'
+import { fetchAllCharacteristicsThunk } from '../../../context/slices/characteristicSlice'
 import { submitFormThunk, uploadImagesThunk, updateField, clearError, resetForm } from '../../../context/slices/formSlice'
 import BackBtn from '../../Atoms/BackBtn/BackBtn'
 import CancelBtn from '../../Atoms/CancelBtn/CancelBtn'
@@ -20,9 +22,18 @@ const CreateProductForm = () => {
   const [filePreviews, setFilePreviews] = useState([])
   const [imagesRequiredError, setImagesRequiredError] = useState(false)
   const [selectedCategories, setSelectedCategories] = useState([])
-  const { data, loading, error, success, imgSuccess } = useSelector((state) => state.form)
+  const [selectedCharacteristics, setSelectedCharacteristics] = useState([])
+  const { productData, loading, error, success, imgSuccess } = useSelector((state) => state.form)
+  const allCategories = useSelector((state) => state.category.allCategories)
+  const allCharacteristics = useSelector((state) => state.characteristic.allCharacteristics)
   const maxDescriptionCharacters = 200
   const maxFiles = 10
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+    dispatch(fetchAllCategoriesThunk())
+    dispatch(fetchAllCharacteristicsThunk())
+  }, [dispatch])
 
   const {
     register,
@@ -55,8 +66,18 @@ const CreateProductForm = () => {
 
     setSelectedCategories((prev) =>
       checked
-        ? [...prev, { nombre: category.filter }]
+        ? [...prev, category]
         : prev.filter((selected) => selected.id !== category.id)
+    )
+  }
+
+  const handleCharacteristicChange = (e, characteristic) => {
+    const { checked } = e.target
+
+    setSelectedCharacteristics((prev) =>
+      checked
+        ? [...prev, characteristic]
+        : prev.filter((selected) => selected.id !== characteristic.id)
     )
   }
 
@@ -70,29 +91,27 @@ const CreateProductForm = () => {
       dispatch(clearError())
     }
     clearErrors(id)
-    dispatch(updateField({ field: id, value }))
+    dispatch(updateField({ field: id, value, form: 'createProduct' }))
   }
 
   const onSubmit = () => {
     if (selectedImages.length === 0) {
       setImagesRequiredError(true)
     } else {
-      dispatch(updateField({ field: 'categorias', value: selectedCategories }))
-      dispatch(uploadImagesThunk(selectedImages))
+      dispatch(updateField({ field: 'categorias', value: selectedCategories, form: 'createProduct' }))
+      dispatch(updateField({ field: 'caracteristicas', value: selectedCharacteristics, form: 'createProduct' }))
+      dispatch(uploadImagesThunk({ files: selectedImages, form: 'createProduct' }))
     }
   }
 
   useEffect(() => {
-    if (imgSuccess && data.imagenes.length > 0) {
-      dispatch(submitFormThunk(data))
+    if (imgSuccess && productData.imagenes.length > 0) {
+      dispatch(submitFormThunk({ formData: productData, formURL: 'autos/register' }))
+      console.log('Objeto creado')
     }
-    console.log('Objeto creado')
-  }, [imgSuccess, data])
+  }, [imgSuccess, productData, dispatch])
 
-  console.log(data)
-  console.log(success)
-  console.log(imgSuccess)
-  console.log(error)
+  console.log(productData)
 
   return (
     <form className='create-product-form-container' onSubmit={handleSubmit(onSubmit)}>
@@ -109,7 +128,7 @@ const CreateProductForm = () => {
           <input
             id='marca'
             type='text'
-            value={data.marca}
+            value={productData.marca}
             className={`input ${errors.marca && 'border-red1'}`}
             placeholder={pageLabels.createProduct.make}
             {...register('marca', {
@@ -125,7 +144,7 @@ const CreateProductForm = () => {
           />
           {
           errors.marca && <FormErrorMessage message={errors.marca.message} />
-        }
+          }
         </div>
 
         <div className='field-container'>
@@ -135,7 +154,7 @@ const CreateProductForm = () => {
           <input
             id='modelo'
             type='text'
-            value={data.modelo}
+            value={productData.modelo}
             className={`input ${errors.modelo && 'border-red1'}`}
             placeholder={pageLabels.createProduct.model}
             {...register('modelo', {
@@ -161,7 +180,7 @@ const CreateProductForm = () => {
           <input
             id='matricula'
             type='text'
-            value={data.matricula}
+            value={productData.matricula}
             className={`input ${(errors.matricula || error?.includes('ya existe en el sistema')) && 'border-red1'}`}
             placeholder={pageLabels.createProduct.plate}
             {...register('matricula', {
@@ -194,7 +213,7 @@ const CreateProductForm = () => {
           <input
             id='fechaFabricacion'
             type='text'
-            value={data.fechaFabricacion}
+            value={productData.fechaFabricacion}
             className={`input ${errors.fechaFabricacion && 'border-red1'}`}
             placeholder={pageLabels.createProduct.year}
             {...register('fechaFabricacion', {
@@ -224,7 +243,7 @@ const CreateProductForm = () => {
           <input
             id='potenciaHP'
             type='text'
-            value={data.potenciaHP}
+            value={productData.potenciaHP}
             className={`input ${errors.potenciaHP && 'border-red1'}`}
             placeholder={pageLabels.createProduct.horsepower}
             {...register('potenciaHP', {
@@ -254,7 +273,7 @@ const CreateProductForm = () => {
           <input
             id='velocidad'
             type='text'
-            value={data.velocidad}
+            value={productData.velocidad}
             className={`input ${errors.velocidad && 'border-red1'}`}
             placeholder={pageLabels.createProduct.speed}
             {...register('velocidad', {
@@ -284,7 +303,7 @@ const CreateProductForm = () => {
           <input
             id='aceleracion'
             type='text'
-            value={data.aceleracion}
+            value={productData.aceleracion}
             className={`input ${errors.aceleracion && 'border-red1'}`}
             placeholder={pageLabels.createProduct.acceleration}
             {...register('aceleracion', {
@@ -314,7 +333,7 @@ const CreateProductForm = () => {
           <input
             id='precioDia'
             type='number'
-            value={data.precioDia}
+            value={productData.precioDia}
             className={`input ${errors.precioDia && 'border-red1'}`}
             placeholder={pageLabels.createProduct.dayPrice}
             {...register('precioDia', {
@@ -340,24 +359,54 @@ const CreateProductForm = () => {
 
         <div className='field-container w-11/12'>
           <p className='label'>
+            {pageLabels.createProduct.characteristic}
+          </p>
+          <div className='flex flex-wrap gap-x-6'>
+            {
+              allCharacteristics?.map((characteristic, index) => (
+                index !== 0 &&
+                  <div key={index} className='flex items-center gap-3'>
+                    <input
+                      type='checkbox'
+                      name={`${characteristic.nombre}`}
+                      className={`input ${errors.caracteristicas && 'border-red1'}`}
+                      onChange={(e) => {
+                        handleCharacteristicChange(e, characteristic)
+                        e.target.dispatchEvent(new Event('input', { bubbles: true }))
+                      }}
+                    />
+                    <img src={characteristic.icono} alt='' className='w-6' />
+                    <label htmlFor={characteristic.nombre}>{characteristic.nombre}</label>
+                  </div>
+              ))
+            }
+          </div>
+          {
+          errors.categorias && <FormErrorMessage message={errors.categorias.message} />
+          }
+        </div>
+
+        <div className='field-container w-11/12'>
+          <p className='label'>
             {pageLabels.createProduct.category}
           </p>
           <div className='flex justify-between'>
             {
-            pageLabels.categories.buttons.map((category, index) => (
-              <div key={index} className='flex items-center gap-3'>
-                <input
-                  type='checkbox'
-                  name={`${category.filter}`}
-                  className={`input ${errors.categorias ? 'border-red1' : category.filter === 'All' && 'hidden'}`}
-                  onChange={(e) => {
-                    handleCategoryChange(e, category)
-                    e.target.dispatchEvent(new Event('input', { bubbles: true }))
-                  }}
-                />
-                <label htmlFor={category.filter} className={` ${category.filter === 'All' && 'hidden'}`}>{category.text}</label>
-              </div>
-            ))
+              allCategories?.map((category, index) => (
+                index > 0 &&
+                  <div key={index} className='flex items-center gap-3'>
+                    <input
+                      type='checkbox'
+                      name={`${category.nombre}`}
+                      className={`input ${errors.categorias && 'border-red1'}`}
+                      onChange={(e) => {
+                        handleCategoryChange(e, category)
+                        e.target.dispatchEvent(new Event('input', { bubbles: true }))
+                      }}
+                    />
+                    <label htmlFor={category.filter}>{category.nombre}</label>
+                  </div>
+              ))
             }
           </div>
           {
@@ -372,7 +421,7 @@ const CreateProductForm = () => {
           <textarea
             id='descripcion'
             maxLength={maxDescriptionCharacters}
-            value={data.descripcion}
+            value={productData.descripcion}
             className={`input description-input ${errors.descripcion && 'border-red1'}`}
             placeholder={pageLabels.createProduct.description}
             {...register('descripcion', {
@@ -387,7 +436,7 @@ const CreateProductForm = () => {
             }}
           />
           <div className='input-counter'>
-            {maxDescriptionCharacters - (data.descripcion?.length || 0)} {pageLabels.createProduct.characterCount}
+            {maxDescriptionCharacters - (productData.descripcion?.length || 0)} {pageLabels.createProduct.characterCount}
           </div>
           {
           errors.descripcion && <FormErrorMessage message={errors.descripcion.message} error='description' />

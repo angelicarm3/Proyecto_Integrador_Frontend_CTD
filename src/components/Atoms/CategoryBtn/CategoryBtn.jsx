@@ -5,13 +5,13 @@ import { getProductsByCategory } from '../../../context/slices/productSlice'
 
 const CategoryBtn = ({ category }) => {
   const dispatch = useDispatch()
-  const { img, text, filter } = category
+  const { nombre, iconoCat } = category
   const selectedCategory = useSelector((state) => state.product.selectedCategory)
 
   return (
-    <button className={`category-btn ${selectedCategory === filter && 'bg-gray3'}`} onClick={() => dispatch(getProductsByCategory(filter))}>
-      <img src={img} alt={text} className='category-img' />
-      <p className='category-text'>{text}</p>
+    <button className={`category-btn ${selectedCategory === nombre && 'bg-gray3'}`} onClick={() => dispatch(getProductsByCategory(nombre))}>
+      <img src={iconoCat} alt={nombre} className='category-img' />
+      <p className='category-text'>{nombre}</p>
     </button>
   )
 }

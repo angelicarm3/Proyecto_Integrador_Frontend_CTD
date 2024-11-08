@@ -1,10 +1,3 @@
-import {
-  premiumCar,
-  sportsCar,
-  SUVCar,
-  allCars
-} from '../assets/pageImg'
-
 export const pageLabels = {
   buttons: {
     logIn: 'Iniciar sesión',
@@ -23,31 +16,11 @@ export const pageLabels = {
   },
   categories: {
     title: 'Categorías',
-    buttons: [
-      {
-        id: 1,
-        img: sportsCar,
-        text: 'Deportivo',
-        filter: 'Sports'
-      },
-      {
-        id: 2,
-        img: premiumCar,
-        text: 'Premium',
-        filter: 'Premium'
-      },
-      {
-        id: 3,
-        img: SUVCar,
-        text: 'SUV',
-        filter: 'SUV'
-      },
-      {
-        img: allCars,
-        text: 'Todos',
-        filter: 'All'
-      }
-    ]
+    resultCountOne: ' coincidencia de ',
+    resultCount: ' coincidencias de '
+  },
+  characteristics: {
+    title: 'Características'
   },
   productCard: {
     dia: '/día',
@@ -71,6 +44,7 @@ export const pageLabels = {
     speed: 'Velocidad máxima (km/h)',
     acceleration: 'Aceleración (0-100km)',
     dayPrice: 'Precio por día',
+    characteristic: 'Características',
     category: 'Categorías',
     description: 'Descripción',
     images: 'Imágenes (max. 10 archivos)',
