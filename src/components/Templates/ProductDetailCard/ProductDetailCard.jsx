@@ -5,13 +5,14 @@ import { pageData } from '../../../data/page'
 import BackBtn from '../../Atoms/BackBtn/BackBtn'
 import ImagesGrid from '../../Organisms/ImagesGrid/ImagesGrid'
 import ProductFeatures from '../../Molecules/ProductFeatures/ProductFeatures'
+import ProductCharacteristics from '../../Molecules/ProductCharacteristics/ProductCharacteristics'
 import RentNowBtn from '../../Atoms/RentNowBtn/RentNowBtn'
 
 const ProductDetailCard = () => {
   const selectedProduct = useSelector((state) => state.product.selectedProduct)
 
   return (
-    <div className='product-detail-card-container'>
+    <div className='main-section product-detail-card-container'>
       <div className='back'>
         <BackBtn />
       </div>
@@ -25,6 +26,7 @@ const ProductDetailCard = () => {
           </p>
           <p className='product-detail-day-description'>{selectedProduct.descripcion}</p>
           <ProductFeatures product={selectedProduct} type='detail' />
+          <ProductCharacteristics characteristics={selectedProduct.caracteristicas} />
           <RentNowBtn />
         </div>
       </div>

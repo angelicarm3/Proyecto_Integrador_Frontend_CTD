@@ -24,7 +24,7 @@ const ProductDetail = () => {
   }, [dispatch, id])
 
   return (
-    <section className='main-section products-detail-container'>
+    <section className='main-page products-detail-container'>
       {
       selectedProduct &&
         <ProductDetailCard />

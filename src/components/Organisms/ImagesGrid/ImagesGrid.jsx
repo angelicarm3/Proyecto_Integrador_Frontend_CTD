@@ -13,8 +13,6 @@ const ImagesGrid = () => {
   const clickChangeImg = (imgUrl) => {
     dispatch(rearrangeImagesGrid({ selectedProduct, imgUrl }))
   }
-  console.log(mainImg)
-  console.log(otherImg)
 
   return (
     <div className='images-grid-container'>

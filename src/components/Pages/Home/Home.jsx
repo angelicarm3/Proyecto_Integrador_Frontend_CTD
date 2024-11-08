@@ -2,10 +2,10 @@ import { useEffect } from 'react'
 
 import { useDispatch } from 'react-redux'
 
+import { fetchAllCategoriesThunk } from '../../../context/slices/categorySlice'
 import { fetchAllProductsThunk, getRecommendedProducts } from '../../../context/slices/productSlice'
 import Banner from '../../Organisms/Banner/Banner'
 import Categories from '../../Organisms/Categories/Categories'
-import CategoriesMobile from '../../Organisms/Categories/CategoriesMobile'
 import ProductsGrid from '../../Templates/ProductsGrid/ProductsGrid'
 import SearchBar from '../../Organisms/SearchBar/SearchBar'
 import RecommendationsGrid from '../../Templates/RecommendationsGrid/RecommendationsGrid'
@@ -16,6 +16,7 @@ const Home = () => {
   useEffect(() => {
     window.scrollTo(0, 0)
     const fetchData = async () => {
+      await dispatch(fetchAllCategoriesThunk())
       await dispatch(fetchAllProductsThunk())
       dispatch(getRecommendedProducts())
     }
@@ -28,7 +29,6 @@ const Home = () => {
       <Banner />
       <SearchBar />
       <Categories />
-      <CategoriesMobile />
       <ProductsGrid />
       <RecommendationsGrid />
     </div>
