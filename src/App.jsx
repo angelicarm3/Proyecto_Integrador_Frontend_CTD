@@ -7,7 +7,7 @@ import Home from './components/Pages/Home/Home'
 import ProductDetail from './components/Pages/ProductDetail/ProductDetail.jsx'
 import AdminPanel from './components/Pages/AdminPanel/AdminPanel'
 import AdminProducts from './components/Pages/AdminProducts/AdminProducts'
-import AdminCreateProduct from './components/Pages/AdminCreateProduct/AdminCreateProduct.jsx'
+import AdminCreateEditProduct from './components/Pages/AdminCreateEditProduct/AdminCreateEditProduct.jsx'
 import ImagesPopUp from './components/Templates/ImagesPopUp/ImagesPopUp.jsx'
 import RentNowPopUp from './components/Templates/RentNowPopUp/RentNowPopUp.jsx'
 import AdminUsers from './components/Pages/AdminUsers/AdminUsers.jsx'
@@ -48,7 +48,8 @@ function App () {
         <Route element={<AdmonLayoutWithNavbarAndFooter />}>
           <Route path='administracion' element={<AdminPanel />} />
           <Route path='administracion/productos' element={<AdminProducts />} />
-          <Route path='administracion/agregar-producto' element={<AdminCreateProduct />} />
+          <Route path='administracion/agregar-producto' element={<AdminCreateEditProduct />} />
+          <Route path='administracion/editar-producto/:id' element={<AdminCreateEditProduct />} />
           <Route path='administracion/usuarios' element={<AdminUsers />} />
         </Route>
       </Routes>

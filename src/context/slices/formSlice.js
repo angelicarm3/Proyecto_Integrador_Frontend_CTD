@@ -19,7 +19,12 @@ export const submitFormThunk = createAsyncThunk(
   'form/submitForm',
   async ({ formData, formURL }, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`https://alluring-enchantment-production.up.railway.app/${formURL}`, formData)
+      let response
+      if (formURL.includes('update')) {
+        response = await axios.put(`https://alluring-enchantment-production.up.railway.app/${formURL}`, formData)
+      } else {
+        response = await axios.post(`https://alluring-enchantment-production.up.railway.app/${formURL}`, formData)
+      }
       return response.data
     } catch (error) {
       return rejectWithValue(error.response.data.mensaje)
@@ -46,6 +51,17 @@ const initialState = {
     descripcion: '',
     imagenes: []
   },
+  userData: {
+    nombre: '',
+    apellido: '',
+    dni: '',
+    telefono: '',
+    email: '',
+    password: '',
+    nacionalidad: '',
+    esAdmin: false,
+    estaActivo: false
+  },
   loading: false,
   error: null,
   success: false,
@@ -71,6 +87,9 @@ const formSlice = createSlice({
     },
     updateHasSubmited: (state) => {
       state.hasSubmited = !state.hasSubmited
+    },
+    updateImgSuccess: (state) => {
+      state.imgSuccess = !state.imgSuccess
     },
     clearError: (state) => {
       state.error = null
@@ -118,5 +137,5 @@ const formSlice = createSlice({
   }
 })
 
-export const { updateField, clearError, resetForm, updateHasSubmited } = formSlice.actions
+export const { updateField, clearError, resetForm, updateHasSubmited, updateImgSuccess } = formSlice.actions
 export default formSlice.reducer
