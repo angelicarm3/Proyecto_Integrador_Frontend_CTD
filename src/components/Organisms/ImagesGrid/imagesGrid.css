@@ -7,7 +7,7 @@
     @apply min-w-[325px] lg:min-w-[504px] flex flex-col lg:flex-row gap-3 px-2 md:px-0
   }
   .main-img {
-    @apply lg:w-[300px] max-h-[350px] rounded-2xl object-cover
+    @apply lg:w-[300px] h-[217px] lg:max-h-[350px] rounded-2xl object-cover
   }
   .secondary-grid {
     @apply lg:w-[192px] h-fit flex flex-wrap justify-between gap-3

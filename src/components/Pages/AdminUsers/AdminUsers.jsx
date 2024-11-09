@@ -1,68 +1,65 @@
-import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchAllUsersAdminThunk, deleteUserThunk, setItemsToShow, resetStatus, setPage } from '../../../context/slices/adminUserSlice';
+import { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { fetchAllUsersAdminThunk, deleteUserThunk, setItemsToShow, resetStatus, setPage } from '../../../context/slices/adminUserSlice'
 
-import AdminSearchBar from '../../Organisms/AdminSearchBar/AdminSearchBar';
-import SearchBtn from '../../Atoms/SearchBtn/SearchBtn';
-import AdminUsersList from '../../Organisms/AdminUsersList/AdminUsersList';
-import Dropdown from '../../Atoms/DropDown/DropDown';
-import Pagination from '../../Molecules/Pagination/Pagination';
-import CancelBtn from '../../Atoms/CancelBtn/CancelBtn';
-import { AiOutlineLoading } from 'react-icons/ai';
-import { pageLabels } from '../../../data/pageLabels';
-import './AdminUsers.css';
+import AdminSearchBar from '../../Organisms/AdminSearchBar/AdminSearchBar'
+import SearchBtn from '../../Atoms/SearchBtn/SearchBtn'
+import AdminUsersList from '../../Organisms/AdminUsersList/AdminUsersList'
+import Dropdown from '../../Atoms/DropDown/DropDown'
+import Pagination from '../../Molecules/Pagination/Pagination'
+import CancelBtn from '../../Atoms/CancelBtn/CancelBtn'
+import { AiOutlineLoading } from 'react-icons/ai'
+import { pageLabels } from '../../../data/pageLabels'
+import './AdminUsers.css'
 
 const AdminUsers = () => {
-  const dispatch = useDispatch();
-  const options = [10, 20, 30, 40, 50];
-  const headers = ['ID', 'Nombre', 'Email', 'Rol', 'Acciones'];
+  const dispatch = useDispatch()
+  const options = [10, 20, 30, 40, 50]
+  const headers = ['ID', 'Nombre', 'Email', 'Rol', 'Acciones']
 
-  const [showConfirmDelete, setShowConfirmDelete] = useState(false);
-  const { users, selectedUser, loading, error, success, itemsToShow, currentPage } = useSelector((state) => state.adminUsers);
+  const [showConfirmDelete, setShowConfirmDelete] = useState(false)
+  const { users, selectedUser, loading, error, success, itemsToShow, currentPage } = useSelector((state) => state.adminUsers)
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-    dispatch(fetchAllUsersAdminThunk());
-  }, [dispatch]);
+    window.scrollTo(0, 0)
+    dispatch(fetchAllUsersAdminThunk())
+  }, [dispatch])
 
   useEffect(() => {
     if (success) {
-      window.scrollTo(0, 0);
+      window.scrollTo(0, 0)
       setTimeout(() => {
-        dispatch(resetStatus());
-      }, 3000);
+        dispatch(resetStatus())
+      }, 3000)
     }
-  }, [success, dispatch]);
-
+  }, [success, dispatch])
 
   const handleSelect = (count) => {
-    dispatch(setItemsToShow(count));
-  };
+    dispatch(setItemsToShow(count))
+  }
 
   const handleClick = () => {
-    setShowConfirmDelete(false);
-  };
+    setShowConfirmDelete(false)
+  }
 
   const handleDeleteClick = (userId) => {
-    dispatch(deleteUserThunk(userId));
-    setShowConfirmDelete(false);
-  };
+    dispatch(deleteUserThunk(userId))
+    setShowConfirmDelete(false)
+  }
 
   const handlePageChange = (page) => {
-    dispatch(setPage(page));
-  };
+    dispatch(setPage(page))
+  }
 
-  const totalItems = users.length;
-  const startIndex = (currentPage - 1) * itemsToShow;
-  const endIndex = startIndex + itemsToShow;
-  const currentUsers = users.slice(startIndex, endIndex);
-
-console.log(users);
+  const totalItems = users.length
+  const startIndex = (currentPage - 1) * itemsToShow
+  const endIndex = startIndex + itemsToShow
+  const currentUsers = users.slice(startIndex, endIndex)
 
   return (
     <div className='admin-users-container'>
       <section className='admin-users-section'>
-        
+
         <div className='admin-search-bar-container'>
           <AdminSearchBar usersList={users} />
           <SearchBtn />
@@ -109,7 +106,7 @@ console.log(users);
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default AdminUsers;
+export default AdminUsers

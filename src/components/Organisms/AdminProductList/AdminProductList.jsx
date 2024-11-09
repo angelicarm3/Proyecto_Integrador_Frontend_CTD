@@ -2,7 +2,6 @@ import React from 'react'
 import ProductRow from '../../Molecules/ProductRow/ProductRow'
 
 const AdminProductsList = ({ products, setShowConfirmDelete, headers }) => {
-  console.log(products)
   return (
     <table className='min-w-full border border-gray-300 '>
       <thead>

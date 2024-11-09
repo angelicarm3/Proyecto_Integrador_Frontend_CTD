@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 import './productDetail.css'
-import { arrangeImagesGrid, fetchAllProductsThunk, getProductById } from '../../../context/slices/productSlice'
+import { arrangeImagesGrid, fetchAllProductsThunk, fetchProductByIdThunk } from '../../../context/slices/productSlice'
 import ProductDetailCard from '../../Templates/ProductDetailCard/ProductDetailCard'
 
 const ProductDetail = () => {
@@ -16,7 +16,7 @@ const ProductDetail = () => {
     window.scrollTo(0, 0)
     const fetchData = async () => {
       await dispatch(fetchAllProductsThunk())
-      dispatch(getProductById(id))
+      await dispatch(fetchProductByIdThunk(id))
       dispatch(arrangeImagesGrid())
     }
 

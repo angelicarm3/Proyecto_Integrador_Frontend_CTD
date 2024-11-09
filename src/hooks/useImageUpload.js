@@ -13,7 +13,6 @@ const useImageUpload = (maxFiles = 10) => {
   }
 
   const removeImage = (index) => {
-    // Actualizar imágenes seleccionadas y sus previsualizaciones
     const updatedImages = selectedImages.filter((_, i) => i !== index)
     const updatedPreviews = filePreviews.filter((_, i) => i !== index)
 
@@ -21,7 +20,7 @@ const useImageUpload = (maxFiles = 10) => {
     setFilePreviews(updatedPreviews)
   }
 
-  return { selectedImages, filePreviews, imagesRequiredError, setImagesRequiredError, handleFileChange, removeImage }
+  return { selectedImages, filePreviews, setFilePreviews, imagesRequiredError, setImagesRequiredError, handleFileChange, removeImage }
 }
 
 export default useImageUpload
