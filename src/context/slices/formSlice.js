@@ -1,14 +1,14 @@
 // formSlice.js
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import handleFileUpload from '../../service/uploadService'
+import handleFileUpload from '../../service/fileUploadService'
 import axios from 'axios'
 
 export const uploadImagesThunk = createAsyncThunk(
   'form/uploadImages',
-  async (files, { rejectWithValue }) => {
+  async ({ files, form }, { rejectWithValue }) => {
     try {
       const urls = await handleFileUpload(files)
-      return urls
+      return { urls, form }
     } catch (error) {
       return rejectWithValue('Error al subir archivos')
     }
@@ -17,9 +17,14 @@ export const uploadImagesThunk = createAsyncThunk(
 
 export const submitFormThunk = createAsyncThunk(
   'form/submitForm',
-  async (formData, { rejectWithValue }) => {
+  async ({ formData, formURL }, { rejectWithValue }) => {
     try {
-      const response = await axios.post('https://alluring-enchantment-production.up.railway.app/autos/register', formData)
+      let response
+      if (formURL.includes('update')) {
+        response = await axios.put(`https://alluring-enchantment-production.up.railway.app/${formURL}`, formData)
+      } else {
+        response = await axios.post(`https://alluring-enchantment-production.up.railway.app/${formURL}`, formData)
+      }
       return response.data
     } catch (error) {
       return rejectWithValue(error.response.data.mensaje)
@@ -32,7 +37,7 @@ const capitalizeFirstLetter = (string) => {
 }
 
 const initialState = {
-  data: {
+  productData: {
     marca: '',
     modelo: '',
     matricula: '',
@@ -41,12 +46,27 @@ const initialState = {
     velocidad: '',
     aceleracion: '',
     precioDia: '',
-    descripcion: ''
-    // Otros campos
+    categorias: [],
+    caracteristicas: [],
+    descripcion: '',
+    imagenes: []
+  },
+  userData: {
+    nombre: '',
+    apellido: '',
+    dni: '',
+    telefono: '',
+    email: '',
+    password: '',
+    nacionalidad: '',
+    esAdmin: false,
+    estaActivo: false
   },
   loading: false,
   error: null,
-  success: false
+  success: false,
+  imgSuccess: false,
+  hasSubmited: false
 }
 
 const formSlice = createSlice({
@@ -55,14 +75,21 @@ const formSlice = createSlice({
   reducers: {
     updateField: (state, action) => {
       let newValue
-      const { field, value } = action.payload
-
-      if (field === 'marca' || field === 'modelo') {
-        newValue = capitalizeFirstLetter(value)
-        state.data[field] = newValue
-      } else {
-        state.data[field] = value
+      const { field, value, form } = action.payload
+      if (form === 'createProduct') {
+        if (field === 'marca' || field === 'modelo') {
+          newValue = capitalizeFirstLetter(value)
+          state.productData[field] = newValue
+        } else {
+          state.productData[field] = value
+        }
       }
+    },
+    updateHasSubmited: (state) => {
+      state.hasSubmited = !state.hasSubmited
+    },
+    updateImgSuccess: (state) => {
+      state.imgSuccess = !state.imgSuccess
     },
     clearError: (state) => {
       state.error = null
@@ -79,11 +106,15 @@ const formSlice = createSlice({
         state.error = null
       })
       .addCase(uploadImagesThunk.fulfilled, (state, action) => {
-        state.data.imagenes = action.payload.map((url, index) => ({
+        const { urls, form } = action.payload
+        const newURLs = urls.map((url, index) => ({
           url,
           esPrincipal: index === 0
         }))
-        state.loading = false
+        if (form === 'createProduct') {
+          state.productData.imagenes = newURLs
+        }
+        state.imgSuccess = true
       })
       .addCase(uploadImagesThunk.rejected, (state, action) => {
         state.error = action.payload || 'Error al subir archivos'
@@ -101,9 +132,10 @@ const formSlice = createSlice({
       .addCase(submitFormThunk.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload || 'Error al enviar datos'
+        state.imgSuccess = false
       })
   }
 })
 
-export const { updateField, clearError, resetForm } = formSlice.actions
+export const { updateField, clearError, resetForm, updateHasSubmited, updateImgSuccess } = formSlice.actions
 export default formSlice.reducer

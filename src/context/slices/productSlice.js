@@ -1,13 +1,23 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-import { productsData } from '../../data/products'
-
 export const fetchAllProductsThunk = createAsyncThunk(
   'product/fetchAll',
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get('https://alluring-enchantment-production.up.railway.app/autos/list')
+      return response.data
+    } catch (error) {
+      return rejectWithValue('Error al obtener los datos')
+    }
+  }
+)
+
+export const fetchProductByIdThunk = createAsyncThunk(
+  'product/fetchById',
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`https://alluring-enchantment-production.up.railway.app/autos/find/${id}`)
       return response.data
     } catch (error) {
       return rejectWithValue('Error al obtener los datos')
@@ -31,30 +41,31 @@ export const productSlice = createSlice({
   name: 'product',
   initialState: {
     allProducts: [],
+    totalProducts: 0,
     filteredProducts: null,
+    resultsQuantity: 0,
     recommendedProducts: null,
-    selectedCategory: 'All',
+    selectedCategory: 'Todos',
     selectedProduct: null,
     mainImg: '',
-    otherImg: []
+    otherImg: [],
+    loading: false,
+    error: null
   },
 
   reducers: {
     getProductsByCategory: (state, action) => {
-      if (action.payload === 'All') {
+      if (action.payload === 'Todos') {
         state.filteredProducts = state.allProducts
-        state.selectedCategory = 'All'
+        state.selectedCategory = 'Todos'
       } else {
-        state.filteredProducts = state.allProducts.filter((product) => product.categorias.includes(action.payload))
+        state.filteredProducts = state.allProducts.filter((product) => product.categorias.some((categoria) => categoria.nombre === action.payload))
         state.selectedCategory = action.payload
       }
+      state.resultsQuantity = state.filteredProducts.length
     },
     getRecommendedProducts: (state) => {
       state.recommendedProducts = state.allProducts
-    },
-    getProductById: (state, action) => {
-      const product = state.allProducts.filter((product) => product.id === parseInt(action.payload))
-      state.selectedProduct = product[0]
     },
     arrangeImagesGrid: (state) => {
       state.mainImg = state.selectedProduct.imagenes?.filter((img) => img.esPrincipal)
@@ -64,11 +75,14 @@ export const productSlice = createSlice({
       const { selectedProduct, imgUrl } = action.payload
       state.mainImg = selectedProduct.imagenes?.filter((img) => img.url === imgUrl)
       state.otherImg = selectedProduct.imagenes?.filter((img) => img.url !== imgUrl)
+    },
+    resetSelectedProduct: (state) => {
+      state.selectedProduct = null
     }
   },
   extraReducers: (builder) => {
     builder
-    // submitForm
+    // featchAllProducts
       .addCase(fetchAllProductsThunk.pending, (state) => {
         state.loading = true
         state.error = null
@@ -76,7 +90,9 @@ export const productSlice = createSlice({
       .addCase(fetchAllProductsThunk.fulfilled, (state, action) => {
         state.allProducts = action.payload
         state.filteredProducts = shuffleArray(state.allProducts)
-        state.selectedCategory = 'All'
+        state.totalProducts = state.allProducts.length
+        state.resultsQuantity = state.filteredProducts.length
+        state.selectedCategory = 'Todos'
         state.selectedProduct = null
         state.loading = false
       })
@@ -84,9 +100,23 @@ export const productSlice = createSlice({
         state.loading = false
         state.error = action.payload || 'Error al enviar datos'
       })
+
+      // featchProductById
+      .addCase(fetchProductByIdThunk.pending, (state) => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(fetchProductByIdThunk.fulfilled, (state, action) => {
+        state.selectedProduct = action.payload
+        state.loading = false
+      })
+      .addCase(fetchProductByIdThunk.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload || 'Error al enviar datos'
+      })
   }
 })
 
-export const { getAllProducts, getProductsByCategory, getProductById, getRecommendedProducts, arrangeImagesGrid, rearrangeImagesGrid } = productSlice.actions
+export const { getAllProducts, getProductsByCategory, getProductById, getRecommendedProducts, arrangeImagesGrid, rearrangeImagesGrid, resetSelectedProduct } = productSlice.actions
 
 export default productSlice.reducer

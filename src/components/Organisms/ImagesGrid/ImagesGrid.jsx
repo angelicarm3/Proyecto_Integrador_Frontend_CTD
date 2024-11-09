@@ -2,7 +2,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 import './imagesGrid.css'
-import { pageData } from '../../../data/page'
+import { pageLabels } from '../../../data/pageLabels'
 import { rearrangeImagesGrid } from '../../../context/slices/productSlice'
 
 const ImagesGrid = () => {
@@ -23,12 +23,12 @@ const ImagesGrid = () => {
           otherImg.map((imagen, index) => (
             window.innerWidth < 1024 && index < 3
               ? <img key={index} className='other-img' src={imagen.url} alt='' onClick={() => clickChangeImg(imagen.url)} />
-              : window.innerWidth >= 1024 && index < 4 && <img key={index} className='other-img' src={imagen.url} alt='' onClick={() => clickChangeImg(imagen.id)} />
+              : window.innerWidth >= 1024 && index < 4 && <img key={index} className='other-img' src={imagen.url} alt='' onClick={() => clickChangeImg(imagen.url)} />
           ))
         }
 
         <Link className='see-more-btn' to={`/producto/${selectedProduct.id}/galeria`} state={{ previousLocation: location }}>
-          {pageData.productDetail.seeMore}
+          {pageLabels.productDetail.seeMore}
         </Link>
       </div>
     </div>

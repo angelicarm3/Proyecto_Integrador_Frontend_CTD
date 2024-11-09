@@ -1,13 +1,31 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { pageLabels } from '../../../data/pageLabels'
+import './AdminPanel.css'
 
 const AdminPanel = () => {
   return (
-    <div className='p-4 mt-[68px]'>
-      <h1 className='text-2xl font-bold'>Panel de Administración</h1>
-      <Link to='/administracion/productos' className='mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded'>
-        Lista de productos
-      </Link>
+    <div className='admin-panel-container'>
+      <div className='admin-panel-mobile-message-div'>
+        <h2 className='admin-panel-mobile-message-text'>{pageLabels.adminPanel.mobileMessage}</h2>
+      </div>
+
+      <section className='admin-panel-seccion-conatiner'>
+        <h1 className='admin-panel-main-title'>{pageLabels.adminPanel.mainTitle}</h1>
+        <Link
+          to='/administracion/productos'
+          className='admin-panel-link'
+        >
+          {pageLabels.adminPanel.productsList}
+        </Link>
+
+        <Link
+          to='/administracion/usuarios'
+          className='admin-panel-link'
+        >
+          {pageLabels.adminPanel.usersList}
+        </Link>
+      </section>
     </div>
   )
 }

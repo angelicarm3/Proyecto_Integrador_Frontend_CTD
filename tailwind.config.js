@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}', './src/**/*.css'],
   theme: {
     extend: {
       colors: {
@@ -20,7 +20,8 @@ export default {
         white: '#FFFFFF',
         customDarkBlue: 'rgb(15, 23, 42)',
         popUpBg1: '#000000b3',
-        popUpBg2: '#40414A6B'
+        popUpBg2: '#40414A6B',
+        customLighterBlue: 'rgb(65, 74, 107)'
       },
       fontFamily: {
         Aurora: ['Aurora Condensed', 'sans-serif'],

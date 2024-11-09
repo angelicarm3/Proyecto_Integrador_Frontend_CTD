@@ -1,9 +1,9 @@
-import { pageData } from '../../../data/page'
+import { pageLabels } from '../../../data/pageLabels'
 
 const SignUpBtn = () => {
   return (
     <button className='secondary-btn log-in-btn'>
-      {pageData.buttons.signUp}
+      {pageLabels.buttons.signUp}
     </button>
   )
 }

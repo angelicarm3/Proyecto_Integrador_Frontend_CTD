@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 import './productDetail.css'
-import { arrangeImagesGrid, fetchAllProductsThunk, getProductById } from '../../../context/slices/productSlice'
+import { arrangeImagesGrid, fetchAllProductsThunk, fetchProductByIdThunk } from '../../../context/slices/productSlice'
 import ProductDetailCard from '../../Templates/ProductDetailCard/ProductDetailCard'
 
 const ProductDetail = () => {
@@ -16,7 +16,7 @@ const ProductDetail = () => {
     window.scrollTo(0, 0)
     const fetchData = async () => {
       await dispatch(fetchAllProductsThunk())
-      dispatch(getProductById(id))
+      await dispatch(fetchProductByIdThunk(id))
       dispatch(arrangeImagesGrid())
     }
 
@@ -24,7 +24,7 @@ const ProductDetail = () => {
   }, [dispatch, id])
 
   return (
-    <section className='main-section products-detail-container'>
+    <section className='main-page products-detail-container'>
       {
       selectedProduct &&
         <ProductDetailCard />

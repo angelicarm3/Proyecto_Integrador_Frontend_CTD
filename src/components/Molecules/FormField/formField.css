@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {  
+  .field-container {
+    @apply w-5/12 flex flex-col pb-[10px] gap-2 mb-2
+  }
+}
