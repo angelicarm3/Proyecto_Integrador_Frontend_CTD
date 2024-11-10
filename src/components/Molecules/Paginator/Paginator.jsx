@@ -10,8 +10,6 @@ const Paginator = ({ onClick }) => {
   const pageCount = useSelector((state) => state.paginator.pageCount)
   const { totalProducts, resultsQuantity } = useSelector((state) => state.product)
 
-  console.log(totalProducts)
-  console.log(resultsQuantity)
   return (
     <div className='paginator-container'>
       <ReactPaginate

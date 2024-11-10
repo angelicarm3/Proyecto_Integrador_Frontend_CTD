@@ -15,9 +15,6 @@
   .form-fields-container {
     @apply w-full flex flex-wrap justify-center gap-x-10
   }
-  .field-container {
-    @apply w-5/12 flex flex-col pb-[10px] gap-2 mb-2
-  }
   .images-btn {
     @apply w-[100px] h-[100px] flex flex-col justify-center items-center hover:border-gray1
   }
