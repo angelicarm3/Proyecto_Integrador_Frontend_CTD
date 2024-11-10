@@ -32,7 +32,7 @@ export const deleteUserThunk = createAsyncThunk(
   'adminUsers/deleteUser',
   async (userId, { rejectWithValue }) => {
     try {
-      const response = await axios.delete(`https://alluring-enchantment-production.up.railway.app/users/${userId}`);
+      const response = await axios.delete(`https://alluring-enchantment-production.up.railway.app/users/delete/${userId}`);
       return response.data; 
     } catch (error) {
       return rejectWithValue(error.response.data.message);
