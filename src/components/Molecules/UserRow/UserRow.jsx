@@ -1,40 +1,71 @@
 import React from 'react';
-import { BiSolidHide } from 'react-icons/bi'
-import { FaEdit } from 'react-icons/fa'
-import TashCan from '../../../assets/icons/eliminar.png'
+import { useDispatch } from 'react-redux';
+import { assignAdminRole, removeAdminRole, deleteUserThunk, setSelectedUser } from '../../../context/slices/adminUserSlice';
 
-const UserRow = ({ user, setShowConfirmDelete }) => {
-  const handleDeleteClick = () => {
-    setShowConfirmDelete(user.id);
+const UserRow = ({ user }) => {
+  const dispatch = useDispatch();
+
+  // Asigna el rol de administrador
+  const handleAssignAdmin = () => {
+    dispatch(assignAdminRole(user.id));
+  };
+
+  // Quita el rol de administrador
+  const handleRemoveAdmin = () => {
+    dispatch(removeAdminRole(user.id));
+  };
+
+  // Elimina el usuario
+  const handleDeleteUser = () => {
+    const confirmation = window.confirm(`Are you sure you want to delete user ${user.nombre}?`);
+    if (confirmation) {
+      dispatch(deleteUserThunk(user.id));
+    }
+  };
+
+  // Selecciona un usuario para mostrar más detalles
+  const handleSelectUser = () => {
+    dispatch(setSelectedUser(user));
   };
 
   return (
-    <tr className="border-b border-gray-300">
-      <td className="px-4 py-2">{user.id}</td>
-      <td className="px-4 py-2">{user.nombre} {user.apellido}</td>
-      <td className="px-4 py-2">{user.email}</td>
-      <td className="px-4 py-2">{user.esAdmin ? "Administrador" : "Usuario"}</td>
-      <td className="px-4 py-2">
-        <div className='flex space-x-3 justify-center'>
+    <tr className="border-b hover:bg-gray-100">
+      <td className="px-4 py-2 text-center">{user.id}</td>
+      <td className="px-4 py-2 text-center">{user.nombre} {user.apellido}</td>
+      <td className="px-4 py-2 text-center">{user.email}</td>
+      <td className="px-4 py-2 text-center">{user.esAdmin ? "Administrador" : "Usuario"}</td>
+      <td className="px-4 py-2 text-center">
+        {user.esAdmin === 'true' ? (
           <button
-            className='bg-green-500  text-black px-4 py-2 rounded text-xl'
-
+            className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition-all duration-300"
+            onClick={handleRemoveAdmin}
           >
-            <BiSolidHide />
+            Quitar Admin
           </button>
+        ) : (
           <button
-            className=' bg-yellow1 text-black px-4 py-2 rounded  text-lg'
-
+            className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-all duration-300"
+            onClick={handleAssignAdmin}
           >
-            <FaEdit />
+            Asignar administrador
           </button>
-          <button
-            className='bg-red-500 text-white px-4 py-2 rounded'
-
-          >
-            <img src={TashCan} alt='Trashcan' className='w-5 h-5 max-w-none' />
-          </button>
-        </div>
+        )}
+      </td>
+      <td className="px-4 py-2 text-center">
+        <button
+          className="px-4 py-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 transition-all duration-300"
+          onClick={handleSelectUser}
+        >
+          Ver detalles
+        </button>
+      </td>
+      <td className="px-4 py-2 text-center">
+        <button
+          className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-all duration-300"
+          onClick={handleDeleteUser}
+        >
+          Eliminar usuario
+        </button>
       </td>
     </tr>
   );
