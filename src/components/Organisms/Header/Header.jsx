@@ -1,7 +1,9 @@
 import { useState } from 'react'
 
 import { Link } from 'react-router-dom'
+import { RxAvatar } from "react-icons/rx"
 import { AiOutlineMenu } from 'react-icons/ai'
+
 
 import './header.css'
 import isoTipoGold from '../../../assets/brand/isoTipoGold.svg'
@@ -12,8 +14,18 @@ import SignUpBtn from '../../Atoms/SignUpBtn/SignUpBtn'
 import Navbar from '../../Molecules/Navbar/Navbar'
 
 function Header () {
-  const [isOpen, setIsOpen] = useState(false)
-  const toggleMenu = () => setIsOpen(!isOpen)
+    const [isAuth, setIsAuth] = useState(false)
+    const [isOn, setIsOn] = useState(false);
+
+    const toggleDropdown = () => {
+      setIsOn(!isOn);
+    };
+
+    const handleLogout = () => {
+      console.log('Cerrar sesión');
+      setIsAuth(!isAuth);
+    };
+
 
   return (
     <header className='header'>
@@ -26,10 +38,22 @@ function Header () {
         </div>
       </Link>
       {/* <Navbar /> */}
+      {isAuth ? 
+      <>
+        <RxAvatar className='avatar-icon' onClick={toggleDropdown}/>
+        {isOn && (
+        <div className="dropdown-menu">
+          <button onClick={handleLogout} className="logout-button">Cerrar sesión</button>
+        </div>
+        )}
+      </>
+      :
       <div className='buttons-container'>
         <LogInBtn />
         <SignUpBtn />
       </div>
+      }
+      
     </header>
   )
 }
