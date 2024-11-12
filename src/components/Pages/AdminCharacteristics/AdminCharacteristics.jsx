@@ -1,33 +1,30 @@
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { setItemsToShow, resetStatus, setPage } from '../../../context/slices/adminProductSlice'
+import { fetchAllCharacteristicsThunk } from '../../../context/slices/characteristicSlice'
 
-import { fetchAllProductsAdminThunk, deleteProductThunk, setItemsToShow, resetStatus, setPage } from '../../../context/slices/adminProductSlice'
 import AdminSearchBar from '../../Organisms/AdminSearchBar/AdminSearchBar'
 import SearchBtn from '../../Atoms/SearchBtn/SearchBtn'
 import AdminProductList from '../../Organisms/AdminProductList/AdminProductList'
 import Dropdown from '../../Atoms/DropDown/DropDown'
 import Pagination from '../../Molecules/Pagination/Pagination'
 import CancelBtn from '../../Atoms/CancelBtn/CancelBtn'
-import AddBtn from '../../Atoms/AddBtn/AddBtn'
 import { AiOutlineLoading } from 'react-icons/ai'
 import { pageLabels } from '../../../data/pageLabels'
-import './AdminProducts.css'
-import ProductRow from '../../Molecules/ProductRow/ProductRow'
+import CharacteristcsRow from '../../Molecules/CharacteristicsRow/CharacteristicsRow'
 
-const AdminProducts = () => {
+const AdminCharacteristics = () => {
   const dispatch = useDispatch()
 
   const options = [10, 20, 30, 40, 50]
-  const headers = ['Id', 'Nombre', 'Categoria', 'Precio', 'Matrícula', 'Acciones']
+  const headers = ['Id', 'Nombre', 'Icono', 'Acciones']
 
   const [showConfirmDelete, setShowConfirmDelete] = useState(false)
-  const { selectedProduct, loading, error, success } = useSelector((state) => state.adminProducts)
-
-  console.log(error)
+  const { allCharacteristics: characteristicsList, loading, success } = useSelector((state) => state.characteristic)
 
   useEffect(() => {
     window.scrollTo(0, 0)
-    dispatch(fetchAllProductsAdminThunk())
+    dispatch(fetchAllCharacteristicsThunk())
   }, [dispatch])
 
   useEffect(() => {
@@ -40,7 +37,6 @@ const AdminProducts = () => {
   }, [success, dispatch])
   console.log(success)
 
-  const productsList = useSelector((state) => state.adminProducts.allProducts)
   const itemsToShow = useSelector((state) => state.adminProducts.itemsToShow)
   const currentPage = useSelector((state) => state.adminProducts.currentPage)
 
@@ -53,9 +49,9 @@ const AdminProducts = () => {
     setShowConfirmDelete(false)
   }
 
-  const handleDeleteClick = (productId) => {
-    console.log(productId)
-    dispatch(deleteProductThunk(productId))
+  const handleDeleteClick = (characteristcId) => {
+    console.log(characteristcId)
+    // dispatch(deleteProductThunk(characteristcId))
     setShowConfirmDelete(false)
   }
 
@@ -63,34 +59,34 @@ const AdminProducts = () => {
     dispatch(setPage(page))
   }
 
-  const filteredProducts = productsList.slice(0, itemsToShow)
+  const filteredProducts = characteristicsList.slice(0, itemsToShow)
   console.log(filteredProducts)
 
-  const totalItems = productsList.length
+  const totalItems = characteristicsList.length
   const startIndex = (currentPage - 1) * itemsToShow
   const endIndex = startIndex + itemsToShow
-  const currentProducts = productsList.slice(startIndex, endIndex)
+  const currentCharacteristics = characteristicsList.slice(startIndex, endIndex)
 
+  console.log('characteristicsList', characteristicsList)
+  console.log('currentCharacteristics', currentCharacteristics)
   return (
-    <div className='admin-products-container'>
-      <section className='admin-products-section'>
-        <AddBtn navigateTo='/administracion/agregar-producto' />
+    <section className='admin-characteristics-container'>
+      <div className='admin-search-bar-container'>
+        <AdminSearchBar CharacteristicsList={characteristicsList} />
+        <SearchBtn />
+      </div>
 
-        <div className='admin-search-bar-container'>
-          <AdminSearchBar productsList={productsList} />
-          <SearchBtn />
-        </div>
-
-        <div className='admin-products-dropDown-conatiner'>
-          <span>Resultados</span>
-          <Dropdown options={options} onSelect={handleSelect} />
-        </div>
-      </section>
+      <div className='admin-products-dropDown-container'>
+        <span>{pageLabels.adminCharacteristics.result}</span>
+        <Dropdown options={options} onSelect={handleSelect} />
+      </div>
 
       <AdminProductList headers={headers}>
-        {currentProducts.map((product) => <ProductRow key={product.id} product={product} setShowConfirmDelete={setShowConfirmDelete} />)}
+        {currentCharacteristics.map((product) =>
+          <CharacteristcsRow key={product.id} product={product} setShowConfirmDelete={setShowConfirmDelete} />
+        )}
       </AdminProductList>
-      <div className='admin-products-pagination-conatiner'>
+      <div className='admin-products-pagination-container'>
         <Pagination totalItems={totalItems} itemsToShow={itemsToShow} handlePageChange={handlePageChange} currentPage={currentPage} />
         <p className='admin-products-p'>{`Resultados ${startIndex + 1} a ${endIndex} de ${totalItems}`}</p>
       </div>
@@ -104,7 +100,7 @@ const AdminProducts = () => {
                 <button
                   className='admin-products-confirm-delations-modal-btn'
                   type='button'
-                  onClick={() => handleDeleteClick(selectedProduct.id)}
+                  onClick={() => handleDeleteClick()}
                 >
                   <p>{pageLabels.adminProducts.delete}</p>
                 </button>
@@ -127,8 +123,8 @@ const AdminProducts = () => {
             </div>
           </div>
       }
-    </div>
+    </section>
   )
 }
 
-export default AdminProducts
+export default AdminCharacteristics

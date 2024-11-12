@@ -25,6 +25,13 @@ const AdminPanel = () => {
         >
           {pageLabels.adminPanel.usersList}
         </Link>
+        <Link
+          to='/administracion/caracteristicas'
+          className='admin-panel-link'
+        >
+          {pageLabels.adminCharacteristics.title}
+        </Link>
+
       </section>
     </div>
   )
