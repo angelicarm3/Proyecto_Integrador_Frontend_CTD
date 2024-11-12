@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { assignAdminRole, removeAdminRole, deleteUserThunk, setSelectedUser } from '../../../context/slices/adminUserSlice';
+import UserDetailsModal from '../UserDetailModal/UserDetailModal';
 
 const UserRow = ({ user }) => {
   const dispatch = useDispatch();
@@ -22,6 +23,11 @@ const UserRow = ({ user }) => {
 
   const handleSelectUser = () => {
     dispatch(setSelectedUser(user));
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
