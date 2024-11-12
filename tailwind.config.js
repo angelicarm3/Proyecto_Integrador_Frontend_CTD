@@ -6,9 +6,8 @@ export default {
       colors: {
         black1: '#080808',
         black2: '#1C1B20',
+        black3: '#191919',
         beige1: 'F3EDE7',
-        // yellow1: '#CCAD00',
-        // yellow1: '#DBA401',
         yellow1: '#D4AF37',
         gray1: '#4D414A6B',
         gray5: '#414A6B',

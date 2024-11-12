@@ -1,11 +1,18 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-export const fetchAllCategoriesThunk = createAsyncThunk(
-  'category/fetchAll',
-  async (_, { rejectWithValue }) => {
+export const fetchUserByUserNameThunk = createAsyncThunk(
+  'users/fetchByUserName',
+  async ({ userName, token }, { rejectWithValue }) => {
     try {
-      const response = await axios.get('https://alluring-enchantment-production.up.railway.app/categories/list')
+      const response = await axios.get(
+        `https://alluring-enchantment-production.up.railway.app/users/find/username/${userName}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      )
       return response.data
     } catch (error) {
       return rejectWithValue('Error al obtener los datos')
@@ -13,43 +20,57 @@ export const fetchAllCategoriesThunk = createAsyncThunk(
   }
 )
 
+const initialState = {
+  loginOrRegister: '',
+  formNumber: 1,
+  loggedUser: {},
+  isLoggedIn: false,
+  isAdmin: false,
+  token: localStorage.getItem('token') || null,
+  loading: false,
+  error: null,
+  logInSuccess: false
+}
+
 export const loginRegisterSlice = createSlice({
   name: 'loginRegister',
-  initialState: {
-    loginOrRegister: '',
-    formNumber: 1,
-    loading: false,
-    error: null,
-    success: false
-  },
+  initialState,
 
   reducers: {
     setLoginOrRegister: (state, action) => {
-      if (action.payload === '') {
+      if (action.payload === '/inicio-sesion') {
         state.loginOrRegister = 'login'
-      } else {
+      } else if (action.payload === '/registro') {
         state.loginOrRegister = 'register'
       }
+    },
+    resetState: (state) => {
+      return initialState
     }
   },
   extraReducers: (builder) => {
     builder
-    // categories
-      .addCase(fetchAllCategoriesThunk.pending, (state) => {
+    // users
+      .addCase(fetchUserByUserNameThunk.pending, (state) => {
         state.loading = true
         state.error = null
       })
-      .addCase(fetchAllCategoriesThunk.fulfilled, (state, action) => {
-        state.allCategories = action.payload
+      .addCase(fetchUserByUserNameThunk.fulfilled, (state, action) => {
+        state.loggedUser = action.payload
+        state.isLoggedIn = true
+        if (action.payload.esAdmin) {
+          state.esAdmin = true
+        }
         state.loading = false
+        state.logInSuccess = true
       })
-      .addCase(fetchAllCategoriesThunk.rejected, (state, action) => {
+      .addCase(fetchUserByUserNameThunk.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload || 'Error al enviar datos'
       })
   }
 })
 
-export const {} = loginRegisterSlice.actions
+export const { setLoginOrRegister, resetState } = loginRegisterSlice.actions
 
 export default loginRegisterSlice.reducer

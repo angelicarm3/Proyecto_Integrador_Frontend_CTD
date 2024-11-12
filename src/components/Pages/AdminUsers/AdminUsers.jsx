@@ -6,11 +6,14 @@ import AdminUsersList from '../../Organisms/AdminUsersList/AdminUsersList'
 const AdminUsers = () => {
   const dispatch = useDispatch()
   const { loading, error, success } = useSelector((state) => state.adminUsers)
+  const { token } = useSelector((state) => state.loginRegister)
 
   // Obtener usuarios al montar el componente
   useEffect(() => {
-    dispatch(fetchAllUsersAdminThunk())
-  }, [dispatch])
+    if (token) {
+      dispatch(fetchAllUsersAdminThunk(token))
+    }
+  }, [dispatch, token])
 
   return (
     <div className='admin-users-container p-4'>
