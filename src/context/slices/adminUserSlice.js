@@ -6,7 +6,7 @@ export const assignAdminRole = createAsyncThunk(
   'adminUsers/assignAdminRole',
   async (userId, { rejectWithValue }) => {
     try {
-      const response = await axios.put(`https://yourapi.com/users/${userId}/assign-admin`)
+      const response = await axios.put(`https://alluring-enchantment-production.up.railway.app/users/${userId}/assign-admin`)
       return response.data
     } catch (error) {
       return rejectWithValue(error.response.data.message)
@@ -19,7 +19,7 @@ export const removeAdminRole = createAsyncThunk(
   'adminUsers/removeAdminRole',
   async (userId, { rejectWithValue }) => {
     try {
-      const response = await axios.put(`https://yourapi.com/users/${userId}/remove-admin`)
+      const response = await axios.put(`https://alluring-enchantment-production.up.railway.app/users/${userId}/remove-admin`)
       return response.data
     } catch (error) {
       return rejectWithValue(error.response.data.message)
@@ -32,8 +32,8 @@ export const deleteUserThunk = createAsyncThunk(
   'adminUsers/deleteUser',
   async (userId, { rejectWithValue }) => {
     try {
-      const response = await axios.delete(`https://yourapi.com/users/${userId}`)
-      return response.data // Devuelve los datos del usuario eliminado
+      const response = await axios.delete(`https://alluring-enchantment-production.up.railway.app/users/delete/${userId}`)
+      return response.data
     } catch (error) {
       return rejectWithValue(error.response.data.message)
     }
@@ -106,7 +106,6 @@ export const adminUserSlice = createSlice({
         state.error = action.payload || 'Error al obtener usuarios'
       })
 
-    // Asignar rol de admin
     builder.addCase(assignAdminRole.fulfilled, (state, action) => {
       const updatedUser = state.users.find((user) => user.id === action.payload.id)
       if (updatedUser) {
