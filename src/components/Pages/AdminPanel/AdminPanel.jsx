@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { pageLabels } from '../../../data/pageLabels'
 import './AdminPanel.css'
+import { useSelector } from 'react-redux'
 
 const AdminPanel = () => {
   return (

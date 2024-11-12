@@ -21,6 +21,7 @@ const AdminProducts = () => {
 
   const [showConfirmDelete, setShowConfirmDelete] = useState(false)
   const { selectedProduct, loading, error, success } = useSelector((state) => state.adminProducts)
+  const { token } = useSelector((state) => state.loginRegister)
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -30,9 +31,11 @@ const AdminProducts = () => {
   useEffect(() => {
     if (success) {
       window.scrollTo(0, 0)
-      setTimeout(() => {
-        dispatch(resetStatus())
-      }, '3000')
+      const fetchData = async () => {
+        await dispatch(resetStatus())
+        dispatch(fetchAllProductsAdminThunk())
+      }
+      fetchData()
     }
   }, [success, dispatch])
 
@@ -49,7 +52,7 @@ const AdminProducts = () => {
   }
 
   const handleDeleteClick = (productId) => {
-    dispatch(deleteProductThunk(productId))
+    dispatch(deleteProductThunk({ productId, token }))
     setShowConfirmDelete(false)
   }
 
@@ -62,6 +65,7 @@ const AdminProducts = () => {
   const endIndex = startIndex + itemsToShow
   const currentProducts = productsList.slice(startIndex, endIndex)
 
+  // console.log(token)
   return (
     <div className='admin-products-container'>
       <section className='admin-products-section'>

@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .n {
+    @apply text-white flex items-between w-fit
+  }
+}
