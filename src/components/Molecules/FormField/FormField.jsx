@@ -9,7 +9,7 @@ const FormField = ({ id, label, type = 'text', value, register, validation, onCh
         id={id}
         type={type}
         value={value}
-        className={`input ${(error || (promiseError && id === 'matricula')) && 'border-red1'}`}
+        className={`input ${(error || (promiseError?.includes('ya existe en el sistema') && id === 'matricula')) && 'border-red1'}`}
         placeholder={label}
         {...register(id, validation)}
         onChange={onChange}

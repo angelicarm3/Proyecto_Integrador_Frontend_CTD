@@ -6,7 +6,6 @@ const AddBtn = ({ navigateTo }) => {
   const navigate = useNavigate()
 
   const handleAddProduct = () => {
-    console.log('Agregar producto')
     navigate(navigateTo)
     // navigate('/administracion/agregar-producto')
   }

@@ -45,10 +45,10 @@ export const fetchAllUsersAdminThunk = createAsyncThunk(
   'adminUsers/fetchAllUsersAdmin',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get('https://alluring-enchantment-production.up.railway.app/users/list')
-      return response.data
+      const response = await axios.get('https://alluring-enchantment-production.up.railway.app/users/list');
+      return response.data;
     } catch (error) {
-      return rejectWithValue('Error al obtener los datos')
+      return rejectWithValue('Error al obtener los datos');
     }
   }
 );
@@ -67,7 +67,7 @@ export const adminUserSlice = createSlice({
   reducers: {
     setItemsToShow: (state, action) => {
       state.itemsToShow = action.payload;
-      state.currentPage = 1;
+      state.currentPage = 1; // Reiniciar la página cuando cambia el número de items
     },
     setPage: (state, action) => {
       state.currentPage = action.payload;
@@ -84,24 +84,46 @@ export const adminUserSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      
+      // Fetch users
       .addCase(fetchAllUsersAdminThunk.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      
       .addCase(fetchAllUsersAdminThunk.fulfilled, (state, action) => {
         state.users = action.payload;
-        state.selectedAdminUser = null;
+        state.selectedUser = null;
         state.loading = false;
       })
-      
       .addCase(fetchAllUsersAdminThunk.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload || 'Error al obtener usuarios';
       });
+
+    // Asignar rol de admin
+    builder.addCase(assignAdminRole.fulfilled, (state, action) => {
+      const updatedUser = state.users.find((user) => user.id === action.payload.id);
+      if (updatedUser) {
+        updatedUser.esAdmin = 'admin'; // Actualiza el rol del usuario en el estado
+      }
+    });
+
+    // Eliminar rol de admin
+    builder.addCase(removeAdminRole.fulfilled, (state, action) => {
+      const updatedUser = state.users.find((user) => user.id === action.payload.id);
+      if (updatedUser) {
+        updatedUser.esAdmin = 'user'; // Actualiza el rol del usuario en el estado
+      }
+    });
+
+    // Eliminar usuario
+    builder.addCase(deleteUserThunk.fulfilled, (state, action) => {
+      state.users = state.users.filter((user) => user.id !== action.payload.id); // Elimina el usuario del estado
+    });
   },
 });
 
+// Exportar acciones
 export const { setItemsToShow, setPage, setSelectedUser, resetStatus } = adminUserSlice.actions;
+
+// Exportar reducer
 export default adminUserSlice.reducer;

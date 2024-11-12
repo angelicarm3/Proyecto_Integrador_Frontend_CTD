@@ -2,16 +2,17 @@ import { useEffect, useState } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { AiOutlineClose, AiOutlineFileImage, AiOutlineLoading } from 'react-icons/ai'
 
-import './createProductForm.css'
+import './createEditProductForm.css'
 import { pageLabels } from '../../../data/pageLabels'
 import useImageUpload from '../../../hooks/useImageUpload'
 import { createProductFormFields } from '../../../service/createProductService'
+import { fetchProductByIdThunk } from '../../../context/slices/productSlice'
 import { fetchAllCategoriesThunk } from '../../../context/slices/categorySlice'
 import { fetchAllCharacteristicsThunk } from '../../../context/slices/characteristicSlice'
-import { submitFormThunk, uploadImagesThunk, updateField, clearError, resetForm, updateHasSubmited } from '../../../context/slices/formSlice'
+import { submitFormThunk, uploadImagesThunk, updateField, clearError, resetForm, updateHasSubmited, updateImgSuccess } from '../../../context/slices/formSlice'
 import BackBtn from '../../Atoms/BackBtn/BackBtn'
 import FormField from '../../Molecules/FormField/FormField'
 import CancelBtn from '../../Atoms/CancelBtn/CancelBtn'
@@ -19,23 +20,45 @@ import SaveBtn from '../../Atoms/SaveBtn/SaveBtn'
 import FormErrorMessage from '../../Atoms/FormErrorMessage/FormErrorMessage'
 import ButtonField from '../../Molecules/CheckboxField/ButtonField'
 
-const CreateProductForm = () => {
+const CreateEditProductForm = () => {
+  const { id } = useParams()
+  const location = useLocation()
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { productData, loading, error, success, imgSuccess } = useSelector((state) => state.form)
+  const selectedProduct = useSelector((state) => state.product.selectedProduct)
   const allCategories = useSelector((state) => state.category.allCategories)
   const allCharacteristics = useSelector((state) => state.characteristic.allCharacteristics)
-  const { selectedImages, filePreviews, imagesRequiredError, setImagesRequiredError, handleFileChange, removeImage } = useImageUpload()
+  const { selectedImages, filePreviews, setFilePreviews, imagesRequiredError, setImagesRequiredError, handleFileChange, removeImage } = useImageUpload()
   const maxDescriptionCharacters = 200
   const [selectedCategories, setSelectedCategories] = useState([])
   const [selectedCharacteristics, setSelectedCharacteristics] = useState([])
-  const { register, handleSubmit, formState: { errors }, clearErrors } = useForm({ mode: 'onBlur' })
+  const { register, handleSubmit, setValue, formState: { errors }, clearErrors } = useForm({ mode: 'onBlur', defaultValues: productData })
 
   useEffect(() => {
     window.scrollTo(0, 0)
-    dispatch(fetchAllCategoriesThunk())
-    dispatch(fetchAllCharacteristicsThunk())
-  }, [dispatch])
+    dispatch(resetForm())
+    const fetchData = async () => {
+      if (id) {
+        await dispatch(fetchProductByIdThunk(id))
+      }
+      dispatch(fetchAllCategoriesThunk())
+      dispatch(fetchAllCharacteristicsThunk())
+    }
+    fetchData()
+  }, [dispatch, id])
+
+  useEffect(() => {
+    if (selectedProduct) {
+      Object.keys(selectedProduct).forEach((key) => {
+        setValue(key, selectedProduct[key] || '')
+        dispatch(updateField({ field: key, value: selectedProduct[key], form: 'createProduct' }))
+      })
+      setSelectedCategories(selectedProduct.categorias || [])
+      setSelectedCharacteristics(selectedProduct.caracteristicas || [])
+      setFilePreviews(selectedProduct.imagenes || [])
+    }
+  }, [selectedProduct, dispatch])
 
   const handleSelectionChange = (item, setState) => {
     setState((prev) =>
@@ -61,33 +84,39 @@ const CreateProductForm = () => {
   const onSubmit = () => {
     window.scrollTo(0, 0)
     dispatch(updateHasSubmited())
+    dispatch(updateField({ field: 'categorias', value: selectedCategories, form: 'createProduct' }))
+    dispatch(updateField({ field: 'caracteristicas', value: selectedCharacteristics, form: 'createProduct' }))
+
     if (selectedImages.length === 0) {
-      setImagesRequiredError(true)
+      if (filePreviews.length === 0) {
+        setImagesRequiredError(true)
+      } else {
+        dispatch(updateField({ field: 'imagenes', value: filePreviews, form: 'createProduct' }))
+        dispatch(updateImgSuccess())
+      }
     } else {
-      dispatch(updateField({ field: 'categorias', value: selectedCategories, form: 'createProduct' }))
-      dispatch(updateField({ field: 'caracteristicas', value: selectedCharacteristics, form: 'createProduct' }))
       dispatch(uploadImagesThunk({ files: selectedImages, form: 'createProduct' }))
     }
   }
 
   useEffect(() => {
-    if (imgSuccess && productData.imagenes.length > 0) {
-      dispatch(submitFormThunk({ formData: productData, formURL: 'autos/register' }))
+    if (imgSuccess && productData?.imagenes?.length > 0) {
+      if (location.pathname.includes('editar')) {
+        dispatch(submitFormThunk({ formData: productData, formURL: `autos/update/${selectedProduct?.id}` }))
+      } else {
+        dispatch(submitFormThunk({ formData: productData, formURL: 'autos/register' }))
+      }
     }
-  }, [imgSuccess, productData, dispatch])
+  }, [imgSuccess, productData, dispatch, location, selectedProduct])
 
   useEffect(() => {
     if (success) {
       setTimeout(() => {
         dispatch(resetForm())
-        navigate(-1)
+        navigate('/administracion/productos')
       }, '3000')
     }
   }, [success, navigate, dispatch])
-
-  console.log(productData)
-  console.log(selectedCategories)
-  console.log(selectedCharacteristics)
 
   return (
     <form className='create-product-form-container' onSubmit={handleSubmit(onSubmit)}>
@@ -214,7 +243,7 @@ const CreateProductForm = () => {
         success &&
           <div className='pop-up-bg success-bg'>
             <div className='success-box'>
-              <p className='success-text'>{pageLabels.createProduct.successMessage}</p>
+              <p className='success-text'>{location.pathname.includes('editar') ? pageLabels.createProduct.successUpdateMessage : pageLabels.createProduct.successCreateMessage}</p>
             </div>
           </div>
       }
@@ -222,4 +251,4 @@ const CreateProductForm = () => {
   )
 }
 
-export default CreateProductForm
+export default CreateEditProductForm
