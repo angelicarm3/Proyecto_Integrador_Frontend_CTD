@@ -2,15 +2,15 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllUsersAdminThunk, setPage, setItemsToShow, resetStatus } from '../../../context/slices/adminUserSlice';
 import UserRow from '../../Molecules/UserRow/UserRow';
+import Paginator from '../../Molecules/Paginator/Paginator';  // Import the Paginator component
 
 const AdminUsersList = () => {
   const dispatch = useDispatch();
-  const { users, loading, error, currentPage, itemsToShow, success } = useSelector((state) => state.adminUsers);
+  const { users, loading, error, currentPage, itemsToShow, totalUsers, success } = useSelector((state) => state.adminUsers);
 
   // Obtener usuarios cuando el componente se monta
   useEffect(() => {
     dispatch(fetchAllUsersAdminThunk());
-    // Resetear el estado de la operación cuando el componente se desmonta o cambia la página
     return () => {
       dispatch(resetStatus());
     };
@@ -23,6 +23,7 @@ const AdminUsersList = () => {
 
   const handleItemsPerPageChange = (items) => {
     dispatch(setItemsToShow(items));
+    dispatch(setPage(1)); // Reset to page 1 when items per page changes
   };
 
   // Calcular los usuarios a mostrar según la página y los elementos por página
@@ -56,29 +57,14 @@ const AdminUsersList = () => {
       </table>
 
       {/* Paginación */}
-      <div className="pagination mt-4">
-        <button
-          className="px-4 py-2 bg-gray-300 text-black rounded-md hover:bg-gray-400"
-          onClick={() => handlePageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          Prev
-        </button>
+      <Paginator onPageChange={handlePageChange} />
 
-        <span className="mx-2">
-          Page {currentPage}
-        </span>
-
-        <button
-          className="px-4 py-2 bg-gray-300 text-black rounded-md hover:bg-gray-400"
-          onClick={() => handlePageChange(currentPage + 1)}
-          disabled={currentPage * itemsToShow >= users.length}
-        >
-          Next
-        </button>
-
+      {/* Selección de elementos por página */}
+      <div className="mt-4">
+        <label htmlFor="items-per-page" className="mr-2">Items por página:</label>
         <select
-          className="ml-4 px-2 py-1 bg-white border rounded-md"
+          id="items-per-page"
+          className="px-2 py-1 bg-white border rounded-md"
           onChange={(e) => handleItemsPerPageChange(Number(e.target.value))}
           value={itemsToShow}
         >

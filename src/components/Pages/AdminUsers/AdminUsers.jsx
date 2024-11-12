@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchAllUsersAdminThunk } from '../.././../context/slices/adminUserSlice'
 import AdminUsersList from '../../Organisms/AdminUsersList/AdminUsersList'
+import Pagination from '../../Molecules/Pagination/Pagination'
 
 const AdminUsers = () => {
   const dispatch = useDispatch()
