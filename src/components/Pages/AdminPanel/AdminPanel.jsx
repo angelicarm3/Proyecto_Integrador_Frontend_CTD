@@ -25,6 +25,12 @@ const AdminPanel = () => {
         >
           {pageLabels.adminCharacteristics.title}
         </Link>
+        <Link
+          to='/administracion/categorias'
+          className='admin-panel-link'
+        >
+          {pageLabels.adminCategory.title}
+        </Link>
       </section>
     </div>
   )

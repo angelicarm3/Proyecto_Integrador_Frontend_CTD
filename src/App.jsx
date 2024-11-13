@@ -16,14 +16,17 @@ import AdminUsers from './components/Pages/AdminUsers/AdminUsers.jsx'
 import AdminCharacteristics from './components/Pages/AdminCharacteristics/AdminCharacteristics'
 import AdminCharacteristicsEdit from './components/Pages/AdminCharacteristicsEdit/AdminCharacteristicsEdit'
 
+import AdminCategories from './components/Pages/AdminCategories/AdminCategories'
+import AdminCategoriesEdit from './components/Pages/AdminCategoriesEdit/AdminCategoriesEdit'
+
 import ImagesPopUp from './components/Templates/ImagesPopUp/ImagesPopUp.jsx'
 import RentNowPopUp from './components/Templates/RentNowPopUp/RentNowPopUp.jsx'
 
-function App () {
+function App() {
   const location = useLocation()
   const previousLocation = location.state?.previousLocation
 
-  function LayoutWithNavbarAndFooter () {
+  function LayoutWithNavbarAndFooter() {
     return (
       <div className='layout bg-gray2'>
         <Header />
@@ -33,7 +36,7 @@ function App () {
     )
   }
 
-  function AdmonLayoutWithNavbarAndFooter () {
+  function AdmonLayoutWithNavbarAndFooter() {
     return (
       <div className='layout'>
         <Header />
@@ -62,7 +65,11 @@ function App () {
           <Route path='administracion/usuarios' element={<RequireAdmin><AdminUsers /></RequireAdmin>} />
           <Route path='administracion/caracteristicas' element={<AdminCharacteristics />} />
           <Route path='administracion/editar-caracteristica/:id' element={<AdminCharacteristicsEdit />} />
-        </Route><Route path='administracion/agregar-caracteristica' element={<AdminCharacteristicsEdit />} />
+          <Route path='administracion/agregar-caracteristica' element={<AdminCharacteristicsEdit />} />
+          <Route path='administracion/categorias' element={<AdminCategories />} />
+          <Route path='administracion/agregar-categorias' element={<AdminCategoriesEdit />} />
+          <Route path='administracion/editar-categoria/:id' element={<AdminCategoriesEdit />} />
+        </Route>
       </Routes>
 
       {

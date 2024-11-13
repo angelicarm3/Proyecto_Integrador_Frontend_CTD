@@ -11,7 +11,7 @@ import { AiOutlineLoading } from 'react-icons/ai'
 import { pageLabels } from '../../../data/pageLabels'
 import CharacteristcsRow from '../../Molecules/CharacteristicsRow/CharacteristicsRow'
 
-import './AdminCharacteristics.css'
+import './AdminCharacteristics'
 
 const AdminCharacteristics = () => {
   const dispatch = useDispatch()
@@ -73,13 +73,13 @@ const AdminCharacteristics = () => {
   const currentCharacteristics = characteristicsList.slice(startIndex, endIndex)
 
   return (
-    <section className='admin-characteristics-container'>
+    <section className='admin-charact-container'>
       <div className='admin-characteristics-upper'>
         <div className='admin-search-bar-container'>
           <AddBtn navigateTo='/administracion/agregar-caracteristica' onClick={handleAddCharacteristic} />
         </div>
 
-        <div className='admin-products-dropDown-container'>
+        <div className='admin-characteristics-dropDown-container'>
           <span>{pageLabels.adminCharacteristics.result}</span>
           <Dropdown options={options} onSelect={handleSelect} />
         </div>
@@ -91,42 +91,42 @@ const AdminCharacteristics = () => {
         )}
       </AdminProductList>
 
-      <div className='admin-products-pagination-container'>
+      <div className='admin-characteristics-pagination-container'>
         <Pagination totalItems={totalItems} itemsToShow={itemsToShow} handlePageChange={handlePageChange} currentPage={currentPage} />
-        <p className='admin-products-p'>{`Resultados ${startIndex + 1} a ${endIndex} de ${totalItems}`}</p>
+        <p className='admin-characteristics-p'>{`Resultados ${startIndex + 1} a ${endIndex} de ${totalItems}`}</p>
       </div>
 
       {
         showConfirmDelete &&
-        <div className='admin-products-confirm-delation-container pop-up-bg '>
-          <div className='admin-products-confirm-delations-modal'>
-            <p className='admin-products-confirm-delations-modal-p'>{pageLabels.adminProducts.confirmDelation}</p>
-            <div className='btn-container'>
-              <button
-                className='admin-products-confirm-delations-modal-btn'
-                type='button'
-                onClick={() => handleDeleteClick()}
-              >
-                <p>{pageLabels.adminProducts.delete}</p>
-              </button>
-              <CancelBtn handleClick={handleClick} />
+          <div className='admin-characteristics-confirm-delation-container pop-up-bg '>
+            <div className='admin-characteristics-confirm-delations-modal'>
+              <p className='admin-characteristics-confirm-delations-modal-p'>{pageLabels.adminProducts.confirmDelation}</p>
+              <div className='btn-container'>
+                <button
+                  className='admin-characteristics-confirm-delations-modal-btn'
+                  type='button'
+                  onClick={() => handleDeleteClick()}
+                >
+                  <p>{pageLabels.adminProducts.delete}</p>
+                </button>
+                <CancelBtn handleClick={handleClick} />
+              </div>
             </div>
           </div>
-        </div>
       }
       {
         loading &&
-        <div className='admin-products-loading pop-up-bg'>
-          <AiOutlineLoading size={40} className='loader-icon' />
-        </div>
+          <div className='admin-characteristics-loading pop-up-bg'>
+            <AiOutlineLoading size={40} className='loader-icon' />
+          </div>
       }
       {
         success &&
-        <div className='admin-products-success pop-up-bg'>
-          <div className='w-8/12 h-40 flex justify-center items-center bg-white border-2 border-gray1 rounded-lg'>
-            <p className='text-xl text-green1'>¡Producto eliminado con éxito!</p>
+          <div className='admin-characteristics-success pop-up-bg'>
+            <div className='w-8/12 h-40 flex justify-center items-center bg-white border-2 border-gray1 rounded-lg'>
+              <p className='text-xl text-green1'>¡Producto eliminado con éxito!</p>
+            </div>
           </div>
-        </div>
       }
     </section>
   )

@@ -96,5 +96,9 @@ export const pageLabels = {
   adminCharacteristics: {
     title: 'Caracteristicas',
     result: 'Resultados'
+  },
+  adminCategory: {
+    title: 'Categorias',
+    result: 'Resultados'
   }
 }

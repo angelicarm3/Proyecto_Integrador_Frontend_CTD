@@ -68,7 +68,7 @@ export const characteristicSlice = createSlice({
   },
 
   reducers: {
-    reset(state) {
+    reset (state) {
       state.success = false
     }
   },

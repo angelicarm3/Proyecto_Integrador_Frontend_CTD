@@ -5,23 +5,25 @@ import { FaEdit } from 'react-icons/fa'
 import TashCan from '../../../assets/icons/eliminar.png'
 import { useDispatch } from 'react-redux'
 
-import { deleteCharacteristicThunk, updateCharacteristicThunk } from '../../../context/slices/characteristicSlice'
+import { deleteCategoryThunk, updateCategoryThunk } from '../../../context/slices/categorySlice'
 
-const CharacteristcsRow = ({ product, setShowConfirmDelete }) => {
+const CategoriesRow = ({ product, setShowConfirmDelete }) => {
   const dispatch = useDispatch()
+  console.log('product', product)
 
   const handleDelete = (id) => {
     console.log(`Eliminar producto ${id}`)
-    dispatch(deleteCharacteristicThunk(id))
+    dispatch(deleteCategoryThunk(id))
     setShowConfirmDelete(true)
   }
 
   const handleEditCategory = () => {
+    // TODO obtenerlos del formulario
     const updatedData = {
       nombre: 'Nuevo Nombre',
       icono: 'https://nuevaurl.com/icono.png'
     }
-    dispatch(updateCharacteristicThunk({ id: product.id, data: updatedData }))
+    dispatch(updateCategoryThunk({ id: product.id, data: updatedData }))
       .then(() => console.log(`Producto ${product.id} actualizado exitosamente`))
       .catch((error) => console.error('Error al actualizar la característica:', error))
   }
@@ -30,7 +32,8 @@ const CharacteristcsRow = ({ product, setShowConfirmDelete }) => {
     <tr className='border'>
       <td className='border-l border-r px-4 py-2 text-center'>{product.id}</td>
       <td className='border-l border-r px-4 py-2'>{product.nombre}</td>
-      <td className='border-l border-r px-4 py-2 text-center'><img src={product.icono} width='20' /></td>
+      <td className='border-l border-r px-4 py-2'>{product.descripcion}</td>
+      <td className='border-l border-r px-4 py-2 text-center'><img src={product.iconoCat} width='20' /></td>
       <td className='border-l border-r px-4 py-2 w-1/4'>
         <div className='flex space-x-3 justify-center'>
           <Link
@@ -52,4 +55,4 @@ const CharacteristcsRow = ({ product, setShowConfirmDelete }) => {
   )
 }
 
-export default CharacteristcsRow
+export default CategoriesRow

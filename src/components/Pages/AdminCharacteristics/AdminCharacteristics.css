@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer components {
-  .admin-characteristics-container {
+  .admin-charact-container {
     @apply p-4 flex flex-col mt-[68px] relative;
   }
 
@@ -11,39 +11,39 @@
     @apply flex items-center justify-around align-middle mb-4;
   }
 
-  .admin-products-dropDown-container {
+  .admin-characteristics-dropDown-container {
     @apply flex items-center gap-4 space-x-4;
   }
 
-  .admin-products-pagination-container {
+  .admin-characteristics-pagination-container {
     @apply flex justify-between space-x-2 items-center;
   }
 
-  .admin-products-p {
+  .admin-characteristics-p {
     @apply text-gray-500;
   }
 
-  .admin-products-confirm-delation-container {
+  .admin-characteristics-confirm-delation-container {
     @apply w-screen h-screen absolute top-[-68px] left-0;
   }
 
-  .admin-products-confirm-delations-modal {
+  .admin-characteristics-confirm-delations-modal {
     @apply w-8/12 h-40 flex flex-col justify-center items-center bg-white border-2 border-gray1 rounded-lg;
   }
 
-  .admin-products-confirm-delations-modal-p {
+  .admin-characteristics-confirm-delations-modal-p {
     @apply text-xl text-black1;
   }
 
-  .admin-products-confirm-delations-modal-btn {
+  .admin-characteristics-confirm-delations-modal-btn {
     @apply w-24 flex justify-center items-center bg-green1 text-base text-gray4 font-bold rounded-3xl hover:opacity-75 p-2;
   }
 
-  .admin-products-loading {
+  .admin-characteristics-loading {
     @apply opacity-25 absolute w-screen h-screen top-[-68px] left-0 rounded-lg;
   }
 
-  .admin-products-success {
+  .admin-characteristics-success {
     @apply w-screen h-screen absolute top-[-68px] left-0 rounded-lg;
   }
 }
