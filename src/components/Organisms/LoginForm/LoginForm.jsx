@@ -20,7 +20,13 @@ const LoginForm = () => {
   const { loginData, response, error, success } = useSelector((state) => state.form)
   const { isAdmin, logInSuccess } = useSelector((state) => state.loginRegister)
 
-  const { register, handleSubmit, formState: { errors }, clearErrors } = useForm({ mode: 'onBlur', defaultValues: loginData })
+  const { register, handleSubmit, formState: { errors }, clearErrors, setValue } = useForm({ mode: 'onBlur', defaultValues: loginData })
+
+  useEffect(() => {
+    Object.keys(loginData).forEach((key) => {
+      setValue(key, loginData[key])
+    })
+  }, [loginData, setValue])
 
   const handleInputChange = (e) => {
     const { id, value } = e.target
