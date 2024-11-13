@@ -22,8 +22,7 @@ const AdminProducts = () => {
 
   const [showConfirmDelete, setShowConfirmDelete] = useState(false)
   const { selectedProduct, loading, error, success } = useSelector((state) => state.adminProducts)
-
-  console.log(error)
+  const { token } = useSelector((state) => state.loginRegister)
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -33,12 +32,13 @@ const AdminProducts = () => {
   useEffect(() => {
     if (success) {
       window.scrollTo(0, 0)
-      setTimeout(() => {
-        dispatch(resetStatus())
-      }, '3000')
+      const fetchData = async () => {
+        await dispatch(resetStatus())
+        dispatch(fetchAllProductsAdminThunk())
+      }
+      fetchData()
     }
   }, [success, dispatch])
-  console.log(success)
 
   const productsList = useSelector((state) => state.adminProducts.allProducts)
   const itemsToShow = useSelector((state) => state.adminProducts.itemsToShow)
@@ -46,7 +46,6 @@ const AdminProducts = () => {
 
   const handleSelect = (count) => {
     dispatch(setItemsToShow(count))
-    console.log(`Mostrar ${count} elementos`)
   }
 
   const handleClick = () => {
@@ -54,17 +53,13 @@ const AdminProducts = () => {
   }
 
   const handleDeleteClick = (productId) => {
-    console.log(productId)
-    dispatch(deleteProductThunk(productId))
+    dispatch(deleteProductThunk({ productId, token }))
     setShowConfirmDelete(false)
   }
 
   const handlePageChange = (page) => {
     dispatch(setPage(page))
   }
-
-  const filteredProducts = productsList.slice(0, itemsToShow)
-  console.log(filteredProducts)
 
   const totalItems = productsList.length
   const startIndex = (currentPage - 1) * itemsToShow

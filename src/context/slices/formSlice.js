@@ -17,9 +17,29 @@ export const uploadImagesThunk = createAsyncThunk(
 
 export const submitFormThunk = createAsyncThunk(
   'form/submitForm',
-  async ({ formData, formURL }, { rejectWithValue }) => {
+  async ({ formData, formURL, token }, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`https://alluring-enchantment-production.up.railway.app/${formURL}`, formData)
+      let response
+      if (formURL.includes('update')) {
+        response = await axios.put(
+          `https://alluring-enchantment-production.up.railway.app/${formURL}`,
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }
+        )
+      } else {
+        response = await axios.post(
+          `https://alluring-enchantment-production.up.railway.app/${formURL}`, formData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }
+        )
+      }
       return response.data
     } catch (error) {
       return rejectWithValue(error.response.data.mensaje)
@@ -29,6 +49,11 @@ export const submitFormThunk = createAsyncThunk(
 
 const capitalizeFirstLetter = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1)
+}
+
+const changeInputType = (showPassword) => {
+  const passwordField = document.getElementById('password')
+  showPassword ? passwordField.type = 'text' : passwordField.type = 'password'
 }
 
 const initialState = {
@@ -46,6 +71,26 @@ const initialState = {
     descripcion: '',
     imagenes: []
   },
+  loginData: {
+    userName: '',
+    password: ''
+  },
+  userData: {
+    nombre: '',
+    apellido: '',
+    dni: '',
+    edad: '',
+    nacionalidad: '',
+    telefono: '',
+    email: '',
+    userName: '',
+    password: '',
+    esAdmin: false,
+    estaActivo: false
+  },
+  showPassword: false,
+  isRememberMe: false,
+  response: '',
   loading: false,
   error: null,
   success: false,
@@ -67,10 +112,22 @@ const formSlice = createSlice({
         } else {
           state.productData[field] = value
         }
+      } else if (form === 'logIn') {
+        state.loginData[field] = value
       }
     },
     updateHasSubmited: (state) => {
       state.hasSubmited = !state.hasSubmited
+    },
+    updateImgSuccess: (state) => {
+      state.imgSuccess = !state.imgSuccess
+    },
+    setShowPassword: (state) => {
+      state.showPassword = !state.showPassword
+      changeInputType(state.showPassword)
+    },
+    setIsRememberMe: (state) => {
+      state.isRememberMe = !state.isRememberMe
     },
     clearError: (state) => {
       state.error = null
@@ -109,6 +166,7 @@ const formSlice = createSlice({
       .addCase(submitFormThunk.fulfilled, (state, action) => {
         state.loading = false
         state.success = true
+        state.response = action.payload
       })
       .addCase(submitFormThunk.rejected, (state, action) => {
         state.loading = false
@@ -118,5 +176,5 @@ const formSlice = createSlice({
   }
 })
 
-export const { updateField, clearError, resetForm, updateHasSubmited } = formSlice.actions
+export const { updateField, clearError, resetForm, updateHasSubmited, updateImgSuccess, setShowPassword, setIsRememberMe } = formSlice.actions
 export default formSlice.reducer

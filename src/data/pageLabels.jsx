@@ -51,7 +51,8 @@ export const pageLabels = {
     characterCount: 'caracteres restantes',
     imgPlaceholder: 'Seleccionar imágenes',
     fileCount: 'archivos seleccionados',
-    successMessage: '¡Producto creado con éxito!',
+    successCreateMessage: '¡Producto creado con éxito!',
+    successUpdateMessage: '¡Producto actualizado con éxito!',
     requiredError: 'Este campo es obligatorio',
     requiredSelectionError: 'Por favor selecciona al menos una opción',
     validPlateError: 'Ingrese una matrícula válida',
@@ -59,11 +60,20 @@ export const pageLabels = {
     validNumberError: 'Ingrese un número válido',
     existingProductError: 'Esta matrícula ya está registrada'
   },
+  loginRegister: {
+    email: 'Email',
+    password: 'Contraseña',
+    rememberMe: 'Recuérdame',
+    forgotPassword: '¿Olvidó su contraseña?',
+    logInBtn: 'Ingresar',
+    registerBtn: 'Registrarse',
+    invalidEmailError: 'Por favor ingrese una dirección de email válida'
+  },
   adminPanel: {
     mobileMessage: 'No disponible en dispositivos móviles',
     mainTitle: 'Panel de Administración',
     productsList: 'Lista de productos',
-    usersList: 'Usuarios'
+    usersList: 'Lista de usuarios'
   },
   addBtn: {
     label: '+ Añadir'
@@ -71,7 +81,6 @@ export const pageLabels = {
   AddBtnUsers: {
     label: '+ Añadir'
   },
-
   adminProducts: {
     confirmDelation: '¿Desea eliminar este producto?',
     delete: 'Eliminar'

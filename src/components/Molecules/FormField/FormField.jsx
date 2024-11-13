@@ -1,19 +1,37 @@
+import { useDispatch, useSelector } from 'react-redux'
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
+
 import './formField.css'
+import { setShowPassword } from '../../../context/slices/formSlice'
 import FormErrorMessage from '../../Atoms/FormErrorMessage/FormErrorMessage'
 
-const FormField = ({ id, label, type = 'text', value, register, validation, onChange, error, promiseError, extraErrorMessage }) => {
+const FormField = ({ fieldWidth, label, id, type, value, inputClass, register, validation, onChange, error, promiseError, extraErrorMessage }) => {
+  const dispatch = useDispatch()
+  const { showPassword } = useSelector((state) => state.form)
+
   return (
-    <div className='field-container'>
+    <div className={`${fieldWidth} field-container`}>
       <label htmlFor={id} className='label'>{label}</label>
       <input
         id={id}
         type={type}
         value={value}
-        className={`input ${(error || (promiseError && id === 'matricula')) && 'border-red1'}`}
+        className={`${inputClass} ${(error || (promiseError?.includes('ya existe en el sistema') && id === 'matricula')) && 'border-red1'}`}
         placeholder={label}
         {...register(id, validation)}
         onChange={onChange}
       />
+
+      {
+        id === 'password' &&
+          <div className='w-6 absolute top-[44px] right-4 cursor-pointer' onClick={() => dispatch(setShowPassword())}>
+            {
+          showPassword
+            ? <AiOutlineEye size={24} />
+            : <AiOutlineEyeInvisible size={24} />
+        }
+          </div>
+      }
       {
         error &&
           <FormErrorMessage message={error.message} />

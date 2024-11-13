@@ -2,6 +2,7 @@ import React from 'react'
 
 const AdminProductsList = ({ headers, children }) => {
   console.log(children)
+  
   return (
     <table className='min-w-full border border-gray-300 '>
       <thead>

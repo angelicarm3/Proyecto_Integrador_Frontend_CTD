@@ -22,7 +22,7 @@
     @apply text-gray4 cursor-pointer hover:text-gray3 mx-auto z-40
   }
   .main-page {
-    @apply w-full h-fit flex flex-col bg-gray2
+    @apply w-full h-fit flex flex-col justify-center items-center bg-gray2
   }
   .main-section {
     @apply w-11/12 self-center my-6
@@ -35,9 +35,12 @@
   }
   .label {
     @apply flex text-base font-medium
-}
+  }
   .input {
     @apply h-10 bg-white rounded-lg border-2 border-beige1 outline-gray4 px-4 font-Urbanist placeholder:font-Urbanist placeholder:text-gray1
+  }
+  .input-dark {
+    @apply h-12 bg-black1 rounded-3xl border-2 border-black1 outline-black1 px-4 font-Urbanist placeholder:font-Urbanist placeholder:text-gray3
   }
   .form-error-container {
     @apply flex items-center gap-1.5
