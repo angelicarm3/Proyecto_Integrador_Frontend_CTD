@@ -19,12 +19,11 @@ const AdminPanel = () => {
         >
           {pageLabels.adminPanel.productsList}
         </Link>
-
         <Link
-          to='/administracion/usuarios'
+          to='/administracion/caracteristicas'
           className='admin-panel-link'
         >
-          {pageLabels.adminPanel.usersList}
+          {pageLabels.adminCharacteristics.title}
         </Link>
       </section>
     </div>

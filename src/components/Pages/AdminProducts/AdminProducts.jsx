@@ -12,6 +12,7 @@ import AddBtn from '../../Atoms/AddBtn/AddBtn'
 import { AiOutlineLoading } from 'react-icons/ai'
 import { pageLabels } from '../../../data/pageLabels'
 import './AdminProducts.css'
+import ProductRow from '../../Molecules/ProductRow/ProductRow'
 
 const AdminProducts = () => {
   const dispatch = useDispatch()
@@ -81,7 +82,9 @@ const AdminProducts = () => {
         </div>
       </section>
 
-      <AdminProductList products={currentProducts} setShowConfirmDelete={setShowConfirmDelete} headers={headers} />
+      <AdminProductList headers={headers}>
+        {currentProducts.map((product) => <ProductRow key={product.id} product={product} setShowConfirmDelete={setShowConfirmDelete} />)}
+      </AdminProductList>
       <div className='admin-products-pagination-conatiner'>
         <Pagination totalItems={totalItems} itemsToShow={itemsToShow} handlePageChange={handlePageChange} currentPage={currentPage} />
         <p className='admin-products-p'>{`Resultados ${startIndex + 1} a ${endIndex} de ${totalItems}`}</p>

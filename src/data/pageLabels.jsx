@@ -92,5 +92,9 @@ export const pageLabels = {
   },
   adminSearchBar: {
     placeholder: 'Palabra Clave'
+  },
+  adminCharacteristics: {
+    title: 'Catacteristicas',
+    result: 'Resultados'
   }
 }
