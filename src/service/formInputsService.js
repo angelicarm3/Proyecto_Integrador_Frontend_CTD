@@ -1,6 +1,6 @@
 import { pageLabels } from '../data/pageLabels'
 
-export const createProductFormFields = [
+const createProductFormFields = [
   { id: 'marca', label: pageLabels.createProduct.make },
   { id: 'modelo', label: pageLabels.createProduct.model },
   { id: 'matricula', label: pageLabels.createProduct.plate, validation: { pattern: { value: /^[A-Z]{3}\d{3}$/, message: `${pageLabels.createProduct.validPlateError}` } }, extraErrorMessage: `${pageLabels.createProduct.existingProductError}` },
@@ -10,3 +10,10 @@ export const createProductFormFields = [
   { id: 'aceleracion', label: pageLabels.createProduct.acceleration, validation: { pattern: { value: /^([1-9]|[1-9]\d|[1-9]\d\.\d|10|10\.0|[1-9]\.\d{1,2})$/, message: `${pageLabels.createProduct.validNumberError}` } } },
   { id: 'precioDia', label: pageLabels.createProduct.dayPrice, validation: { pattern: { value: /^(0|[1-9]\d*)(\.\d{1,2})?$/, message: `${pageLabels.createProduct.validNumberError}` } } }
 ]
+
+const loginFormFields = [
+  { id: 'userName', type: 'text', label: pageLabels.loginRegister.email, validation: { pattern: { value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/, message: `${pageLabels.loginRegister.invalidEmailError}` } } },
+  { id: 'password', type: 'password', label: pageLabels.loginRegister.password }
+]
+
+export { createProductFormFields, loginFormFields }

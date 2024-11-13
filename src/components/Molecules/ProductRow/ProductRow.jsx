@@ -14,8 +14,8 @@ const ProductRow = ({ product, setShowConfirmDelete }) => {
     // Lógica para eliminar el producto
   }
 
-  const handleDelete = (id) => {
-    dispatch(setSelectedProduct(product.id))
+  const handleDelete = (product) => {
+    dispatch(setSelectedProduct(product))
     setShowConfirmDelete(true)
     // dispatch(deleteProductThunk(product.id))
   }
@@ -59,7 +59,7 @@ const ProductRow = ({ product, setShowConfirmDelete }) => {
           </Link>
           <button
             className='bg-red-500 text-white px-4 py-2 rounded'
-            onClick={handleDelete}
+            onClick={() => handleDelete(product)}
           >
             <img src={TashCan} alt='Trashcan' className='w-5 h-5 max-w-none' />
           </button>
