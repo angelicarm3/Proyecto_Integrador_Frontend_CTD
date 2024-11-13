@@ -12,38 +12,11 @@ export const fetchAllProductsAdminThunk = createAsyncThunk(
 export const fetchProductByIdThunk = createAsyncThunk(
   'adminProducts/fetchProductById',
   async (productId, { rejectWithValue }) => {
-    console.log('productId:', productId)
     try {
       const response = await axios.get(`https://alluring-enchantment-production.up.railway.app/autos/find/${productId}`)
-      console.log('response data ', response.data)
       return response.data
     } catch (error) {
-      console.error('error en la solicitud', error)
       return rejectWithValue(error.response?.data?.mensaje || 'Error desconocido')
-    }
-  }
-)
-
-export const updateProduct = createAsyncThunk(
-  'products/updateProduct',
-  async (productId, { rejectWithValue }) => {
-    try {
-      const response = await fetch(`https://alluring-enchantment-production.up.railway.app/autos/find/${productId}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ id: productId })
-      })
-
-      if (!response.ok) {
-        throw new Error('Failed to update product')
-      }
-
-      const data = await response.json()
-      return data
-    } catch (error) {
-      return rejectWithValue(error.message)
     }
   }
 )

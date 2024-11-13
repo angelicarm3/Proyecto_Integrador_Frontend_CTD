@@ -34,11 +34,6 @@ const AdminUsersList = () => {
   return (
     <div className='admin-users-list'>
       <h1 className='text-2xl font-bold mb-4'>Panel de usuarios</h1>
-
-      {loading && <p>Loading...</p>}
-      {error && <p className='text-red-500'>{error}</p>}
-      {success && <p className='text-green-500'>Éxito!</p>}
-
       <table className='min-w-full table-auto border-collapse border border-gray-200'>
         <thead>
           <tr className='bg-gray-100'>

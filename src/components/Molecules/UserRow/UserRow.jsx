@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { modifiedAdminRole, deleteUserThunk, setSelectedUser } from '../../../context/slices/adminUserSlice'
+import { modifiedAdminRole, deleteUserThunk, setSelectedUser, resetStatus, fetchAllUsersAdminThunk } from '../../../context/slices/adminUserSlice'
 import { FaUserShield } from 'react-icons/fa'
 import { HiTrash } from 'react-icons/hi'
 import { BiSolidUserDetail } from 'react-icons/bi'
@@ -9,36 +9,28 @@ const UserRow = ({ user }) => {
   const dispatch = useDispatch()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false)
-  const [isDeleting, setIsDeleting] = useState(false)
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false)
+  const { token } = useSelector((state) => state.loginRegister)
+  const { selectedUser, users, loading, success } = useSelector((state) => state.adminUsers)
 
-  const { loggedUser, token } = useSelector((state) => state.loginRegister)
-
-  const handleAssignAdmin = () => {
-    dispatch(modifiedAdminRole({ userId: user.id, token, userData: { ...loggedUser, esAdmin: true } }))
-  }
-
-  const handleRemoveAdmin = () => {
-    dispatch(modifiedAdminRole({ userId: user.id, token, userData: { ...loggedUser, esAdmin: false } }))
+  const handleModifyAdmin = () => {
+    dispatch(setSelectedUser(user))
+    const { password, ...userDataWithoutPassword } = user
+    dispatch(modifiedAdminRole({ userId: user.id, token, userData: { ...userDataWithoutPassword, esAdmin: !user.esAdmin } }))
   }
 
   const handleDeleteUser = () => {
-    setIsDeleting(true)
-    dispatch(deleteUserThunk({ userId: user.id, token, loggedUser }))
-      .then(() => {
-        setIsModalOpen(false)
-        setIsSuccessModalOpen(true)
-        setTimeout(() => setIsSuccessModalOpen(false), 3000)
-      })
-      .catch(() => {
-        setIsDeleting(false)
-        alert('Hubo un error al eliminar el usuario')
-      })
+    dispatch(deleteUserThunk({ userId: user.id, token, selectedUser }))
   }
 
   const handleSelectUser = () => {
     dispatch(setSelectedUser(user))
     setIsDetailsModalOpen(true)
+  }
+
+  const handleDeletUserClick = () => {
+    dispatch(setSelectedUser(user))
+    setIsModalOpen(true)
   }
 
   const handleCloseModal = () => {
@@ -49,6 +41,19 @@ const UserRow = ({ user }) => {
     setIsDetailsModalOpen(false)
   }
 
+  useEffect(() => {
+    if (success) {
+      setIsModalOpen(false)
+      setIsSuccessModalOpen(true)
+      setTimeout(() => {
+        dispatch(resetStatus())
+        dispatch(fetchAllUsersAdminThunk(token))
+        setIsSuccessModalOpen(false)
+      }
+      , 3000)
+    }
+  }, [dispatch, success, token])
+
   return (
     <>
       <tr className='border-b hover:bg-gray-100'>
@@ -58,23 +63,13 @@ const UserRow = ({ user }) => {
         <td className='px-4 py-2 text-center'>{user.esAdmin ? 'Administrador' : 'Usuario'}</td>
         <td className='border px-4 py-2 w-1/4'>
           <div className='flex space-x-3 justify-center'>
-            {user.esAdmin && user.userName !== 'angie000@gmail.com'
-              ? (
-                <button
-                  className='bg-blue1 text-black px-4 py-2 rounded text-xl'
-                  onClick={handleRemoveAdmin}
-                >
-                  <FaUserShield size={24} />
-                </button>
-                )
-              : user.userName !== 'angie000@gmail.com' && (
-                <button
-                  className='bg-green1 text-black px-4 py-2 rounded text-xl'
-                  onClick={handleAssignAdmin}
-                >
-                  <FaUserShield size={24} />
-                </button>
-              )}
+            {user.userName !== 'angie000@gmail.com' &&
+              <button
+                className={`${user.esAdmin ? 'bg-green1' : 'bg-blue1'} 'text-black px-4 py-2 rounded text-xl'`}
+                onClick={() => handleModifyAdmin()}
+              >
+                <FaUserShield size={24} />
+              </button>}
             <button
               className='bg-yellow1 px-4 py-2 rounded text-xl'
               onClick={handleSelectUser}
@@ -85,8 +80,8 @@ const UserRow = ({ user }) => {
               user.userName !== 'angie000@gmail.com' &&
                 <button
                   className='bg-red1 px-4 py-2 rounded'
-                  onClick={() => setIsModalOpen(true)}
-                  disabled={isDeleting}
+                  onClick={() => handleDeletUserClick()}
+                  disabled={loading}
                 >
                   <HiTrash size={24} />
                 </button>
@@ -112,7 +107,7 @@ const UserRow = ({ user }) => {
                 className='bg-red-600 text-white px-4 py-2 rounded'
                 onClick={handleDeleteUser}
               >
-                {isDeleting ? 'Eliminando...' : 'Confirmar'}
+                {loading ? 'Eliminando...' : 'Confirmar'}
               </button>
             </div>
           </div>
@@ -120,7 +115,7 @@ const UserRow = ({ user }) => {
       )}
 
       {isSuccessModalOpen && (
-        <div className='fixed inset-0 bg-green-500 bg-opacity-50 flex justify-center items-center z-50'>
+        <div className='fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-50'>
           <div className='bg-white p-6 rounded-lg shadow-lg max-w-sm w-full'>
             <h2 className='text-xl font-semibold text-green-600 mb-4'>¡Eliminado con éxito!</h2>
             <p>El usuario {user.nombre} {user.apellido} ha sido eliminado correctamente.</p>

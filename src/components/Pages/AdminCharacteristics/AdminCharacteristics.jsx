@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { setItemsToShow, setPage } from '../../../context/slices/adminProductSlice'
-import { fetchAllCharacteristicsThunk, deleteCharacteristicThunk, registerCharacteristicThunk, resetSuccess } from '../../../context/slices/characteristicSlice'
+
+import './AdminCharacteristics.css'
+import { pageLabels } from '../../../data/pageLabels'
+import { fetchAllProductsAdminThunk, setItemsToShow, setPage } from '../../../context/slices/adminProductSlice'
+import { fetchAllCharacteristicsThunk, deleteCharacteristicThunk, resetStatus } from '../../../context/slices/adminCharacteristicSlice'
 import AdminProductList from '../../Organisms/AdminProductList/AdminProductList'
 import Dropdown from '../../Atoms/DropDown/DropDown'
 import Pagination from '../../Molecules/Pagination/Pagination'
 import CancelBtn from '../../Atoms/CancelBtn/CancelBtn'
 import AddBtn from '../../Atoms/AddBtn/AddBtn'
-import { AiOutlineLoading } from 'react-icons/ai'
-import { pageLabels } from '../../../data/pageLabels'
 import CharacteristcsRow from '../../Molecules/CharacteristicsRow/CharacteristicsRow'
-
-import './AdminCharacteristics.css'
+import LoaderComponent from '../../Molecules/Loader/LoaderComponent'
 
 const AdminCharacteristics = () => {
   const dispatch = useDispatch()
@@ -20,67 +20,62 @@ const AdminCharacteristics = () => {
   const headers = ['Id', 'Nombre', 'Icono', 'Acciones']
 
   const [showConfirmDelete, setShowConfirmDelete] = useState(false)
-  const { allCharacteristics: characteristicsList, loading, success } = useSelector((state) => state.characteristic)
+  const { selectedCharacteristic, loading, success, error, allCharacteristics, itemsToShow, currentPage } = useSelector((state) => state.adminCharacteristic)
+  const { token } = useSelector((state) => state.loginRegister)
+
+  const totalItems = allCharacteristics.length
+  const startIndex = (currentPage - 1) * itemsToShow
+  const endIndex = startIndex + itemsToShow
+  const currentCharacteristics = allCharacteristics.slice(startIndex, endIndex)
 
   useEffect(() => {
     window.scrollTo(0, 0)
+    dispatch(resetStatus())
     dispatch(fetchAllCharacteristicsThunk())
   }, [dispatch])
 
   useEffect(() => {
     if (success) {
       window.scrollTo(0, 0)
-      setTimeout(() => {
-        dispatch(resetSuccess())
-      }, '3000')
+      const fetchData = async () => {
+        await dispatch(resetStatus())
+        dispatch(fetchAllProductsAdminThunk())
+      }
+      fetchData()
     }
   }, [success, dispatch])
-  console.log(success)
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target
-    setNewCharacteristic((prev) => ({ ...prev, [name]: value }))
+  useEffect(() => {
+    if (error) {
+      window.scrollTo(0, 0)
+      setTimeout(() => {
+        dispatch(resetStatus())
+      }, '2000')
+    }
+  }, [error, dispatch])
+
+  const handleSelect = (count) => {
+    dispatch(setItemsToShow(count))
   }
-
-  const handleAddCharacteristic = () => {
-    dispatch(registerCharacteristicThunk(newCharacteristic))
-    setNewCharacteristic({ name: '', icon: '' })
-  }
-
-  const itemsToShow = useSelector((state) => state.adminProducts.itemsToShow)
-  const currentPage = useSelector((state) => state.adminProducts.currentPage)
 
   const handleClick = () => {
     setShowConfirmDelete(false)
   }
-  const handleDeleteClick = (id) => {
-    console.log(`Eliminar producto ${id}`)
-    dispatch(deleteCharacteristicThunk(id))
-    setShowConfirmDelete(true)
-  }
 
-  const handleSelect = (count) => {
-    dispatch(setItemsToShow(count))
-    console.log(`Mostrar ${count} elementos`)
+  const handleDeleteClick = (id) => {
+    dispatch(deleteCharacteristicThunk({ id, token }))
+    setShowConfirmDelete(false)
   }
 
   const handlePageChange = (page) => {
     dispatch(setPage(page))
   }
-
-  const filteredProducts = characteristicsList.slice(0, itemsToShow)
-  console.log(filteredProducts)
-
-  const totalItems = characteristicsList.length
-  const startIndex = (currentPage - 1) * itemsToShow
-  const endIndex = startIndex + itemsToShow
-  const currentCharacteristics = characteristicsList.slice(startIndex, endIndex)
-
+  console.log(error)
   return (
     <section className='admin-characteristics-container'>
       <div className='admin-characteristics-upper'>
         <div className='admin-search-bar-container'>
-          <AddBtn navigateTo='/' onClick={handleAddCharacteristic} />
+          <AddBtn navigateTo='/administracion/agregar-caracteristica' />
         </div>
 
         <div className='admin-products-dropDown-container'>
@@ -90,8 +85,8 @@ const AdminCharacteristics = () => {
       </div>
 
       <AdminProductList headers={headers}>
-        {currentCharacteristics.map((product) =>
-          <CharacteristcsRow key={product.id} product={product} setShowConfirmDelete={setShowConfirmDelete} />
+        {currentCharacteristics.map((characteristic) =>
+          <CharacteristcsRow key={characteristic.id} characteristic={characteristic} setShowConfirmDelete={setShowConfirmDelete} />
         )}
       </AdminProductList>
 
@@ -102,35 +97,41 @@ const AdminCharacteristics = () => {
 
       {
         showConfirmDelete &&
-        <div className='admin-products-confirm-delation-container pop-up-bg '>
-          <div className='admin-products-confirm-delations-modal'>
-            <p className='admin-products-confirm-delations-modal-p'>{pageLabels.adminProducts.confirmDelation}</p>
-            <div className='btn-container'>
-              <button
-                className='admin-products-confirm-delations-modal-btn'
-                type='button'
-                onClick={() => handleDeleteClick()}
-              >
-                <p>{pageLabels.adminProducts.delete}</p>
-              </button>
-              <CancelBtn handleClick={handleClick} />
+          <div className='admin-products-confirm-delation-container pop-up-bg '>
+            <div className='admin-products-confirm-delations-modal'>
+              <p className='admin-products-confirm-delations-modal-p'>{pageLabels.adminProducts.confirmDelation}</p>
+              <div className='btn-container'>
+                <button
+                  className='admin-products-confirm-delations-modal-btn'
+                  type='button'
+                  onClick={() => handleDeleteClick(selectedCharacteristic.id)}
+                >
+                  <p>{pageLabels.adminProducts.delete}</p>
+                </button>
+                <CancelBtn handleClick={handleClick} />
+              </div>
             </div>
           </div>
-        </div>
       }
       {
         loading &&
-        <div className='admin-products-loading pop-up-bg'>
-          <AiOutlineLoading size={40} className='loader-icon' />
-        </div>
+          <LoaderComponent />
       }
       {
         success &&
-        <div className='admin-products-success pop-up-bg'>
-          <div className='w-8/12 h-40 flex justify-center items-center bg-white border-2 border-gray1 rounded-lg'>
-            <p className='text-xl text-green1'>¡Producto eliminado con éxito!</p>
+          <div className='admin-products-success pop-up-bg'>
+            <div className='w-8/12 h-40 flex justify-center items-center bg-white border-2 border-gray1 rounded-lg'>
+              <p className='text-xl text-green1'>¡Característica eliminada con éxito!</p>
+            </div>
           </div>
-        </div>
+      }
+      {
+        error && error.includes('en uso') &&
+          <div className='admin-products-success pop-up-bg'>
+            <div className='w-8/12 h-40 flex justify-center items-center bg-white border-2 border-gray1 rounded-lg'>
+              <p className='text-xl text-center text-red1'>No se puede eliminar esta característica pues está asignada a, al menos, un vehiculo</p>
+            </div>
+          </div>
       }
     </section>
   )

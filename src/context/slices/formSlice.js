@@ -76,6 +76,10 @@ const initialState = {
     userName: '',
     password: ''
   },
+  characteristicData: {
+    nombre: '',
+    icono: ''
+  },
   userData: {
     nombre: '',
     apellido: '',
@@ -115,6 +119,8 @@ const formSlice = createSlice({
         }
       } else if (form === 'logIn') {
         state.loginData[field] = value
+      } else if (form === 'createCharacteristic') {
+        state.characteristicData[field] = value
       }
     },
     updateHasSubmited: (state) => {
@@ -152,6 +158,8 @@ const formSlice = createSlice({
         }))
         if (form === 'createProduct') {
           state.productData.imagenes = newURLs
+        } else if (form === 'createCharacteristic') {
+          state.characteristicData.icono = newURLs
         }
         state.imgSuccess = true
       })

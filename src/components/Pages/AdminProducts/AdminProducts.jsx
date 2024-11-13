@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { AiOutlineLoading } from 'react-icons/ai'
 
+import './AdminProducts.css'
+import { pageLabels } from '../../../data/pageLabels'
 import { fetchAllProductsAdminThunk, deleteProductThunk, setItemsToShow, resetStatus, setPage } from '../../../context/slices/adminProductSlice'
 import AdminSearchBar from '../../Organisms/AdminSearchBar/AdminSearchBar'
 import SearchBtn from '../../Atoms/SearchBtn/SearchBtn'
@@ -9,10 +12,8 @@ import Dropdown from '../../Atoms/DropDown/DropDown'
 import Pagination from '../../Molecules/Pagination/Pagination'
 import CancelBtn from '../../Atoms/CancelBtn/CancelBtn'
 import AddBtn from '../../Atoms/AddBtn/AddBtn'
-import { AiOutlineLoading } from 'react-icons/ai'
-import { pageLabels } from '../../../data/pageLabels'
-import './AdminProducts.css'
 import ProductRow from '../../Molecules/ProductRow/ProductRow'
+import LoaderComponent from '../../Molecules/Loader/LoaderComponent'
 
 const AdminProducts = () => {
   const dispatch = useDispatch()
@@ -21,11 +22,17 @@ const AdminProducts = () => {
   const headers = ['Id', 'Nombre', 'Categoria', 'Precio', 'Matrícula', 'Acciones']
 
   const [showConfirmDelete, setShowConfirmDelete] = useState(false)
-  const { selectedProduct, loading, error, success } = useSelector((state) => state.adminProducts)
+  const { selectedProduct, loading, success, allProducts, itemsToShow, currentPage } = useSelector((state) => state.adminProducts)
   const { token } = useSelector((state) => state.loginRegister)
+
+  const totalItems = allProducts.length
+  const startIndex = (currentPage - 1) * itemsToShow
+  const endIndex = startIndex + itemsToShow
+  const currentProducts = allProducts.slice(startIndex, endIndex)
 
   useEffect(() => {
     window.scrollTo(0, 0)
+    dispatch(resetStatus())
     dispatch(fetchAllProductsAdminThunk())
   }, [dispatch])
 
@@ -39,12 +46,6 @@ const AdminProducts = () => {
       fetchData()
     }
   }, [success, dispatch])
-
-  console.log(error)
-
-  const productsList = useSelector((state) => state.adminProducts.allProducts)
-  const itemsToShow = useSelector((state) => state.adminProducts.itemsToShow)
-  const currentPage = useSelector((state) => state.adminProducts.currentPage)
 
   const handleSelect = (count) => {
     dispatch(setItemsToShow(count))
@@ -63,18 +64,13 @@ const AdminProducts = () => {
     dispatch(setPage(page))
   }
 
-  const totalItems = productsList.length
-  const startIndex = (currentPage - 1) * itemsToShow
-  const endIndex = startIndex + itemsToShow
-  const currentProducts = productsList.slice(startIndex, endIndex)
-
   return (
     <div className='admin-products-container'>
       <section className='admin-products-section'>
         <AddBtn navigateTo='/administracion/agregar-producto' />
 
         <div className='admin-search-bar-container'>
-          <AdminSearchBar productsList={productsList} />
+          <AdminSearchBar productsList={allProducts} />
           <SearchBtn />
         </div>
 
@@ -85,8 +81,10 @@ const AdminProducts = () => {
       </section>
 
       <AdminProductList headers={headers}>
-        {currentProducts.map((product) => <ProductRow key={product.id} product={product} setShowConfirmDelete={setShowConfirmDelete} />)}
+        {currentProducts.map((product) =>
+          <ProductRow key={product.id} product={product} setShowConfirmDelete={setShowConfirmDelete} />)}
       </AdminProductList>
+
       <div className='admin-products-pagination-conatiner'>
         <Pagination totalItems={totalItems} itemsToShow={itemsToShow} handlePageChange={handlePageChange} currentPage={currentPage} />
         <p className='admin-products-p'>{`Resultados ${startIndex + 1} a ${endIndex} de ${totalItems}`}</p>
@@ -112,9 +110,7 @@ const AdminProducts = () => {
       }
       {
         loading &&
-          <div className='admin-products-loading pop-up-bg'>
-            <AiOutlineLoading size={40} className='loader-icon' />
-          </div>
+          <LoaderComponent />
       }
       {
         success &&
