@@ -11,9 +11,16 @@ export const fetchAllProductsAdminThunk = createAsyncThunk(
 
 export const deleteProductThunk = createAsyncThunk(
   'form/deleteProduct',
-  async (productId, { rejectWithValue }) => {
+  async ({ productId, token }, { rejectWithValue }) => {
     try {
-      const response = await axios.delete(`https://alluring-enchantment-production.up.railway.app/autos/delete/${productId}`)
+      const response = await axios.delete(
+        `https://alluring-enchantment-production.up.railway.app/autos/delete/${productId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      )
       return response.data
     } catch (error) {
       return rejectWithValue(error.response.data.mensaje)

@@ -4,6 +4,6 @@
 
 @layer components {  
   .field-container {
-    @apply w-5/12 flex flex-col pb-[10px] gap-2 mb-2
+    @apply flex flex-col pb-[10px] relative gap-2 mb-2
   }
 }

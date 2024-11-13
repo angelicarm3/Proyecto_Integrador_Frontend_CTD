@@ -4,7 +4,7 @@
 
 @layer components {
   .product-detail-card-container {
-    @apply lg:w-[940px] flex flex-col text-gray4 pb-8
+    @apply lg:w-[940px] flex flex-col text-gray4 rounded-2xl pb-8
   }
   .product-detail-info-container {
     @apply w-full flex flex-col md:flex-row justify-between gap-4
