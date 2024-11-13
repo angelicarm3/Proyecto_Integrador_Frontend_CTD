@@ -9,7 +9,7 @@ const AdminUsers = () => {
   const { loading, error, success } = useSelector((state) => state.adminUsers)
   const { token } = useSelector((state) => state.loginRegister)
 
-  // Obtener usuarios al montar el componente
+  
   useEffect(() => {
     if (token) {
       dispatch(fetchAllUsersAdminThunk(token))
@@ -20,12 +20,12 @@ const AdminUsers = () => {
     <div className='admin-users-container p-4'>
       <h1 className='text-3xl font-semibold mb-6'>Admin Users</h1>
 
-      {/* Mensajes de estado */}
+      
       {loading && <p className='text-gray-500'>Cargando Usuarios</p>}
       {error && <p className='text-red-500'>{error}</p>}
       {success && <p className='text-green-500'>Éxito!</p>}
 
-      {/* Lista de usuarios */}
+  
       <AdminUsersList />
     </div>
   )

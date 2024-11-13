@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .layout {
-    @apply w-screen h-screen justify-between flex flex-col
+    @apply w-screen h-screen justify-between flex flex-col relative
 }
 
 body {

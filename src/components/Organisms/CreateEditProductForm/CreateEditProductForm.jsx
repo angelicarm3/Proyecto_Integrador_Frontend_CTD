@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
-import { AiOutlineClose, AiOutlineFileImage, AiOutlineLoading } from 'react-icons/ai'
+import { AiOutlineClose, AiOutlineFileImage } from 'react-icons/ai'
 
 import './createEditProductForm.css'
 import { pageLabels } from '../../../data/pageLabels'
@@ -25,7 +25,7 @@ const CreateEditProductForm = () => {
   const location = useLocation()
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { productData, loading, error, success, imgSuccess } = useSelector((state) => state.form)
+  const { productData, error, success, imgSuccess } = useSelector((state) => state.form)
   const selectedProduct = useSelector((state) => state.product.selectedProduct)
   const allCategories = useSelector((state) => state.category.allCategories)
   const allCharacteristics = useSelector((state) => state.characteristic.allCharacteristics)
@@ -108,7 +108,7 @@ const CreateEditProductForm = () => {
         dispatch(submitFormThunk({ formData: productData, formURL: 'autos/register', token }))
       }
     }
-  }, [imgSuccess, productData, dispatch, location, selectedProduct])
+  }, [imgSuccess, productData, dispatch, location, selectedProduct, token])
 
   useEffect(() => {
     if (success) {
@@ -128,10 +128,11 @@ const CreateEditProductForm = () => {
 
       <div className='form-fields-container'>
         {
-          createProductFormFields.map(({ id, label, validation, extraErrorMessage }) => (
+          createProductFormFields.map(({ autoComplete, id, label, validation, extraErrorMessage }) => (
             <FormField
               fieldWidth='w-5/12'
               key={id}
+              autoComplete={autoComplete}
               id={id}
               type='text'
               label={label}
@@ -237,12 +238,6 @@ const CreateEditProductForm = () => {
           <CancelBtn handleClick={handleCancelClick} />
         </div>
       </div>
-      {
-        loading &&
-          <div className='pop-up-bg loader-bg'>
-            <AiOutlineLoading size={40} className='loader-icon' />
-          </div>
-      }
       {
         success &&
           <div className='pop-up-bg success-bg'>

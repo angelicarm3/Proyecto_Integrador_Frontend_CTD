@@ -32,7 +32,8 @@ export const submitFormThunk = createAsyncThunk(
         )
       } else {
         response = await axios.post(
-          `https://alluring-enchantment-production.up.railway.app/${formURL}`, formData,
+          `https://alluring-enchantment-production.up.railway.app/${formURL}`,
+          formData,
           {
             headers: {
               Authorization: `Bearer ${token}`
@@ -42,7 +43,7 @@ export const submitFormThunk = createAsyncThunk(
       }
       return response.data
     } catch (error) {
-      return rejectWithValue(error.response.data.mensaje)
+      return rejectWithValue(error.response.data.error)
     }
   }
 )
