@@ -119,7 +119,6 @@ export const adminCharacteristicSlice = createSlice({
       })
       .addCase(deleteCharacteristicThunk.rejected, (state, action) => {
         state.loading = false
-        console.log(action.payload)
         state.error = action.payload || 'Error al eliminar la característica'
       })
   }

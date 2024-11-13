@@ -70,7 +70,7 @@ const AdminCharacteristics = () => {
   const handlePageChange = (page) => {
     dispatch(setPage(page))
   }
-  console.log(error)
+  
   return (
     <section className='admin-characteristics-container'>
       <div className='admin-characteristics-upper'>

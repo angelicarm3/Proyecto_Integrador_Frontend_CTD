@@ -98,8 +98,6 @@ const CreateEditCharacteristicForm = () => {
     }
   }, [success, navigate, dispatch])
 
-  // console.log(characteristicData)
-  // console.log(filePreviews)
   return (
     <form className='create-product-form-container' onSubmit={handleSubmit(onSubmit)}>
       <div className='primary-btn back-form-btn'>
