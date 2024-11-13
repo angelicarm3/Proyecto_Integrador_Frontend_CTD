@@ -27,6 +27,7 @@ const initialState = {
   isLoggedIn: false,
   isAdmin: false,
   token: localStorage.getItem('token') || null,
+  userName: localStorage.getItem('userName') || null,
   loading: false,
   error: null,
   logInSuccess: false

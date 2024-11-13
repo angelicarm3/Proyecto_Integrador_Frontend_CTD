@@ -1,24 +1,24 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { pageLabels } from '../../../data/pageLabels'
 import { loginFormFields } from '../../../service/formInputsService'
-import { fetchUserByUserNameThunk, resetState } from '../../../context/slices/loginRegisterSlice'
-import { setIsRememberMe, submitFormThunk, updateField, clearError, resetForm, updateHasSubmited } from '../../../context/slices/formSlice'
+import { fetchUserByUserNameThunk } from '../../../context/slices/loginRegisterSlice'
+import { setIsRememberMe, submitFormThunk, updateField, resetForm } from '../../../context/slices/formSlice'
 
 import FormField from '../../Molecules/FormField/FormField'
 import CheckboxButton from '../../Atoms/CheckboxButton/CheckboxButton'
-import LogInRegisterFormBtn from '../../LogInRegisterFormBtn/LogInRegisterFormBtn'
+import LogInRegisterFormBtn from '../../Atoms/LogInRegisterFormBtn/LogInRegisterFormBtn'
 // import CheckboxButton from './CheckboxButton'
 
 const LoginForm = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { loginData, response, loading, error, success } = useSelector((state) => state.form)
-  const { loggedUser, isAdmin, logInSuccess } = useSelector((state) => state.loginRegister)
+  const { loginData, response, error, success } = useSelector((state) => state.form)
+  const { isAdmin, logInSuccess } = useSelector((state) => state.loginRegister)
 
   const { register, handleSubmit, formState: { errors }, clearErrors } = useForm({ mode: 'onBlur', defaultValues: loginData })
 
@@ -35,6 +35,7 @@ const LoginForm = () => {
   useEffect(() => {
     if (success) {
       localStorage.setItem('token', response.token)
+      localStorage.setItem('userName', response.userName)
       dispatch(fetchUserByUserNameThunk({ userName: response.userName, token: response.token }))
     }
   }, [success, navigate, dispatch])
@@ -44,12 +45,18 @@ const LoginForm = () => {
       setTimeout(() => {
         dispatch(resetForm())
         isAdmin ? navigate('/administracion') : navigate('/')
-      }, '3000')
+      }, '1000')
     }
   }, [logInSuccess, isAdmin, navigate, dispatch])
 
   return (
     <form className='w-full h-full flex flex-col font-Urbanist' onSubmit={handleSubmit(onSubmit)}>
+      {
+        error === 'Bad credentials' &&
+          <div className='w-full h-fit flex justify-center items-center text-sm text-red1 font-medium border-red1 border rounded p-2 mb-4'>
+            <p>{pageLabels.loginRegister.badCredentialsError}</p>
+          </div>
+      }
       <div className='w-full flex flex-col'>
         {
             loginFormFields.map(({ id, type, label, validation, extraErrorMessage }) => (
