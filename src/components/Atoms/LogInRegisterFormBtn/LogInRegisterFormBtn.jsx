@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux'
-import { pageLabels } from '../../data/pageLabels'
+import { pageLabels } from '../../../data/pageLabels'
 
 const LogInRegisterFormBtn = () => {
   const { loginOrRegister } = useSelector((state) => state.loginRegister)
