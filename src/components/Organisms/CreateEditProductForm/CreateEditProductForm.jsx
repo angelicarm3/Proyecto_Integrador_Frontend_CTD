@@ -8,7 +8,7 @@ import { AiOutlineClose, AiOutlineFileImage, AiOutlineLoading } from 'react-icon
 import './createEditProductForm.css'
 import { pageLabels } from '../../../data/pageLabels'
 import useImageUpload from '../../../hooks/useImageUpload'
-import { createProductFormFields } from '../../../service/createProductService'
+import { createProductFormFields } from '../../../service/formInputsService'
 import { fetchProductByIdThunk } from '../../../context/slices/productSlice'
 import { fetchAllCategoriesThunk } from '../../../context/slices/categorySlice'
 import { fetchAllCharacteristicsThunk } from '../../../context/slices/characteristicSlice'
@@ -29,6 +29,7 @@ const CreateEditProductForm = () => {
   const selectedProduct = useSelector((state) => state.product.selectedProduct)
   const allCategories = useSelector((state) => state.category.allCategories)
   const allCharacteristics = useSelector((state) => state.characteristic.allCharacteristics)
+  const { token } = useSelector((state) => state.loginRegister)
   const { selectedImages, filePreviews, setFilePreviews, imagesRequiredError, setImagesRequiredError, handleFileChange, removeImage } = useImageUpload()
   const maxDescriptionCharacters = 200
   const [selectedCategories, setSelectedCategories] = useState([])
@@ -102,9 +103,9 @@ const CreateEditProductForm = () => {
   useEffect(() => {
     if (imgSuccess && productData?.imagenes?.length > 0) {
       if (location.pathname.includes('editar')) {
-        dispatch(submitFormThunk({ formData: productData, formURL: `autos/update/${selectedProduct?.id}` }))
+        dispatch(submitFormThunk({ formData: productData, formURL: `autos/update/${selectedProduct?.id}`, token }))
       } else {
-        dispatch(submitFormThunk({ formData: productData, formURL: 'autos/register' }))
+        dispatch(submitFormThunk({ formData: productData, formURL: 'autos/register', token }))
       }
     }
   }, [imgSuccess, productData, dispatch, location, selectedProduct])
@@ -129,10 +130,13 @@ const CreateEditProductForm = () => {
         {
           createProductFormFields.map(({ id, label, validation, extraErrorMessage }) => (
             <FormField
+              fieldWidth='w-5/12'
               key={id}
               id={id}
+              type='text'
               label={label}
               value={productData[id]}
+              inputClass='input'
               register={register}
               validation={{
                 required: { value: true, message: pageLabels.createProduct.requiredError },

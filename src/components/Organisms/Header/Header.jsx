@@ -10,10 +10,13 @@ import logoGold from '../../../assets/brand/logoGold.png'
 import LogInBtn from '../../Atoms/LoginBtn/LoginBtn'
 import SignUpBtn from '../../Atoms/SignUpBtn/SignUpBtn'
 import Navbar from '../../Molecules/Navbar/Navbar'
+import { useSelector } from 'react-redux'
 
 function Header () {
   const [isOpen, setIsOpen] = useState(false)
   const toggleMenu = () => setIsOpen(!isOpen)
+  // const { isAdmin, loggedUser } = useSelector((state) => state.loginRegister)
+  // console.log(isAdmin)
 
   return (
     <header className='header'>

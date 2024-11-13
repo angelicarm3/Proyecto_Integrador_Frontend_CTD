@@ -1,10 +1,12 @@
+import { Link } from 'react-router-dom'
+
 import { pageLabels } from '../../../data/pageLabels'
 
 const LogInBtn = () => {
   return (
-    <button className='primary-btn log-in-btn'>
+    <Link to='/inicio-sesion' className='primary-btn log-in-btn'>
       {pageLabels.buttons.logIn}
-    </button>
+    </Link>
   )
 }
 
