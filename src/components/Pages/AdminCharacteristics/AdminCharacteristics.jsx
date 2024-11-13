@@ -1,39 +1,37 @@
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { AiOutlineLoading } from 'react-icons/ai'
 
-import './AdminProducts.css'
+import './AdminCharacteristics.css'
 import { pageLabels } from '../../../data/pageLabels'
-import { fetchAllProductsAdminThunk, deleteProductThunk, setItemsToShow, resetStatus, setPage } from '../../../context/slices/adminProductSlice'
-import AdminSearchBar from '../../Organisms/AdminSearchBar/AdminSearchBar'
-import SearchBtn from '../../Atoms/SearchBtn/SearchBtn'
+import { fetchAllProductsAdminThunk, setItemsToShow, setPage } from '../../../context/slices/adminProductSlice'
+import { fetchAllCharacteristicsThunk, deleteCharacteristicThunk, resetStatus } from '../../../context/slices/adminCharacteristicSlice'
 import AdminProductList from '../../Organisms/AdminProductList/AdminProductList'
 import Dropdown from '../../Atoms/DropDown/DropDown'
 import Pagination from '../../Molecules/Pagination/Pagination'
 import CancelBtn from '../../Atoms/CancelBtn/CancelBtn'
 import AddBtn from '../../Atoms/AddBtn/AddBtn'
-import ProductRow from '../../Molecules/ProductRow/ProductRow'
+import CharacteristcsRow from '../../Molecules/CharacteristicsRow/CharacteristicsRow'
 import LoaderComponent from '../../Molecules/Loader/LoaderComponent'
 
-const AdminProducts = () => {
+const AdminCharacteristics = () => {
   const dispatch = useDispatch()
 
   const options = [10, 20, 30, 40, 50]
-  const headers = ['Id', 'Nombre', 'Categoria', 'Precio', 'Matrícula', 'Acciones']
+  const headers = ['Id', 'Nombre', 'Icono', 'Acciones']
 
   const [showConfirmDelete, setShowConfirmDelete] = useState(false)
-  const { selectedProduct, loading, success, allProducts, itemsToShow, currentPage } = useSelector((state) => state.adminProducts)
+  const { selectedCharacteristic, loading, success, error, allCharacteristics, itemsToShow, currentPage } = useSelector((state) => state.adminCharacteristic)
   const { token } = useSelector((state) => state.loginRegister)
 
-  const totalItems = allProducts.length
+  const totalItems = allCharacteristics.length
   const startIndex = (currentPage - 1) * itemsToShow
   const endIndex = startIndex + itemsToShow
-  const currentProducts = allProducts.slice(startIndex, endIndex)
+  const currentCharacteristics = allCharacteristics.slice(startIndex, endIndex)
 
   useEffect(() => {
     window.scrollTo(0, 0)
     dispatch(resetStatus())
-    dispatch(fetchAllProductsAdminThunk())
+    dispatch(fetchAllCharacteristicsThunk())
   }, [dispatch])
 
   useEffect(() => {
@@ -47,6 +45,15 @@ const AdminProducts = () => {
     }
   }, [success, dispatch])
 
+  useEffect(() => {
+    if (error) {
+      window.scrollTo(0, 0)
+      setTimeout(() => {
+        dispatch(resetStatus())
+      }, '2000')
+    }
+  }, [error, dispatch])
+
   const handleSelect = (count) => {
     dispatch(setItemsToShow(count))
   }
@@ -55,37 +62,35 @@ const AdminProducts = () => {
     setShowConfirmDelete(false)
   }
 
-  const handleDeleteClick = (productId) => {
-    dispatch(deleteProductThunk({ productId, token }))
+  const handleDeleteClick = (id) => {
+    dispatch(deleteCharacteristicThunk({ id, token }))
     setShowConfirmDelete(false)
   }
 
   const handlePageChange = (page) => {
     dispatch(setPage(page))
   }
-
+  console.log(error)
   return (
-    <div className='admin-products-container'>
-      <section className='admin-products-section'>
-        <AddBtn navigateTo='/administracion/agregar-producto' />
-
+    <section className='admin-characteristics-container'>
+      <div className='admin-characteristics-upper'>
         <div className='admin-search-bar-container'>
-          <AdminSearchBar productsList={allProducts} />
-          <SearchBtn />
+          <AddBtn navigateTo='/administracion/agregar-caracteristica' />
         </div>
 
-        <div className='admin-products-dropDown-conatiner'>
-          <span>Resultados</span>
+        <div className='admin-products-dropDown-container'>
+          <span>{pageLabels.adminCharacteristics.result}</span>
           <Dropdown options={options} onSelect={handleSelect} />
         </div>
-      </section>
+      </div>
 
       <AdminProductList headers={headers}>
-        {currentProducts.map((product) =>
-          <ProductRow key={product.id} product={product} setShowConfirmDelete={setShowConfirmDelete} />)}
+        {currentCharacteristics.map((characteristic) =>
+          <CharacteristcsRow key={characteristic.id} characteristic={characteristic} setShowConfirmDelete={setShowConfirmDelete} />
+        )}
       </AdminProductList>
 
-      <div className='admin-products-pagination-conatiner'>
+      <div className='admin-products-pagination-container'>
         <Pagination totalItems={totalItems} itemsToShow={itemsToShow} handlePageChange={handlePageChange} currentPage={currentPage} />
         <p className='admin-products-p'>{`Resultados ${startIndex + 1} a ${endIndex} de ${totalItems}`}</p>
       </div>
@@ -99,7 +104,7 @@ const AdminProducts = () => {
                 <button
                   className='admin-products-confirm-delations-modal-btn'
                   type='button'
-                  onClick={() => handleDeleteClick(selectedProduct.id)}
+                  onClick={() => handleDeleteClick(selectedCharacteristic.id)}
                 >
                   <p>{pageLabels.adminProducts.delete}</p>
                 </button>
@@ -116,12 +121,20 @@ const AdminProducts = () => {
         success &&
           <div className='admin-products-success pop-up-bg'>
             <div className='w-8/12 h-40 flex justify-center items-center bg-white border-2 border-gray1 rounded-lg'>
-              <p className='text-xl text-green1'>¡Producto eliminado con éxito!</p>
+              <p className='text-xl text-green1'>¡Característica eliminada con éxito!</p>
             </div>
           </div>
       }
-    </div>
+      {
+        error && error.includes('en uso') &&
+          <div className='admin-products-success pop-up-bg'>
+            <div className='w-8/12 h-40 flex justify-center items-center bg-white border-2 border-gray1 rounded-lg'>
+              <p className='text-xl text-center text-red1'>No se puede eliminar esta característica pues está asignada a, al menos, un vehiculo</p>
+            </div>
+          </div>
+      }
+    </section>
   )
 }
 
-export default AdminProducts
+export default AdminCharacteristics

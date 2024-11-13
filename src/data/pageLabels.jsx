@@ -60,6 +60,11 @@ export const pageLabels = {
     validNumberError: 'Ingrese un número válido',
     existingProductError: 'Esta matrícula ya está registrada'
   },
+  createCharacteristic: {
+    title: 'Nueva característica',
+    name: 'Nombre',
+    icon: 'Icono (Máximo 1 archivo)'
+  },
   loginRegister: {
     email: 'Email',
     password: 'Contraseña',
@@ -92,5 +97,9 @@ export const pageLabels = {
   },
   adminSearchBar: {
     placeholder: 'Palabra Clave'
+  },
+  adminCharacteristics: {
+    title: 'Administrar características',
+    result: 'Resultados'
   }
 }

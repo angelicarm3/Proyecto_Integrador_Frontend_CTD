@@ -11,7 +11,7 @@ import useImageUpload from '../../../hooks/useImageUpload'
 import { createProductFormFields } from '../../../service/formInputsService'
 import { fetchProductByIdThunk } from '../../../context/slices/productSlice'
 import { fetchAllCategoriesThunk } from '../../../context/slices/categorySlice'
-import { fetchAllCharacteristicsThunk } from '../../../context/slices/characteristicSlice'
+import { fetchAllCharacteristicsThunk } from '../../../context/slices/adminCharacteristicSlice'
 import { submitFormThunk, uploadImagesThunk, updateField, clearError, resetForm, updateHasSubmited, updateImgSuccess } from '../../../context/slices/formSlice'
 import BackBtn from '../../Atoms/BackBtn/BackBtn'
 import FormField from '../../Molecules/FormField/FormField'
@@ -28,7 +28,7 @@ const CreateEditProductForm = () => {
   const { productData, error, success, imgSuccess } = useSelector((state) => state.form)
   const selectedProduct = useSelector((state) => state.product.selectedProduct)
   const allCategories = useSelector((state) => state.category.allCategories)
-  const allCharacteristics = useSelector((state) => state.characteristic.allCharacteristics)
+  const allCharacteristics = useSelector((state) => state.adminCharacteristic.allCharacteristics)
   const { token } = useSelector((state) => state.loginRegister)
   const { selectedImages, filePreviews, setFilePreviews, imagesRequiredError, setImagesRequiredError, handleFileChange, removeImage } = useImageUpload()
   const maxDescriptionCharacters = 200

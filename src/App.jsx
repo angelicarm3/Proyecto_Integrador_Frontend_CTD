@@ -1,5 +1,4 @@
 import { Route, Routes, Outlet, useLocation } from 'react-router-dom'
-import { useSelector } from 'react-redux'
 
 import './App.css'
 import Header from './components/Organisms/Header/Header.jsx'
@@ -13,6 +12,8 @@ import AdminPanel from './components/Pages/AdminPanel/AdminPanel'
 import AdminProducts from './components/Pages/AdminProducts/AdminProducts'
 import AdminCreateEditProduct from './components/Pages/AdminCreateEditProduct/AdminCreateEditProduct.jsx'
 import AdminUsers from './components/Pages/AdminUsers/AdminUsers.jsx'
+import AdminCharacteristics from './components/Pages/AdminCharacteristics/AdminCharacteristics'
+import AdminCreateEditCharacteristic from './components/Pages/AdminCreateEditCharacteristic/AdminCreateEditCharacteristic'
 
 import ImagesPopUp from './components/Templates/ImagesPopUp/ImagesPopUp.jsx'
 import RentNowPopUp from './components/Templates/RentNowPopUp/RentNowPopUp.jsx'
@@ -58,6 +59,9 @@ function App () {
           <Route path='administracion/agregar-producto' element={<RequireAdmin><AdminCreateEditProduct /></RequireAdmin>} />
           <Route path='administracion/editar-producto/:id' element={<RequireAdmin><AdminCreateEditProduct /></RequireAdmin>} />
           <Route path='administracion/usuarios' element={<RequireAdmin><AdminUsers /></RequireAdmin>} />
+          <Route path='administracion/caracteristicas' element={<RequireAdmin><AdminCharacteristics /></RequireAdmin>} />
+          <Route path='administracion/agregar-caracteristica' element={<RequireAdmin><AdminCreateEditCharacteristic /></RequireAdmin>} />
+          <Route path='administracion/editar-caracteristica/:id' element={<RequireAdmin><AdminCreateEditCharacteristic /></RequireAdmin>} />
         </Route>
       </Routes>
 

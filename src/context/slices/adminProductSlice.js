@@ -9,6 +9,18 @@ export const fetchAllProductsAdminThunk = createAsyncThunk(
   }
 )
 
+export const fetchProductByIdThunk = createAsyncThunk(
+  'adminProducts/fetchProductById',
+  async (productId, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`https://alluring-enchantment-production.up.railway.app/autos/find/${productId}`)
+      return response.data
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.mensaje || 'Error desconocido')
+    }
+  }
+)
+
 export const deleteProductThunk = createAsyncThunk(
   'form/deleteProduct',
   async ({ productId, token }, { rejectWithValue }) => {
@@ -63,7 +75,23 @@ export const adminProductsSlice = createSlice({
       state.allProducts = action.payload
       state.currentPage = 1
     })
-    // Delete product
+
+    // Fetch product by ID
+    builder
+      .addCase(fetchProductByIdThunk.pending, (state) => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(fetchProductByIdThunk.fulfilled, (state, action) => {
+        state.loading = false
+        state.selectedProduct = action.payload
+      })
+      .addCase(fetchProductByIdThunk.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload || 'Error al obtener el producto'
+      })
+
+      // Delete product
       .addCase(deleteProductThunk.pending, (state) => {
         state.loading = true
         state.error = null
