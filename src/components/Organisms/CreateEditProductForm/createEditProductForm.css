@@ -39,12 +39,6 @@
   .btn-container {
     @apply flex gap-6 mt-4
   }
-  .loader-bg {
-    @apply opacity-25 absolute rounded-lg
-  }
-  .loader-icon {
-    @apply text-gray4 animate-spin
-  }
   .success-bg {
     @apply bg-transparent absolute rounded-lg
   }

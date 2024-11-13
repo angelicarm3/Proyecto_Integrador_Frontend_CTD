@@ -67,7 +67,8 @@ export const pageLabels = {
     forgotPassword: '¿Olvidó su contraseña?',
     logInBtn: 'Ingresar',
     registerBtn: 'Registrarse',
-    invalidEmailError: 'Por favor ingrese una dirección de email válida'
+    invalidEmailError: 'Por favor ingrese una dirección de email válida',
+    badCredentialsError: 'Email o contraseña inválidos.'
   },
   adminPanel: {
     mobileMessage: 'No disponible en dispositivos móviles',

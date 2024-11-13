@@ -12,8 +12,8 @@ const createProductFormFields = [
 ]
 
 const loginFormFields = [
-  { id: 'userName', type: 'text', label: pageLabels.loginRegister.email, validation: { pattern: { value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/, message: `${pageLabels.loginRegister.invalidEmailError}` } } },
-  { id: 'password', type: 'password', label: pageLabels.loginRegister.password }
+  { autoComplete: 'email', id: 'userName', type: 'text', label: pageLabels.loginRegister.email, validation: { pattern: { value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/, message: `${pageLabels.loginRegister.invalidEmailError}` } } },
+  { autoComplete: 'current-password', id: 'password', type: 'password', label: pageLabels.loginRegister.password }
 ]
 
 export { createProductFormFields, loginFormFields }
