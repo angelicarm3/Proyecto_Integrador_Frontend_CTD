@@ -88,7 +88,7 @@ const LoginForm = () => {
         }
       </div>
 
-      <div className='flex justify-between font-normal mb-6'>
+      {/* <div className='flex justify-between font-normal mb-6'>
         <div className='flex h-6 items-start relative'>
           <input
             id='rememberMe'
@@ -105,7 +105,7 @@ const LoginForm = () => {
         <div className='text-gray3 cursor-pointer'>
           {pageLabels.loginRegister.forgotPassword}
         </div>
-      </div>
+      </div> */}
 
       <LogInRegisterFormBtn />
 
