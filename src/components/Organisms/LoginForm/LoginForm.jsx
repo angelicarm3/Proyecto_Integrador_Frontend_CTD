@@ -18,7 +18,7 @@ const LoginForm = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { loginData, response, loading, error, success } = useSelector((state) => state.form)
-  const { loggedUser, esAdmin, logInSuccess } = useSelector((state) => state.loginRegister)
+  const { loggedUser, isAdmin, logInSuccess } = useSelector((state) => state.loginRegister)
 
   const { register, handleSubmit, formState: { errors }, clearErrors } = useForm({ mode: 'onBlur', defaultValues: loginData })
 
@@ -42,14 +42,11 @@ const LoginForm = () => {
   useEffect(() => {
     if (logInSuccess) {
       setTimeout(() => {
-        dispatch(resetState())
         dispatch(resetForm())
-        esAdmin ? navigate('/administracion') : navigate('/')
+        isAdmin ? navigate('/administracion') : navigate('/')
       }, '3000')
     }
-  }, [logInSuccess, esAdmin, navigate, dispatch])
-
-  console.log(loginData)
+  }, [logInSuccess, isAdmin, navigate, dispatch])
 
   return (
     <form className='w-full h-full flex flex-col font-Urbanist' onSubmit={handleSubmit(onSubmit)}>

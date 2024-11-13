@@ -12,8 +12,6 @@ const LoginRegisterSwitch = () => {
     dispatch(setLoginOrRegister(option))
   }
 
-  console.log(loginOrRegister)
-
   return (
     <section className='flex w-full h-[75px] bg-black1 justify-center items-center rounded-[33px] p-2'>
       <div className={`flex w-full h-full justify-center items-center text-[18px] font-bold rounded-[36px] cursor-pointer ${loginOrRegister === 'login' ? 'bg-yellow1 text-black1' : 'bg-transparent text-white'}`} onClick={() => handleClick('/inicio-sesion')}>

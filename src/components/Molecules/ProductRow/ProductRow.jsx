@@ -14,7 +14,6 @@ const ProductRow = ({ product, setShowConfirmDelete }) => {
   }
 
   const handleDelete = (product) => {
-    console.log(product)
     dispatch(setSelectedProduct(product))
     setShowConfirmDelete(true)
   }

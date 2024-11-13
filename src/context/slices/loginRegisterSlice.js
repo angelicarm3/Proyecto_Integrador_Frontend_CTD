@@ -59,7 +59,7 @@ export const loginRegisterSlice = createSlice({
         state.loggedUser = action.payload
         state.isLoggedIn = true
         if (action.payload.esAdmin) {
-          state.esAdmin = true
+          state.isAdmin = true
         }
         state.loading = false
         state.logInSuccess = true

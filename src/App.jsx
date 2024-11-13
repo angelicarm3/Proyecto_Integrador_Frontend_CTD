@@ -1,4 +1,5 @@
 import { Route, Routes, Outlet, useLocation } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 import './App.css'
 import Header from './components/Organisms/Header/Header.jsx'
@@ -7,6 +8,7 @@ import Home from './components/Pages/Home/Home'
 import ProductDetail from './components/Pages/ProductDetail/ProductDetail.jsx'
 import LoginRegister from './components/Pages/LoginRegister/LoginRegister.jsx'
 
+import RequireAdmin from './context/helpers/RequireAdmin.jsx'
 import AdminPanel from './components/Pages/AdminPanel/AdminPanel'
 import AdminProducts from './components/Pages/AdminProducts/AdminProducts'
 import AdminCreateEditProduct from './components/Pages/AdminCreateEditProduct/AdminCreateEditProduct.jsx'
@@ -51,11 +53,11 @@ function App () {
         </Route>
 
         <Route element={<AdmonLayoutWithNavbarAndFooter />}>
-          <Route path='administracion' element={<AdminPanel />} />
-          <Route path='administracion/productos' element={<AdminProducts />} />
-          <Route path='administracion/agregar-producto' element={<AdminCreateEditProduct />} />
-          <Route path='administracion/editar-producto/:id' element={<AdminCreateEditProduct />} />
-          <Route path='administracion/usuarios' element={<AdminUsers />} />
+          <Route path='administracion' element={<RequireAdmin><AdminPanel /></RequireAdmin>} />
+          <Route path='administracion/productos' element={<RequireAdmin><AdminProducts /></RequireAdmin>} />
+          <Route path='administracion/agregar-producto' element={<RequireAdmin><AdminCreateEditProduct /></RequireAdmin>} />
+          <Route path='administracion/editar-producto/:id' element={<RequireAdmin><AdminCreateEditProduct /></RequireAdmin>} />
+          <Route path='administracion/usuarios' element={<RequireAdmin><AdminUsers /></RequireAdmin>} />
         </Route>
       </Routes>
 

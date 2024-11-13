@@ -65,7 +65,6 @@ const AdminProducts = () => {
   const endIndex = startIndex + itemsToShow
   const currentProducts = productsList.slice(startIndex, endIndex)
 
-  // console.log(token)
   return (
     <div className='admin-products-container'>
       <section className='admin-products-section'>

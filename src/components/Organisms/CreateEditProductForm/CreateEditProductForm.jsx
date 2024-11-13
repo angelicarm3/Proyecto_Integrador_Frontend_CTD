@@ -119,7 +119,6 @@ const CreateEditProductForm = () => {
     }
   }, [success, navigate, dispatch])
 
-  console.log(token)
   return (
     <form className='create-product-form-container' onSubmit={handleSubmit(onSubmit)}>
       <div className='primary-btn back-form-btn'>

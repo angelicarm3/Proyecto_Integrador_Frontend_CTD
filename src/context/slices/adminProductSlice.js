@@ -13,7 +13,6 @@ export const deleteProductThunk = createAsyncThunk(
   'form/deleteProduct',
   async ({ productId, token }, { rejectWithValue }) => {
     try {
-      console.log(token)
       const response = await axios.delete(
         `https://alluring-enchantment-production.up.railway.app/autos/delete/${productId}`,
         {
