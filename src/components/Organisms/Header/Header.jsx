@@ -10,15 +10,29 @@ import isoTipoGold from '../../../assets/brand/isoTipoGold.svg'
 import sloganGold from '../../../assets/brand/sloganGold.png'
 import logoGold from '../../../assets/brand/logoGold.png'
 import LogInBtn from '../../Atoms/LoginBtn/LoginBtn'
+import { resetState } from '../../../context/slices/loginRegisterSlice'
 import SignUpBtn from '../../Atoms/SignUpBtn/SignUpBtn'
 import Navbar from '../../Molecules/Navbar/Navbar'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 function Header () {
-  const [isOpen, setIsOpen] = useState(false)
-  const toggleMenu = () => setIsOpen(!isOpen)
-  // const { isAdmin, loggedUser } = useSelector((state) => state.loginRegister)
-  // console.log(isAdmin)
+  const dispatch = useDispatch()
+  const [isOn, setIsOn] = useState(false)
+  const toggleMenu = () => setIsOn(!isOn)
+
+  const toggleDropdown = () => {
+    setIsOn(!isOn);
+  };
+
+  const handleLogout = () => {
+    console.log('Cerrar sesión')
+    dispatch(resetState())
+    localStorage.removeItem('token')
+  };
+
+  const { isLoggedIn, loggedUser } = useSelector((state) => state.loginRegister)
+  console.log(loggedUser)
+  console.log(isLoggedIn)
 
   return (
     <header className='header'>
@@ -31,7 +45,7 @@ function Header () {
         </div>
       </Link>
       {/* <Navbar /> */}
-      {isAuth ? 
+      {isLoggedIn ? 
       <>
         <RxAvatar className='avatar-icon' onClick={toggleDropdown}/>
         {isOn && (
@@ -46,7 +60,6 @@ function Header () {
         <SignUpBtn />
       </div>
       }
-      
     </header>
   )
 }
