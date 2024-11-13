@@ -37,6 +37,8 @@ const AdminProducts = () => {
     }
   }, [success, dispatch])
 
+  console.log(error)
+
   const productsList = useSelector((state) => state.adminProducts.allProducts)
   const itemsToShow = useSelector((state) => state.adminProducts.itemsToShow)
   const currentPage = useSelector((state) => state.adminProducts.currentPage)

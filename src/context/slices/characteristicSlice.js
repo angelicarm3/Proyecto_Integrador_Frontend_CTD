@@ -38,16 +38,33 @@ export const updateCharacteristicThunk = createAsyncThunk(
     }
   }
 )
+// Thunk para registrar una nueva característica
+export const registerCharacteristicThunk = createAsyncThunk(
+  'characteristics/register',
+  async (newCharacteristic, { rejectWithValue }) => {
+    try {
+      const response = await axios.post('https://alluring-enchantment-production.up.railway.app/characteristics/register', newCharacteristic)
+      return response.data
+    } catch (error) {
+      return rejectWithValue('Error al registrar la característica')
+    }
+  }
+)
 
 export const characteristicSlice = createSlice({
   name: 'characteristic',
   initialState: {
     allCharacteristics: [],
     loading: false,
-    error: null
+    error: null,
+    success: false
   },
 
-  reducers: {},
+  reducers: {
+    resetSuccess(state) {
+      state.success = false
+    }
+  },
   extraReducers: (builder) => {
     builder
       // categories
@@ -74,10 +91,26 @@ export const characteristicSlice = createSlice({
           (characteristic) => characteristic.id !== action.meta.arg
         )
         state.loading = false
+        state.success = true
       })
       .addCase(deleteCharacteristicThunk.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload || 'Error al eliminar la característica'
+      })
+
+      // Register a new characteristic
+      .addCase(registerCharacteristicThunk.pending, (state) => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(registerCharacteristicThunk.fulfilled, (state, action) => {
+        state.allCharacteristics.push(action.payload)
+        state.loading = false
+        state.success = true
+      })
+      .addCase(registerCharacteristicThunk.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload || 'Error al registrar la característica'
       })
 
       // Update a characteristic
@@ -101,6 +134,6 @@ export const characteristicSlice = createSlice({
   }
 })
 
-export const { } = characteristicSlice.actions
+export const { resetSuccess } = characteristicSlice.actions
 
 export default characteristicSlice.reducer

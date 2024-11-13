@@ -12,6 +12,7 @@ import ImagesPopUp from './components/Templates/ImagesPopUp/ImagesPopUp.jsx'
 import RentNowPopUp from './components/Templates/RentNowPopUp/RentNowPopUp.jsx'
 import AdminUsers from './components/Pages/AdminUsers/AdminUsers.jsx'
 import AdminCharacteristics from './components/Pages/AdminCharacteristics/AdminCharacteristics'
+import AdminCharacteristicsEdit from './components/Pages/AdminCharacteristicsEdit/AdminCharacteristicsEdit'
 
 function App () {
   const location = useLocation()
@@ -53,6 +54,7 @@ function App () {
           <Route path='administracion/editar-producto/:id' element={<AdminCreateEditProduct />} />
           <Route path='administracion/usuarios' element={<AdminUsers />} />
           <Route path='administracion/caracteristicas' element={<AdminCharacteristics />} />
+          <Route path='administracion/editar-caracteristica/:id' element={<AdminCharacteristicsEdit />} />
         </Route>
       </Routes>
 
