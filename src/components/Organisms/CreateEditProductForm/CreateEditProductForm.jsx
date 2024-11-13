@@ -108,7 +108,7 @@ const CreateEditProductForm = () => {
         dispatch(submitFormThunk({ formData: productData, formURL: 'autos/register', token }))
       }
     }
-  }, [imgSuccess, productData, dispatch, location, selectedProduct])
+  }, [imgSuccess, productData, dispatch, location, selectedProduct, token])
 
   useEffect(() => {
     if (success) {
