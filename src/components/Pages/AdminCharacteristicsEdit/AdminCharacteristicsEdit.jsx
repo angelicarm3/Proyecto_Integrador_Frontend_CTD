@@ -1,10 +1,17 @@
+import { useSelector } from 'react-redux'
 import './AdminCharacteristicsEdit'
-import EditCharacteristicsForm from '../../Organisms/CreateEditProductForm/CreateEditProductForm'
+import CreateEditProductForm from '../../Organisms/CreateEditProductForm/CreateEditProductForm'
+import LoaderComponent from '../../Molecules/Loader/LoaderComponent'
 
 const AdminCharacteristicsEdit = () => {
+  const { loading } = useSelector((state) => state.form)
   return (
     <section className='main-section admin-create-product-container'>
-      <EditCharacteristicsForm />
+      <CreateEditProductForm />
+      {
+        loading &&
+          <LoaderComponent />
+      }
     </section>
   )
 }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setItemsToShow, setPage } from '../../../context/slices/adminProductSlice'
-import { fetchAllCharacteristicsThunk, deleteCharacteristicThunk, registerCharacteristicThunk } from '../../../context/slices/characteristicSlice'
+import { fetchAllCharacteristicsThunk, deleteCharacteristicThunk, registerCharacteristicThunk, reset } from '../../../context/slices/characteristicSlice'
 import AdminProductList from '../../Organisms/AdminProductList/AdminProductList'
 import Dropdown from '../../Atoms/DropDown/DropDown'
 import Pagination from '../../Molecules/Pagination/Pagination'
@@ -21,6 +21,7 @@ const AdminCharacteristics = () => {
 
   const [showConfirmDelete, setShowConfirmDelete] = useState(false)
   const { allCharacteristics: characteristicsList, loading, success } = useSelector((state) => state.characteristic)
+  const [newCharacteristic, setNewCharacteristic] = useState({ name: '', icon: '' })
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -29,18 +30,13 @@ const AdminCharacteristics = () => {
 
   useEffect(() => {
     if (success) {
-      window.scrollTo(0, 0)
+      dispatch(fetchAllCharacteristicsThunk())
+      setShowConfirmDelete(false)
       setTimeout(() => {
-        dispatch(resetSuccess())
-      }, '3000')
+        dispatch(reset)
+      }, 3000)
     }
   }, [success, dispatch])
-  console.log(success)
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target
-    setNewCharacteristic((prev) => ({ ...prev, [name]: value }))
-  }
 
   const handleAddCharacteristic = () => {
     dispatch(registerCharacteristicThunk(newCharacteristic))
@@ -80,7 +76,7 @@ const AdminCharacteristics = () => {
     <section className='admin-characteristics-container'>
       <div className='admin-characteristics-upper'>
         <div className='admin-search-bar-container'>
-          <AddBtn navigateTo='/' onClick={handleAddCharacteristic} />
+          <AddBtn navigateTo='/administracion/agregar-caracteristica' onClick={handleAddCharacteristic} />
         </div>
 
         <div className='admin-products-dropDown-container'>

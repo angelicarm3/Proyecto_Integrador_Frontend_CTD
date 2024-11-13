@@ -29,9 +29,16 @@ export const deleteCharacteristicThunk = createAsyncThunk(
 // Thunk para editar una característica por ID
 export const updateCharacteristicThunk = createAsyncThunk(
   'characteristics/update',
-  async ({ id, data }, { rejectWithValue }) => {
+  async ({ id, data, token }, { rejectWithValue }) => {
     try {
-      const response = await axios.put(`https://alluring-enchantment-production.up.railway.app/characteristics/update/${id}`, data)
+      const response = await axios.put(`https://alluring-enchantment-production.up.railway.app/characteristics/update/${id}`, data,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      )
+
       return response.data
     } catch (error) {
       return rejectWithValue('Error al actualizar la característica')
@@ -61,7 +68,7 @@ export const characteristicSlice = createSlice({
   },
 
   reducers: {
-    resetSuccess (state) {
+    reset(state) {
       state.success = false
     }
   },
@@ -135,6 +142,6 @@ export const characteristicSlice = createSlice({
   }
 })
 
-export const { } = characteristicSlice.actions
+export const { reset } = characteristicSlice.actions
 
 export default characteristicSlice.reducer

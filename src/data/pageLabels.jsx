@@ -94,7 +94,7 @@ export const pageLabels = {
     placeholder: 'Palabra Clave'
   },
   adminCharacteristics: {
-    title: 'Catacteristicas',
+    title: 'Caracteristicas',
     result: 'Resultados'
   }
 }

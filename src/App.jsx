@@ -62,7 +62,7 @@ function App () {
           <Route path='administracion/usuarios' element={<RequireAdmin><AdminUsers /></RequireAdmin>} />
           <Route path='administracion/caracteristicas' element={<AdminCharacteristics />} />
           <Route path='administracion/editar-caracteristica/:id' element={<AdminCharacteristicsEdit />} />
-        </Route>
+        </Route><Route path='administracion/agregar-caracteristica' element={<AdminCharacteristicsEdit />} />
       </Routes>
 
       {
