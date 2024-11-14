@@ -20,6 +20,7 @@ import AdminCreateEditCategory from './components/Pages/AdminCreateEditCategory/
 
 import ImagesPopUp from './components/Templates/ImagesPopUp/ImagesPopUp.jsx'
 import RentNowPopUp from './components/Templates/RentNowPopUp/RentNowPopUp.jsx'
+import RegistrationConfirmModal from './components/Organisms/RegistrationConfirmModal/RegistrationConfirmModal.jsx'
 
 function App () {
   const location = useLocation()
@@ -75,6 +76,7 @@ function App () {
         previousLocation && (
           <Routes>
             <Route path='producto/:id/galeria' element={<ImagesPopUp />} />
+            <Route path='registro-exitoso' element={<RegistrationConfirmModal />} />
             <Route path='rentar' element={<RentNowPopUp />} />
           </Routes>
         )

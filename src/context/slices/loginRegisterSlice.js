@@ -21,11 +21,12 @@ export const fetchUserByUserNameThunk = createAsyncThunk(
 )
 
 export const sendConfirmationEmailThunk = createAsyncThunk(
-  'users/fetchByUserName',
-  async ({ emailConfig }, { rejectWithValue }) => {
+  'mail/send',
+  async (emailConfig, { rejectWithValue }) => {
+    console.log(emailConfig)
     try {
       const response = await axios.post(
-        'https://alluring-enchantment-production.up.railway.app/users/find/username/mail/send/message', emailConfig
+        'https://alluring-enchantment-production.up.railway.app/mail/send/message/customer', emailConfig
       )
       return response.data
     } catch (error) {
@@ -47,8 +48,10 @@ const initialState = {
   logInSuccess: false,
   emailConfig: {
     toUser: [],
-    subject: '',
-    message: ''
+    subject: 'Te damos la bienvenida a Royal Ride',
+    name: '',
+    message: 'https://proyecto-integrador-frontend-ctd-c1-g6.vercel.app/inicio-sesion',
+    logo: 'https://tiny.one/37xv75fb'
   }
 }
 
@@ -88,6 +91,20 @@ export const loginRegisterSlice = createSlice({
         state.logInSuccess = true
       })
       .addCase(fetchUserByUserNameThunk.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload || 'Error al enviar datos'
+      })
+
+      // send email
+      .addCase(sendConfirmationEmailThunk.pending, (state) => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(sendConfirmationEmailThunk.fulfilled, (state, action) => {
+        state.loading = false
+        state.success = true
+      })
+      .addCase(sendConfirmationEmailThunk.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload || 'Error al enviar datos'
       })

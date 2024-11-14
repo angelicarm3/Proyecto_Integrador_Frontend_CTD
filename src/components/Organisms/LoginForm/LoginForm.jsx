@@ -54,7 +54,7 @@ const LoginForm = () => {
       }, '2000')
     }
   }, [logInSuccess, isAdmin, navigate, dispatch])
-
+console.log(logInSuccess)
   return (
     <form className='w-full h-full flex flex-col font-Urbanist' onSubmit={handleSubmit(onSubmit)}>
       {
