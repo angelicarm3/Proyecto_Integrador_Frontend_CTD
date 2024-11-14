@@ -1,14 +1,16 @@
 import { useEffect } from 'react'
 
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 
 import { setLoginOrRegister } from '../../../context/slices/loginRegisterSlice'
 import LoginRegisterGrid from '../../Templates/LoginRegisterGrid/LoginRegisterGrid'
+import LoaderComponent from '../../Molecules/Loader/LoaderComponent'
 
 const LoginRegister = () => {
   const dispatch = useDispatch()
   const location = useLocation()
+  const { loading } = useSelector((state) => state.form)
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -16,8 +18,12 @@ const LoginRegister = () => {
   }, [dispatch, location])
 
   return (
-    <div className='main-page justify-center my-auto mt-[68px] bg-gray2'>
+    <div className='main-page justify-center my-auto mt-[68px] relative bg-gray2'>
       <LoginRegisterGrid />
+      {
+          loading &&
+            <LoaderComponent />
+        }
     </div>
   )
 }
