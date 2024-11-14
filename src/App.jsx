@@ -7,6 +7,7 @@ import Home from './components/Pages/Home/Home'
 import ProductDetail from './components/Pages/ProductDetail/ProductDetail.jsx'
 import LoginRegister from './components/Pages/LoginRegister/LoginRegister.jsx'
 
+import RequireNoAuth from './context/helpers/RequireNoAuth.jsx'
 import RequireAdmin from './context/helpers/RequireAdmin.jsx'
 import AdminPanel from './components/Pages/AdminPanel/AdminPanel'
 import AdminProducts from './components/Pages/AdminProducts/AdminProducts'
@@ -50,8 +51,8 @@ function App () {
         <Route element={<LayoutWithNavbarAndFooter />}>
           <Route path='/' element={<Home />} />
           <Route path='producto/:id' element={<ProductDetail />} />
-          <Route path='inicio-sesion' element={<LoginRegister />} />
-          {/* <Route path='registro' element={<LoginRegister />} /> */}
+          <Route path='inicio-sesion' element={<RequireNoAuth><LoginRegister /></RequireNoAuth>} />
+          {/* <Route path='registro' element={<RequireNoAuth><LoginRegister /></RequireNoAuth>} /> */}
           <Route path='*' element={<h1>404 Page Not Found</h1>} />
         </Route>
 

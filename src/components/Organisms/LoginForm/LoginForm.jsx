@@ -51,7 +51,7 @@ const LoginForm = () => {
       setTimeout(() => {
         dispatch(resetForm())
         isAdmin ? navigate('/administracion') : navigate('/')
-      }, '1000')
+      }, '2000')
     }
   }, [logInSuccess, isAdmin, navigate, dispatch])
 
