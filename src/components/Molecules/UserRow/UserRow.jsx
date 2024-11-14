@@ -1,10 +1,11 @@
-// UserRow.jsx
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { modifiedAdminRole, deleteUserThunk, setSelectedUser, resetStatus, fetchAllUsersAdminThunk } from '../../../context/slices/adminUserSlice';
 import { FaUserShield } from 'react-icons/fa';
 import { HiTrash } from 'react-icons/hi';
 import { BiSolidUserDetail } from 'react-icons/bi';
+import tippy from 'tippy.js'; // Import tippy.js
+import 'tippy.js/dist/tippy.css'; // Import tippy.js CSS
 
 const UserRow = ({ user }) => {
   const dispatch = useDispatch();
@@ -13,6 +14,10 @@ const UserRow = ({ user }) => {
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const token = localStorage.getItem('token');
   const { selectedUser, loading, success } = useSelector((state) => state.adminUsers);
+
+  const modifyAdminBtn = useRef(null);
+  const detailsBtn = useRef(null);
+  const deleteUserBtn = useRef(null);
 
   const handleModifyAdmin = () => {
     dispatch(setSelectedUser(user));
@@ -43,6 +48,17 @@ const UserRow = ({ user }) => {
   };
 
   useEffect(() => {
+    // Initialize tooltips with tippy.js
+    tippy(modifyAdminBtn.current, {
+      content: user.esAdmin ? 'Quitar Administrador' : 'Asignar Administrador',
+    });
+    tippy(detailsBtn.current, {
+      content: 'Ver Detalles',
+    });
+    tippy(deleteUserBtn.current, {
+      content: 'Eliminar Usuario',
+    });
+
     if (success) {
       setIsModalOpen(false);
       setIsSuccessModalOpen(true);
@@ -52,7 +68,7 @@ const UserRow = ({ user }) => {
         setIsSuccessModalOpen(false);
       }, 3000);
     }
-  }, [dispatch, success, token]);
+  }, [dispatch, success, token, user]);
 
   return (
     <>
@@ -65,7 +81,7 @@ const UserRow = ({ user }) => {
           <div className='flex space-x-3 justify-center'>
             {user.userName !== 'angie000@gmail.com' && user.userName !== localStorage.getItem('userName') &&
               <button
-                title={user.esAdmin ? 'Quitar Administrador' : 'Asignar Administrador'}
+                ref={modifyAdminBtn}
                 className={`${user.esAdmin ? 'bg-green1' : 'bg-blue1'} text-black px-4 py-2 rounded text-xl`}
                 onClick={handleModifyAdmin}
               >
@@ -73,7 +89,7 @@ const UserRow = ({ user }) => {
               </button>
             }
             <button
-              title="Ver Detalles"
+              ref={detailsBtn}
               className='bg-yellow1 px-4 py-2 rounded text-xl'
               onClick={handleSelectUser}
             >
@@ -81,7 +97,7 @@ const UserRow = ({ user }) => {
             </button>
             {user.userName !== 'angie000@gmail.com' &&
               <button
-                title="Eliminar Usuario"
+                ref={deleteUserBtn}
                 className='bg-red1 px-4 py-2 rounded'
                 onClick={handleDeletUserClick}
                 disabled={loading}
