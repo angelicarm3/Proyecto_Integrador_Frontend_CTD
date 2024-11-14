@@ -12,11 +12,17 @@
   .avatar-icon {
     @apply text-yellow1 cursor-pointer hover:opacity-75 bg-[rgb(102,102,102)] size-[50px] rounded-full mr-10
   }
+  .my-avatar-icon {
+    @apply text-yellow1 hover:opacity-75 cursor-pointer flex items-center justify-center bg-[rgb(102,102,102)] size-[50px] rounded-full border-4 border-yellow1 mr-10
+  }
+  .my-user-name {
+    @apply text-yellow1 items-center content-center mr-4
+  }
   .dropdown-menu {
-    @apply absolute top-12 right-0 bg-white border border-gray-300 rounded-lg p-2 shadow-lg z-50
+    @apply absolute top-[65px] right-0 bg-white border border-gray-300 rounded-lg p-2 shadow-lg z-50 
   }
   .logout-button {
-    @apply bg-[#e63946] text-white px-4 py-2 rounded cursor-pointer font-bold
+    @apply bg-yellow1 text-white px-4 py-2 rounded cursor-pointer font-bold
   }
   .logo-container {
     @apply w-full md:w-fit flex justify-center items-center self-center md:self-start

@@ -1,7 +1,6 @@
 import { useState } from 'react'
 
 import { Link } from 'react-router-dom'
-import { RxAvatar } from "react-icons/rx"
 import { AiOutlineMenu } from 'react-icons/ai'
 
 
@@ -12,14 +11,11 @@ import logoGold from '../../../assets/brand/logoGold.png'
 import LogInBtn from '../../Atoms/LoginBtn/LoginBtn'
 import { resetState } from '../../../context/slices/loginRegisterSlice'
 import SignUpBtn from '../../Atoms/SignUpBtn/SignUpBtn'
-import Navbar from '../../Molecules/Navbar/Navbar'
 import { useDispatch, useSelector } from 'react-redux'
 
 function Header () {
   const dispatch = useDispatch()
   const [isOn, setIsOn] = useState(false)
-  const toggleMenu = () => setIsOn(!isOn)
-
   const toggleDropdown = () => {
     setIsOn(!isOn);
   };
@@ -31,7 +27,6 @@ function Header () {
   };
 
   const { isLoggedIn, loggedUser } = useSelector((state) => state.loginRegister)
-  console.log(loggedUser)
   console.log(isLoggedIn)
 
   return (
@@ -46,14 +41,17 @@ function Header () {
       </Link>
       {/* <Navbar /> */}
       {isLoggedIn ? 
-      <>
-        <RxAvatar className='avatar-icon' onClick={toggleDropdown}/>
+      <div className='flex'>
+        <h3 className='my-user-name'>{loggedUser.nombre + " " +loggedUser.apellido}</h3>
+        <div onClick={toggleDropdown} className='my-avatar-icon'>
+            {loggedUser.nombre.charAt(0) + loggedUser.apellido.charAt(0)}
+        </div>
         {isOn && (
         <div className="dropdown-menu">
           <button onClick={handleLogout} className="logout-button">Cerrar sesión</button>
         </div>
         )}
-      </>
+      </div>
       :
       <div className='buttons-container'>
         <LogInBtn />
