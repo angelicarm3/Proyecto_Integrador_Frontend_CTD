@@ -4,24 +4,22 @@
 
 
 @layer components {
-  .admin-products-container {
+  .admin-characteristics-container {
     @apply p-4 flex flex-col mt-[68px] relative
   }
 
-  .admin-products-section {
-    @apply flex items-center justify-center mb-4 gap-3
+  .admin-characteristics-upper {
+    @apply flex items-center justify-around align-middle mb-4
   }
 
-  .admin-products-dropDown-conatiner {
-    @apply flex items-center gap-2
+
+  .admin-products-dropDown-container {
+    @apply flex items-center gap-4 space-x-4
   }
 
-  .admin-search-bar-container {
-    @apply flex w-3/5 gap-4
-  }
 
-  .admin-products-pagination-conatiner {
-    @apply flex justify-between space-x-2
+  .admin-products-pagination-container {
+    @apply flex justify-between space-x-2 items-center
   }
 
   .admin-products-p {

@@ -1,20 +1,26 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import { AiOutlineMenu } from 'react-icons/ai'
 
 
 import './header.css'
 import isoTipoGold from '../../../assets/brand/isoTipoGold.svg'
+import { fetchUserByUserNameThunk } from '../../../context/slices/loginRegisterSlice'
 import sloganGold from '../../../assets/brand/sloganGold.png'
 import logoGold from '../../../assets/brand/logoGold.png'
 import LogInBtn from '../../Atoms/LoginBtn/LoginBtn'
 import { resetState } from '../../../context/slices/loginRegisterSlice'
 import SignUpBtn from '../../Atoms/SignUpBtn/SignUpBtn'
-import { useDispatch, useSelector } from 'react-redux'
+import Navbar from '../../Molecules/Navbar/Navbar'
 
 function Header () {
   const dispatch = useDispatch()
+
+  const { isAdmin, loggedUser, error, userName, isLoggedIn} = useSelector((state) => state.loginRegister)
+  const token = localStorage.getItem('token')
+
   const [isOn, setIsOn] = useState(false)
   const toggleDropdown = () => {
     setIsOn(!isOn);
@@ -26,8 +32,14 @@ function Header () {
     localStorage.removeItem('token')
   };
 
-  const { isLoggedIn, loggedUser } = useSelector((state) => state.loginRegister)
-  console.log(isLoggedIn)
+  useEffect(() => {
+    if (userName && token) {
+      dispatch(fetchUserByUserNameThunk({ userName, token }))
+    }
+    if (error?.includes('JWT es invalido')) {
+      localStorage.clear()
+    }
+  }, [userName, error, token, dispatch])
 
   return (
     <header className='header'>

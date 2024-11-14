@@ -60,6 +60,17 @@ export const pageLabels = {
     validNumberError: 'Ingrese un número válido',
     existingProductError: 'Esta matrícula ya está registrada'
   },
+  createCharacteristic: {
+    title: 'Nueva característica',
+    name: 'Nombre',
+    icon: 'Icono (Máximo 1 archivo)'
+  },
+  createCategory: {
+    title: 'Nueva categoría',
+    name: 'Nombre',
+    description: 'Descripción (Máximo 200 caracteres)',
+    icon: 'Icono (Máximo 1 archivo)'
+  },
   loginRegister: {
     email: 'Email',
     password: 'Contraseña',
@@ -67,7 +78,8 @@ export const pageLabels = {
     forgotPassword: '¿Olvidó su contraseña?',
     logInBtn: 'Ingresar',
     registerBtn: 'Registrarse',
-    invalidEmailError: 'Por favor ingrese una dirección de email válida'
+    invalidEmailError: 'Por favor ingrese una dirección de email válida',
+    badCredentialsError: 'Email o contraseña inválidos.'
   },
   adminPanel: {
     mobileMessage: 'No disponible en dispositivos móviles',
@@ -91,5 +103,13 @@ export const pageLabels = {
   },
   adminSearchBar: {
     placeholder: 'Palabra Clave'
+  },
+  adminCharacteristics: {
+    title: 'Administrar características',
+    result: 'Resultados'
+  },
+  adminCategories: {
+    title: 'Administrar categorías',
+    result: 'Resultados'
   }
 }
