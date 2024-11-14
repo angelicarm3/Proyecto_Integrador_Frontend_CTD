@@ -11,37 +11,16 @@ import logoGold from '../../../assets/brand/logoGold.png'
 import LogInBtn from '../../Atoms/LoginBtn/LoginBtn'
 import { fetchUserByUserNameThunk, resetState } from '../../../context/slices/loginRegisterSlice'
 import SignUpBtn from '../../Atoms/SignUpBtn/SignUpBtn'
-<<<<<<<<< Temporary merge branch 1
-import { useDispatch, useSelector } from 'react-redux'
 
 function Header () {
   const dispatch = useDispatch()
-
-  const { isAdmin, loggedUser, error, userName, isLoggedIn} = useSelector((state) => state.loginRegister)
-  const token = localStorage.getItem('token')
-
   const [isOn, setIsOn] = useState(false)
-  const toggleDropdown = () => {
-    setIsOn(!isOn);
-  };
-
-  const handleLogout = () => {
-    console.log('Cerrar sesión')
-    dispatch(resetState())
-    localStorage.removeItem('token')
-  };
-
-  const { isLoggedIn, loggedUser } = useSelector((state) => state.loginRegister)
-  console.log(isLoggedIn)
-=========
-import Navbar from '../../Molecules/Navbar/Navbar'
-
-function Header () {
-  const dispatch = useDispatch()
-  const [isOpen, setIsOpen] = useState(false)
-  const toggleMenu = () => setIsOpen(!isOpen)
-  const { isAdmin, loggedUser, error, userName } = useSelector((state) => state.loginRegister)
+  const { isAdmin, isLoggedIn, loggedUser, error, userName } = useSelector((state) => state.loginRegister)
   const token = localStorage.getItem('token')
+
+  const toggleDropdown = () => {
+    setIsOn(!isOn)
+  }
 
   useEffect(() => {
     if (userName && token) {
@@ -51,7 +30,15 @@ function Header () {
       localStorage.clear()
     }
   }, [userName, error, token, dispatch])
->>>>>>>>> Temporary merge branch 2
+
+  const handleLogout = () => {
+    console.log('Cerrar sesión')
+    dispatch(resetState())
+    localStorage.clear()
+    toggleDropdown()
+  }
+
+  console.log(isOn)
 
   return (
     <header className='header'>
