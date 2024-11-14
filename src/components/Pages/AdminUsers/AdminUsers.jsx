@@ -21,7 +21,7 @@ const AdminUsers = () => {
   return (
     <div className='admin-users-container p-4 mt-[68px]'>
       <div className='primary-btn w-fit flex flex-col justify-center rounded-2xl bg-black1 px-3 mb-6'>
-        <BackBtn />
+        <BackBtn navigateTo='/administracion' />
       </div>
       <AdminUsersList />
       {

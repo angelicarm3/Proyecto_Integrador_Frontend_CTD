@@ -99,7 +99,6 @@ const CreateEditCategoryForm = () => {
       }, '3000')
     }
   }, [success, navigate, dispatch])
-  console.log(categoryData)
 
   return (
     <form className='create-product-form-container' onSubmit={handleSubmit(onSubmit)}>
