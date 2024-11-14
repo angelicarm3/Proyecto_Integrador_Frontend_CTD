@@ -70,7 +70,7 @@ const AdminProducts = () => {
     <div className='admin-products-container'>
       <section className='admin-products-section'>
         <div className='primary-btn w-fit flex flex-col justify-center rounded-2xl bg-black1 px-3'>
-          <BackBtn />
+          <BackBtn navigateTo='/administracion' />
         </div>
         <AddBtn navigateTo='/administracion/agregar-producto' />
 

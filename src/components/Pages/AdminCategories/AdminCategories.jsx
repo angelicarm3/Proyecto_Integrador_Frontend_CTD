@@ -77,7 +77,7 @@ const AdminCategories = () => {
     <section className='admin-characteristics-container'>
       <div className='admin-characteristics-upper'>
         <div className='primary-btn w-fit flex flex-col justify-center rounded-2xl bg-black1 px-3'>
-          <BackBtn />
+          <BackBtn navigateTo='/administracion' />
         </div>
         <div className='admin-search-bar-container'>
           <AddBtn navigateTo='/administracion/agregar-categoria' />
