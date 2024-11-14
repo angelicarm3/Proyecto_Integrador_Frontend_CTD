@@ -42,7 +42,9 @@ const AdminCategories = () => {
         await dispatch(resetStatus())
         dispatch(fetchAllCategoriesThunk())
       }
-      fetchData()
+      setTimeout(() => {
+        fetchData()
+      }, 2000)
     }
   }, [success, dispatch])
 

@@ -35,7 +35,7 @@ export const pageLabels = {
     seeMore: 'Ver más...'
   },
   createProduct: {
-    title: 'Nuevo producto',
+    title: 'Producto',
     make: 'Marca',
     model: 'Modelo',
     plate: 'Matrícula (ABC123)',
@@ -61,15 +61,20 @@ export const pageLabels = {
     existingProductError: 'Esta matrícula ya está registrada'
   },
   createCharacteristic: {
-    title: 'Nueva característica',
+    title: 'Característica',
     name: 'Nombre',
-    icon: 'Icono (Máximo 1 archivo)'
+    icon: 'Icono (Máximo 1 archivo)',
+    imgPlaceholder: 'Seleccionar ícono',
+    successCreateMessage: 'Característica creada con éxito!',
+    successUpdateMessage: 'Característica actualizada con éxito!'
   },
   createCategory: {
-    title: 'Nueva categoría',
+    title: 'Categoría',
     name: 'Nombre',
     description: 'Descripción (Máximo 200 caracteres)',
-    icon: 'Icono (Máximo 1 archivo)'
+    icon: 'Icono (Máximo 1 archivo)',
+    successCreateMessage: 'Categoría creada con éxito!',
+    successUpdateMessage: 'Categoría actualizads con éxito!'
   },
   loginRegister: {
     email: 'Email',

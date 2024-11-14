@@ -8,7 +8,7 @@ export const fetchAllProductsThunk = createAsyncThunk(
       const response = await axios.get('https://alluring-enchantment-production.up.railway.app/autos/list')
       return response.data
     } catch (error) {
-      return rejectWithValue(error.response?.data?.mensaje || 'Error desconocido')
+      return rejectWithValue(error.response?.data?.mensaje || error.response?.data?.message)
     }
   }
 )
@@ -20,7 +20,7 @@ export const fetchProductByIdThunk = createAsyncThunk(
       const response = await axios.get(`https://alluring-enchantment-production.up.railway.app/autos/find/${id}`)
       return response.data
     } catch (error) {
-      return rejectWithValue(error.response?.data?.mensaje || 'Error desconocido')
+      return rejectWithValue(error.response?.data?.mensaje || error.response?.data?.message)
     }
   }
 )

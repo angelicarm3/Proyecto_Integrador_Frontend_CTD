@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .registration-modal-overlay {
+    @apply fixed inset-0 flex items-center justify-center bg-popUpBg1 z-50;
+  }
+  .registration-modal-content {
+    @apply  bg-yellow1 w-[90%] sm:w-[auto] h-[auto] rounded-[20px] shadow-lg pt-6 sm:pt-8 flex flex-col items-center justify-center relative;
+  }
+  .registration-modal-close {
+    @apply absolute w-8 h-8 sm:w-10 sm:h-10 top-2 sm:top-3 right-2 sm:right-3 cursor-pointer rounded-full text-xl flex items-center justify-center z-50;
+  }
+  .registration-modal-content-info{
+    @apply m-[10px] sm:m-[20px] mt-[30px] sm:mt-[40px] border-2 border-white rounded-[20px] text-center flex flex-col flex-wrap items-center justify-center relative;
+  }
+  .registration-modal-content-info img{
+    @apply absolute top-[-30%] sm:top-[-45%] left-1/2 transform -translate-x-1/2 m-auto h-auto;
+  }
+  .registration-modal-content-info p{
+    @apply m-[5px] sm:m-[10px] mt-[45px] sm:mt-[55px] text-xl text-white;
+  }
+  .registration-modal-content-button{
+    @apply m-[5px] sm:m-[10px] pb-2 sm:pb-4  flex flex-wrap items-center justify-center;;
+  }
+  .registration-modal-content-button button{
+    @apply ml-[5px] sm:ml-[10px] w-32 sm:w-40 rounded-[20px];
+  }
+  .registration-modal-content-button span{
+    @apply text-xs sm:text-sm;
+  }
+}

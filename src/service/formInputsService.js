@@ -27,11 +27,11 @@ const loginFormFields = [
 const signupFormFields = [
   { id: 'nombre', type: 'text', label: pageLabels.loginRegister.firstName },
   { id: 'apellido', type: 'text', label: pageLabels.loginRegister.lastName },
-  { id: 'dni', type: 'text', label: pageLabels.loginRegister.dni, validation: { pattern: { value: /^\d{8}$/, message: `${pageLabels.loginRegister.invalidDniError}` } } },
+  { id: 'dni', type: 'text', label: pageLabels.loginRegister.dni, validation: { pattern: { value: /^\d{8}$/, message: `${pageLabels.loginRegister.invalidDniError}` } }, extraErrorMessage: `${pageLabels.loginRegister.existingDNIError}` },
   { id: 'edad', type: 'text', label: pageLabels.loginRegister.age, validation: { pattern: { value: /^([1-9]\d?|1[89]|[2-9]\d|1[01]\d|150)$/, message: `${pageLabels.loginRegister.invalidDniError}` } } },
   { id: 'telefono', type: 'text', label: pageLabels.loginRegister.phone, validation: { pattern: { value: /^\d{7,15}$/, message: `${pageLabels.loginRegister.invalidPhoneError}` } } },
   { id: 'nacionalidad', type: 'text', label: pageLabels.loginRegister.nacionality },
-  { id: 'email', type: 'text', label: pageLabels.loginRegister.email, validation: { pattern: { value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/, message: `${pageLabels.loginRegister.invalidEmailError}` } }, extraErrorMessage: `${pageLabels.createProduct.existingProductError}` },
+  { id: 'email', type: 'text', label: pageLabels.loginRegister.email, validation: { pattern: { value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/, message: `${pageLabels.loginRegister.invalidEmailError}` } }, extraErrorMessage: `${pageLabels.loginRegister.existingEmailError}` },
   { id: 'password', type: 'password', label: pageLabels.loginRegister.password, validation: { pattern: { value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@.#$*])[A-Za-z0-9@.#$*]{8,20}$/, message: `${pageLabels.loginRegister.passwordRequirementsError}`, minLength: { value: 8, message: `${pageLabels.loginRegister.shortPasswordError}` }, maxLength: { value: 20, message: `${pageLabels.loginRegister.longPasswordError}` } } } },
   { id: 'confirmPassword', type: 'password', label: pageLabels.loginRegister.confirmPassword }
 ]

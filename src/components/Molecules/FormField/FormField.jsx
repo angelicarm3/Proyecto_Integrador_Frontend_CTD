@@ -17,7 +17,7 @@ const FormField = ({ autoComplete, fieldWidth, label, id, type, value, inputClas
         id={id}
         type={type}
         value={value}
-        className={`${inputClass} ${(error || (promiseError?.includes('ya existe en el sistema') && id === 'matricula') || (promiseError?.includes('Bad credentials'))) && 'border-red1'}`}
+        className={`${inputClass} ${(error || (promiseError?.includes('ya existe en el sistema') && id === 'matricula') || (promiseError?.includes('email') && id === 'email') || (promiseError?.includes('DNI') && id === 'dni')) && 'border-red1'}`}
         placeholder={label}
         {...register(id, validation)}
         onChange={onChange}
@@ -41,7 +41,10 @@ const FormField = ({ autoComplete, fieldWidth, label, id, type, value, inputClas
         promiseError && id === 'matricula' && promiseError.includes('ya existe en el sistema') && <FormErrorMessage message={extraErrorMessage} />
       }
       {
-        promiseError && id === 'email' && promiseError.includes('ya existe en el sistema') && <FormErrorMessage message={extraErrorMessage} />
+        promiseError && id === 'email' && promiseError.includes('ya existe en el sistema') && promiseError.includes('email') && <FormErrorMessage message={extraErrorMessage} />
+      }
+      {
+        promiseError && id === 'dni' && promiseError.includes('ya existe en el sistema') && promiseError.includes('DNI') && <FormErrorMessage message={extraErrorMessage} />
       }
     </div>
   )

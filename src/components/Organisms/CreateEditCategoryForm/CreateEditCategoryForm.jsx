@@ -177,7 +177,7 @@ const CreateEditCategoryForm = () => {
               onClick={() => document.getElementById('iconoCat').click()}
             >
               <AiOutlineFileImage size={40} className='img-icon' />
-              <p className='img-placeholder'>{pageLabels.createProduct.imgPlaceholder}</p>
+              <p className='img-placeholder'>{pageLabels.createCharacteristic.imgPlaceholder}</p>
             </button>
             <div className='preview-grid'>
               {
@@ -206,7 +206,7 @@ const CreateEditCategoryForm = () => {
         success &&
           <div className='pop-up-bg success-bg'>
             <div className='success-box'>
-              <p className='success-text'>{location.pathname.includes('editar') ? pageLabels.createProduct.successUpdateMessage : pageLabels.createProduct.successCreateMessage}</p>
+              <p className='success-text'>{location.pathname.includes('editar') ? pageLabels.createCategory.successUpdateMessage : pageLabels.createCategory.successCreateMessage}</p>
             </div>
           </div>
       }

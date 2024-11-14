@@ -15,7 +15,22 @@ export const fetchUserByUserNameThunk = createAsyncThunk(
       )
       return response.data
     } catch (error) {
-      return rejectWithValue(error.response?.data?.message || 'Error desconocido')
+      return rejectWithValue(error.response?.data?.mensaje || error.response?.data?.message)
+    }
+  }
+)
+
+export const sendConfirmationEmailThunk = createAsyncThunk(
+  'mail/send',
+  async (emailConfig, { rejectWithValue }) => {
+    console.log(emailConfig)
+    try {
+      const response = await axios.post(
+        'https://alluring-enchantment-production.up.railway.app/mail/send/message/customer', emailConfig
+      )
+      return response.data
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.mensaje || error.response?.data?.message)
     }
   }
 )
@@ -30,7 +45,14 @@ const initialState = {
   userName: localStorage.getItem('userName') || null,
   loading: false,
   error: null,
-  logInSuccess: false
+  logInSuccess: false,
+  emailConfig: {
+    toUser: [],
+    subject: 'Te damos la bienvenida a Royal Ride',
+    name: '',
+    message: 'https://proyecto-integrador-frontend-ctd-c1-g6.vercel.app/inicio-sesion',
+    logo: 'https://tiny.one/37xv75fb'
+  }
 }
 
 export const loginRegisterSlice = createSlice({
@@ -69,6 +91,20 @@ export const loginRegisterSlice = createSlice({
         state.logInSuccess = true
       })
       .addCase(fetchUserByUserNameThunk.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload || 'Error al enviar datos'
+      })
+
+      // send email
+      .addCase(sendConfirmationEmailThunk.pending, (state) => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(sendConfirmationEmailThunk.fulfilled, (state, action) => {
+        state.loading = false
+        state.success = true
+      })
+      .addCase(sendConfirmationEmailThunk.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload || 'Error al enviar datos'
       })
