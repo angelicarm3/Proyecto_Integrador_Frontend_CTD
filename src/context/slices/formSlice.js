@@ -34,6 +34,7 @@ export const submitFormThunk = createAsyncThunk(
         response = await axios.post(
           `https://alluring-enchantment-production.up.railway.app/${formURL}`,
           formData,
+          (formURL !== 'users/register' || formURL !== 'login') &&
           {
             headers: {
               Authorization: `Bearer ${token}`
@@ -43,7 +44,8 @@ export const submitFormThunk = createAsyncThunk(
       }
       return response.data
     } catch (error) {
-      return rejectWithValue(error.response?.data?.mensaje || 'Error desconocido')
+      console.log(error)
+      return rejectWithValue(error.response?.data?.message)
     }
   }
 )
@@ -54,7 +56,9 @@ const capitalizeFirstLetter = (string) => {
 
 const changeInputType = (showPassword) => {
   const passwordField = document.getElementById('password')
+  const confirmPasswordField = document.getElementById('confirmPassword')
   showPassword ? passwordField.type = 'text' : passwordField.type = 'password'
+  showPassword ? confirmPasswordField.type = 'text' : confirmPasswordField.type = 'password'
 }
 
 const initialState = {
@@ -90,13 +94,13 @@ const initialState = {
     apellido: '',
     dni: '',
     edad: '',
-    nacionalidad: '',
     telefono: '',
     email: '',
-    userName: '',
-    password: '',
+    nacionalidad: '',
     esAdmin: false,
-    estaActivo: false
+    estaActivo: false,
+    userName: '',
+    password: ''
   },
   showPassword: false,
   isRememberMe: false,
@@ -116,7 +120,7 @@ const formSlice = createSlice({
       let newValue
       const { field, value, form } = action.payload
       if (form === 'createProduct') {
-        if (field === 'marca' || field === 'modelo') {
+        if (field === 'marca' || field === 'modelo' || field === 'descripcion') {
           newValue = capitalizeFirstLetter(value)
           state.productData[field] = newValue
         } else {
@@ -124,10 +128,30 @@ const formSlice = createSlice({
         }
       } else if (form === 'logIn') {
         state.loginData[field] = value
+      } else if (form === 'signUp') {
+        if (field === 'nombre' || field === 'apellido' || field === 'nacionalidad') {
+          newValue = capitalizeFirstLetter(value)
+          state.userData[field] = newValue
+        } else if (field === 'email') {
+          state.userData[field] = value
+          state.userData.userName = value
+        } else {
+          state.userData[field] = value
+        }
       } else if (form === 'createCharacteristic') {
-        state.characteristicData[field] = value
+        if (field === 'nombre') {
+          newValue = capitalizeFirstLetter(value)
+          state.characteristicData[field] = newValue
+        } else {
+          state.characteristicData[field] = value
+        }
       } else if (form === 'createCategory') {
-        state.categoryData[field] = value
+        if (field === 'nombre' || field === 'descripcion') {
+          newValue = capitalizeFirstLetter(value)
+          state.categoryData[field] = newValue
+        } else {
+          state.categoryData[field] = value
+        }
       }
     },
     updateHasSubmited: (state) => {

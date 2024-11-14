@@ -32,13 +32,10 @@ function Header () {
   }, [userName, error, token, dispatch])
 
   const handleLogout = () => {
-    console.log('Cerrar sesión')
     dispatch(resetState())
     localStorage.clear()
     toggleDropdown()
   }
-
-  console.log(isOn)
 
   return (
     <header className='header'>

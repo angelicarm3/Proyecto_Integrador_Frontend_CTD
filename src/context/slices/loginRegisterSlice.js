@@ -45,6 +45,9 @@ export const loginRegisterSlice = createSlice({
         state.loginOrRegister = 'register'
       }
     },
+    changeFormNumber: (state, action) => {
+      state.formNumber = action.payload
+    },
     resetState: (state) => {
       return initialState
     }
@@ -72,6 +75,6 @@ export const loginRegisterSlice = createSlice({
   }
 })
 
-export const { setLoginOrRegister, resetState } = loginRegisterSlice.actions
+export const { setLoginOrRegister, changeFormNumber, resetState } = loginRegisterSlice.actions
 
 export default loginRegisterSlice.reducer

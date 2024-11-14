@@ -24,7 +24,7 @@ const FormField = ({ autoComplete, fieldWidth, label, id, type, value, inputClas
       />
 
       {
-        id === 'password' &&
+        (id === 'password' || id === 'confirmPassword') &&
           <div className='w-6 absolute top-[44px] right-4 cursor-pointer' onClick={() => dispatch(setShowPassword())}>
             {
           showPassword
@@ -39,6 +39,9 @@ const FormField = ({ autoComplete, fieldWidth, label, id, type, value, inputClas
       }
       {
         promiseError && id === 'matricula' && promiseError.includes('ya existe en el sistema') && <FormErrorMessage message={extraErrorMessage} />
+      }
+      {
+        promiseError && id === 'email' && promiseError.includes('ya existe en el sistema') && <FormErrorMessage message={extraErrorMessage} />
       }
     </div>
   )
