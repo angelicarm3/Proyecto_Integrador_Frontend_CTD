@@ -14,6 +14,7 @@ import CancelBtn from '../../Atoms/CancelBtn/CancelBtn'
 import AddBtn from '../../Atoms/AddBtn/AddBtn'
 import ProductRow from '../../Molecules/ProductRow/ProductRow'
 import LoaderComponent from '../../Molecules/Loader/LoaderComponent'
+import BackBtn from '../../Atoms/BackBtn/BackBtn'
 
 const AdminProducts = () => {
   const dispatch = useDispatch()
@@ -23,7 +24,8 @@ const AdminProducts = () => {
 
   const [showConfirmDelete, setShowConfirmDelete] = useState(false)
   const { selectedProduct, loading, success, allProducts, itemsToShow, currentPage } = useSelector((state) => state.adminProducts)
-  const { token } = useSelector((state) => state.loginRegister)
+  // const { token } = useSelector((state) => state.loginRegister)
+  const token = localStorage.getItem('token')
 
   const totalItems = allProducts.length
   const startIndex = (currentPage - 1) * itemsToShow
@@ -67,6 +69,9 @@ const AdminProducts = () => {
   return (
     <div className='admin-products-container'>
       <section className='admin-products-section'>
+        <div className='primary-btn w-fit flex flex-col justify-center rounded-2xl bg-black1 px-3'>
+          <BackBtn />
+        </div>
         <AddBtn navigateTo='/administracion/agregar-producto' />
 
         <div className='admin-search-bar-container'>

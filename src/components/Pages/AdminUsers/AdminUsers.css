@@ -1,5 +1,5 @@
 .admin-users-container {
-  @apply p-6 flex flex-col mt-8;
+  @apply p-6 flex flex-col mt-8
 }
 
 .admin-users-section {

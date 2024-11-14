@@ -29,7 +29,8 @@ const CreateEditProductForm = () => {
   const selectedProduct = useSelector((state) => state.product.selectedProduct)
   const allCategories = useSelector((state) => state.category.allCategories)
   const allCharacteristics = useSelector((state) => state.adminCharacteristic.allCharacteristics)
-  const { token } = useSelector((state) => state.loginRegister)
+  // const { token } = useSelector((state) => state.loginRegister)
+  const token = localStorage.getItem('token')
   const { selectedImages, filePreviews, setFilePreviews, imagesRequiredError, setImagesRequiredError, handleFileChange, removeImage } = useImageUpload()
   const maxDescriptionCharacters = 200
   const [selectedCategories, setSelectedCategories] = useState([])

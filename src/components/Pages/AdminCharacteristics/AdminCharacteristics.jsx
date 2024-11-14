@@ -12,6 +12,7 @@ import CancelBtn from '../../Atoms/CancelBtn/CancelBtn'
 import AddBtn from '../../Atoms/AddBtn/AddBtn'
 import CharacteristcsRow from '../../Molecules/CharacteristicsRow/CharacteristicsRow'
 import LoaderComponent from '../../Molecules/Loader/LoaderComponent'
+import BackBtn from '../../Atoms/BackBtn/BackBtn'
 
 const AdminCharacteristics = () => {
   const dispatch = useDispatch()
@@ -21,7 +22,8 @@ const AdminCharacteristics = () => {
 
   const [showConfirmDelete, setShowConfirmDelete] = useState(false)
   const { selectedCharacteristic, loading, success, error, allCharacteristics, itemsToShow, currentPage } = useSelector((state) => state.adminCharacteristic)
-  const { token } = useSelector((state) => state.loginRegister)
+  // const { token } = useSelector((state) => state.loginRegister)
+  const token = localStorage.getItem('token')
 
   const totalItems = allCharacteristics.length
   const startIndex = (currentPage - 1) * itemsToShow
@@ -70,10 +72,13 @@ const AdminCharacteristics = () => {
   const handlePageChange = (page) => {
     dispatch(setPage(page))
   }
-  
+
   return (
     <section className='admin-characteristics-container'>
       <div className='admin-characteristics-upper'>
+        <div className='primary-btn w-fit flex flex-col justify-center rounded-2xl bg-black1 px-3'>
+          <BackBtn />
+        </div>
         <div className='admin-search-bar-container'>
           <AddBtn navigateTo='/administracion/agregar-caracteristica' />
         </div>

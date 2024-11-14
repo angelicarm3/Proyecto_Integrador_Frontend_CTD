@@ -17,7 +17,8 @@ function Header () {
   const dispatch = useDispatch()
   const [isOpen, setIsOpen] = useState(false)
   const toggleMenu = () => setIsOpen(!isOpen)
-  const { isAdmin, loggedUser, error, userName, token } = useSelector((state) => state.loginRegister)
+  const { isAdmin, loggedUser, error, userName } = useSelector((state) => state.loginRegister)
+  const token = localStorage.getItem('token')
 
   useEffect(() => {
     if (userName && token) {
