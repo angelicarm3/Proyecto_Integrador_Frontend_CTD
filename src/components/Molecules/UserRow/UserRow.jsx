@@ -64,7 +64,7 @@ const UserRow = ({ user }) => {
         <td className='px-4 py-2 text-center'>{user.esAdmin ? 'Administrador' : 'Usuario'}</td>
         <td className='border px-4 py-2 w-1/4'>
           <div className='flex space-x-3 justify-center'>
-            {user.userName !== 'angie000@gmail.com' &&
+            {user.userName !== 'angie000@gmail.com' && user.userName !== localStorage.getItem('userName') &&
               <button
                 className={`${user.esAdmin ? 'bg-green1' : 'bg-blue1'} 'text-black px-4 py-2 rounded text-xl'`}
                 onClick={() => handleModifyAdmin()}

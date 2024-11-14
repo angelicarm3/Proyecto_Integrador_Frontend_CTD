@@ -58,7 +58,7 @@ const LoginForm = () => {
   return (
     <form className='w-full h-full flex flex-col font-Urbanist' onSubmit={handleSubmit(onSubmit)}>
       {
-        error.includes('username o password incorrecto') &&
+        error?.includes('username o password incorrecto') &&
           <div className='w-full h-fit flex justify-center items-center text-sm text-red1 font-medium border-red1 border rounded p-2 mb-4'>
             <p>{pageLabels.loginRegister.badCredentialsError}</p>
           </div>
