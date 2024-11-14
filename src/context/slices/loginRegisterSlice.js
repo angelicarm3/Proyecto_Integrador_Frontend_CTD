@@ -15,7 +15,21 @@ export const fetchUserByUserNameThunk = createAsyncThunk(
       )
       return response.data
     } catch (error) {
-      return rejectWithValue(error.response?.data?.message || 'Error desconocido')
+      return rejectWithValue(error.response?.data?.mensaje || error.response?.data?.message)
+    }
+  }
+)
+
+export const sendConfirmationEmailThunk = createAsyncThunk(
+  'users/fetchByUserName',
+  async ({ emailConfig }, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        'https://alluring-enchantment-production.up.railway.app/users/find/username/mail/send/message', emailConfig
+      )
+      return response.data
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.mensaje || error.response?.data?.message)
     }
   }
 )
@@ -30,7 +44,12 @@ const initialState = {
   userName: localStorage.getItem('userName') || null,
   loading: false,
   error: null,
-  logInSuccess: false
+  logInSuccess: false,
+  emailConfig: {
+    toUser: [],
+    subject: '',
+    message: ''
+  }
 }
 
 export const loginRegisterSlice = createSlice({

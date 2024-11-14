@@ -8,7 +8,7 @@ export const fetchAllCharacteristicsThunk = createAsyncThunk(
       const response = await axios.get('https://alluring-enchantment-production.up.railway.app/characteristics/list')
       return response.data
     } catch (error) {
-      return rejectWithValue(error.response?.data?.mensaje || 'Error desconocido')
+      return rejectWithValue(error.response?.data?.mensaje || error.response?.data?.message)
     }
   }
 )
@@ -20,7 +20,7 @@ export const fetchCharacteristicByIdThunk = createAsyncThunk(
       const response = await axios.get(`https://alluring-enchantment-production.up.railway.app/characteristics/find/${id}`)
       return response.data
     } catch (error) {
-      return rejectWithValue(error.response?.data?.mensaje || 'Error desconocido')
+      return rejectWithValue(error.response?.data?.mensaje || error.response?.data?.message)
     }
   }
 )
@@ -38,7 +38,7 @@ export const deleteCharacteristicThunk = createAsyncThunk(
         })
       return response.data
     } catch (error) {
-      return rejectWithValue(error.response.data.mensaje)
+      return rejectWithValue(error.response?.data?.mensaje || error.response?.data?.message)
     }
   }
 )

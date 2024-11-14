@@ -42,7 +42,9 @@ const AdminCharacteristics = () => {
         await dispatch(resetStatus())
         dispatch(fetchAllCharacteristicsThunk())
       }
-      fetchData()
+      setTimeout(() => {
+        fetchData()
+      }, 2000)
     }
   }, [success, dispatch])
 

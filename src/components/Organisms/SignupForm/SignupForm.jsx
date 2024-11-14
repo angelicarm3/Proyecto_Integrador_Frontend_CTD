@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { pageLabels } from '../../../data/pageLabels'
 import { signupFormFields } from '../../../service/formInputsService'
-import { submitFormThunk, updateField, resetForm } from '../../../context/slices/formSlice'
+import { submitFormThunk, updateField, resetForm, clearError } from '../../../context/slices/formSlice'
 import { changeFormNumber } from '../../../context/slices/loginRegisterSlice'
 
 import FormField from '../../Molecules/FormField/FormField'
@@ -30,12 +30,14 @@ const SignupForm = () => {
 
   const handleInputChange = (e) => {
     const { id, value } = e.target
+    if (id === 'dni' || id === 'email') {
+      dispatch(clearError())
+    }
     clearErrors(id)
     dispatch(updateField({ field: id, value, form: 'signUp' }))
   }
 
   const handleNextStep = async () => {
-    // Filtra los campos relevantes del formulario actual
     const currentFields = signupFormFields
       .filter((_, index) =>
         (formNumber === 1 && index < 4) ||
@@ -44,14 +46,10 @@ const SignupForm = () => {
       )
       .map(field => field.id)
 
-    // Valida los campos del paso actual
     const isValid = await trigger(currentFields)
 
     if (isValid) {
-      // Avanza al siguiente paso si los campos son válidos
       dispatch(changeFormNumber(formNumber + 1))
-    } else {
-      console.log('Errores de validación:', errors)
     }
   }
 
@@ -59,16 +57,18 @@ const SignupForm = () => {
     dispatch(submitFormThunk({ formData: userData, formURL: 'users/register' }))
   }
 
+  useEffect(() => {
+    if (error && error.includes('DNI')) {
+      dispatch(changeFormNumber(1))
+    } else if (error && error.includes('email')) {
+      dispatch(changeFormNumber(2))
+    }
+  }, [error, dispatch])
+
   console.log(success)
-  console.log(error)
+  // console.log(error)
   return (
     <form className='w-full h-fit flex flex-col font-Urbanist' onSubmit={handleSubmit(onSubmit)}>
-      {/* {
-        error === 'Bad credentials' &&
-          <div className='w-full h-fit flex justify-center items-center text-sm text-red1 font-medium border-red1 border rounded p-2 mb-4'>
-            <p>{pageLabels.loginRegister.badCredentialsError}</p>
-          </div>
-      } */}
       <div className='w-full flex justify-center text-yellow1 font-bold relative mb-3'>
         {
           formNumber !== 1 &&
