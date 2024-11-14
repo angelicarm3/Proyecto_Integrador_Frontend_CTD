@@ -11,7 +11,7 @@ const LoginRegisterComponent = () => {
   const { loginOrRegister } = useSelector((state) => state.loginRegister)
 
   return (
-    <section className='w-full md:w-6/12 h-[632px] flex flex-col items-center bg-black3 rounded-lg px-10 py-6 gap-6'>
+    <section className='w-full md:w-6/12 h-[632px] flex flex-col items-center bg-black3 rounded-lg px-3 md:px-10 py-6 gap-6'>
       <img src={isoTipoGold} alt='isotipo' className='w-[130px]' />
       <LoginRegisterSwitch />
       {
