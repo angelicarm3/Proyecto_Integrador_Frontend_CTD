@@ -15,9 +15,13 @@ const createCharacteristicFormFields = [
   { id: 'nombre', type: 'text', label: pageLabels.createCharacteristic.name }
 ]
 
+const createCategoryFormFields = [
+  { id: 'nombre', type: 'text', label: pageLabels.createCategory.name }
+]
+
 const loginFormFields = [
   { autoComplete: 'email', id: 'userName', type: 'text', label: pageLabels.loginRegister.email, validation: { pattern: { value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/, message: `${pageLabels.loginRegister.invalidEmailError}` } } },
   { autoComplete: 'current-password', id: 'password', type: 'password', label: pageLabels.loginRegister.password }
 ]
 
-export { createProductFormFields, createCharacteristicFormFields, loginFormFields }
+export { createProductFormFields, createCharacteristicFormFields, createCategoryFormFields, loginFormFields }
