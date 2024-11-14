@@ -12,8 +12,10 @@ import AdminPanel from './components/Pages/AdminPanel/AdminPanel'
 import AdminProducts from './components/Pages/AdminProducts/AdminProducts'
 import AdminCreateEditProduct from './components/Pages/AdminCreateEditProduct/AdminCreateEditProduct.jsx'
 import AdminUsers from './components/Pages/AdminUsers/AdminUsers.jsx'
-import AdminCharacteristics from './components/Pages/AdminCharacteristics/AdminCharacteristics'
+import AdminCharacteristics from './components/Pages/AdminCharacteristics/AdminCharacteristics.jsx'
 import AdminCreateEditCharacteristic from './components/Pages/AdminCreateEditCharacteristic/AdminCreateEditCharacteristic'
+import AdminCategories from './components/Pages/AdminCategories/AdminCategories.jsx'
+import AdminCreateEditCategory from './components/Pages/AdminCreateEditCategory/AdminCreateEditCategory.jsx'
 
 import ImagesPopUp from './components/Templates/ImagesPopUp/ImagesPopUp.jsx'
 import RentNowPopUp from './components/Templates/RentNowPopUp/RentNowPopUp.jsx'
@@ -62,6 +64,9 @@ function App () {
           <Route path='administracion/caracteristicas' element={<RequireAdmin><AdminCharacteristics /></RequireAdmin>} />
           <Route path='administracion/agregar-caracteristica' element={<RequireAdmin><AdminCreateEditCharacteristic /></RequireAdmin>} />
           <Route path='administracion/editar-caracteristica/:id' element={<RequireAdmin><AdminCreateEditCharacteristic /></RequireAdmin>} />
+          <Route path='administracion/categorias' element={<RequireAdmin><AdminCategories /></RequireAdmin>} />
+          <Route path='administracion/agregar-categoria' element={<RequireAdmin><AdminCreateEditCategory /></RequireAdmin>} />
+          <Route path='administracion/editar-categoria/:id' element={<RequireAdmin><AdminCreateEditCategory /></RequireAdmin>} />
         </Route>
       </Routes>
 

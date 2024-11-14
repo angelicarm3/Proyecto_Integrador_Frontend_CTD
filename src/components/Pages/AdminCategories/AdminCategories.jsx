@@ -1,38 +1,38 @@
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import './AdminCharacteristics.css'
+import './adminCategories.css'
 import { pageLabels } from '../../../data/pageLabels'
-import { fetchAllCharacteristicsThunk, deleteCharacteristicThunk, resetStatus, setItemsToShow, setPage } from '../../../context/slices/adminCharacteristicSlice'
+import { fetchAllCategoriesThunk, deleteCategoryThunk, resetStatus, setItemsToShow, setPage } from '../../../context/slices/adminCategorySlice'
 import AdminProductList from '../../Organisms/AdminProductList/AdminProductList'
 import Dropdown from '../../Atoms/DropDown/DropDown'
 import Pagination from '../../Molecules/Pagination/Pagination'
 import CancelBtn from '../../Atoms/CancelBtn/CancelBtn'
 import AddBtn from '../../Atoms/AddBtn/AddBtn'
-import CharacteristcsRow from '../../Molecules/CharacteristicsRow/CharacteristicsRow'
+import CategoriesRow from '../../Molecules/CategoriesRow/CategoriesRow'
 import LoaderComponent from '../../Molecules/Loader/LoaderComponent'
 import BackBtn from '../../Atoms/BackBtn/BackBtn'
 
-const AdminCharacteristics = () => {
+const AdminCategories = () => {
   const dispatch = useDispatch()
 
   const options = [10, 20, 30, 40, 50]
-  const headers = ['Id', 'Nombre', 'Icono', 'Acciones']
+  const headers = ['Id', 'Nombre', 'Descripción', 'Icono', 'Acciones']
 
   const [showConfirmDelete, setShowConfirmDelete] = useState(false)
-  const { selectedCharacteristic, loading, success, error, allCharacteristics, itemsToShow, currentPage } = useSelector((state) => state.adminCharacteristic)
+  const { selectedCategory, loading, success, error, allCategories, itemsToShow, currentPage } = useSelector((state) => state.adminCategory)
   // const { token } = useSelector((state) => state.loginRegister)
   const token = localStorage.getItem('token')
 
-  const totalItems = allCharacteristics.length
+  const totalItems = allCategories.length
   const startIndex = (currentPage - 1) * itemsToShow
   const endIndex = startIndex + itemsToShow
-  const currentCharacteristics = allCharacteristics.slice(startIndex, endIndex)
+  const currentCategories = allCategories.slice(startIndex, endIndex)
 
   useEffect(() => {
     window.scrollTo(0, 0)
     dispatch(resetStatus())
-    dispatch(fetchAllCharacteristicsThunk())
+    dispatch(fetchAllCategoriesThunk())
   }, [dispatch])
 
   useEffect(() => {
@@ -40,7 +40,7 @@ const AdminCharacteristics = () => {
       window.scrollTo(0, 0)
       const fetchData = async () => {
         await dispatch(resetStatus())
-        dispatch(fetchAllCharacteristicsThunk())
+        dispatch(fetchAllCategoriesThunk())
       }
       fetchData()
     }
@@ -64,13 +64,14 @@ const AdminCharacteristics = () => {
   }
 
   const handleDeleteClick = (id) => {
-    dispatch(deleteCharacteristicThunk({ id, token }))
+    dispatch(deleteCategoryThunk({ id, token }))
     setShowConfirmDelete(false)
   }
 
   const handlePageChange = (page) => {
     dispatch(setPage(page))
   }
+  console.log(currentCategories)
 
   return (
     <section className='admin-characteristics-container'>
@@ -79,7 +80,7 @@ const AdminCharacteristics = () => {
           <BackBtn />
         </div>
         <div className='admin-search-bar-container'>
-          <AddBtn navigateTo='/administracion/agregar-caracteristica' />
+          <AddBtn navigateTo='/administracion/agregar-categoria' />
         </div>
 
         <div className='admin-products-dropDown-container'>
@@ -89,8 +90,8 @@ const AdminCharacteristics = () => {
       </div>
 
       <AdminProductList headers={headers}>
-        {currentCharacteristics.map((characteristic) =>
-          <CharacteristcsRow key={characteristic.id} characteristic={characteristic} setShowConfirmDelete={setShowConfirmDelete} />
+        {currentCategories.map((category) =>
+          <CategoriesRow key={category.id} category={category} setShowConfirmDelete={setShowConfirmDelete} />
         )}
       </AdminProductList>
 
@@ -108,7 +109,7 @@ const AdminCharacteristics = () => {
                 <button
                   className='admin-products-confirm-delations-modal-btn'
                   type='button'
-                  onClick={() => handleDeleteClick(selectedCharacteristic.id)}
+                  onClick={() => handleDeleteClick(selectedCategory.id)}
                 >
                   <p>{pageLabels.adminProducts.delete}</p>
                 </button>
@@ -125,7 +126,7 @@ const AdminCharacteristics = () => {
         success &&
           <div className='admin-products-success pop-up-bg'>
             <div className='w-8/12 h-40 flex justify-center items-center bg-white border-2 border-gray1 rounded-lg'>
-              <p className='text-xl text-green1'>¡Característica eliminada con éxito!</p>
+              <p className='text-xl text-green1'>Categoría eliminada con éxito!</p>
             </div>
           </div>
       }
@@ -133,7 +134,7 @@ const AdminCharacteristics = () => {
         error && error.includes('en uso') &&
           <div className='admin-products-success pop-up-bg'>
             <div className='w-8/12 h-40 flex justify-center items-center bg-white border-2 border-gray1 rounded-lg'>
-              <p className='text-xl text-center text-red1 px-6'>No se puede eliminar esta característica pues está asignada a, al menos, un vehiculo</p>
+              <p className='text-xl text-center text-red1 px-6'>No se puede eliminar esta categoría pues está asignada a, al menos, un vehiculo</p>
             </div>
           </div>
       }
@@ -141,4 +142,4 @@ const AdminCharacteristics = () => {
   )
 }
 
-export default AdminCharacteristics
+export default AdminCategories

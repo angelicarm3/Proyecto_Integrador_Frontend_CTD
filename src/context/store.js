@@ -8,6 +8,7 @@ import loginRegisterReducer from './slices/loginRegisterSlice'
 import adminProductsReducer from './slices/adminProductSlice'
 import adminUserReducer from './slices/adminUserSlice'
 import adminCharacteristicReducer from './slices/adminCharacteristicSlice'
+import adminCategoryReducer from './slices/adminCategorySlice'
 
 export default configureStore({
   reducer: {
@@ -18,6 +19,7 @@ export default configureStore({
     loginRegister: loginRegisterReducer,
     adminProducts: adminProductsReducer,
     adminUsers: adminUserReducer,
-    adminCharacteristic: adminCharacteristicReducer
+    adminCharacteristic: adminCharacteristicReducer,
+    adminCategory: adminCategoryReducer
   }
 })
