@@ -24,7 +24,8 @@ const CreateEditCharacteristicForm = () => {
   const navigate = useNavigate()
   const { characteristicData, error, success, imgSuccess } = useSelector((state) => state.form)
   const { selectedCharacteristic } = useSelector((state) => state.adminCharacteristic)
-  const { token } = useSelector((state) => state.loginRegister)
+  // const { token } = useSelector((state) => state.loginRegister)
+  const token = localStorage.getItem('token')
   const { selectedImages, filePreviews, setFilePreviews, imagesRequiredError, setImagesRequiredError, handleFileChange } = useImageUpload()
   const { register, handleSubmit, setValue, formState: { errors }, clearErrors } = useForm({ mode: 'onBlur', defaultValues: characteristicData })
 

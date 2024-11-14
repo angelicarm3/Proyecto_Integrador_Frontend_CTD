@@ -10,7 +10,8 @@ const UserRow = ({ user }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false)
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false)
-  const { token } = useSelector((state) => state.loginRegister)
+  // const { token } = useSelector((state) => state.loginRegister)
+  const token = localStorage.getItem('token')
   const { selectedUser, users, loading, success } = useSelector((state) => state.adminUsers)
 
   const handleModifyAdmin = () => {

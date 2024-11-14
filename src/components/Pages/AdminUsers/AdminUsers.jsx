@@ -4,11 +4,13 @@ import { fetchAllUsersAdminThunk } from '../.././../context/slices/adminUserSlic
 import AdminUsersList from '../../Organisms/AdminUsersList/AdminUsersList'
 import Pagination from '../../Molecules/Pagination/Pagination'
 import LoaderComponent from '../../Molecules/Loader/LoaderComponent'
+import BackBtn from '../../Atoms/BackBtn/BackBtn'
 
 const AdminUsers = () => {
   const dispatch = useDispatch()
   const { loading } = useSelector((state) => state.adminUsers)
-  const { token } = useSelector((state) => state.loginRegister)
+  // const { token } = useSelector((state) => state.loginRegister)
+  const token = localStorage.getItem('token')
 
   useEffect(() => {
     if (token) {
@@ -17,8 +19,10 @@ const AdminUsers = () => {
   }, [dispatch, token])
 
   return (
-    <div className='admin-users-container p-4'>
-      <h1 className='text-3xl font-semibold mb-6'>Admin Users</h1>
+    <div className='admin-users-container p-4 mt-[68px]'>
+      <div className='primary-btn w-fit flex flex-col justify-center rounded-2xl bg-black1 px-3 mb-6'>
+        <BackBtn />
+      </div>
       <AdminUsersList />
       {
         loading &&
