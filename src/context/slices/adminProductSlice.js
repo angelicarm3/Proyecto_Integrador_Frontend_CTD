@@ -35,7 +35,7 @@ export const deleteProductThunk = createAsyncThunk(
       )
       return response.data
     } catch (error) {
-      return rejectWithValue(error.response.data.mensaje)
+      return rejectWithValue(error.response?.data?.mensaje || 'Error desconocido')
     }
   }
 )

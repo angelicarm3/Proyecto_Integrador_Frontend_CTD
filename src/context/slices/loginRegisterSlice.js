@@ -15,7 +15,7 @@ export const fetchUserByUserNameThunk = createAsyncThunk(
       )
       return response.data
     } catch (error) {
-      return rejectWithValue('Error al obtener los datos')
+      return rejectWithValue(error.response?.data?.message || 'Error desconocido')
     }
   }
 )
