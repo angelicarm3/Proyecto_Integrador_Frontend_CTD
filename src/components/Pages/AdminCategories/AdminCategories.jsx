@@ -71,7 +71,6 @@ const AdminCategories = () => {
   const handlePageChange = (page) => {
     dispatch(setPage(page))
   }
-  console.log(currentCategories)
 
   return (
     <section className='admin-characteristics-container'>
