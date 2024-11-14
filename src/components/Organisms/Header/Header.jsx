@@ -1,32 +1,42 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Link } from 'react-router-dom'
 import { AiOutlineMenu } from 'react-icons/ai'
-
+import { useDispatch, useSelector } from 'react-redux'
 
 import './header.css'
 import isoTipoGold from '../../../assets/brand/isoTipoGold.svg'
 import sloganGold from '../../../assets/brand/sloganGold.png'
 import logoGold from '../../../assets/brand/logoGold.png'
 import LogInBtn from '../../Atoms/LoginBtn/LoginBtn'
-import { resetState } from '../../../context/slices/loginRegisterSlice'
+import { fetchUserByUserNameThunk, resetState } from '../../../context/slices/loginRegisterSlice'
 import SignUpBtn from '../../Atoms/SignUpBtn/SignUpBtn'
-import { useDispatch, useSelector } from 'react-redux'
 
 function Header () {
   const dispatch = useDispatch()
   const [isOn, setIsOn] = useState(false)
+  const { isAdmin, isLoggedIn, loggedUser, error, userName } = useSelector((state) => state.loginRegister)
+  const token = localStorage.getItem('token')
+
   const toggleDropdown = () => {
-    setIsOn(!isOn);
-  };
+    setIsOn(!isOn)
+  }
+
+  useEffect(() => {
+    if (userName && token) {
+      dispatch(fetchUserByUserNameThunk({ userName, token }))
+    }
+    if (error?.includes('JWT es invalido')) {
+      localStorage.clear()
+    }
+  }, [userName, error, token, dispatch])
 
   const handleLogout = () => {
     console.log('Cerrar sesión')
     dispatch(resetState())
     localStorage.removeItem('token')
-  };
+  }
 
-  const { isLoggedIn, loggedUser } = useSelector((state) => state.loginRegister)
   console.log(isLoggedIn)
 
   return (
@@ -40,24 +50,28 @@ function Header () {
         </div>
       </Link>
       {/* <Navbar /> */}
-      {isLoggedIn ? 
-      <div className='flex'>
-        <h3 className='my-user-name'>{loggedUser.nombre + " " +loggedUser.apellido}</h3>
-        <div onClick={toggleDropdown} className='my-avatar-icon'>
+      {isLoggedIn
+        ? <div className='flex'>
+          <h3 className='my-user-name'>{loggedUser.nombre + ' ' + loggedUser.apellido}</h3>
+          <div onClick={toggleDropdown} className='my-avatar-icon'>
             {loggedUser.nombre.charAt(0) + loggedUser.apellido.charAt(0)}
-        </div>
-        {isOn && (
-        <div className="dropdown-menu">
-          <button onClick={handleLogout} className="logout-button">Cerrar sesión</button>
-        </div>
-        )}
-      </div>
-      :
-      <div className='buttons-container'>
-        <LogInBtn />
-        <SignUpBtn />
-      </div>
-      }
+          </div>
+          {
+            isOn && (
+              <div className='dropdown-menu'>
+                {
+                  isAdmin &&
+                    <Link to='/administracion' className='logout-button bg-transparent text-yellow1'>Panel administración</Link>
+                }
+                <button onClick={handleLogout} className='logout-button'>Cerrar sesión</button>
+              </div>
+            )
+          }
+          </div>
+        : <div className='buttons-container'>
+          <LogInBtn />
+          <SignUpBtn />
+        </div>}
     </header>
   )
 }

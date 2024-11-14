@@ -19,10 +19,10 @@
     @apply text-yellow1 items-center content-center mr-4
   }
   .dropdown-menu {
-    @apply absolute top-[65px] right-0 bg-white border border-gray-300 rounded-lg p-2 shadow-lg z-50 
+    @apply absolute top-[65px] right-12 bg-black1 rounded-b-lg p-4 shadow-lg z-50 flex flex-col gap-4
   }
   .logout-button {
-    @apply bg-yellow1 text-white px-4 py-2 rounded cursor-pointer font-bold
+    @apply bg-yellow1 text-black1 px-4 py-2 rounded cursor-pointer font-bold
   }
   .logo-container {
     @apply w-full md:w-fit flex justify-center items-center self-center md:self-start
