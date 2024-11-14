@@ -35,7 +35,7 @@ export const deleteUserThunk = createAsyncThunk(
         })
       return response.data
     } catch (error) {
-      return rejectWithValue(error.response.data.message)
+      return rejectWithValue(error.response?.data?.mensaje || 'Error desconocido')
     }
   }
 )
@@ -55,7 +55,7 @@ export const fetchAllUsersAdminThunk = createAsyncThunk(
       )
       return response.data
     } catch (error) {
-      return rejectWithValue('Error al obtener los datos')
+      return rejectWithValue(error.response?.data?.mensaje || 'Error desconocido')
     }
   }
 )

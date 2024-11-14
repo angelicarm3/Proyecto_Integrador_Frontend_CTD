@@ -8,7 +8,7 @@ export const fetchAllCharacteristicsThunk = createAsyncThunk(
       const response = await axios.get('https://alluring-enchantment-production.up.railway.app/characteristics/list')
       return response.data
     } catch (error) {
-      return rejectWithValue('Error al obtener los datos')
+      return rejectWithValue(error.response?.data?.mensaje || 'Error desconocido')
     }
   }
 )
@@ -119,7 +119,6 @@ export const adminCharacteristicSlice = createSlice({
       })
       .addCase(deleteCharacteristicThunk.rejected, (state, action) => {
         state.loading = false
-        console.log(action.payload)
         state.error = action.payload || 'Error al eliminar la característica'
       })
   }

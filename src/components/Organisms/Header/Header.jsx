@@ -17,13 +17,16 @@ function Header () {
   const dispatch = useDispatch()
   const [isOpen, setIsOpen] = useState(false)
   const toggleMenu = () => setIsOpen(!isOpen)
-  const { isAdmin, loggedUser, userName, token } = useSelector((state) => state.loginRegister)
+  const { isAdmin, loggedUser, error, userName, token } = useSelector((state) => state.loginRegister)
 
   useEffect(() => {
     if (userName && token) {
       dispatch(fetchUserByUserNameThunk({ userName, token }))
     }
-  }, [userName, token, dispatch])
+    if (error?.includes('JWT es invalido')) {
+      localStorage.clear()
+    }
+  }, [userName, error, token, dispatch])
 
   return (
     <header className='header'>

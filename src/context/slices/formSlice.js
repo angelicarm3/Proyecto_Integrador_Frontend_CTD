@@ -10,7 +10,7 @@ export const uploadImagesThunk = createAsyncThunk(
       const urls = await handleFileUpload(files)
       return { urls, form }
     } catch (error) {
-      return rejectWithValue('Error al subir archivos')
+      return rejectWithValue(error.response?.data?.mensaje || 'Error desconocido')
     }
   }
 )
@@ -43,7 +43,7 @@ export const submitFormThunk = createAsyncThunk(
       }
       return response.data
     } catch (error) {
-      return rejectWithValue(error.response.data.error)
+      return rejectWithValue(error.response?.data?.mensaje || 'Error desconocido')
     }
   }
 )
