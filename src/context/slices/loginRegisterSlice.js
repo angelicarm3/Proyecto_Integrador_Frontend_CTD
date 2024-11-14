@@ -15,7 +15,7 @@ export const fetchUserByUserNameThunk = createAsyncThunk(
       )
       return response.data
     } catch (error) {
-      return rejectWithValue('Error al obtener los datos')
+      return rejectWithValue(error.response?.data?.message || 'Error desconocido')
     }
   }
 )
@@ -27,6 +27,7 @@ const initialState = {
   isLoggedIn: false,
   isAdmin: false,
   token: localStorage.getItem('token') || null,
+  userName: localStorage.getItem('userName') || null,
   loading: false,
   error: null,
   logInSuccess: false

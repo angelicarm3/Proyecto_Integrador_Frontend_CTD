@@ -1,7 +1,6 @@
 import React from 'react'
-import ProductRow from '../../Molecules/ProductRow/ProductRow'
 
-const AdminProductsList = ({ products, setShowConfirmDelete, headers }) => {
+const AdminProductsList = ({ headers, children }) => {
   return (
     <table className='min-w-full border border-gray-300 '>
       <thead>
@@ -14,9 +13,7 @@ const AdminProductsList = ({ products, setShowConfirmDelete, headers }) => {
         </tr>
       </thead>
       <tbody>
-        {products.map((product) => (
-          <ProductRow key={product.id} product={product} setShowConfirmDelete={setShowConfirmDelete} />
-        ))}
+        {children}
       </tbody>
     </table>
   )

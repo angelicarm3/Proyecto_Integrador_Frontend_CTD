@@ -2,24 +2,18 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 // Función para asignar rol de administrador
-export const assignAdminRole = createAsyncThunk(
-  'adminUsers/assignAdminRole',
-  async (userId, { rejectWithValue }) => {
+export const modifiedAdminRole = createAsyncThunk(
+  'adminUsers/modifiedAdminRole',
+  async ({ userId, token, userData }, { rejectWithValue }) => {
     try {
-      const response = await axios.put(`https://alluring-enchantment-production.up.railway.app/users/${userId}/assign-admin`)
-      return response.data
-    } catch (error) {
-      return rejectWithValue(error.response.data.message)
-    }
-  }
-)
-
-// Función para quitar rol de administrador
-export const removeAdminRole = createAsyncThunk(
-  'adminUsers/removeAdminRole',
-  async (userId, { rejectWithValue }) => {
-    try {
-      const response = await axios.put(`https://alluring-enchantment-production.up.railway.app/users/${userId}/remove-admin`)
+      const response = await axios.put(
+        `https://alluring-enchantment-production.up.railway.app/users/update/privilege/${userId}`,
+        userData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
       return response.data
     } catch (error) {
       return rejectWithValue(error.response.data.message)
@@ -30,12 +24,18 @@ export const removeAdminRole = createAsyncThunk(
 // Función para eliminar usuario
 export const deleteUserThunk = createAsyncThunk(
   'adminUsers/deleteUser',
-  async (userId, { rejectWithValue }) => {
+  async ({ userId, token }, { rejectWithValue }) => {
     try {
-      const response = await axios.delete(`https://alluring-enchantment-production.up.railway.app/users/delete/${userId}`)
+      const response = await axios.delete(
+        `https://alluring-enchantment-production.up.railway.app/users/delete/${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
       return response.data
     } catch (error) {
-      return rejectWithValue(error.response.data.message)
+      return rejectWithValue(error.response?.data?.mensaje || 'Error desconocido')
     }
   }
 )
@@ -55,7 +55,7 @@ export const fetchAllUsersAdminThunk = createAsyncThunk(
       )
       return response.data
     } catch (error) {
-      return rejectWithValue('Error al obtener los datos')
+      return rejectWithValue(error.response?.data?.mensaje || 'Error desconocido')
     }
   }
 )
@@ -69,7 +69,7 @@ export const adminUserSlice = createSlice({
     success: false,
     itemsToShow: 10,
     currentPage: 1,
-    selectedUser: null
+    selectedUser: {}
   },
   reducers: {
     setItemsToShow: (state, action) => {
@@ -83,10 +83,11 @@ export const adminUserSlice = createSlice({
       state.selectedUser = action.payload
     },
     resetStatus: (state) => {
+      state.users = []
       state.loading = false
       state.error = null
       state.success = false
-      state.selectedUser = null
+      state.selectedUser = {}
     }
   },
   extraReducers: (builder) => {
@@ -98,7 +99,6 @@ export const adminUserSlice = createSlice({
       })
       .addCase(fetchAllUsersAdminThunk.fulfilled, (state, action) => {
         state.users = action.payload
-        state.selectedUser = null
         state.loading = false
       })
       .addCase(fetchAllUsersAdminThunk.rejected, (state, action) => {
@@ -106,30 +106,40 @@ export const adminUserSlice = createSlice({
         state.error = action.payload || 'Error al obtener usuarios'
       })
 
-    builder.addCase(assignAdminRole.fulfilled, (state, action) => {
-      const updatedUser = state.users.find((user) => user.id === action.payload.id)
-      if (updatedUser) {
-        updatedUser.esAdmin = 'admin' // Actualiza el rol del usuario en el estado
-      }
-    })
+    // Modify admin privileges
+      .addCase(modifiedAdminRole.pending, (state) => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(modifiedAdminRole.fulfilled, (state, action) => {
+        const updatedUser = state.users.find((user) => user.id === action.payload.id)
+        if (updatedUser) {
+          updatedUser.esAdmin = action.payload.esAdmin
+        }
+        state.loading = false
+      })
+      .addCase(modifiedAdminRole.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload || 'Error al modificar permisos'
+      })
 
-    // Eliminar rol de admin
-    builder.addCase(removeAdminRole.fulfilled, (state, action) => {
-      const updatedUser = state.users.find((user) => user.id === action.payload.id)
-      if (updatedUser) {
-        updatedUser.esAdmin = 'user' // Actualiza el rol del usuario en el estado
-      }
-    })
-
-    // Eliminar usuario
-    builder.addCase(deleteUserThunk.fulfilled, (state, action) => {
-      state.users = state.users.filter((user) => user.id !== action.payload.id) // Elimina el usuario del estado
-    })
+      // Eliminar usuario
+      .addCase(deleteUserThunk.pending, (state) => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(deleteUserThunk.fulfilled, (state, action) => {
+        state.users = state.users.filter((user) => user.id !== action.payload.id)
+        state.loading = false
+        state.success = true
+      })
+      .addCase(deleteUserThunk.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload || 'Error al modificar permisos'
+      })
   }
 })
 
-// Exportar acciones
 export const { setItemsToShow, setPage, setSelectedUser, resetStatus } = adminUserSlice.actions
 
-// Exportar reducer
 export default adminUserSlice.reducer

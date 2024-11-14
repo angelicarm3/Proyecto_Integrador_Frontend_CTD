@@ -2,22 +2,24 @@ import { configureStore } from '@reduxjs/toolkit'
 
 import productReducer from './slices/productSlice'
 import categoryReducer from './slices/categorySlice'
-import characteristicReducer from './slices/characteristicSlice'
 import paginatorReducer from './slices/paginatorSlice'
 import formReducer from './slices/formSlice'
 import loginRegisterReducer from './slices/loginRegisterSlice'
 import adminProductsReducer from './slices/adminProductSlice'
 import adminUserReducer from './slices/adminUserSlice'
+import adminCharacteristicReducer from './slices/adminCharacteristicSlice'
+import adminCategoryReducer from './slices/adminCategorySlice'
 
 export default configureStore({
   reducer: {
     product: productReducer,
     category: categoryReducer,
-    characteristic: characteristicReducer,
     paginator: paginatorReducer,
     form: formReducer,
     loginRegister: loginRegisterReducer,
     adminProducts: adminProductsReducer,
-    adminUsers: adminUserReducer
+    adminUsers: adminUserReducer,
+    adminCharacteristic: adminCharacteristicReducer,
+    adminCategory: adminCategoryReducer
   }
 })

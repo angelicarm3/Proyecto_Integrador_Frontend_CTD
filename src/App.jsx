@@ -1,5 +1,4 @@
 import { Route, Routes, Outlet, useLocation } from 'react-router-dom'
-import { useSelector } from 'react-redux'
 
 import './App.css'
 import Header from './components/Organisms/Header/Header.jsx'
@@ -13,6 +12,10 @@ import AdminPanel from './components/Pages/AdminPanel/AdminPanel'
 import AdminProducts from './components/Pages/AdminProducts/AdminProducts'
 import AdminCreateEditProduct from './components/Pages/AdminCreateEditProduct/AdminCreateEditProduct.jsx'
 import AdminUsers from './components/Pages/AdminUsers/AdminUsers.jsx'
+import AdminCharacteristics from './components/Pages/AdminCharacteristics/AdminCharacteristics.jsx'
+import AdminCreateEditCharacteristic from './components/Pages/AdminCreateEditCharacteristic/AdminCreateEditCharacteristic'
+import AdminCategories from './components/Pages/AdminCategories/AdminCategories.jsx'
+import AdminCreateEditCategory from './components/Pages/AdminCreateEditCategory/AdminCreateEditCategory.jsx'
 
 import ImagesPopUp from './components/Templates/ImagesPopUp/ImagesPopUp.jsx'
 import RentNowPopUp from './components/Templates/RentNowPopUp/RentNowPopUp.jsx'
@@ -48,7 +51,7 @@ function App () {
           <Route path='/' element={<Home />} />
           <Route path='producto/:id' element={<ProductDetail />} />
           <Route path='inicio-sesion' element={<LoginRegister />} />
-          <Route path='registro' element={<LoginRegister />} />
+          {/* <Route path='registro' element={<LoginRegister />} /> */}
           <Route path='*' element={<h1>404 Page Not Found</h1>} />
         </Route>
 
@@ -58,6 +61,12 @@ function App () {
           <Route path='administracion/agregar-producto' element={<RequireAdmin><AdminCreateEditProduct /></RequireAdmin>} />
           <Route path='administracion/editar-producto/:id' element={<RequireAdmin><AdminCreateEditProduct /></RequireAdmin>} />
           <Route path='administracion/usuarios' element={<RequireAdmin><AdminUsers /></RequireAdmin>} />
+          <Route path='administracion/caracteristicas' element={<RequireAdmin><AdminCharacteristics /></RequireAdmin>} />
+          <Route path='administracion/agregar-caracteristica' element={<RequireAdmin><AdminCreateEditCharacteristic /></RequireAdmin>} />
+          <Route path='administracion/editar-caracteristica/:id' element={<RequireAdmin><AdminCreateEditCharacteristic /></RequireAdmin>} />
+          <Route path='administracion/categorias' element={<RequireAdmin><AdminCategories /></RequireAdmin>} />
+          <Route path='administracion/agregar-categoria' element={<RequireAdmin><AdminCreateEditCategory /></RequireAdmin>} />
+          <Route path='administracion/editar-categoria/:id' element={<RequireAdmin><AdminCreateEditCategory /></RequireAdmin>} />
         </Route>
       </Routes>
 

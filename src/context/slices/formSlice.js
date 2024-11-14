@@ -10,7 +10,7 @@ export const uploadImagesThunk = createAsyncThunk(
       const urls = await handleFileUpload(files)
       return { urls, form }
     } catch (error) {
-      return rejectWithValue('Error al subir archivos')
+      return rejectWithValue(error.response?.data?.mensaje || 'Error desconocido')
     }
   }
 )
@@ -43,7 +43,7 @@ export const submitFormThunk = createAsyncThunk(
       }
       return response.data
     } catch (error) {
-      return rejectWithValue(error.response.data.mensaje)
+      return rejectWithValue(error.response?.data?.mensaje || 'Error desconocido')
     }
   }
 )
@@ -75,6 +75,15 @@ const initialState = {
   loginData: {
     userName: '',
     password: ''
+  },
+  characteristicData: {
+    nombre: '',
+    icono: ''
+  },
+  categoryData: {
+    nombre: '',
+    descripcion: '',
+    iconoCat: ''
   },
   userData: {
     nombre: '',
@@ -115,6 +124,10 @@ const formSlice = createSlice({
         }
       } else if (form === 'logIn') {
         state.loginData[field] = value
+      } else if (form === 'createCharacteristic') {
+        state.characteristicData[field] = value
+      } else if (form === 'createCategory') {
+        state.categoryData[field] = value
       }
     },
     updateHasSubmited: (state) => {
@@ -152,6 +165,10 @@ const formSlice = createSlice({
         }))
         if (form === 'createProduct') {
           state.productData.imagenes = newURLs
+        } else if (form === 'createCharacteristic') {
+          state.characteristicData.icono = newURLs
+        } else if (form === 'createCategory') {
+          state.categoryData.iconoCat = newURLs
         }
         state.imgSuccess = true
       })
