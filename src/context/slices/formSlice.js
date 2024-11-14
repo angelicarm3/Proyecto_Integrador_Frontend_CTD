@@ -10,7 +10,7 @@ export const uploadImagesThunk = createAsyncThunk(
       const urls = await handleFileUpload(files)
       return { urls, form }
     } catch (error) {
-      return rejectWithValue(error.response?.data?.mensaje || 'Error desconocido')
+      return rejectWithValue(error.response?.data?.mensaje || error.response?.data?.message)
     }
   }
 )
@@ -30,11 +30,15 @@ export const submitFormThunk = createAsyncThunk(
             }
           }
         )
+      } else if (formURL === 'users/register' || formURL === 'login') {
+        response = await axios.post(
+          `https://alluring-enchantment-production.up.railway.app/${formURL}`,
+          formData
+        )
       } else {
         response = await axios.post(
           `https://alluring-enchantment-production.up.railway.app/${formURL}`,
           formData,
-          (formURL !== 'users/register' || formURL !== 'login') &&
           {
             headers: {
               Authorization: `Bearer ${token}`
@@ -44,8 +48,7 @@ export const submitFormThunk = createAsyncThunk(
       }
       return response.data
     } catch (error) {
-      console.log(error)
-      return rejectWithValue(error.response?.data?.message)
+      return rejectWithValue(error.response?.data?.message || error.response?.data?.mensaje)
     }
   }
 )
@@ -58,7 +61,9 @@ const changeInputType = (showPassword) => {
   const passwordField = document.getElementById('password')
   const confirmPasswordField = document.getElementById('confirmPassword')
   showPassword ? passwordField.type = 'text' : passwordField.type = 'password'
-  showPassword ? confirmPasswordField.type = 'text' : confirmPasswordField.type = 'password'
+  if (confirmPasswordField) {
+    showPassword ? confirmPasswordField.type = 'text' : confirmPasswordField.type = 'password'
+  }
 }
 
 const initialState = {

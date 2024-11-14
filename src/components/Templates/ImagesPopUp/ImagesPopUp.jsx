@@ -13,11 +13,9 @@ const ImagesPopUp = () => {
 
   return (
     <div className='modal-wrapper pop-up-bg'>
-      <AiOutlineClose className='close-btn' size={30} onClick={() => navigate(-1)} />
-
       {
         selectedProduct &&
-          <div className='images-pop-up-carousel'>
+          <div className='images-pop-up-carousel relative'>
             <Carousel
               responsive={responsive}
               showDots
@@ -28,6 +26,7 @@ const ImagesPopUp = () => {
                 ))
               }
             </Carousel>
+            <AiOutlineClose className='close-btn absolute top-4 right-4 text-yellow1' size={45} onClick={() => navigate(-1)} />
           </div>
       }
     </div>

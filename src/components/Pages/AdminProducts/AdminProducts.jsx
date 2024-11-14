@@ -45,7 +45,9 @@ const AdminProducts = () => {
         await dispatch(resetStatus())
         dispatch(fetchAllProductsAdminThunk())
       }
-      fetchData()
+      setTimeout(() => {
+        fetchData()
+      }, 2000)
     }
   }, [success, dispatch])
 

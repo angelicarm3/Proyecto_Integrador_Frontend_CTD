@@ -8,7 +8,7 @@ export const fetchAllCategoriesThunk = createAsyncThunk(
       const response = await axios.get('https://alluring-enchantment-production.up.railway.app/categories/list')
       return response.data
     } catch (error) {
-      return rejectWithValue(error.response?.data?.mensaje || 'Error desconocido')
+      return rejectWithValue(error.response?.data?.mensaje || error.response?.data?.message)
     }
   }
 )
