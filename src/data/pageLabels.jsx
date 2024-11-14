@@ -65,6 +65,12 @@ export const pageLabels = {
     name: 'Nombre',
     icon: 'Icono (Máximo 1 archivo)'
   },
+  createCategory: {
+    title: 'Nueva categoría',
+    name: 'Nombre',
+    description: 'Descripción (Máximo 200 caracteres)',
+    icon: 'Icono (Máximo 1 archivo)'
+  },
   loginRegister: {
     email: 'Email',
     password: 'Contraseña',
@@ -100,6 +106,10 @@ export const pageLabels = {
   },
   adminCharacteristics: {
     title: 'Administrar características',
+    result: 'Resultados'
+  },
+  adminCategories: {
+    title: 'Administrar categorías',
     result: 'Resultados'
   }
 }

@@ -3,8 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import './AdminCharacteristics.css'
 import { pageLabels } from '../../../data/pageLabels'
-import { fetchAllProductsAdminThunk, setItemsToShow, setPage } from '../../../context/slices/adminProductSlice'
-import { fetchAllCharacteristicsThunk, deleteCharacteristicThunk, resetStatus } from '../../../context/slices/adminCharacteristicSlice'
+import { fetchAllCharacteristicsThunk, deleteCharacteristicThunk, resetStatus, setItemsToShow, setPage } from '../../../context/slices/adminCharacteristicSlice'
 import AdminProductList from '../../Organisms/AdminProductList/AdminProductList'
 import Dropdown from '../../Atoms/DropDown/DropDown'
 import Pagination from '../../Molecules/Pagination/Pagination'
@@ -41,7 +40,7 @@ const AdminCharacteristics = () => {
       window.scrollTo(0, 0)
       const fetchData = async () => {
         await dispatch(resetStatus())
-        dispatch(fetchAllProductsAdminThunk())
+        dispatch(fetchAllCharacteristicsThunk())
       }
       fetchData()
     }
@@ -77,7 +76,7 @@ const AdminCharacteristics = () => {
     <section className='admin-characteristics-container'>
       <div className='admin-characteristics-upper'>
         <div className='primary-btn w-fit flex flex-col justify-center rounded-2xl bg-black1 px-3'>
-          <BackBtn />
+          <BackBtn navigateTo='/administracion' />
         </div>
         <div className='admin-search-bar-container'>
           <AddBtn navigateTo='/administracion/agregar-caracteristica' />
@@ -134,7 +133,7 @@ const AdminCharacteristics = () => {
         error && error.includes('en uso') &&
           <div className='admin-products-success pop-up-bg'>
             <div className='w-8/12 h-40 flex justify-center items-center bg-white border-2 border-gray1 rounded-lg'>
-              <p className='text-xl text-center text-red1'>No se puede eliminar esta característica pues está asignada a, al menos, un vehiculo</p>
+              <p className='text-xl text-center text-red1 px-6'>No se puede eliminar esta característica pues está asignada a, al menos, un vehiculo</p>
             </div>
           </div>
       }

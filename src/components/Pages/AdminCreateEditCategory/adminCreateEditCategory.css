@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer components {
-  .admin-edit-product-container {
+  .admin-create-product-container {
     @apply flex justify-center pt-6 mt-[68px]
   }
 }
