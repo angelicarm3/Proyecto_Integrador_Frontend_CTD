@@ -1,24 +1,26 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import { pageLabels } from '../../../data/pageLabels'
 import { signupFormFields } from '../../../service/formInputsService'
 import { submitFormThunk, updateField, resetForm, clearError } from '../../../context/slices/formSlice'
-import { changeFormNumber } from '../../../context/slices/loginRegisterSlice'
+import { changeFormNumber, sendConfirmationEmailThunk } from '../../../context/slices/loginRegisterSlice'
 
 import FormField from '../../Molecules/FormField/FormField'
 import LogInRegisterFormBtn from '../../Atoms/LogInRegisterFormBtn/LogInRegisterFormBtn'
 import { AiOutlineArrowLeft } from 'react-icons/ai'
+import RegistrationConfirmModal from '../RegistrationConfirmModal/RegistrationConfirmModal'
 // import CheckboxButton from './CheckboxButton'
 
 const SignupForm = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { userData, response, error, success } = useSelector((state) => state.form)
-  const { formNumber } = useSelector((state) => state.loginRegister)
+  const [isOpen, setIsOpen] = useState(false)
+  const { userData, success } = useSelector((state) => state.form)
+  const { formNumber, emailConfig, response, error } = useSelector((state) => state.loginRegister)
 
   const { register, handleSubmit, formState: { errors }, clearErrors, setValue, watch, trigger } = useForm({ mode: 'onBlur', defaultValues: userData })
 
@@ -65,8 +67,16 @@ const SignupForm = () => {
     }
   }, [error, dispatch])
 
-  console.log(success)
-  // console.log(error)
+  useEffect(() => {
+    if (success) {
+      setIsOpen(true)
+      const newData = { ...emailConfig, toUser: [userData.email], name: userData.nombre }
+      console.log(newData)
+      dispatch(sendConfirmationEmailThunk(newData))
+    }
+  }, [success, dispatch])
+  console.log(isOpen)
+
   return (
     <form className='w-full h-fit flex flex-col font-Urbanist' onSubmit={handleSubmit(onSubmit)}>
       <div className='w-full flex justify-center text-yellow1 font-bold relative mb-3'>
@@ -139,6 +149,10 @@ const SignupForm = () => {
               </ul>
             </div>
             )
+      }
+      {
+        success &&
+          <RegistrationConfirmModal setIsOpen={setIsOpen} />
       }
     </form>
   )
