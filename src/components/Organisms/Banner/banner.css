@@ -4,6 +4,6 @@
 
 @layer components {
   .video-container {
-    @apply h-[450px] object-cover mt-[68px]
+    @apply h-fit md:h-[450px] w-full object-cover mt-[68px]
   }
 }

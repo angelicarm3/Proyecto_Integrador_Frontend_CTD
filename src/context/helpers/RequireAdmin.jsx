@@ -4,16 +4,24 @@ import { Navigate } from 'react-router'
 
 const RequireAdmin = ({ children }) => {
   const { isAdmin } = useSelector((state) => state.loginRegister)
-  const [redirect, setRedirect] = useState(false)
+  const [checking, setChecking] = useState(true)
 
   useEffect(() => {
     if (!isAdmin) {
-      const timer = setTimeout(() => setRedirect(true), 2000) // Espera 2 segundos
-      return () => clearTimeout(timer) // Limpia el temporizador si el componente se desmonta
+      const timer = setTimeout(() => {
+        setChecking(false)
+      }, 1000)
+      return () => clearTimeout(timer)
+    } else {
+      setChecking(false)
     }
   }, [isAdmin])
 
-  if (redirect) {
+  if (checking) {
+    return null
+  }
+
+  if (!isAdmin) {
     return <Navigate to='/' replace />
   }
 
