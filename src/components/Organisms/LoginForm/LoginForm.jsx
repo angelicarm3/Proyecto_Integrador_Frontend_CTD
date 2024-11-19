@@ -48,13 +48,11 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (logInSuccess) {
-      setTimeout(() => {
-        dispatch(resetForm())
-        isAdmin ? navigate('/administracion') : navigate('/')
-      }, '2000')
+      dispatch(resetForm())
+      isAdmin ? navigate('/administracion') : navigate('/')
     }
   }, [logInSuccess, isAdmin, navigate, dispatch])
-console.log(logInSuccess)
+
   return (
     <form className='w-full h-full flex flex-col font-Urbanist' onSubmit={handleSubmit(onSubmit)}>
       {

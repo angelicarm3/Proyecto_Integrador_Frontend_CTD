@@ -18,7 +18,7 @@ import FormField from '../../Molecules/FormField/FormField'
 import CancelBtn from '../../Atoms/CancelBtn/CancelBtn'
 import SaveBtn from '../../Atoms/SaveBtn/SaveBtn'
 import FormErrorMessage from '../../Atoms/FormErrorMessage/FormErrorMessage'
-import ButtonField from '../../Molecules/CheckboxField/ButtonField'
+import ButtonField from '../../Molecules/ButtonField/ButtonField'
 
 const CreateEditProductForm = () => {
   const { id } = useParams()
@@ -80,6 +80,7 @@ const CreateEditProductForm = () => {
   }
 
   const handleCancelClick = () => {
+    dispatch(resetForm())
     navigate(-1)
   }
 
