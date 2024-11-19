@@ -58,6 +58,7 @@ const CreateEditCategoryForm = () => {
   }
 
   const handleCancelClick = () => {
+    dispatch(resetForm())
     navigate(-1)
   }
 

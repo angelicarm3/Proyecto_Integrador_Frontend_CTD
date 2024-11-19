@@ -57,6 +57,7 @@ const CreateEditCharacteristicForm = () => {
   }
 
   const handleCancelClick = () => {
+    dispatch(resetForm())
     navigate(-1)
   }
 
