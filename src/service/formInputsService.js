@@ -27,8 +27,8 @@ const loginFormFields = [
 const signupFormFields = [
   { id: 'nombre', type: 'text', label: pageLabels.loginRegister.firstName, validation: { pattern: { value: /^[a-zA-Z]+$/, message: `${pageLabels.loginRegister.invalidNameError}` } } },
   { id: 'apellido', type: 'text', label: pageLabels.loginRegister.lastName, validation: { pattern: { value: /^[a-zA-Z]+$/, message: `${pageLabels.loginRegister.invalidLastNameError}` } } },
-  { id: 'dni', type: 'text', label: pageLabels.loginRegister.dni, validation: { pattern: { value: /^\d{8}$/, message: `${pageLabels.loginRegister.invalidDniError}` } }, extraErrorMessage: `${pageLabels.loginRegister.existingDNIError}` },
-  { id: 'edad', type: 'text', label: pageLabels.loginRegister.age, validation: { pattern: { value: /^([1-9]\d?|1[89]|[2-9]\d|1[01]\d|150)$/, message: `${pageLabels.loginRegister.invalidDniError}` } } },
+  { id: 'dni', type: 'text', label: pageLabels.loginRegister.dni, validation: { pattern: { value: /^\d{10}$/, message: `${pageLabels.loginRegister.invalidDniError}` } }, extraErrorMessage: `${pageLabels.loginRegister.existingDNIError}` },
+  { id: 'edad', type: 'text', label: pageLabels.loginRegister.age, validation: { pattern: { value: /^(1[89]\d?|[2-9]\d{2})$/, message: `${pageLabels.loginRegister.invalidOfAgeError}` } } },
   { id: 'telefono', type: 'text', label: pageLabels.loginRegister.phone, validation: { pattern: { value: /^\d{7,15}$/, message: `${pageLabels.loginRegister.invalidPhoneError}` } } },
   { id: 'nacionalidad', type: 'text', label: pageLabels.loginRegister.nacionality, validation: { pattern: { value: /^[a-zA-Z]+$/, message: `${pageLabels.loginRegister.invalidNationalityError}` } } },
   { id: 'email', type: 'text', label: pageLabels.loginRegister.email, validation: { pattern: { value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/, message: `${pageLabels.loginRegister.invalidEmailError}` } }, extraErrorMessage: `${pageLabels.loginRegister.existingEmailError}` },
