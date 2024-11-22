@@ -1,0 +1,32 @@
+.policies-page-container {
+    @apply p-6 md:p-24 bg-gray-50 min-h-screen pt-32;
+  }
+  
+  .policies-title {
+    @apply text-3xl font-bold text-gray-800 mb-4 text-center md:text-left;
+  }
+  
+  .policies-text {
+    @apply text-gray-600 leading-7 text-center md:text-left;
+  }
+  
+  @media (max-width: 640px) {
+    .policies-title {
+      @apply text-2xl;
+    }
+  
+    .policies-text {
+      @apply text-sm;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .policies-title {
+      @apply text-3xl;
+    }
+  
+    .policies-text {
+      @apply text-base;
+    }
+  }
+  
