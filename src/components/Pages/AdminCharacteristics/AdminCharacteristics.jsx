@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import '../AdminProducts/adminProducts.css'
+import '../AdminProducts/AdminProducts.css'
 import { pageLabels } from '../../../data/pageLabels'
 import { fetchAllCharacteristicsThunk, deleteCharacteristicThunk, resetStatus } from '../../../context/slices/adminCharacteristicSlice'
 import { changePage, filterData } from '../../../context/slices/paginatorSlice'

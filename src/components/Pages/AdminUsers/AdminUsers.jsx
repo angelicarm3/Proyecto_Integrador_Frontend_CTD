@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 
-import '../AdminProducts/adminProducts.css'
+import '../AdminProducts/AdminProducts.css'
 import { fetchAllUsersAdminThunk, resetStatus } from '../.././../context/slices/adminUserSlice'
 import { changePage, filterData } from '../../../context/slices/paginatorSlice'
 import LoaderComponent from '../../Molecules/Loader/LoaderComponent'
