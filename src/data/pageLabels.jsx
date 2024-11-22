@@ -130,9 +130,6 @@ export const pageLabels = {
     confirmDelate: '¿Desea eliminar este usuario',
     deleteUser: 'Eliminar'
   },
-  adminSearchBar: {
-    placeholder: 'Palabra Clave'
-  },
   adminCharacteristics: {
     title: 'Administrar características',
     result: 'Resultados'

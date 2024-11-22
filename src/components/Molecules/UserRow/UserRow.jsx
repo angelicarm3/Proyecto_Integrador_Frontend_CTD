@@ -4,24 +4,22 @@ import { modifiedAdminRole, deleteUserThunk, setSelectedUser, resetStatus, fetch
 import { FaUserShield } from 'react-icons/fa'
 import { HiTrash } from 'react-icons/hi'
 import { BiSolidUserDetail } from 'react-icons/bi'
+import DetailBtn from '../../Atoms/DetailBtn/DetailBtn'
+import DeleteBtn from '../../Atoms/DeleteBtn/DeleteBtn'
+import ChangeAdminBtn from '../../Atoms/ChangeAdminBtn/ChangeAdminBtn'
 
 const UserRow = ({ user }) => {
   const dispatch = useDispatch()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false)
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false)
-  // const { token } = useSelector((state) => state.loginRegister)
   const token = localStorage.getItem('token')
-  const { selectedUser, users, loading, success } = useSelector((state) => state.adminUsers)
+  const { selectedUser, loading, success } = useSelector((state) => state.adminUsers)
 
   const handleModifyAdmin = () => {
     dispatch(setSelectedUser(user))
     const { password, ...userDataWithoutPassword } = user
     dispatch(modifiedAdminRole({ userId: user.id, token, userData: { ...userDataWithoutPassword, esAdmin: !user.esAdmin } }))
-  }
-
-  const handleDeleteUser = () => {
-    dispatch(deleteUserThunk({ userId: user.id, token, selectedUser }))
   }
 
   const handleSelectUser = () => {
@@ -32,6 +30,10 @@ const UserRow = ({ user }) => {
   const handleDeletUserClick = () => {
     dispatch(setSelectedUser(user))
     setIsModalOpen(true)
+  }
+
+  const handleDeleteUser = () => {
+    dispatch(deleteUserThunk({ userId: user.id, token, selectedUser }))
   }
 
   const handleCloseModal = () => {
@@ -64,28 +66,14 @@ const UserRow = ({ user }) => {
         <td className='px-4 py-2 text-center'>{user.esAdmin ? 'Administrador' : 'Usuario'}</td>
         <td className='border px-4 py-2 w-1/4'>
           <div className='flex space-x-3 justify-center'>
-            {user.userName !== 'angie000@gmail.com' && user.userName !== localStorage.getItem('userName') &&
-              <button
-                className={`${user.esAdmin ? 'bg-green1' : 'bg-blue1'} 'text-black px-4 py-2 rounded text-xl'`}
-                onClick={() => handleModifyAdmin()}
-              >
-                <FaUserShield size={24} />
-              </button>}
-            <button
-              className='bg-yellow1 px-4 py-2 rounded text-xl'
-              onClick={handleSelectUser}
-            >
-              <BiSolidUserDetail size={24} />
-            </button>
+            {
+              user.userName !== 'angie000@gmail.com' && user.userName !== localStorage.getItem('userName') &&
+                <ChangeAdminBtn user={user} onClickChangeAdmin={handleModifyAdmin} />
+            }
+            <DetailBtn onClickDetail={handleSelectUser} />
             {
               user.userName !== 'angie000@gmail.com' &&
-                <button
-                  className='bg-red1 px-4 py-2 rounded'
-                  onClick={() => handleDeletUserClick()}
-                  disabled={loading}
-                >
-                  <HiTrash size={24} />
-                </button>
+                <DeleteBtn onClickDelete={handleDeletUserClick} />
             }
           </div>
         </td>

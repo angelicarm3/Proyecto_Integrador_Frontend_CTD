@@ -64,26 +64,17 @@ export const adminUserSlice = createSlice({
   name: 'adminUsers',
   initialState: {
     users: [],
+    totalUsers: 0,
+    selectedUser: {},
     loading: false,
     error: null,
-    success: false,
-    itemsToShow: 10,
-    currentPage: 1,
-    selectedUser: {}
+    success: false
   },
   reducers: {
-    setItemsToShow: (state, action) => {
-      state.itemsToShow = action.payload
-      state.currentPage = 1 // Reiniciar la página cuando cambia el número de items
-    },
-    setPage: (state, action) => {
-      state.currentPage = action.payload
-    },
     setSelectedUser: (state, action) => {
       state.selectedUser = action.payload
     },
     resetStatus: (state) => {
-      state.users = []
       state.loading = false
       state.error = null
       state.success = false
@@ -99,6 +90,7 @@ export const adminUserSlice = createSlice({
       })
       .addCase(fetchAllUsersAdminThunk.fulfilled, (state, action) => {
         state.users = action.payload
+        state.totalUsers = state.users.length
         state.loading = false
       })
       .addCase(fetchAllUsersAdminThunk.rejected, (state, action) => {
@@ -140,6 +132,6 @@ export const adminUserSlice = createSlice({
   }
 })
 
-export const { setItemsToShow, setPage, setSelectedUser, resetStatus } = adminUserSlice.actions
+export const { setSelectedUser, resetStatus } = adminUserSlice.actions
 
 export default adminUserSlice.reducer
