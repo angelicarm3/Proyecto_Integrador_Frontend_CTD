@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
+
 import { useDispatch, useSelector } from 'react-redux'
+
 import { modifiedAdminRole, deleteUserThunk, setSelectedUser, resetStatus, fetchAllUsersAdminThunk } from '../../../context/slices/adminUserSlice'
-import { FaUserShield } from 'react-icons/fa'
-import { HiTrash } from 'react-icons/hi'
-import { BiSolidUserDetail } from 'react-icons/bi'
 import DetailBtn from '../../Atoms/DetailBtn/DetailBtn'
 import DeleteBtn from '../../Atoms/DeleteBtn/DeleteBtn'
 import ChangeAdminBtn from '../../Atoms/ChangeAdminBtn/ChangeAdminBtn'
@@ -23,9 +22,9 @@ const UserRow = ({ user }) => {
   }
 
   const handleSelectUser = () => {
-    dispatch(setSelectedUser(user));
-    setIsDetailsModalOpen(true);
-  };
+    dispatch(setSelectedUser(user))
+    setIsDetailsModalOpen(true)
+  }
 
   const handleDeletUserClick = () => {
     dispatch(setSelectedUser(user))
@@ -37,35 +36,24 @@ const UserRow = ({ user }) => {
   }
 
   const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
+    setIsModalOpen(false)
+  }
 
   const handleCloseDetailsModal = () => {
-    setIsDetailsModalOpen(false);
-  };
+    setIsDetailsModalOpen(false)
+  }
 
   useEffect(() => {
-    // Initialize tooltips with tippy.js
-    tippy(modifyAdminBtn.current, {
-      content: user.esAdmin ? 'Quitar Administrador' : 'Asignar Administrador',
-    });
-    tippy(detailsBtn.current, {
-      content: 'Ver Detalles',
-    });
-    tippy(deleteUserBtn.current, {
-      content: 'Eliminar Usuario',
-    });
-
     if (success) {
-      setIsModalOpen(false);
-      setIsSuccessModalOpen(true);
+      setIsModalOpen(false)
+      setIsSuccessModalOpen(true)
       setTimeout(() => {
-        dispatch(resetStatus());
-        dispatch(fetchAllUsersAdminThunk(token));
-        setIsSuccessModalOpen(false);
-      }, 3000);
+        dispatch(resetStatus())
+        dispatch(fetchAllUsersAdminThunk(token))
+        setIsSuccessModalOpen(false)
+      }, 3000)
     }
-  }, [dispatch, success, token, user]);
+  }, [dispatch, success, token, user])
 
   return (
     <>
@@ -136,7 +124,7 @@ const UserRow = ({ user }) => {
         </div>
       )}
     </>
-  );
-};
+  )
+}
 
-export default UserRow;
+export default UserRow
