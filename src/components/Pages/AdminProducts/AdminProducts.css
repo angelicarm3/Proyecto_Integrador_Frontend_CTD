@@ -5,11 +5,11 @@
 
 @layer components {
   .admin-products-container {
-    @apply p-4 flex flex-col mt-[68px] relative
+    @apply  min-h-[794px] p-4 flex flex-col justify-between mt-[68px] relative
   }
 
   .admin-products-section {
-    @apply flex items-center justify-center mb-4 gap-3
+    @apply flex h-10 items-center justify-between mb-4 gap-3
   }
 
   .admin-products-dropDown-conatiner {

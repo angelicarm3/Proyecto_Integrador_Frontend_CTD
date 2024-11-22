@@ -1,12 +1,10 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-
-import { FaEdit } from 'react-icons/fa'
-import { HiTrash } from 'react-icons/hi'
 import { useDispatch } from 'react-redux'
 
 import { setSelectedCharacteristic } from '../../../context/slices/adminCharacteristicSlice'
-import { BiSolidDetail } from 'react-icons/bi'
+import EditBtn from '../../Atoms/EditBtn/EditBtn'
+import DetailBtn from '../../Atoms/DetailBtn/DetailBtn'
+import DeleteBtn from '../../Atoms/DeleteBtn/DeleteBtn'
 
 const CharacteristcsRow = ({ characteristic, setShowConfirmDelete }) => {
   const dispatch = useDispatch()
@@ -17,7 +15,7 @@ const CharacteristcsRow = ({ characteristic, setShowConfirmDelete }) => {
     setIsDetailsModalOpen(true)
   }
 
-  const handleDelete = (characteristic) => {
+  const handleDelete = () => {
     dispatch(setSelectedCharacteristic(characteristic))
     setShowConfirmDelete(true)
   }
@@ -35,24 +33,9 @@ const CharacteristcsRow = ({ characteristic, setShowConfirmDelete }) => {
       </td>
       <td className='border px-4 py-2 w-1/4'>
         <div className='flex space-x-3 justify-center'>
-          <Link
-            className=' bg-blue1 px-4 py-2 rounded text-lg'
-            to={`/administracion/editar-caracteristica/${characteristic.id}`}
-          >
-            <FaEdit size={24} />
-          </Link>
-          <button
-            className='bg-yellow1 px-4 py-2 rounded text-xl'
-            onClick={handleSelectCharacteristic}
-          >
-            <BiSolidDetail size={24} />
-          </button>
-          <button
-            className='bg-red1 px-4 py-2 rounded'
-            onClick={() => handleDelete(characteristic)}
-          >
-            <HiTrash size={24} />
-          </button>
+          <EditBtn navigateTo={`/administracion/editar-caracteristica/${characteristic.id}`} />
+          <DetailBtn onClickDetail={handleSelectCharacteristic} />
+          <DeleteBtn onClickDelete={handleDelete} />
         </div>
       </td>
 

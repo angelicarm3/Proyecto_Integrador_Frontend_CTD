@@ -1,23 +1,22 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
 
-import { FaEdit } from 'react-icons/fa'
-import { HiTrash } from 'react-icons/hi'
-import { BiSolidDetail } from 'react-icons/bi'
 import { useDispatch } from 'react-redux'
 
 import { setSelectedCategory } from '../../../context/slices/adminCategorySlice'
+import EditBtn from '../../Atoms/EditBtn/EditBtn'
+import DetailBtn from '../../Atoms/DetailBtn/DetailBtn'
+import DeleteBtn from '../../Atoms/DeleteBtn/DeleteBtn'
 
 const CategoriesRow = ({ category, setShowConfirmDelete }) => {
   const dispatch = useDispatch()
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false)
 
-  const handleSelectCharacteristic = () => {
+  const handleSelectCategory = () => {
     dispatch(setSelectedCategory(category))
     setIsDetailsModalOpen(true)
   }
 
-  const handleDelete = (category) => {
+  const handleDelete = () => {
     dispatch(setSelectedCategory(category))
     setShowConfirmDelete(true)
   }
@@ -36,24 +35,9 @@ const CategoriesRow = ({ category, setShowConfirmDelete }) => {
       </td>
       <td className='border px-4 py-2 w-1/4'>
         <div className='flex space-x-3 justify-center'>
-          <Link
-            className=' bg-blue1 px-4 py-2 rounded text-lg'
-            to={`/administracion/editar-categoria/${category.id}`}
-          >
-            <FaEdit size={24} />
-          </Link>
-          <button
-            className='bg-yellow1 px-4 py-2 rounded text-xl'
-            onClick={handleSelectCharacteristic}
-          >
-            <BiSolidDetail size={24} />
-          </button>
-          <button
-            className='bg-red1 px-4 py-2 rounded'
-            onClick={() => handleDelete(category)}
-          >
-            <HiTrash size={24} />
-          </button>
+          <EditBtn navigateTo={`/administracion/editar-caracteristica/${category.id}`} />
+          <DetailBtn onClickDetail={handleSelectCategory} />
+          <DeleteBtn onClickDelete={handleDelete} />
         </div>
       </td>
 

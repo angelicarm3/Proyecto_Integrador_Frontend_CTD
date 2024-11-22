@@ -47,22 +47,14 @@ export const adminCategorySlice = createSlice({
   name: 'category',
   initialState: {
     allCategories: [],
+    totalCategories: 0,
+    selectedCategory: {},
     loading: false,
     error: null,
-    success: false,
-    itemsToShow: 10,
-    currentPage: 1,
-    selectedCategory: {}
+    success: false
   },
 
   reducers: {
-    setItemsToShow: (state, action) => {
-      state.itemsToShow = action.payload
-      state.currentPage = 1
-    },
-    setPage: (state, action) => {
-      state.currentPage = action.payload
-    },
     setSelectedCategory: (state, action) => {
       state.selectedCategory = action.payload
     },
@@ -82,6 +74,7 @@ export const adminCategorySlice = createSlice({
       })
       .addCase(fetchAllCategoriesThunk.fulfilled, (state, action) => {
         state.allCategories = action.payload
+        state.totalCategories = state.allCategories.length
         state.loading = false
       })
       .addCase(fetchAllCategoriesThunk.rejected, (state, action) => {
@@ -124,6 +117,6 @@ export const adminCategorySlice = createSlice({
   }
 })
 
-export const { setItemsToShow, setPage, setSelectedCategory, resetStatus } = adminCategorySlice.actions
+export const { setSelectedCategory, resetStatus } = adminCategorySlice.actions
 
 export default adminCategorySlice.reducer

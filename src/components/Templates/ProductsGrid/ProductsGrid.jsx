@@ -9,8 +9,8 @@ import Paginator from '../../Molecules/Paginator/Paginator'
 const ProductsGrid = () => {
   const gridRef = useRef()
   const dispatch = useDispatch()
-  const { pageLabels } = useSelector((state) => state.paginator)
-  const filteredProducts = useSelector((state) => state.product.filteredProducts)
+  const { items } = useSelector((state) => state.paginator)
+  const { totalProducts, resultsQuantity, filteredProducts } = useSelector((state) => state.product)
 
   useEffect(() => {
     dispatch(filterData(filteredProducts))
@@ -28,13 +28,13 @@ const ProductsGrid = () => {
     <section className='main-section products-grid-container'>
       <div className='products-grid' ref={gridRef}>
         {
-          pageLabels &&
-          pageLabels.map((product, index) => (
+          items &&
+          items.map((product, index) => (
             <ProductCard key={index} product={product} />
           ))
         }
       </div>
-      <Paginator onClick={onClick} />
+      <Paginator totalItems={totalProducts} resultsQuantity={resultsQuantity} onClick={onClick} />
     </section>
   )
 }
