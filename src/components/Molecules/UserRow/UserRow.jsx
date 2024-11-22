@@ -23,9 +23,9 @@ const UserRow = ({ user }) => {
   }
 
   const handleSelectUser = () => {
-    dispatch(setSelectedUser(user))
-    setIsDetailsModalOpen(true)
-  }
+    dispatch(setSelectedUser(user));
+    setIsDetailsModalOpen(true);
+  };
 
   const handleDeletUserClick = () => {
     dispatch(setSelectedUser(user))
@@ -37,25 +37,35 @@ const UserRow = ({ user }) => {
   }
 
   const handleCloseModal = () => {
-    setIsModalOpen(false)
-  }
+    setIsModalOpen(false);
+  };
 
   const handleCloseDetailsModal = () => {
-    setIsDetailsModalOpen(false)
-  }
+    setIsDetailsModalOpen(false);
+  };
 
   useEffect(() => {
+    // Initialize tooltips with tippy.js
+    tippy(modifyAdminBtn.current, {
+      content: user.esAdmin ? 'Quitar Administrador' : 'Asignar Administrador',
+    });
+    tippy(detailsBtn.current, {
+      content: 'Ver Detalles',
+    });
+    tippy(deleteUserBtn.current, {
+      content: 'Eliminar Usuario',
+    });
+
     if (success) {
-      setIsModalOpen(false)
-      setIsSuccessModalOpen(true)
+      setIsModalOpen(false);
+      setIsSuccessModalOpen(true);
       setTimeout(() => {
-        dispatch(resetStatus())
-        dispatch(fetchAllUsersAdminThunk(token))
-        setIsSuccessModalOpen(false)
-      }
-      , 3000)
+        dispatch(resetStatus());
+        dispatch(fetchAllUsersAdminThunk(token));
+        setIsSuccessModalOpen(false);
+      }, 3000);
     }
-  }, [dispatch, success, token])
+  }, [dispatch, success, token, user]);
 
   return (
     <>
@@ -86,18 +96,8 @@ const UserRow = ({ user }) => {
             <h2 className='text-xl font-semibold mb-4'>Confirmar eliminación</h2>
             <p>¿Estás seguro de que deseas eliminar al usuario {user.nombre} {user.apellido}?</p>
             <div className='flex justify-between mt-4'>
-              <button
-                className='bg-gray-300 text-black px-4 py-2 rounded'
-                onClick={handleCloseModal}
-              >
-                Cancelar
-              </button>
-              <button
-                className='bg-red-600 text-white px-4 py-2 rounded'
-                onClick={handleDeleteUser}
-              >
-                {loading ? 'Eliminando...' : 'Confirmar'}
-              </button>
+              <button className='bg-gray-300 text-black px-4 py-2 rounded' onClick={handleCloseModal}>Cancelar</button>
+              <button className='bg-red-600 text-white px-4 py-2 rounded' onClick={handleDeleteUser}>{loading ? 'Eliminando...' : 'Confirmar'}</button>
             </div>
           </div>
         </div>
@@ -109,12 +109,7 @@ const UserRow = ({ user }) => {
             <h2 className='text-xl font-semibold text-green-600 mb-4'>¡Eliminado con éxito!</h2>
             <p>El usuario {user.nombre} {user.apellido} ha sido eliminado correctamente.</p>
             <div className='mt-4 text-center'>
-              <button
-                className='bg-green-600 text-white px-4 py-2 rounded'
-                onClick={() => setIsSuccessModalOpen(false)}
-              >
-                Cerrar
-              </button>
+              <button className='bg-green-600 text-white px-4 py-2 rounded' onClick={() => setIsSuccessModalOpen(false)}>Cerrar</button>
             </div>
           </div>
         </div>
@@ -135,18 +130,13 @@ const UserRow = ({ user }) => {
             <p><strong>Nombre de Usuario:</strong> {user.userName}</p>
 
             <div className='mt-4 text-center'>
-              <button
-                className='bg-gray-300 text-black px-4 py-2 rounded'
-                onClick={handleCloseDetailsModal}
-              >
-                Cerrar
-              </button>
+              <button className='bg-gray-300 text-black px-4 py-2 rounded' onClick={handleCloseDetailsModal}>Cerrar</button>
             </div>
           </div>
         </div>
       )}
     </>
-  )
-}
+  );
+};
 
-export default UserRow
+export default UserRow;
