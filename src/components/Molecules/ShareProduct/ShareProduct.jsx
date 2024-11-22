@@ -1,44 +1,75 @@
+import { useState } from 'react'
 import './ShareProduct.css'
-import ProductFeatures from '../../Molecules/ProductFeatures/ProductFeatures'
 
-import React from 'react'
 import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa'
 
 const ShareProduct = ({ product, onClose }) => {
-  console.log(product)
-  const image = product.imagenes[0].url
+  const img = product.imagenes[0].url
+  const [comment, setComment] = useState('')
+
+  const characteristics = product.caracteristicas
   return (
-    <div className='fixed inset-0 bg-gray-50 bg-opacity-50 flex items-center justify-center min-h-screen'>
-      <div className='bg-white rounded-lg shadow-lg w-full max-w-2xl sm:max-w-sm md:max-w-4xl lg:max-w-4xl xl:max-w-6xl p-6 relative mx-auto md:h-auto'>
+    <div className='shareProduct-container'>
+      <div className='shareProduct-modal-container'>
         <button
           onClick={onClose}
-          className='absolute top-4 right-4 bg-black text-white hover:text-gray-800 z-10 p-1 pl-3 pr-3 text-xl rounded-full font-bold'
+          className='shareProduct-close-btn'
         >
           ✕
         </button>
-        <section className='flex flex-col md:flex-row sm:flex-col m-4'>
-          <div className='flex w-full md:w-1/2 m-4 md:h-full lg:h-auto'>
+        <section className='shareProduct-section'>
+          <div className='shareProduct-image-container'>
             <img
-              src={image}
+              src={img}
               alt={product.modelo}
-              className='rounded-md object-cover h-full w-full'
+              className='shareProduct-image'
             />
           </div>
 
-          <div className='flex flex-col w-full md:w-1/2 m-4'>
-            <h2 className='text-lg font-bold mt-2 mb-4 text-black'>{product.marca} {product.modelo}</h2>
-            <p className='text-xl font-bold text-gray-700 mb-4'>${product.precioDia}<span className='text-sm text-gray-400'>/day</span></p>
-            <ProductFeatures className='text-gray-800 bg-gray-100' product={product} type='detail' />
-            <p className='text-gray-600 text-sm mt-4'>{product.descripcion}</p>
+          <div className='shareProduct-data-container'>
+            <h2 className='shareProduct-title'>{product.marca} {product.modelo}</h2>
+            <p className='shareProduct-price'>{product.precioDia}
+              <span className='shareProduct-span'>/day</span>
+            </p>
+            <div className='shareProduct-characteristics-container'>
+              {
+                characteristics.map((characteristic) => (
+                  <div className='shareProduct-characteristics-div' key={characteristic.id}>
+                    <img src={characteristic.icono} className='shareProduct-icons' />
+
+                    <p className='shareProduct-p'>
+                      {characteristic.nombre.length > 18
+                        ? characteristic.nombre.slice(0, 18) + '...'
+                        : characteristic.nombre.length > 10
+                          ? characteristic.nombre.slice(0, 10) + '\n' + characteristic.nombre.slice(10)
+                          : characteristic.nombre}
+                    </p>
+                  </div>
+                ))
+              }
+            </div>
+            <p className='shareProduct-description'>{product.descripcion}</p>
             <textarea
               placeholder='Deja tu comentario'
-              className='w-full mt-4 border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
+              className='shareProduct-textarea'
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
             />
-            <div className='flex items-center mt-4'>
-              <span className='mr-2 font-medium text-gray-600'>Compartir:</span>
-              <button className='p-2 text-black hover:bg-blue-100 rounded-full'><FaFacebook size={20} /></button>
-              <button className='p-2 text-black hover:bg-blue-100 rounded-full'><FaTwitter size={20} /></button>
-              <button className='p-2 text-black hover:bg-pink-100 rounded-full'><FaInstagram size={20} /></button>
+            <div className='shareProduct-container-icons'>
+              <span className='shareProduct-share-span'>Compartir</span>
+
+              <button className='shareProduct-icon-btn'>
+                <FaFacebook className='shareProduct-media-btn' />
+              </button>
+
+              <button className='shareProduct-icon-btn'>
+                <FaTwitter className='shareProduct-media-btn' />
+              </button>
+
+              <button className='shareProduct-icon-btn'>
+                <FaInstagram className='shareProduct-media-btn' />
+              </button>
+
             </div>
           </div>
 
