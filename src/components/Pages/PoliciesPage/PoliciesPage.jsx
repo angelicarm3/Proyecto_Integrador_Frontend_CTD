@@ -1,5 +1,5 @@
-import React from 'react';
-import './policiesPage.css';
+import React from 'react'
+import './policiesPage.css'
 
 const PoliciesPage = () => {
   return (
@@ -12,4 +12,4 @@ const PoliciesPage = () => {
   );
 };
 
-export default PoliciesPage;
+export default PoliciesPage
