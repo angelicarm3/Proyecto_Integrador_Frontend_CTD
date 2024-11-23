@@ -1,32 +1,88 @@
-import React, { useState } from 'react'
-
 import { Link } from 'react-router-dom'
 import { FaEdit } from 'react-icons/fa'
-import { HiTrash } from 'react-icons/hi'
-import { BiSolidDetail } from 'react-icons/bi'
 import { useDispatch } from 'react-redux'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
-import { setSelectedProduct } from '../../../context/slices/adminProductSlice'
+import { deleteProductThunk, fetchAllProductsAdminThunk, resetStatus, setSelectedProduct } from '../../../context/slices/adminProductSlice'
 import EditBtn from '../../Atoms/EditBtn/EditBtn'
 import DetailBtn from '../../Atoms/DetailBtn/DetailBtn'
 import DeleteBtn from '../../Atoms/DeleteBtn/DeleteBtn'
 
-const ProductRow = ({ product, setShowConfirmDelete }) => {
+const ProductRow = ({ product }) => {
   const dispatch = useDispatch()
-  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false)
+  const token = localStorage.getItem('token')
+
+  const resetTable = () => {
+    window.scrollTo(0, 0)
+    dispatch(resetStatus())
+    dispatch(fetchAllProductsAdminThunk())
+  }
 
   const handleSelectProduct = () => {
     dispatch(setSelectedProduct(product))
-    setIsDetailsModalOpen(true)
+    withReactContent(Swal).fire({
+      title: <p className='text-2xl font-semibold'>Detalles del Producto</p>,
+      html: `
+          <div class='w-fit flex flex-col text-left mx-auto'>
+            <p><strong>Nombre:</strong> ${product.marca} ${product.modelo}</p>
+            <p><strong>Matrícula:</strong> ${product.matricula}</p>
+            <p><strong>Año de fabricación:</strong> ${product.fechaFabricacion}</p>
+            <p><strong>Potencia:</strong> ${product.potenciaHP} HP</p>
+            <p><strong>Velocidad:</strong> ${product.velocidad} km/h</p>
+            <p><strong>Aceleración:</strong> ${product.aceleracion} s</p>
+            <p><strong>Precio por día:</strong> $${product.precioDia}</p>
+            <p><strong>Descripción:</strong> ${product.descripcion}</p>
+          </div>
+        `,
+      confirmButtonText: 'Cerrar',
+      customClass: {
+        confirmButton: 'bg-blue1 text-white font-bold'
+      }
+    })
   }
 
   const handleDelete = () => {
     dispatch(setSelectedProduct(product))
-    setShowConfirmDelete(true)
-  }
-
-  const handleCloseDetailsModal = () => {
-    setIsDetailsModalOpen(false)
+    withReactContent(Swal).fire({
+      title: <p className='text-2xl font-semibold'>¿Desea eliminar este producto?</p>,
+      html: `
+        <div class='w-fit flex flex-col items-center text-center mx-auto gap-2'>
+            <p>${product.marca} ${product.modelo}</p>
+            <p>${product.matricula}</p>
+        </div>
+        `,
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar',
+      cancelButtonText: 'Cancelar',
+      customClass: {
+        confirmButton: 'bg-green1 text-white font-bold',
+        cancelButton: 'bg-red1 text-white font-bold'
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteProductThunk({ productId: product.id, token }))
+          .unwrap()
+          .then((response) => {
+            withReactContent(Swal).fire({
+              icon: 'success',
+              text: 'Producto eliminado exitosamente',
+              showConfirmButton: false,
+              timer: 3000
+            })
+            resetTable()
+          })
+          .catch(() => {
+            withReactContent(Swal).fire({
+              icon: 'error',
+              text: 'No se puede eliminar este producto',
+              showConfirmButton: false,
+              timer: 3000
+            })
+            resetTable()
+          })
+      }
+    })
   }
 
   return (
@@ -59,33 +115,6 @@ const ProductRow = ({ product, setShowConfirmDelete }) => {
           <DeleteBtn onClickDelete={handleDelete} />
         </div>
       </td>
-
-      {
-        isDetailsModalOpen && (
-          <div className='fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-50'>
-            <div className='bg-white p-6 rounded-lg shadow-lg max-w-lg w-full'>
-              <h2 className='text-xl font-semibold mb-4'>Detalles del Producto</h2>
-              <p><strong>Nombre:</strong> {product.marca} {product.modelo}</p>
-              <p><strong>Matrícula:</strong> {product.matricula}</p>
-              <p><strong>Año de fabricación:</strong> {product.fechaFabricacion}</p>
-              <p><strong>Potencia:</strong> {product.potenciaHP}</p>
-              <p><strong>Velocidad:</strong> {product.velocidad}</p>
-              <p><strong>Aceleración:</strong> {product.aceleracion}</p>
-              <p><strong>Precio por día:</strong> {product.precioDia}</p>
-              <p><strong>Descripción:</strong> {product.descripcion}</p>
-
-              <div className='mt-4 text-center'>
-                <button
-                  className='bg-gray-300 text-black px-4 py-2 rounded'
-                  onClick={handleCloseDetailsModal}
-                >
-                  Cerrar
-                </button>
-              </div>
-            </div>
-          </div>
-        )
-      }
     </tr>
   )
 }

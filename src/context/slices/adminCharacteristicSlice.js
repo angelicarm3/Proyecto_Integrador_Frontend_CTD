@@ -103,10 +103,6 @@ export const adminCharacteristicSlice = createSlice({
         state.error = null
       })
       .addCase(deleteCharacteristicThunk.fulfilled, (state, action) => {
-        // Filtrar la característica eliminada del estado
-        state.allCharacteristics = state.allCharacteristics.filter(
-          (characteristic) => characteristic.id !== action.meta.arg
-        )
         state.loading = false
         state.success = true
       })

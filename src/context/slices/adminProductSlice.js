@@ -91,9 +91,6 @@ export const adminProductsSlice = createSlice({
       .addCase(deleteProductThunk.fulfilled, (state, action) => {
         state.loading = false
         state.success = true
-        state.allProducts = state.allProducts.filter(
-          (product) => product.id !== action.meta.arg
-        )
       })
       .addCase(deleteProductThunk.rejected, (state, action) => {
         state.loading = false
