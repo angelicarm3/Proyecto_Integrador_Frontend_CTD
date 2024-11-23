@@ -1,11 +1,19 @@
 import { useState } from 'react'
 import './ShareProduct.css'
 
-import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa'
+import {
+  FacebookShareButton, FacebookIcon, TwitterShareButton, TwitterIcon
+} from 'react-share'
+
+import { FaInstagram } from 'react-icons/fa'
 
 const ShareProduct = ({ product, onClose }) => {
-  const img = product.imagenes[0].url
   const [comment, setComment] = useState('')
+
+  const img = product.imagenes[0].url
+  const shareUrl = window.location.href
+  const title = `${product.marca} ${product.modelo}`
+  const descriptionWithComment = `${comment ? comment + '\n\n' : ''}${product.descripcion}`
 
   const characteristics = product.caracteristicas
   return (
@@ -58,13 +66,25 @@ const ShareProduct = ({ product, onClose }) => {
             <div className='shareProduct-container-icons'>
               <span className='shareProduct-share-span'>Compartir</span>
 
-              <button className='shareProduct-icon-btn'>
-                <FaFacebook className='shareProduct-media-btn' />
-              </button>
+              <FacebookShareButton
+                className='shareProduct-icon-btn'
+                url={shareUrl}
+                title={title}
+                quote={descriptionWithComment}
+                media={img}
+              >
+                <FacebookIcon className='shareProduct-media-btn' />
+              </FacebookShareButton>
 
-              <button className='shareProduct-icon-btn'>
-                <FaTwitter className='shareProduct-media-btn' />
-              </button>
+              <TwitterShareButton
+                className='shareProduct-icon-btn'
+                url={shareUrl}
+                title={title}
+                quote={descriptionWithComment}
+                media={img}
+              >
+                <TwitterIcon className='shareProduct-media-btn' />
+              </TwitterShareButton>
 
               <button className='shareProduct-icon-btn'>
                 <FaInstagram className='shareProduct-media-btn' />
