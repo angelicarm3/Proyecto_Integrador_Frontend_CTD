@@ -103,10 +103,6 @@ export const adminCategorySlice = createSlice({
         state.error = null
       })
       .addCase(deleteCategoryThunk.fulfilled, (state, action) => {
-        // Filtrar la categoría eliminada del estado
-        state.allCategories = state.allCategories.filter(
-          (category) => category.id !== action.meta.arg
-        )
         state.loading = false
         state.success = true
       })

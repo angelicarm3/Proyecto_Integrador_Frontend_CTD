@@ -104,10 +104,6 @@ export const adminUserSlice = createSlice({
         state.error = null
       })
       .addCase(modifiedAdminRole.fulfilled, (state, action) => {
-        const updatedUser = state.users.find((user) => user.id === action.payload.id)
-        if (updatedUser) {
-          updatedUser.esAdmin = action.payload.esAdmin
-        }
         state.loading = false
       })
       .addCase(modifiedAdminRole.rejected, (state, action) => {
@@ -121,7 +117,6 @@ export const adminUserSlice = createSlice({
         state.error = null
       })
       .addCase(deleteUserThunk.fulfilled, (state, action) => {
-        state.users = state.users.filter((user) => user.id !== action.payload.id)
         state.loading = false
         state.success = true
       })

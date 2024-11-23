@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { AiOutlineClose, AiOutlineFileImage } from 'react-icons/ai'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 import './createEditProductForm.css'
 import { pageLabels } from '../../../data/pageLabels'
@@ -25,16 +27,18 @@ const CreateEditProductForm = () => {
   const location = useLocation()
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { productData, error, success, imgSuccess } = useSelector((state) => state.form)
+  const token = localStorage.getItem('token')
+
+  const { productData, error, imgSuccess } = useSelector((state) => state.form)
   const selectedProduct = useSelector((state) => state.product.selectedProduct)
   const allCategories = useSelector((state) => state.category.allCategories)
   const allCharacteristics = useSelector((state) => state.adminCharacteristic.allCharacteristics)
-  // const { token } = useSelector((state) => state.loginRegister)
-  const token = localStorage.getItem('token')
+
   const { selectedImages, filePreviews, setFilePreviews, imagesRequiredError, setImagesRequiredError, handleFileChange, removeImage } = useImageUpload()
   const maxDescriptionCharacters = 200
   const [selectedCategories, setSelectedCategories] = useState([])
   const [selectedCharacteristics, setSelectedCharacteristics] = useState([])
+
   const { register, handleSubmit, setValue, formState: { errors }, clearErrors } = useForm({ mode: 'onBlur', defaultValues: productData })
 
   useEffect(() => {
@@ -106,20 +110,53 @@ const CreateEditProductForm = () => {
     if (imgSuccess && productData?.imagenes?.length > 0) {
       if (location.pathname.includes('editar')) {
         dispatch(submitFormThunk({ formData: productData, formURL: `autos/update/${selectedProduct?.id}`, token }))
+          .unwrap()
+          .then((response) => {
+            withReactContent(Swal).fire({
+              icon: 'success',
+              text: 'Producto modificado exitosamente',
+              showConfirmButton: false,
+              timer: 3000
+            })
+            setTimeout(() => {
+              dispatch(resetForm())
+              navigate('/administracion/productos')
+            }, '3000')
+          })
+          .catch(() => {
+            withReactContent(Swal).fire({
+              icon: 'error',
+              text: 'No se puede modificar este producto',
+              showConfirmButton: false,
+              timer: 3000
+            })
+          })
       } else {
         dispatch(submitFormThunk({ formData: productData, formURL: 'autos/register', token }))
+          .unwrap()
+          .then((response) => {
+            withReactContent(Swal).fire({
+              icon: 'success',
+              text: 'Producto creado exitosamente',
+              showConfirmButton: false,
+              timer: 3000
+            })
+            setTimeout(() => {
+              dispatch(resetForm())
+              navigate('/administracion/productos')
+            }, '3000')
+          })
+          .catch(() => {
+            withReactContent(Swal).fire({
+              icon: 'error',
+              text: 'No se puede crear este producto',
+              showConfirmButton: false,
+              timer: 3000
+            })
+          })
       }
     }
-  }, [imgSuccess, productData, dispatch, location, selectedProduct, token])
-
-  useEffect(() => {
-    if (success) {
-      setTimeout(() => {
-        dispatch(resetForm())
-        navigate('/administracion/productos')
-      }, '3000')
-    }
-  }, [success, navigate, dispatch])
+  }, [imgSuccess, productData, dispatch, location, navigate, selectedProduct, token])
 
   return (
     <form className='create-product-form-container' onSubmit={handleSubmit(onSubmit)}>
@@ -240,14 +277,6 @@ const CreateEditProductForm = () => {
           <CancelBtn handleClick={handleCancelClick} />
         </div>
       </div>
-      {
-        success &&
-          <div className='pop-up-bg success-bg'>
-            <div className='success-box'>
-              <p className='success-text'>{location.pathname.includes('editar') ? pageLabels.createProduct.successUpdateMessage : pageLabels.createProduct.successCreateMessage}</p>
-            </div>
-          </div>
-      }
     </form>
   )
 }
