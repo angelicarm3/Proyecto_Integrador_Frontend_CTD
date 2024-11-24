@@ -44,21 +44,13 @@ export const adminProductsSlice = createSlice({
   name: 'adminProducts',
   initialState: {
     allProducts: [],
+    totalProducts: 0,
+    selectedProduct: {},
     loading: false,
     error: null,
-    success: false,
-    itemsToShow: 10,
-    currentPage: 1,
-    selectedProduct: {}
+    success: false
   },
   reducers: {
-    setItemsToShow: (state, action) => {
-      state.itemsToShow = action.payload
-      state.currentPage = 1
-    },
-    setPage: (state, action) => {
-      state.currentPage = action.payload
-    },
     setSelectedProduct: (state, action) => {
       state.selectedProduct = action.payload
     },
@@ -73,7 +65,7 @@ export const adminProductsSlice = createSlice({
     // Fetch products
     builder.addCase(fetchAllProductsThunk.fulfilled, (state, action) => {
       state.allProducts = action.payload
-      state.currentPage = 1
+      state.totalProducts = state.allProducts.length
     })
 
     // Fetch product by ID
@@ -99,9 +91,6 @@ export const adminProductsSlice = createSlice({
       .addCase(deleteProductThunk.fulfilled, (state, action) => {
         state.loading = false
         state.success = true
-        state.allProducts = state.allProducts.filter(
-          (product) => product.id !== action.meta.arg
-        )
       })
       .addCase(deleteProductThunk.rejected, (state, action) => {
         state.loading = false
@@ -110,5 +99,5 @@ export const adminProductsSlice = createSlice({
   }
 })
 
-export const { setItemsToShow, setPage, setSelectedProduct, resetStatus } = adminProductsSlice.actions
+export const { setSelectedProduct, resetStatus } = adminProductsSlice.actions
 export default adminProductsSlice.reducer

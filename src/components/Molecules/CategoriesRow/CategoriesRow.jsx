@@ -1,29 +1,84 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-
-import { FaEdit } from 'react-icons/fa'
-import { HiTrash } from 'react-icons/hi'
-import { BiSolidDetail } from 'react-icons/bi'
 import { useDispatch } from 'react-redux'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
-import { setSelectedCategory } from '../../../context/slices/adminCategorySlice'
+import { deleteCategoryThunk, fetchAllCategoriesThunk, resetStatus, setSelectedCategory } from '../../../context/slices/adminCategorySlice'
+import EditBtn from '../../Atoms/EditBtn/EditBtn'
+import DetailBtn from '../../Atoms/DetailBtn/DetailBtn'
+import DeleteBtn from '../../Atoms/DeleteBtn/DeleteBtn'
 
-const CategoriesRow = ({ category, setShowConfirmDelete }) => {
+const CategoriesRow = ({ category }) => {
   const dispatch = useDispatch()
-  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false)
+  const token = localStorage.getItem('token')
 
-  const handleSelectCharacteristic = () => {
-    dispatch(setSelectedCategory(category))
-    setIsDetailsModalOpen(true)
+  const resetTable = () => {
+    window.scrollTo(0, 0)
+    dispatch(resetStatus())
+    dispatch(fetchAllCategoriesThunk())
   }
 
-  const handleDelete = (category) => {
+  const handleSelectCategory = () => {
     dispatch(setSelectedCategory(category))
-    setShowConfirmDelete(true)
+    withReactContent(Swal).fire({
+      title: <p className='text-2xl font-semibold'>Detalles de la Categoría</p>,
+      html: `
+        <div class='w-fit flex flex-col text-left mx-auto'>
+          <p><strong>Nombre:</strong> ${category.nombre}</p>
+          <p><strong>Descripción:</strong> ${category.descripcion}</p>
+          <p class='flex gap-2'>
+            <strong>Icono:</strong>
+            <img src=${category.iconoCat} class='w-20' />
+          </p>
+        </div>
+        `,
+      confirmButtonText: 'Cerrar',
+      customClass: {
+        confirmButton: 'bg-blue1 text-white font-bold'
+      }
+    })
   }
 
-  const handleCloseDetailsModal = () => {
-    setIsDetailsModalOpen(false)
+  const handleDelete = () => {
+    dispatch(setSelectedCategory(category))
+    withReactContent(Swal).fire({
+      title: <p className='text-2xl font-semibold'>¿Desea eliminar esta categoría?</p>,
+      html: `
+        <div class='w-fit flex flex-col items-center text-center mx-auto gap-2'>
+          <p>${category.nombre}</p>
+          <img src=${category.iconoCat} class='w-20' />
+        </div>
+        `,
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar',
+      cancelButtonText: 'Cancelar',
+      customClass: {
+        confirmButton: 'bg-green1 text-white font-bold',
+        cancelButton: 'bg-red1 text-white font-bold'
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteCategoryThunk({ id: category.id, token }))
+          .unwrap()
+          .then((response) => {
+            withReactContent(Swal).fire({
+              icon: 'success',
+              text: 'Categoría eliminada exitosamente',
+              showConfirmButton: false,
+              timer: 3000
+            })
+            resetTable()
+          })
+          .catch(() => {
+            withReactContent(Swal).fire({
+              icon: 'error',
+              text: 'No se puede eliminar esta categoría pues está asignada a algún vehiculo',
+              showConfirmButton: false,
+              timer: 3000
+            })
+            resetTable()
+          })
+      }
+    })
   }
 
   return (
@@ -36,49 +91,11 @@ const CategoriesRow = ({ category, setShowConfirmDelete }) => {
       </td>
       <td className='border px-4 py-2 w-1/4'>
         <div className='flex space-x-3 justify-center'>
-          <Link
-            className=' bg-blue1 px-4 py-2 rounded text-lg'
-            to={`/administracion/editar-categoria/${category.id}`}
-          >
-            <FaEdit size={24} />
-          </Link>
-          <button
-            className='bg-yellow1 px-4 py-2 rounded text-xl'
-            onClick={handleSelectCharacteristic}
-          >
-            <BiSolidDetail size={24} />
-          </button>
-          <button
-            className='bg-red1 px-4 py-2 rounded'
-            onClick={() => handleDelete(category)}
-          >
-            <HiTrash size={24} />
-          </button>
+          <EditBtn navigateTo={`/administracion/editar-categoria/${category.id}`} />
+          <DetailBtn onClickDetail={handleSelectCategory} />
+          <DeleteBtn onClickDelete={handleDelete} />
         </div>
       </td>
-
-      {isDetailsModalOpen && (
-        <div className='fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-50'>
-          <div className='bg-white p-6 rounded-lg shadow-lg max-w-lg w-full'>
-            <h2 className='text-xl font-semibold mb-4'>Detalles de la Categoría</h2>
-            <p><strong>Nombre:</strong> {category.nombre}</p>
-            <p><strong>Nombre:</strong> {category.descripcion}</p>
-            <p className='flex gap-2'>
-              <strong>Icono:</strong>
-              <img src={category.iconoCat} className='w-12' />
-            </p>
-
-            <div className='mt-4 text-center'>
-              <button
-                className='bg-gray-300 text-black px-4 py-2 rounded'
-                onClick={handleCloseDetailsModal}
-              >
-                Cerrar
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </tr>
   )
 }

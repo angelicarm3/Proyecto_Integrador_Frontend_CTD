@@ -13,13 +13,13 @@
     @apply text-yellow1 cursor-pointer hover:opacity-75 bg-[rgb(102,102,102)] size-[50px] rounded-full mr-10
   }
   .my-avatar-icon {
-    @apply text-yellow1 hover:opacity-75 cursor-pointer hidden md:flex items-center justify-center bg-[rgb(102,102,102)] size-[50px] rounded-full border-4 border-yellow1 mr-10
+    @apply text-yellow1 hover:opacity-75 cursor-pointer hidden md:flex items-center justify-center bg-[rgb(102,102,102)] size-[50px] rounded-full border-4 border-yellow1
   }
   .my-user-name {
     @apply hidden md:flex text-yellow1 items-center content-center mr-4
   }
   .dropdown-menu {
-    @apply w-full md:w-fit h-fit absolute top-[65px] left-0 md:left-auto md:right-12 bg-black1 rounded-b-lg p-4 shadow-lg z-50 flex flex-col gap-4
+    @apply w-full md:w-fit h-fit absolute top-[65px] left-0 md:left-auto md:right-0 bg-black1 rounded-b-lg p-4 shadow-lg z-50 flex flex-col gap-4
   }
   .logout-button {
     @apply bg-yellow1 text-black1 px-4 py-2 rounded cursor-pointer font-bold

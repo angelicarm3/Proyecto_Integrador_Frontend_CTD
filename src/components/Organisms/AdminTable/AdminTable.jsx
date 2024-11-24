@@ -1,8 +1,8 @@
 import React from 'react'
 
-const AdminProductsList = ({ headers, children }) => {
+const AdminTable = ({ headers, children }) => {
   return (
-    <table className='min-w-full border border-gray-300 '>
+    <table className='w-full border border-gray-300 '>
       <thead>
         <tr>
           {headers.map((header, index) => (
@@ -19,4 +19,4 @@ const AdminProductsList = ({ headers, children }) => {
   )
 }
 
-export default AdminProductsList
+export default AdminTable

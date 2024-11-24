@@ -4,11 +4,9 @@ import { pageLabels } from '../../../data/pageLabels'
 import { setLoginOrRegister, changeFormNumber } from '../../../context/slices/loginRegisterSlice'
 import { resetForm } from '../../../context/slices/formSlice'
 
-// eslint-disable-next-line react/prop-types
 const LoginRegisterSwitch = () => {
   const dispatch = useDispatch()
   const { loginOrRegister } = useSelector((state) => state.loginRegister)
-  const { formNumber } = useSelector((state) => state.loginRegister)
 
   const handleClick = (option) => {
     dispatch(setLoginOrRegister(option))

@@ -47,22 +47,14 @@ export const adminCharacteristicSlice = createSlice({
   name: 'characteristic',
   initialState: {
     allCharacteristics: [],
+    totalCharacteristics: 0,
+    selectedCharacteristic: {},
     loading: false,
     error: null,
-    success: false,
-    itemsToShow: 10,
-    currentPage: 1,
-    selectedCharacteristic: {}
+    success: false
   },
 
   reducers: {
-    setItemsToShow: (state, action) => {
-      state.itemsToShow = action.payload
-      state.currentPage = 1
-    },
-    setPage: (state, action) => {
-      state.currentPage = action.payload
-    },
     setSelectedCharacteristic: (state, action) => {
       state.selectedCharacteristic = action.payload
     },
@@ -82,6 +74,7 @@ export const adminCharacteristicSlice = createSlice({
       })
       .addCase(fetchAllCharacteristicsThunk.fulfilled, (state, action) => {
         state.allCharacteristics = action.payload
+        state.totalCharacteristics = state.allCharacteristics.length
         state.loading = false
       })
       .addCase(fetchAllCharacteristicsThunk.rejected, (state, action) => {
@@ -110,10 +103,6 @@ export const adminCharacteristicSlice = createSlice({
         state.error = null
       })
       .addCase(deleteCharacteristicThunk.fulfilled, (state, action) => {
-        // Filtrar la característica eliminada del estado
-        state.allCharacteristics = state.allCharacteristics.filter(
-          (characteristic) => characteristic.id !== action.meta.arg
-        )
         state.loading = false
         state.success = true
       })
@@ -124,6 +113,6 @@ export const adminCharacteristicSlice = createSlice({
   }
 })
 
-export const { setItemsToShow, setPage, setSelectedCharacteristic, resetStatus } = adminCharacteristicSlice.actions
+export const { setSelectedCharacteristic, resetStatus } = adminCharacteristicSlice.actions
 
 export default adminCharacteristicSlice.reducer

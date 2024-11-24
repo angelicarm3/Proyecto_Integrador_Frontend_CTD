@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { AiOutlineMenu } from 'react-icons/ai'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -14,6 +14,7 @@ import SignUpBtn from '../../Atoms/SignUpBtn/SignUpBtn'
 
 function Header () {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const [isOn, setIsOn] = useState(false)
   const { isAdmin, isLoggedIn, loggedUser, error, userName } = useSelector((state) => state.loginRegister)
   const token = localStorage.getItem('token')
@@ -27,9 +28,11 @@ function Header () {
       dispatch(fetchUserByUserNameThunk({ userName, token }))
     }
     if (error?.includes('JWT es invalido')) {
+      dispatch(resetState())
       localStorage.clear()
+      navigate('/inicio-sesion')
     }
-  }, [userName, error, token, dispatch])
+  }, [userName, error, token, navigate, dispatch])
 
   const handleLogout = () => {
     dispatch(resetState())

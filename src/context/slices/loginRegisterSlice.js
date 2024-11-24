@@ -23,7 +23,6 @@ export const fetchUserByUserNameThunk = createAsyncThunk(
 export const sendConfirmationEmailThunk = createAsyncThunk(
   'mail/send',
   async (emailConfig, { rejectWithValue }) => {
-    console.log(emailConfig)
     try {
       const response = await axios.post(
         'https://alluring-enchantment-production.up.railway.app/mail/send/message/customer', emailConfig
