@@ -1,11 +1,9 @@
 import { useState } from 'react'
 import './ShareProduct.css'
 
-import {
-  FacebookShareButton, FacebookIcon, TwitterShareButton, TwitterIcon
-} from 'react-share'
+import { WhatsappShareButton } from 'react-share'
 
-import { FaInstagram } from 'react-icons/fa'
+import { IoLogoWhatsapp } from 'react-icons/io'
 
 const ShareProduct = ({ product, onClose }) => {
   const [comment, setComment] = useState('')
@@ -65,30 +63,12 @@ const ShareProduct = ({ product, onClose }) => {
             />
             <div className='shareProduct-container-icons'>
               <span className='shareProduct-share-span'>Compartir</span>
-
-              <FacebookShareButton
+              <WhatsappShareButton
                 className='shareProduct-icon-btn'
-                url={shareUrl}
-                title={title}
-                quote={descriptionWithComment}
-                media={img}
+                url={`${shareUrl}\n\n${title}\n\n${descriptionWithComment}\n\n Link de la imagen : ${img}`}
               >
-                <FacebookIcon className='shareProduct-media-btn' />
-              </FacebookShareButton>
-
-              <TwitterShareButton
-                className='shareProduct-icon-btn'
-                url={shareUrl}
-                title={title}
-                quote={descriptionWithComment}
-                media={img}
-              >
-                <TwitterIcon className='shareProduct-media-btn' />
-              </TwitterShareButton>
-
-              <button className='shareProduct-icon-btn'>
-                <FaInstagram className='shareProduct-media-btn' />
-              </button>
+                <IoLogoWhatsapp className='shareProduct-media-btn' />
+              </WhatsappShareButton>
 
             </div>
           </div>
