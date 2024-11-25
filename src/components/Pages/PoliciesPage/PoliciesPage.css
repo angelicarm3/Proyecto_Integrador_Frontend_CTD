@@ -1,32 +1,41 @@
 .policies-page-container {
-    @apply p-6 md:p-24 bg-gray-50 min-h-screen pt-32;
+  @apply p-6 md:p-20 bg-white;
+}
+
+.heading {
+  @apply text-4xl font-bold text-gray-800 mb-6 text-center;
+}
+
+.policy-content {
+  @apply mt-6;
+}
+
+.subheading {
+  @apply text-xl font-semibold text-gray-700 mt-4;
+}
+
+.paragraph {
+  @apply text-gray-600 mt-2;
+}
+
+.list {
+  @apply list-disc list-inside text-gray-600 mt-2;
+}
+
+@media (max-width: 768px) {
+  .policies-page-container {
+    @apply p-4;
   }
-  
-  .policies-title {
-    @apply text-3xl font-bold text-gray-800 mb-4 text-center md:text-left;
+
+  .heading {
+    @apply text-2xl;
   }
-  
-  .policies-text {
-    @apply text-gray-600 leading-7 text-center md:text-left;
+
+  .subheading {
+    @apply text-lg;
   }
-  
-  @media (max-width: 640px) {
-    .policies-title {
-      @apply text-2xl;
-    }
-  
-    .policies-text {
-      @apply text-sm;
-    }
+
+  .paragraph, .list {
+    @apply text-sm;
   }
-  
-  @media (min-width: 768px) {
-    .policies-title {
-      @apply text-3xl;
-    }
-  
-    .policies-text {
-      @apply text-base;
-    }
-  }
-  
+}
