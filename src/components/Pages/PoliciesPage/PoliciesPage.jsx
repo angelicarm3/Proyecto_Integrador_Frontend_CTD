@@ -4,7 +4,7 @@ import './policiesPage.css';
 const PoliciesPage = () => {
   return (
     <div className="policies-page-container">
-      <h1 className="heading">Políticas de Uso - Royal Ride</h1>
+      <h1 className="heading underline">Políticas de Uso - Royal Ride</h1>
       <div className="policy-content">
         <h2 className="subheading">1. Introducción</h2>
         <p className="paragraph">
