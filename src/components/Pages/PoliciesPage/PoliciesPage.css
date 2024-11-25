@@ -1,41 +1,41 @@
 .policies-page-container {
-  @apply p-6 md:p-20 bg-white;
+  @apply p-6 md:p-20 bg-white mx-auto rounded-lg shadow-lg leading-8 text-gray-800;
 }
 
 .heading {
-  @apply text-4xl font-bold text-gray-800 mb-6 text-center;
+  @apply text-4xl md:text-5xl font-bold text-gray-800 text-center mb-6 underline;
 }
 
-.policy-content {
-  @apply mt-6;
+.intro {
+  @apply text-lg md:text-xl text-gray-700 mb-6 text-center leading-relaxed;
 }
 
-.subheading {
-  @apply text-xl font-semibold text-gray-700 mt-4;
+.policy-columns {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-6 mt-6;
 }
 
-.paragraph {
-  @apply text-gray-600 mt-2;
+.policy-card {
+  @apply bg-gray-100 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 ease-in-out;
 }
 
-.list {
-  @apply list-disc list-inside text-gray-600 mt-2;
+.policy-title {
+  @apply text-xl md:text-2xl font-semibold text-gray-700 mb-2;
+}
+
+.policy-description {
+  @apply text-gray-600 text-base md:text-lg;
 }
 
 @media (max-width: 768px) {
-  .policies-page-container {
-    @apply p-4;
+  .policy-card {
+    @apply p-3;
   }
 
-  .heading {
-    @apply text-2xl;
-  }
-
-  .subheading {
+  .policy-title {
     @apply text-lg;
   }
 
-  .paragraph, .list {
+  .policy-description {
     @apply text-sm;
   }
 }
