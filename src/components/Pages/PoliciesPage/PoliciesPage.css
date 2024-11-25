@@ -1,5 +1,5 @@
 .policies-page-container {
-  @apply p-6 md:p-20 bg-white;
+  @apply p-6 md:p-12 bg-white;
 }
 
 .heading {
