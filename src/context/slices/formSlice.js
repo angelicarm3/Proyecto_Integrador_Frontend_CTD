@@ -140,6 +140,9 @@ const formSlice = createSlice({
         } else if (field === 'email') {
           state.userData[field] = value
           state.userData.userName = value
+        } else if (field === 'dni') {
+          newValue = parseInt(value)
+          state.userData[field] = newValue
         } else {
           state.userData[field] = value
         }
