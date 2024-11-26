@@ -7,7 +7,7 @@ import ProductFeatures from '../../Molecules/ProductFeatures/ProductFeatures'
 import FavBtn from '../../Atoms/FavBtn/FavBtn.jsx'
 import NoFavBtn from '../../Atoms/FavBtn/NoFavBtn.jsx'
 import { useDispatch, useSelector } from 'react-redux'
-import { addFav, removeFav } from '../../../context/slices/addFavs.js'
+import { addFavoriteThunk, modifyFavs, removeFavoriteThunk } from '../../../context/slices/favoritesSlice.js'
 
 
 const ProductCard = ({ product }) => {
@@ -15,19 +15,20 @@ const ProductCard = ({ product }) => {
   const mainImg = product.imagenes.filter((img) => img.esPrincipal)
   const dispatch = useDispatch()
   const { favorites } = useSelector((state) => state.favorites)
-
-  const FavoritoEs = favorites.includes(product.id)
+  const token = localStorage.getItem('token')
+  const isFavorite = favorites?.some((fav) => fav.id === product.id)
 
   const handleFav = () => {
-    if (FavoritoEs) {
-      dispatch(removeFav(product))
+    dispatch(modifyFavs(product))
+    if (isFavorite) {
+      dispatch(removeFavoriteThunk({userId: loggedUser.id, productId: product.id, token }))
     } else {
-      dispatch(addFav(product))
+      dispatch(addFavoriteThunk({userId: loggedUser.id, productId: product.id, token }))
     }
   }
   
   const { loggedUser, isLoggedIn } = useSelector((state) => state.loginRegister)
-  console.log("favoritos:" + favorites)
+  console.log(loggedUser)
   
   return (
     <div className='relative'>
@@ -47,7 +48,7 @@ const ProductCard = ({ product }) => {
       </div>
       {isLoggedIn ? 
         <button className='text-red-500 absolute top-5 right-5 ' onClick={handleFav}>
-          {FavoritoEs ? <FavBtn /> : <NoFavBtn />}
+          {isFavorite ? <FavBtn /> : <NoFavBtn />}
         </button> :
         null
       }
