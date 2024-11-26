@@ -6,7 +6,7 @@ import Footer from './components/Organisms/Footer/Footer.jsx'
 import Home from './components/Pages/Home/Home'
 import ProductDetail from './components/Pages/ProductDetail/ProductDetail.jsx'
 import LoginRegister from './components/Pages/LoginRegister/LoginRegister.jsx'
-import PoliciesPage from './components/Pages/PoliciesPage/PoliciesPage.jsx';
+import PoliciesPage from './components/Pages/PoliciesPage/PoliciesPage.jsx'
 
 import RequireNoAuth from './context/helpers/RequireNoAuth.jsx'
 import RequireAdmin from './context/helpers/RequireAdmin.jsx'
@@ -56,7 +56,7 @@ function App () {
           <Route path='inicio-sesion' element={<RequireNoAuth><LoginRegister /></RequireNoAuth>} />
           <Route path='registro' element={<RequireNoAuth><LoginRegister /></RequireNoAuth>} />
           <Route path='*' element={<h1>404 Page Not Found</h1>} />
-          <Route path='/PoliciesPage' element={<PoliciesPage />} />
+          <Route path='politicas-uso' element={<PoliciesPage />} />
         </Route>
 
         <Route element={<AdmonLayoutWithNavbarAndFooter />}>
@@ -71,7 +71,6 @@ function App () {
           <Route path='administracion/categorias' element={<RequireAdmin><AdminCategories /></RequireAdmin>} />
           <Route path='administracion/agregar-categoria' element={<RequireAdmin><AdminCreateEditCategory /></RequireAdmin>} />
           <Route path='administracion/editar-categoria/:id' element={<RequireAdmin><AdminCreateEditCategory /></RequireAdmin>} />
-          
         </Route>
       </Routes>
 

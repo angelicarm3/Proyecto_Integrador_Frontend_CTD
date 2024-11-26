@@ -19,7 +19,7 @@
 }
 
 .footer-copyright {
-  @apply w-full md:w-1/3 text-center text-sm text-gray-400;
+  @apply text-center text-sm text-gray-400;
 }
 
 .footer-social {
@@ -32,9 +32,9 @@
 
 /* Botón de Políticas de Uso */
 .footer-policies {
-  @apply mt-4 md:mt-0 text-center;
+  @apply flex flex-col mt-4 md:mt-0 items-center text-center gap-3;
 }
 
 .footer-policy-button {
-  @apply inline-block px-4 py-2 text-sm font-bold text-gray-800 bg-gray-200 border border-gray-300 rounded hover:bg-gray-700 hover:text-white transition-all duration-300 ease-in-out;
+  @apply w-fit px-4 py-2 text-sm font-bold text-white hover:text-gray3 rounded-lg border border-white hover:border-gray3;
 }

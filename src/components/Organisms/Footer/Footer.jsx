@@ -9,16 +9,19 @@ const Footer = () => {
     <footer className='footer'>
       <div className='footer-container'>
 
-      
         <div className='footer-logo-container'>
           <Link to='/'>
             <img src={isoWhite} alt='Logo de la marca' className='footer-logo' />
           </Link>
         </div>
 
-      
-        <div className='footer-copyright'>
-          <p>&copy; {new Date().getFullYear()} Royal Ride. Todos los derechos reservados.</p>
+        <div className='footer-policies'>
+          <Link to='/politicas-uso' className='footer-policy-button'>
+            Políticas de Uso
+          </Link>
+          <div className='footer-copyright'>
+            <p>&copy; {new Date().getFullYear()} Royal Ride. Todos los derechos reservados.</p>
+          </div>
         </div>
 
         <div className='footer-social'>
@@ -33,15 +36,9 @@ const Footer = () => {
           </Link>
         </div>
 
-        <div className='footer-policies'>
-          <Link to='/PoliciesPage' className='footer-policy-button'>
-            Políticas de Uso
-          </Link>
-        </div>
-
       </div>
     </footer>
-  );
-};
+  )
+}
 
 export default Footer
