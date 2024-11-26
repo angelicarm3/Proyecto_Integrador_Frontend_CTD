@@ -160,6 +160,7 @@ export const productSlice = createSlice({
     },
     resetSearchBar: (state) => {
       state.searchTerm = ''
+      state.suggestions = []
       state.filteredProducts = filterProducts(state.allProducts, state.searchTerm, state.selectedCategory, state.availableProducts)
       state.resultsQuantity = state.filteredProducts.length
     },
