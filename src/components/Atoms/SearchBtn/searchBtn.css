@@ -4,7 +4,7 @@
 
 @layer components {
   .search-btn {
-    @apply w-full md:w-10 hover:bg-black hover:text-white rounded-lg
+    @apply w-10 hover:bg-black hover:text-white rounded-lg
   }
   .search-icon {
     @apply text-xl m-auto

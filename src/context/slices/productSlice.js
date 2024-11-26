@@ -25,6 +25,27 @@ export const fetchProductByIdThunk = createAsyncThunk(
   }
 )
 
+const filterProducts = (products, searchTerm, selectedCategory) => {
+  const term = searchTerm.toLowerCase()
+
+  return products.filter((product) => {
+    const matchesTerm =
+      (product.marca && product.marca.toLowerCase().includes(term)) ||
+      (product.modelo && product.modelo.toLowerCase().includes(term)) ||
+      (product.caracteristicas &&
+        Array.isArray(product.caracteristicas) &&
+        product.caracteristicas.some((caracteristica) =>
+          caracteristica.nombre.toLowerCase().includes(term)
+        ))
+
+    const matchesCategory =
+      selectedCategory === 'Todos' ||
+      product.categorias.some((categoria) => categoria.nombre === selectedCategory)
+
+    return matchesTerm && matchesCategory
+  })
+}
+
 function shuffleArray (array) {
   const length = array.length
   const shuffle = array.slice()
@@ -45,7 +66,11 @@ export const productSlice = createSlice({
     filteredProducts: null,
     resultsQuantity: 0,
     recommendedProducts: null,
+    suggestions: [],
     selectedCategory: 'Todos',
+    searchTerm: '',
+    searchInitialDate: '',
+    searchEndDate: '',
     selectedProduct: null,
     mainImg: '',
     otherImg: [],
@@ -55,15 +80,56 @@ export const productSlice = createSlice({
 
   reducers: {
     getProductsByCategory: (state, action) => {
-      if (action.payload === 'Todos') {
-        state.filteredProducts = state.allProducts
-        state.selectedCategory = 'Todos'
-      } else {
-        state.filteredProducts = state.allProducts.filter((product) => product.categorias.some((categoria) => categoria.nombre === action.payload))
-        state.selectedCategory = action.payload
-      }
+      state.selectedCategory = action.payload
+      state.filteredProducts = filterProducts(state.allProducts, state.searchTerm, state.selectedCategory)
       state.resultsQuantity = state.filteredProducts.length
     },
+    setSearchTerm: (state, action) => {
+      state.searchTerm = action.payload
+    },
+    setSuggestions: (state, action) => {
+      if (action.payload === '') {
+        state.suggestions = []
+      } else {
+        const term = state.searchTerm.toLowerCase()
+        const allMatchesSet = new Set()
+
+        state.filteredProducts.forEach((product) => {
+          if (product.marca && product.marca.toLowerCase().includes(term)) {
+            allMatchesSet.add(product.marca)
+          }
+          if (product.modelo && product.modelo.toLowerCase().includes(term)) {
+            allMatchesSet.add(product.modelo)
+          }
+          if (product.caracteristicas && Array.isArray(product.caracteristicas)) {
+            product.caracteristicas.forEach((caracteristica) => {
+              if (caracteristica.nombre.toLowerCase().includes(term)) {
+                allMatchesSet.add(caracteristica.nombre)
+              }
+            })
+          }
+        })
+
+        state.suggestions = Array.from(allMatchesSet)
+      }
+    },
+    getProductsBySearchTerm: (state) => {
+      state.filteredProducts = filterProducts(state.allProducts, state.searchTerm, state.selectedCategory)
+      state.resultsQuantity = state.filteredProducts.length
+    },
+    // getProductsByTimeFrame: (state, action) => {
+    //   const searchTerm = action.payload.toLowerCase()
+    //   const productsBySearchTerm = state.filteredProducts.filter((product) =>
+    //     (product.name && product.name.toLowerCase().includes(searchTerm)) ||
+    //     (product.description && product.description.toLowerCase().includes(searchTerm)) ||
+    //     (product.type && product.type.toLowerCase().includes(searchTerm)) ||
+    //     (product.categories && product.categories.some((category) =>
+    //       category.toLowerCase().includes(searchTerm)
+    //     ))
+    //   )
+    //   state.filteredProducts = productsBySearchTerm
+    //   state.resultsQuantity = state.filteredProducts.length
+    // },
     getRecommendedProducts: (state) => {
       state.recommendedProducts = state.allProducts
     },
@@ -78,6 +144,18 @@ export const productSlice = createSlice({
     },
     resetSelectedProduct: (state) => {
       state.selectedProduct = null
+    },
+    resetSearchBar: (state) => {
+      state.searchTerm = ''
+      state.filteredProducts = filterProducts(state.allProducts, state.searchTerm, state.selectedCategory)
+      state.resultsQuantity = state.filteredProducts.length
+    },
+    resetFilters: (state) => {
+      state.filteredProducts = state.allProducts
+      state.resultsQuantity = state.filteredProducts.length
+      state.selectedCategory = 'Todos'
+      state.suggestions = []
+      state.searchTerm = ''
     }
   },
   extraReducers: (builder) => {
@@ -88,11 +166,11 @@ export const productSlice = createSlice({
         state.error = null
       })
       .addCase(fetchAllProductsThunk.fulfilled, (state, action) => {
-        state.allProducts = action.payload
-        state.filteredProducts = shuffleArray(state.allProducts)
+        state.allProducts = shuffleArray(action.payload)
+        state.filteredProducts = filterProducts(state.allProducts, state.searchTerm, state.selectedCategory)
         state.totalProducts = state.allProducts.length
         state.resultsQuantity = state.filteredProducts.length
-        state.selectedCategory = 'Todos'
+        // state.selectedCategory = 'Todos'
         state.selectedProduct = null
         state.loading = false
       })
@@ -117,6 +195,6 @@ export const productSlice = createSlice({
   }
 })
 
-export const { getAllProducts, getProductsByCategory, getProductById, getRecommendedProducts, arrangeImagesGrid, rearrangeImagesGrid, resetSelectedProduct } = productSlice.actions
+export const { getProductsByCategory, setSearchTerm, setSuggestions, getProductsBySearchTerm, getProductById, getRecommendedProducts, arrangeImagesGrid, rearrangeImagesGrid, resetSelectedProduct, resetSearchBar, resetFilters } = productSlice.actions
 
 export default productSlice.reducer

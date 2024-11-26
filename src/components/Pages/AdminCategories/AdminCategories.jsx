@@ -51,7 +51,8 @@ const AdminCategories = () => {
         <AdminTable headers={headers}>
           {
             items?.map((category) =>
-              <CategoriesRow key={category.id} category={category} />)
+              category.nombre !== 'Todos' &&
+                <CategoriesRow key={category.id} category={category} />)
           }
         </AdminTable>
       </div>
