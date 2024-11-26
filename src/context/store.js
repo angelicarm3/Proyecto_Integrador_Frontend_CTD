@@ -9,6 +9,7 @@ import adminProductsReducer from './slices/adminProductSlice'
 import adminUserReducer from './slices/adminUserSlice'
 import adminCharacteristicReducer from './slices/adminCharacteristicSlice'
 import adminCategoryReducer from './slices/adminCategorySlice'
+import addFavsReducer from './slices/addFavs'
 
 export default configureStore({
   reducer: {
@@ -20,6 +21,7 @@ export default configureStore({
     adminProducts: adminProductsReducer,
     adminUsers: adminUserReducer,
     adminCharacteristic: adminCharacteristicReducer,
-    adminCategory: adminCategoryReducer
+    adminCategory: adminCategoryReducer,
+    favorites: addFavsReducer
   }
 })
