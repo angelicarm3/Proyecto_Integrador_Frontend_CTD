@@ -111,9 +111,7 @@ export const productSlice = createSlice({
       state.searchTerm = action.payload
     },
     setSelectedDates: (state, action) => {
-      console.log(action.payload)
       state.selectedDates = action.payload
-      console.log(state.selectedDates)
     },
     setSuggestions: (state, action) => {
       if (action.payload === '') {
@@ -142,7 +140,6 @@ export const productSlice = createSlice({
       }
     },
     getProductsBySearchTerm: (state) => {
-      console.log('searching by term')
       state.filteredProducts = filterProducts(state.allProducts, state.searchTerm, state.selectedCategory, state.availableProducts)
       state.resultsQuantity = state.filteredProducts.length
     },
