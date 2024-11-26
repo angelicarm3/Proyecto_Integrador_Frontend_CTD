@@ -88,7 +88,7 @@ const SearchBar = () => {
 
           {
             suggestions.length > 0 && (
-              <ul className='suggestions-list w-full top-20 bg-white border rounded mt-2 shadow absolute'>
+              <ul className='suggestions-list w-full top-20 bg-white border rounded mt-2 shadow absolute z-10'>
                 {
                   suggestions.map((suggestion, index) => (
                     <li
