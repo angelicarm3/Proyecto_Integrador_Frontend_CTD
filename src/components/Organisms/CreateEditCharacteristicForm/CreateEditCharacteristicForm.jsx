@@ -3,7 +3,9 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
-import { AiOutlineClose, AiOutlineFileImage } from 'react-icons/ai'
+import { AiOutlineFileImage } from 'react-icons/ai'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 import '../CreateEditProductForm/createEditProductForm.css'
 import { pageLabels } from '../../../data/pageLabels'
@@ -22,11 +24,13 @@ const CreateEditCharacteristicForm = () => {
   const location = useLocation()
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { characteristicData, error, success, imgSuccess } = useSelector((state) => state.form)
-  const { selectedCharacteristic } = useSelector((state) => state.adminCharacteristic)
-  // const { token } = useSelector((state) => state.loginRegister)
   const token = localStorage.getItem('token')
+
+  const { characteristicData, error, imgSuccess } = useSelector((state) => state.form)
+  const { selectedCharacteristic } = useSelector((state) => state.adminCharacteristic)
+
   const { selectedImages, filePreviews, setFilePreviews, imagesRequiredError, setImagesRequiredError, handleFileChange } = useImageUpload()
+
   const { register, handleSubmit, setValue, formState: { errors }, clearErrors } = useForm({ mode: 'onBlur', defaultValues: characteristicData })
 
   useEffect(() => {
@@ -85,20 +89,53 @@ const CreateEditCharacteristicForm = () => {
           formURL: `characteristics/update/${selectedCharacteristic?.id}`,
           token
         }))
+          .unwrap()
+          .then((response) => {
+            withReactContent(Swal).fire({
+              icon: 'success',
+              text: 'Característica modificada exitosamente',
+              showConfirmButton: false,
+              timer: 3000
+            })
+            setTimeout(() => {
+              dispatch(resetForm())
+              navigate('/administracion/caracteristicas')
+            }, '3000')
+          })
+          .catch(() => {
+            withReactContent(Swal).fire({
+              icon: 'error',
+              text: 'No se puede modificar esta característica',
+              showConfirmButton: false,
+              timer: 3000
+            })
+          })
       } else {
         dispatch(submitFormThunk({ formData: { ...characteristicData, icono: characteristicData.icono[0].url }, formURL: 'characteristics/register', token }))
+          .unwrap()
+          .then((response) => {
+            withReactContent(Swal).fire({
+              icon: 'success',
+              text: 'Característica creada exitosamente',
+              showConfirmButton: false,
+              timer: 3000
+            })
+            setTimeout(() => {
+              dispatch(resetForm())
+              navigate('/administracion/caracteristicas')
+            }, '3000')
+          })
+          .catch(() => {
+            withReactContent(Swal).fire({
+              icon: 'error',
+              text: 'No se puede crear esta característica',
+              showConfirmButton: false,
+              timer: 3000
+            })
+          })
       }
     }
-  }, [imgSuccess, characteristicData, dispatch, location, selectedCharacteristic, token])
-
-  useEffect(() => {
-    if (success) {
-      setTimeout(() => {
-        dispatch(resetForm())
-        navigate('/administracion/caracteristicas')
-      }, '3000')
-    }
-  }, [success, navigate, dispatch])
+  }, [imgSuccess, characteristicData, dispatch, location, navigate, selectedCharacteristic, token])
 
   return (
     <form className='create-product-form-container' onSubmit={handleSubmit(onSubmit)}>
@@ -173,14 +210,6 @@ const CreateEditCharacteristicForm = () => {
           <CancelBtn handleClick={handleCancelClick} />
         </div>
       </div>
-      {
-        success &&
-          <div className='pop-up-bg success-bg'>
-            <div className='success-box'>
-              <p className='success-text'>{location.pathname.includes('editar') ? pageLabels.createCharacteristic.successUpdateMessage : pageLabels.createCharacteristic.successCreateMessage}</p>
-            </div>
-          </div>
-      }
     </form>
   )
 }

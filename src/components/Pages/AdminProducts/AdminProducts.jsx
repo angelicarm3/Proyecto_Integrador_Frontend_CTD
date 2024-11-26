@@ -1,36 +1,22 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { AiOutlineLoading } from 'react-icons/ai'
 
 import './AdminProducts.css'
-import { pageLabels } from '../../../data/pageLabels'
-import { fetchAllProductsAdminThunk, deleteProductThunk, setItemsToShow, resetStatus, setPage } from '../../../context/slices/adminProductSlice'
-import AdminSearchBar from '../../Organisms/AdminSearchBar/AdminSearchBar'
-import SearchBtn from '../../Atoms/SearchBtn/SearchBtn'
-import AdminProductList from '../../Organisms/AdminProductList/AdminProductList'
-import Dropdown from '../../Atoms/DropDown/DropDown'
-import Pagination from '../../Molecules/Pagination/Pagination'
-import CancelBtn from '../../Atoms/CancelBtn/CancelBtn'
-import AddBtn from '../../Atoms/AddBtn/AddBtn'
-import ProductRow from '../../Molecules/ProductRow/ProductRow'
-import LoaderComponent from '../../Molecules/Loader/LoaderComponent'
+import { fetchAllProductsAdminThunk, resetStatus } from '../../../context/slices/adminProductSlice'
+import { filterData, changePage } from '../../../context/slices/paginatorSlice'
 import BackBtn from '../../Atoms/BackBtn/BackBtn'
+import AddBtn from '../../Atoms/AddBtn/AddBtn'
+import Dropdown from '../../Atoms/DropDown/DropDown'
+import AdminTable from '../../Organisms/AdminTable/AdminTable'
+import ProductRow from '../../Molecules/ProductRow/ProductRow'
+import Paginator from '../../Molecules/Paginator/Paginator'
+import LoaderComponent from '../../Molecules/Loader/LoaderComponent'
 
 const AdminProducts = () => {
   const dispatch = useDispatch()
-
-  const options = [10, 20, 30, 40, 50]
-  const headers = ['Id', 'Nombre', 'Categoria', 'Precio', 'Matrícula', 'Acciones']
-
-  const [showConfirmDelete, setShowConfirmDelete] = useState(false)
-  const { selectedProduct, loading, success, allProducts, itemsToShow, currentPage } = useSelector((state) => state.adminProducts)
-  // const { token } = useSelector((state) => state.loginRegister)
-  const token = localStorage.getItem('token')
-
-  const totalItems = allProducts.length
-  const startIndex = (currentPage - 1) * itemsToShow
-  const endIndex = startIndex + itemsToShow
-  const currentProducts = allProducts.slice(startIndex, endIndex)
+  const headers = ['Id', 'Nombre', 'Categoria', 'Precio día', 'Matrícula', 'Acciones']
+  const { items } = useSelector((state) => state.paginator)
+  const { loading, allProducts, totalProducts } = useSelector((state) => state.adminProducts)
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -39,93 +25,42 @@ const AdminProducts = () => {
   }, [dispatch])
 
   useEffect(() => {
-    if (success) {
-      window.scrollTo(0, 0)
-      const fetchData = async () => {
-        await dispatch(resetStatus())
-        dispatch(fetchAllProductsAdminThunk())
-      }
-      setTimeout(() => {
-        fetchData()
-      }, 2000)
-    }
-  }, [success, dispatch])
+    dispatch(filterData(allProducts))
+  }, [dispatch, allProducts])
 
-  const handleSelect = (count) => {
-    dispatch(setItemsToShow(count))
-  }
-
-  const handleClick = () => {
-    setShowConfirmDelete(false)
-  }
-
-  const handleDeleteClick = (productId) => {
-    dispatch(deleteProductThunk({ productId, token }))
-    setShowConfirmDelete(false)
-  }
-
-  const handlePageChange = (page) => {
-    dispatch(setPage(page))
+  const onChangePage = (page) => {
+    dispatch(changePage(page))
+    dispatch(filterData(allProducts))
   }
 
   return (
     <div className='admin-products-container'>
-      <section className='admin-products-section'>
-        <div className='primary-btn w-fit flex flex-col justify-center rounded-2xl bg-black1 px-3'>
-          <BackBtn navigateTo='/administracion' />
-        </div>
-        <AddBtn navigateTo='/administracion/agregar-producto' />
+      <div>
+        <section className='admin-products-section'>
+          <div className='flex gap-3 h-full'>
+            <BackBtn navigateTo='/administracion' />
+            <AddBtn navigateTo='/administracion/agregar-producto' />
+          </div>
 
-        <div className='admin-search-bar-container'>
-          <AdminSearchBar productsList={allProducts} />
-          <SearchBtn />
-        </div>
+          <div className='admin-products-dropDown-conatiner'>
+            <span>Resultados</span>
+            <Dropdown allItems={allProducts} />
+          </div>
+        </section>
 
-        <div className='admin-products-dropDown-conatiner'>
-          <span>Resultados</span>
-          <Dropdown options={options} onSelect={handleSelect} />
-        </div>
-      </section>
-
-      <AdminProductList headers={headers}>
-        {currentProducts.map((product) =>
-          <ProductRow key={product.id} product={product} setShowConfirmDelete={setShowConfirmDelete} />)}
-      </AdminProductList>
-
-      <div className='admin-products-pagination-conatiner'>
-        <Pagination totalItems={totalItems} itemsToShow={itemsToShow} handlePageChange={handlePageChange} currentPage={currentPage} />
-        <p className='admin-products-p'>{`Resultados ${startIndex + 1} a ${endIndex} de ${totalItems}`}</p>
+        <AdminTable headers={headers}>
+          {
+            items?.map((product) =>
+              <ProductRow key={product.id} product={product} />)
+          }
+        </AdminTable>
       </div>
 
-      {
-        showConfirmDelete &&
-          <div className='admin-products-confirm-delation-container pop-up-bg '>
-            <div className='admin-products-confirm-delations-modal'>
-              <p className='admin-products-confirm-delations-modal-p'>{pageLabels.adminProducts.confirmDelation}</p>
-              <div className='btn-container'>
-                <button
-                  className='admin-products-confirm-delations-modal-btn'
-                  type='button'
-                  onClick={() => handleDeleteClick(selectedProduct.id)}
-                >
-                  <p>{pageLabels.adminProducts.delete}</p>
-                </button>
-                <CancelBtn handleClick={handleClick} />
-              </div>
-            </div>
-          </div>
-      }
+      <Paginator totalItems={totalProducts} onClick={onChangePage} />
+
       {
         loading &&
           <LoaderComponent />
-      }
-      {
-        success &&
-          <div className='admin-products-success pop-up-bg'>
-            <div className='w-8/12 h-40 flex justify-center items-center bg-white border-2 border-gray1 rounded-lg'>
-              <p className='text-xl text-green1'>¡Producto eliminado con éxito!</p>
-            </div>
-          </div>
       }
     </div>
   )

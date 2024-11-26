@@ -23,6 +23,10 @@ const LoginForm = () => {
   const { register, handleSubmit, formState: { errors }, clearErrors, setValue } = useForm({ mode: 'onBlur', defaultValues: loginData })
 
   useEffect(() => {
+    dispatch(resetForm())
+  }, [])
+
+  useEffect(() => {
     Object.keys(loginData).forEach((key) => {
       setValue(key, loginData[key])
     })

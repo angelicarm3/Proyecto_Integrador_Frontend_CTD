@@ -17,12 +17,15 @@ import RegistrationConfirmModal from '../RegistrationConfirmModal/RegistrationCo
 
 const SignupForm = () => {
   const dispatch = useDispatch()
-  const navigate = useNavigate()
   const [isOpen, setIsOpen] = useState(false)
   const { userData, success } = useSelector((state) => state.form)
-  const { formNumber, emailConfig, response, error } = useSelector((state) => state.loginRegister)
+  const { formNumber, emailConfig, error } = useSelector((state) => state.loginRegister)
 
   const { register, handleSubmit, formState: { errors }, clearErrors, setValue, watch, trigger } = useForm({ mode: 'onBlur', defaultValues: userData })
+
+  useEffect(() => {
+    dispatch(resetForm())
+  }, [])
 
   useEffect(() => {
     Object.keys(userData).forEach((key) => {
@@ -71,11 +74,9 @@ const SignupForm = () => {
     if (success) {
       setIsOpen(true)
       const newData = { ...emailConfig, toUser: [userData.email], name: userData.nombre }
-      console.log(newData)
       dispatch(sendConfirmationEmailThunk(newData))
     }
   }, [success, dispatch])
-  console.log(isOpen)
 
   return (
     <form className='w-full h-fit flex flex-col font-Urbanist' onSubmit={handleSubmit(onSubmit)}>

@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer components {
+    .addBtn {
+        @apply min-w-[100px] text-white px-4 py-2 rounded-2xl transition duration-200 
+    }    
+}
