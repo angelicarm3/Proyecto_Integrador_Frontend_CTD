@@ -24,7 +24,6 @@ const ProductsGrid = () => {
       behavior: 'smooth'
     })
   }
-  console.log(items.length)
 
   return (
     <section className='main-section products-grid-container'>
@@ -36,7 +35,7 @@ const ProductsGrid = () => {
              ))
         }
         {
-          items.length === 0 &&
+          items?.length === 0 &&
             <div className='h-[300px] flex flex-col justify-center items-center text-gray3 text-lg'>
               <p>Lo sentimos</p>
               <p>No hay autos que coincidan con tu búsqueda</p>
