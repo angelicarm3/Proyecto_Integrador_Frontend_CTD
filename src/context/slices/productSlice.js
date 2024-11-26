@@ -25,11 +25,26 @@ export const fetchProductByIdThunk = createAsyncThunk(
   }
 )
 
-const filterProducts = (products, searchTerm, selectedCategory) => {
+export const fetchProductsByTimeFrameThunk = createAsyncThunk(
+  'product/fetchProductByTimeFrame',
+  async (_, { getState, rejectWithValue }) => {
+    try {
+      const { product: { selectedDates } } = getState()
+
+      const response = await axios.get(`https://alluring-enchantment-production.up.railway.app/autos/find/available?fechaInicio=${selectedDates.startDate}&fechaFin=${selectedDates.endDate}`)
+      return { response: response.data, selectedDates }
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.mensaje || error.response?.data?.message)
+    }
+  }
+)
+
+const filterProducts = (products, searchTerm, selectedCategory, availableProducts) => {
   const term = searchTerm.toLowerCase()
 
   return products.filter((product) => {
     const matchesTerm =
+    searchTerm === '' ||
       (product.marca && product.marca.toLowerCase().includes(term)) ||
       (product.modelo && product.modelo.toLowerCase().includes(term)) ||
       (product.caracteristicas &&
@@ -42,7 +57,12 @@ const filterProducts = (products, searchTerm, selectedCategory) => {
       selectedCategory === 'Todos' ||
       product.categorias.some((categoria) => categoria.nombre === selectedCategory)
 
-    return matchesTerm && matchesCategory
+    const matchesTimeFrame =
+      !availableProducts || availableProducts.length === 0 ||
+      availableProducts?.some(
+        (availableProduct) => availableProduct.id === product.id)
+
+    return matchesTerm && matchesCategory && matchesTimeFrame
   })
 }
 
@@ -69,8 +89,11 @@ export const productSlice = createSlice({
     suggestions: [],
     selectedCategory: 'Todos',
     searchTerm: '',
-    searchInitialDate: '',
-    searchEndDate: '',
+    selectedDates: {
+      startDate: null,
+      endDate: null
+    },
+    availableProducts: [],
     selectedProduct: null,
     mainImg: '',
     otherImg: [],
@@ -81,11 +104,16 @@ export const productSlice = createSlice({
   reducers: {
     getProductsByCategory: (state, action) => {
       state.selectedCategory = action.payload
-      state.filteredProducts = filterProducts(state.allProducts, state.searchTerm, state.selectedCategory)
+      state.filteredProducts = filterProducts(state.allProducts, state.searchTerm, state.selectedCategory, state.availableProducts)
       state.resultsQuantity = state.filteredProducts.length
     },
     setSearchTerm: (state, action) => {
       state.searchTerm = action.payload
+    },
+    setSelectedDates: (state, action) => {
+      console.log(action.payload)
+      state.selectedDates = action.payload
+      console.log(state.selectedDates)
     },
     setSuggestions: (state, action) => {
       if (action.payload === '') {
@@ -114,22 +142,10 @@ export const productSlice = createSlice({
       }
     },
     getProductsBySearchTerm: (state) => {
-      state.filteredProducts = filterProducts(state.allProducts, state.searchTerm, state.selectedCategory)
+      console.log('searching by term')
+      state.filteredProducts = filterProducts(state.allProducts, state.searchTerm, state.selectedCategory, state.availableProducts)
       state.resultsQuantity = state.filteredProducts.length
     },
-    // getProductsByTimeFrame: (state, action) => {
-    //   const searchTerm = action.payload.toLowerCase()
-    //   const productsBySearchTerm = state.filteredProducts.filter((product) =>
-    //     (product.name && product.name.toLowerCase().includes(searchTerm)) ||
-    //     (product.description && product.description.toLowerCase().includes(searchTerm)) ||
-    //     (product.type && product.type.toLowerCase().includes(searchTerm)) ||
-    //     (product.categories && product.categories.some((category) =>
-    //       category.toLowerCase().includes(searchTerm)
-    //     ))
-    //   )
-    //   state.filteredProducts = productsBySearchTerm
-    //   state.resultsQuantity = state.filteredProducts.length
-    // },
     getRecommendedProducts: (state) => {
       state.recommendedProducts = state.allProducts
     },
@@ -147,7 +163,13 @@ export const productSlice = createSlice({
     },
     resetSearchBar: (state) => {
       state.searchTerm = ''
-      state.filteredProducts = filterProducts(state.allProducts, state.searchTerm, state.selectedCategory)
+      state.filteredProducts = filterProducts(state.allProducts, state.searchTerm, state.selectedCategory, state.availableProducts)
+      state.resultsQuantity = state.filteredProducts.length
+    },
+    resetDatePicker: (state) => {
+      state.selectedDates = { startDate: null, endDate: null }
+      state.availableProducts = []
+      state.filteredProducts = filterProducts(state.allProducts, state.searchTerm, state.selectedCategory, state.availableProducts)
       state.resultsQuantity = state.filteredProducts.length
     },
     resetFilters: (state) => {
@@ -160,17 +182,16 @@ export const productSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-    // featchAllProducts
+      // featchAllProducts
       .addCase(fetchAllProductsThunk.pending, (state) => {
         state.loading = true
         state.error = null
       })
       .addCase(fetchAllProductsThunk.fulfilled, (state, action) => {
         state.allProducts = shuffleArray(action.payload)
-        state.filteredProducts = filterProducts(state.allProducts, state.searchTerm, state.selectedCategory)
+        state.filteredProducts = filterProducts(state.allProducts, state.searchTerm, state.selectedCategory, state.availableProducts)
         state.totalProducts = state.allProducts.length
         state.resultsQuantity = state.filteredProducts.length
-        // state.selectedCategory = 'Todos'
         state.selectedProduct = null
         state.loading = false
       })
@@ -192,9 +213,26 @@ export const productSlice = createSlice({
         state.loading = false
         state.error = action.payload || 'Error al enviar datos'
       })
+
+      // fetchProductsByTimeFrameThunk
+      .addCase(fetchProductsByTimeFrameThunk.pending, (state) => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(fetchProductsByTimeFrameThunk.fulfilled, (state, action) => {
+        state.availableProducts = action.payload.response
+        state.selectedDates = action.payload.selectedDates
+        state.filteredProducts = filterProducts(state.allProducts, state.searchTerm, state.selectedCategory, state.availableProducts)
+        state.resultsQuantity = state.filteredProducts.length
+        state.loading = false
+      })
+      .addCase(fetchProductsByTimeFrameThunk.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload || 'Error al enviar datos'
+      })
   }
 })
 
-export const { getProductsByCategory, setSearchTerm, setSuggestions, getProductsBySearchTerm, getProductById, getRecommendedProducts, arrangeImagesGrid, rearrangeImagesGrid, resetSelectedProduct, resetSearchBar, resetFilters } = productSlice.actions
+export const { getProductsByCategory, setSearchTerm, setSelectedDates, setSuggestions, getProductsBySearchTerm, getProductsByTimeFrame, getProductById, getRecommendedProducts, arrangeImagesGrid, rearrangeImagesGrid, resetSelectedProduct, resetSearchBar, resetDatePicker, resetFilters } = productSlice.actions
 
 export default productSlice.reducer

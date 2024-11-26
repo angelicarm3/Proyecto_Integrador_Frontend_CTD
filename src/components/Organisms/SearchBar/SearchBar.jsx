@@ -1,21 +1,30 @@
 import { useEffect } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
+import { AiOutlineClose } from 'react-icons/ai'
+import Datepicker from 'react-tailwindcss-datepicker'
 import { useForm } from 'react-hook-form'
 
 import './searchBar.css'
-import { setSearchTerm, setSuggestions, resetFilters, getProductsBySearchTerm, resetSearchBar } from '../../../context/slices/productSlice'
+import { setSearchTerm, setSuggestions, resetFilters, getProductsBySearchTerm, resetSearchBar, fetchProductsByTimeFrameThunk, resetDatePicker, setSelectedDates } from '../../../context/slices/productSlice'
 import { pageLabels } from '../../../data/pageLabels'
-// import SearchBtn from '../../Atoms/SearchBtn/SearchBtn'
+import SearchBtn from '../../Atoms/SearchBtn/SearchBtn'
 
 const SearchBar = () => {
   const dispatch = useDispatch()
-  const { searchTerm, suggestions, filteredProducts } = useSelector((state) => state.product)
+  const { searchTerm, suggestions, selectedDates } = useSelector((state) => state.product)
   const { setValue } = useForm({ mode: 'onBlur', defaultValues: searchTerm })
 
   useEffect(() => {
     setValue('searchTerm', searchTerm)
   }, [searchTerm, setValue])
+
+  function formatDateToYYYYMMDD (date) {
+    const year = date?.getFullYear()
+    const month = String(date?.getMonth() + 1).padStart(2, '0')
+    const day = String(date?.getDate()).padStart(2, '0')
+    return `${year}-${month}-${day}`
+  }
 
   const handleInputChange = (e) => {
     const { value } = e.target
@@ -28,7 +37,7 @@ const SearchBar = () => {
     }
   }
 
-  const handleSearchBarFocus = () => {
+  const handleDeleteSearchBar = () => {
     if (searchTerm.trim() !== '') {
       dispatch(resetSearchBar())
     }
@@ -37,8 +46,20 @@ const SearchBar = () => {
   const handleClickSearchTerm = (value) => {
     setValue('searchTerm', value)
     dispatch(setSearchTerm(value))
-    dispatch(getProductsBySearchTerm(value))
     dispatch(setSuggestions(''))
+  }
+
+  const handleDateChange = (dates) => {
+    const stringDates = {
+      startDate: dates?.startDate ? formatDateToYYYYMMDD(dates.startDate) : null,
+      endDate: dates?.endDate ? formatDateToYYYYMMDD(dates.endDate) : null
+    }
+
+    if (!stringDates.startDate && !stringDates.endDate) {
+      dispatch(resetDatePicker())
+    } else {
+      dispatch(setSelectedDates(stringDates))
+    }
   }
 
   return (
@@ -48,19 +69,26 @@ const SearchBar = () => {
       <div className='w-full flex flex-col md:flex-row gap-3'>
         <div className='search-bar-container'>
           <label htmlFor='searchTerm' className='label'>Buscar por palabra clave</label>
-          <input
-            className='w-full input'
-            id='searchTerm'
-            type='text'
-            value={searchTerm}
-            placeholder={pageLabels.searchBar.input}
-            onChange={handleInputChange}
-            onFocus={handleSearchBarFocus}
-          />
+          <div className='w-full flex gap-2'>
+            <input
+              className='w-full input'
+              id='searchTerm'
+              type='text'
+              value={searchTerm}
+              placeholder={pageLabels.searchBar.input}
+              onChange={handleInputChange}
+              onFocus={handleDeleteSearchBar}
+            />
+            <SearchBtn onSearchClick={getProductsBySearchTerm} />
+          </div>
+          {
+            searchTerm !== '' &&
+              <AiOutlineClose className='close-btn absolute top-[52px] right-[65px] text-gray1' size={17} onClick={() => handleDeleteSearchBar()} />
+          }
 
           {
             suggestions.length > 0 && (
-              <ul className='suggestions-list w-full top-12 bg-white border rounded mt-2 shadow absolute'>
+              <ul className='suggestions-list w-full top-20 bg-white border rounded mt-2 shadow absolute'>
                 {
                   suggestions.map((suggestion, index) => (
                     <li
@@ -79,7 +107,33 @@ const SearchBar = () => {
 
         <div className='search-bar-container'>
           <label htmlFor='searchTerm' className='label'>Buscar por fechas</label>
-          fechas
+          <div className='w-full flex gap-2'>
+            <Datepicker
+              i18n='es'
+              startWeekOn='mon'
+              popoverDirection='down'
+              containerClassName='w-full relative font-Urbanist'
+              inputClassName='input w-full text-black1'
+              primaryColor='yellow'
+              displayFormat='DD/MM/YYYY'
+              separator='-'
+              theme='light'
+              placeholder='Seleccione las fechas'
+              value={selectedDates}
+              onChange={newValue => handleDateChange(newValue)}
+              disabledDates={[
+                {
+                  startDate: new Date(0),
+                  endDate: new Date()
+                },
+                {
+                  startDate: new Date('2024-02-11'),
+                  endDate: new Date('2024-02-12')
+                }
+              ]}
+            />
+            <SearchBtn onSearchClick={fetchProductsByTimeFrameThunk} />
+          </div>
         </div>
       </div>
     </section>
