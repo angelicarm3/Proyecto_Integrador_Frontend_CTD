@@ -24,6 +24,6 @@
     }
 
     .admin-panel-link {
-        @apply w-[200px] mt-4 bg-yellow1 text-white text-center px-4 py-2 rounded
+        @apply w-[250px] mt-4 bg-yellow1 text-white text-center px-4 py-2 rounded
     }
 }

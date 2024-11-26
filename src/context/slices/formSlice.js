@@ -10,7 +10,7 @@ export const uploadImagesThunk = createAsyncThunk(
       const urls = await handleFileUpload(files)
       return { urls, form }
     } catch (error) {
-      return rejectWithValue('Error al subir archivos')
+      return rejectWithValue(error.response?.data?.mensaje || error.response?.data?.message)
     }
   }
 )
@@ -30,6 +30,11 @@ export const submitFormThunk = createAsyncThunk(
             }
           }
         )
+      } else if (formURL === 'users/register' || formURL === 'login') {
+        response = await axios.post(
+          `https://alluring-enchantment-production.up.railway.app/${formURL}`,
+          formData
+        )
       } else {
         response = await axios.post(
           `https://alluring-enchantment-production.up.railway.app/${formURL}`,
@@ -43,7 +48,7 @@ export const submitFormThunk = createAsyncThunk(
       }
       return response.data
     } catch (error) {
-      return rejectWithValue(error.response.data.error)
+      return rejectWithValue(error.response?.data?.message || error.response?.data?.mensaje)
     }
   }
 )
@@ -54,7 +59,11 @@ const capitalizeFirstLetter = (string) => {
 
 const changeInputType = (showPassword) => {
   const passwordField = document.getElementById('password')
+  const confirmPasswordField = document.getElementById('confirmPassword')
   showPassword ? passwordField.type = 'text' : passwordField.type = 'password'
+  if (confirmPasswordField) {
+    showPassword ? confirmPasswordField.type = 'text' : confirmPasswordField.type = 'password'
+  }
 }
 
 const initialState = {
@@ -76,18 +85,27 @@ const initialState = {
     userName: '',
     password: ''
   },
+  characteristicData: {
+    nombre: '',
+    icono: ''
+  },
+  categoryData: {
+    nombre: '',
+    descripcion: '',
+    iconoCat: ''
+  },
   userData: {
     nombre: '',
     apellido: '',
     dni: '',
     edad: '',
-    nacionalidad: '',
     telefono: '',
     email: '',
-    userName: '',
-    password: '',
+    nacionalidad: '',
     esAdmin: false,
-    estaActivo: false
+    estaActivo: false,
+    userName: '',
+    password: ''
   },
   showPassword: false,
   isRememberMe: false,
@@ -107,7 +125,7 @@ const formSlice = createSlice({
       let newValue
       const { field, value, form } = action.payload
       if (form === 'createProduct') {
-        if (field === 'marca' || field === 'modelo') {
+        if (field === 'marca' || field === 'modelo' || field === 'descripcion') {
           newValue = capitalizeFirstLetter(value)
           state.productData[field] = newValue
         } else {
@@ -115,6 +133,30 @@ const formSlice = createSlice({
         }
       } else if (form === 'logIn') {
         state.loginData[field] = value
+      } else if (form === 'signUp') {
+        if (field === 'nombre' || field === 'apellido' || field === 'nacionalidad') {
+          newValue = capitalizeFirstLetter(value)
+          state.userData[field] = newValue
+        } else if (field === 'email') {
+          state.userData[field] = value
+          state.userData.userName = value
+        } else {
+          state.userData[field] = value
+        }
+      } else if (form === 'createCharacteristic') {
+        if (field === 'nombre') {
+          newValue = capitalizeFirstLetter(value)
+          state.characteristicData[field] = newValue
+        } else {
+          state.characteristicData[field] = value
+        }
+      } else if (form === 'createCategory') {
+        if (field === 'nombre' || field === 'descripcion') {
+          newValue = capitalizeFirstLetter(value)
+          state.categoryData[field] = newValue
+        } else {
+          state.categoryData[field] = value
+        }
       }
     },
     updateHasSubmited: (state) => {
@@ -152,6 +194,10 @@ const formSlice = createSlice({
         }))
         if (form === 'createProduct') {
           state.productData.imagenes = newURLs
+        } else if (form === 'createCharacteristic') {
+          state.characteristicData.icono = newURLs
+        } else if (form === 'createCategory') {
+          state.categoryData.iconoCat = newURLs
         }
         state.imgSuccess = true
       })

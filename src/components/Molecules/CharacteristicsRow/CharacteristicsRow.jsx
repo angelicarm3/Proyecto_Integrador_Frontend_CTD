@@ -1,53 +1,82 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { FaEdit } from 'react-icons/fa'
-import TashCan from '../../../assets/icons/eliminar.png'
+import { HiTrash } from 'react-icons/hi'
 import { useDispatch } from 'react-redux'
 
-import { deleteCharacteristicThunk, updateCharacteristicThunk } from '../../../context/slices/characteristicSlice'
+import { setSelectedCharacteristic } from '../../../context/slices/adminCharacteristicSlice'
+import { BiSolidDetail } from 'react-icons/bi'
 
-const CharacteristcsRow = ({ product, setShowConfirmDelete }) => {
+const CharacteristcsRow = ({ characteristic, setShowConfirmDelete }) => {
   const dispatch = useDispatch()
+  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false)
 
-  const handleDelete = (id) => {
-    console.log(`Eliminar producto ${id}`)
-    dispatch(deleteCharacteristicThunk(id))
+  const handleSelectCharacteristic = () => {
+    dispatch(setSelectedCharacteristic(characteristic))
+    setIsDetailsModalOpen(true)
+  }
+
+  const handleDelete = (characteristic) => {
+    dispatch(setSelectedCharacteristic(characteristic))
     setShowConfirmDelete(true)
   }
 
-  const handleEditCategory = () => {
-    const updatedData = {
-      nombre: 'Nuevo Nombre',
-      icono: 'https://nuevaurl.com/icono.png'
-    }
-    dispatch(updateCharacteristicThunk({ id: product.id, data: updatedData }))
-      .then(() => console.log(`Producto ${product.id} actualizado exitosamente`))
-      .catch((error) => console.error('Error al actualizar la característica:', error))
+  const handleCloseDetailsModal = () => {
+    setIsDetailsModalOpen(false)
   }
 
   return (
-    <tr className='border'>
-      <td className='border-l border-r px-4 py-2 text-center'>{product.id}</td>
-      <td className='border-l border-r px-4 py-2'>{product.nombre}</td>
-      <td className='border-l border-r px-4 py-2 text-center'><img src={product.icono} width='20' /></td>
-      <td className='border-l border-r px-4 py-2 w-1/4'>
+    <tr>
+      <td className='border px-4 py-2 text-center'>{characteristic.id}</td>
+      <td className='border px-4 py-2'>{characteristic.nombre}</td>
+      <td className='border px-4 py-2'>
+        <img src={characteristic.icono} className='w-8 mx-auto' />
+      </td>
+      <td className='border px-4 py-2 w-1/4'>
         <div className='flex space-x-3 justify-center'>
           <Link
-            className=' bg-yellow1 text-black px-4 py-2 rounded  text-lg'
-            onClick={handleEditCategory}
-            to={`/administracion/editar-caracteristica/${product.id}`}
+            className=' bg-blue1 px-4 py-2 rounded text-lg'
+            to={`/administracion/editar-caracteristica/${characteristic.id}`}
           >
-            <FaEdit />
+            <FaEdit size={24} />
           </Link>
-          <div
-            className='bg-red-500 text-white px-4 py-2 rounded'
-            onClick={handleDelete}
+          <button
+            className='bg-yellow1 px-4 py-2 rounded text-xl'
+            onClick={handleSelectCharacteristic}
           >
-            <img src={TashCan} alt='Trashcan' className='w-5 h-5 max-w-none' />
-          </div>
+            <BiSolidDetail size={24} />
+          </button>
+          <button
+            className='bg-red1 px-4 py-2 rounded'
+            onClick={() => handleDelete(characteristic)}
+          >
+            <HiTrash size={24} />
+          </button>
         </div>
       </td>
+
+      {isDetailsModalOpen && (
+        <div className='fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-50'>
+          <div className='bg-white p-6 rounded-lg shadow-lg max-w-lg w-full'>
+            <h2 className='text-xl font-semibold mb-4'>Detalles de la Característica</h2>
+            <p><strong>Nombre:</strong> {characteristic.nombre}</p>
+            <p className='flex gap-2'>
+              <strong>Icono:</strong>
+              <img src={characteristic.icono} className='w-8' />
+            </p>
+
+            <div className='mt-4 text-center'>
+              <button
+                className='bg-gray-300 text-black px-4 py-2 rounded'
+                onClick={handleCloseDetailsModal}
+              >
+                Cerrar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </tr>
   )
 }

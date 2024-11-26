@@ -7,14 +7,12 @@ const AddBtn = ({ navigateTo }) => {
 
   const handleAddProduct = () => {
     navigate(navigateTo)
-    // navigate('/administracion/agregar-producto')
   }
 
   return (
     <button
       onClick={handleAddProduct}
       className='primary-btn addBtn'
-    // TODO: primary-btn class check
     >
       {pageLabels.addBtn.label}
     </button>

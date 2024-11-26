@@ -4,7 +4,7 @@
 
 @layer components {
   .product-characteristics-container {
-    @apply flex flex-col p-2 gap-4
+    @apply h-fit flex flex-col flex-wrap p-2 gap-4
   }
   .product-characteristics-title {
     @apply text-lg font-bold text-center

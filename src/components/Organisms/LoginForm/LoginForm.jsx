@@ -48,17 +48,15 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (logInSuccess) {
-      setTimeout(() => {
-        dispatch(resetForm())
-        isAdmin ? navigate('/administracion') : navigate('/')
-      }, '1000')
+      dispatch(resetForm())
+      isAdmin ? navigate('/administracion') : navigate('/')
     }
   }, [logInSuccess, isAdmin, navigate, dispatch])
 
   return (
     <form className='w-full h-full flex flex-col font-Urbanist' onSubmit={handleSubmit(onSubmit)}>
       {
-        error === 'Bad credentials' &&
+        error?.includes('username o password incorrecto') &&
           <div className='w-full h-fit flex justify-center items-center text-sm text-red1 font-medium border-red1 border rounded p-2 mb-4'>
             <p>{pageLabels.loginRegister.badCredentialsError}</p>
           </div>

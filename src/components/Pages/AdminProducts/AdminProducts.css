@@ -9,7 +9,7 @@
   }
 
   .admin-products-section {
-    @apply flex items-center justify-around align-middle mb-4
+    @apply flex items-center justify-center mb-4 gap-3
   }
 
   .admin-products-dropDown-conatiner {

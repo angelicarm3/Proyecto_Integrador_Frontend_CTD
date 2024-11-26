@@ -35,7 +35,7 @@ export const pageLabels = {
     seeMore: 'Ver más...'
   },
   createProduct: {
-    title: 'Nuevo producto',
+    title: 'Producto',
     make: 'Marca',
     model: 'Modelo',
     plate: 'Matrícula (ABC123)',
@@ -60,15 +60,55 @@ export const pageLabels = {
     validNumberError: 'Ingrese un número válido',
     existingProductError: 'Esta matrícula ya está registrada'
   },
+  createCharacteristic: {
+    title: 'Característica',
+    name: 'Nombre',
+    icon: 'Icono (Máximo 1 archivo)',
+    imgPlaceholder: 'Seleccionar ícono',
+    successCreateMessage: 'Característica creada con éxito!',
+    successUpdateMessage: 'Característica actualizada con éxito!'
+  },
+  createCategory: {
+    title: 'Categoría',
+    name: 'Nombre',
+    description: 'Descripción (Máximo 200 caracteres)',
+    icon: 'Icono (Máximo 1 archivo)',
+    successCreateMessage: 'Categoría creada con éxito!',
+    successUpdateMessage: 'Categoría actualizads con éxito!'
+  },
   loginRegister: {
     email: 'Email',
     password: 'Contraseña',
-    rememberMe: 'Recuérdame',
+    confirmPassword: 'Confirme su contraseña',
+    firstName: 'Nombre',
+    lastName: 'Apellido',
+    dni: 'DNI',
+    age: 'Edad',
+    phone: 'Telefono',
+    nacionality: 'Nacionalidad',
     forgotPassword: '¿Olvidó su contraseña?',
     logInBtn: 'Ingresar',
     registerBtn: 'Registrarse',
+    invalidNameError: 'Por favor ingrese un nombre válido',
+    invalidLastNameError: 'Por favor ingrese un apellido válido',
+    invalidNationalityError: 'Por favor ingrese una nacionalidad válida',
+    invalidDniError: 'Por favor ingrese un número de identificación válido',
+    invalidOfAgeError: 'Debe ser mayor de edad para rentar un auto',
     invalidEmailError: 'Por favor ingrese una dirección de email válida',
-    badCredentialsError: 'Email o contraseña inválidos.'
+    invalidPhoneError: 'Por favor ingrese un número de teléfono válido',
+    badCredentialsError: 'Email o contraseña inválidos.',
+    shortPasswordError: 'La contraseña debe tener al menos 8 caracteres',
+    longPasswordError: 'La contraseña no puede exceder 20 caracteres.',
+    passwordRequirementsError: 'Contraseña inválida. Compruebe los requerimientos para la contraseña abajo',
+    blankSpaceError: 'La contraseña no puede contener espacios en blanco',
+    passwordsDontMatchError: 'Las contraseñas no coinciden. Intente de nuevo',
+    existingEmailError: 'Este email ya está registrado',
+    existingDNIError: 'Este DNI ya está registrado',
+    passwordReq: [
+      'La contraseña debe entre 8 y 20 caracteres',
+      'la contraseña debe contener al menos un símbolo @.#$* y un número',
+      'La contraseña debe contener al menos una letra mayúscula y una minúscula'
+    ]
   },
   adminPanel: {
     mobileMessage: 'No disponible en dispositivos móviles',
@@ -94,11 +134,11 @@ export const pageLabels = {
     placeholder: 'Palabra Clave'
   },
   adminCharacteristics: {
-    title: 'Caracteristicas',
+    title: 'Administrar características',
     result: 'Resultados'
   },
-  adminCategory: {
-    title: 'Categorias',
+  adminCategories: {
+    title: 'Administrar categorías',
     result: 'Resultados'
   }
 }

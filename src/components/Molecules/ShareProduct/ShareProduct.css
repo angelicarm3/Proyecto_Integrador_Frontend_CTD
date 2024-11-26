@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.shareProduct-container {
+  @apply fixed inset-0 bg-gray-50 bg-opacity-70 flex items-center justify-center min-h-screen;
+}
+.shareProduct-modal-container {
+  @apply bg-gray3 rounded-lg shadow-lg w-full max-w-2xl sm:max-w-sm md:max-w-4xl lg:max-w-4xl xl:max-w-6xl p-6 relative mx-auto max-h-screen overflow-auto;
+}
+
+.shareProduct-close-btn {
+  @apply absolute top-16  sm:top-4 right-4 bg-black text-white hover:text-gray-800 z-50 p-1 pl-3 pr-3 text-xl rounded-full font-bold;
+}
+
+.shareProduct-section {
+  @apply flex flex-col md:flex-row sm:flex-col m-4;
+}
+.shareProduct-image-container {
+  @apply flex w-full md:w-1/2 m-4 md:h-full lg:h-auto;
+}
+.shareProduct-image {
+  @apply rounded-md object-cover h-full w-full;
+}
+.shareProduct-data-container {
+  @apply flex flex-col w-full md:w-1/2 m-4;
+}
+.shareProduct-title {
+  @apply text-3xl mb-4 text-gray-200;
+}
+.shareProduct-price {
+  @apply text-2xl font-bold text-white mb-4;
+}
+.shareProduct-span {
+  @apply text-sm text-white;
+}
+.shareProduct-characteristics-container {
+  @apply flex flex-col sm:flex-row  bg-white rounded-xl justify-center items-center;
+}
+.shareProduct-characteristics-div {
+  @apply flex flex-row sm:flex-col justify-center items-center p-2 flex-1;
+}
+.shareProduct-icons {
+  @apply max-w-10  text-gray-500 pr-3 sm:text-xs;
+}
+.shareProduct-p {
+  @apply pl-2 text-gray-700;
+}
+
+.shareProduct-description {
+  @apply text-white text-sm mt-4;
+}
+.shareProduct-textarea {
+  @apply w-full mt-4 border rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 text-black;
+}
+.shareProduct-container-icons {
+  @apply flex items-center mt-4;
+}
+.shareProduct-share-span {
+  @apply mr-10 text-lg sm:text-2xl text-white  border-white;
+}
+.shareProduct-icon-btn {
+  @apply pl-2 pr-2 text-white;
+}
+.shareProduct-media-btn {
+  @apply text-3xl sm:text-4xl text-black  hover:text-yellow-400;
+}

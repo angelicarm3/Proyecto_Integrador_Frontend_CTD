@@ -12,41 +12,15 @@ export const fetchAllProductsAdminThunk = createAsyncThunk(
 export const fetchProductByIdThunk = createAsyncThunk(
   'adminProducts/fetchProductById',
   async (productId, { rejectWithValue }) => {
-    console.log('productId:', productId)
     try {
       const response = await axios.get(`https://alluring-enchantment-production.up.railway.app/autos/find/${productId}`)
-      console.log('response data ', response.data)
       return response.data
     } catch (error) {
-      console.error('error en la solicitud', error)
-      return rejectWithValue(error.response?.data?.mensaje || 'Error desconocido')
+      return rejectWithValue(error.response?.data?.mensaje || error.response?.data?.message)
     }
   }
 )
 
-export const updateProduct = createAsyncThunk(
-  'products/updateProduct',
-  async (productId, { rejectWithValue }) => {
-    try {
-      const response = await fetch(`https://alluring-enchantment-production.up.railway.app/autos/find/${productId}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ id: productId })
-      })
-
-      if (!response.ok) {
-        throw new Error('Failed to update product')
-      }
-
-      const data = await response.json()
-      return data
-    } catch (error) {
-      return rejectWithValue(error.message)
-    }
-  }
-)
 export const deleteProductThunk = createAsyncThunk(
   'form/deleteProduct',
   async ({ productId, token }, { rejectWithValue }) => {
@@ -61,7 +35,7 @@ export const deleteProductThunk = createAsyncThunk(
       )
       return response.data
     } catch (error) {
-      return rejectWithValue(error.response.data.mensaje)
+      return rejectWithValue(error.response?.data?.mensaje || error.response?.data?.message)
     }
   }
 )
@@ -101,6 +75,22 @@ export const adminProductsSlice = createSlice({
       state.allProducts = action.payload
       state.currentPage = 1
     })
+
+    // Fetch product by ID
+    builder
+      .addCase(fetchProductByIdThunk.pending, (state) => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(fetchProductByIdThunk.fulfilled, (state, action) => {
+        state.loading = false
+        state.selectedProduct = action.payload
+      })
+      .addCase(fetchProductByIdThunk.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload || 'Error al obtener el producto'
+      })
+
       // Delete product
       .addCase(deleteProductThunk.pending, (state) => {
         state.loading = true

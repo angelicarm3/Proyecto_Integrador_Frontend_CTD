@@ -1,3 +1,4 @@
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 
 import './productDetailCard.css'
@@ -8,14 +9,31 @@ import ProductFeatures from '../../Molecules/ProductFeatures/ProductFeatures'
 import ProductCharacteristics from '../../Molecules/ProductCharacteristics/ProductCharacteristics'
 import RentNowBtn from '../../Atoms/RentNowBtn/RentNowBtn'
 
+import { FaShareAlt } from 'react-icons/fa'
+import ShareProduct from '../../Molecules/ShareProduct/ShareProduct'
+
 const ProductDetailCard = () => {
+  const [isShareModalOpen, setShareModalOpen] = useState(false)
   const selectedProduct = useSelector((state) => state.product.selectedProduct)
+
+  const handleShareClick = () => {
+    setShareModalOpen(true)
+  }
 
   return (
     <div className='main-section product-detail-card-container'>
       <div className='back'>
         <BackBtn />
       </div>
+      <div className='features-container' onClick={handleShareClick}>
+        <FaShareAlt />
+      </div>
+      {isShareModalOpen && (
+        <ShareProduct
+          product={selectedProduct}
+          onClose={() => setShareModalOpen(false)}
+        />
+      )}
       <p className='product-detail-name'>{selectedProduct.marca} {selectedProduct.modelo}</p>
       <div className='product-detail-info-container'>
         <ImagesGrid />

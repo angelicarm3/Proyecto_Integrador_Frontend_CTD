@@ -11,14 +11,14 @@ import useImageUpload from '../../../hooks/useImageUpload'
 import { createProductFormFields } from '../../../service/formInputsService'
 import { fetchProductByIdThunk } from '../../../context/slices/productSlice'
 import { fetchAllCategoriesThunk } from '../../../context/slices/categorySlice'
-import { fetchAllCharacteristicsThunk } from '../../../context/slices/characteristicSlice'
+import { fetchAllCharacteristicsThunk } from '../../../context/slices/adminCharacteristicSlice'
 import { submitFormThunk, uploadImagesThunk, updateField, clearError, resetForm, updateHasSubmited, updateImgSuccess } from '../../../context/slices/formSlice'
 import BackBtn from '../../Atoms/BackBtn/BackBtn'
 import FormField from '../../Molecules/FormField/FormField'
 import CancelBtn from '../../Atoms/CancelBtn/CancelBtn'
 import SaveBtn from '../../Atoms/SaveBtn/SaveBtn'
 import FormErrorMessage from '../../Atoms/FormErrorMessage/FormErrorMessage'
-import ButtonField from '../../Molecules/CheckboxField/ButtonField'
+import ButtonField from '../../Molecules/ButtonField/ButtonField'
 
 const CreateEditProductForm = () => {
   const { id } = useParams()
@@ -28,8 +28,9 @@ const CreateEditProductForm = () => {
   const { productData, error, success, imgSuccess } = useSelector((state) => state.form)
   const selectedProduct = useSelector((state) => state.product.selectedProduct)
   const allCategories = useSelector((state) => state.category.allCategories)
-  const allCharacteristics = useSelector((state) => state.characteristic.allCharacteristics)
-  const { token } = useSelector((state) => state.loginRegister)
+  const allCharacteristics = useSelector((state) => state.adminCharacteristic.allCharacteristics)
+  // const { token } = useSelector((state) => state.loginRegister)
+  const token = localStorage.getItem('token')
   const { selectedImages, filePreviews, setFilePreviews, imagesRequiredError, setImagesRequiredError, handleFileChange, removeImage } = useImageUpload()
   const maxDescriptionCharacters = 200
   const [selectedCategories, setSelectedCategories] = useState([])
@@ -79,6 +80,7 @@ const CreateEditProductForm = () => {
   }
 
   const handleCancelClick = () => {
+    dispatch(resetForm())
     navigate(-1)
   }
 

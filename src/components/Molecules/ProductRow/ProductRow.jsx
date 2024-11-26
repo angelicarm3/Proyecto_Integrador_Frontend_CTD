@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
-import { BiSolidDetail, BiSolidHide } from 'react-icons/bi'
-import { FaEdit } from 'react-icons/fa'
-import { setSelectedProduct } from '../../../context/slices/adminProductSlice'
-import { useDispatch } from 'react-redux'
+
 import { Link } from 'react-router-dom'
+import { FaEdit } from 'react-icons/fa'
 import { HiTrash } from 'react-icons/hi'
+import { BiSolidDetail, BiSolidHide } from 'react-icons/bi'
+import { useDispatch } from 'react-redux'
+
+import { setSelectedProduct } from '../../../context/slices/adminProductSlice'
 
 const ProductRow = ({ product, setShowConfirmDelete }) => {
   const dispatch = useDispatch()
@@ -27,7 +29,6 @@ const ProductRow = ({ product, setShowConfirmDelete }) => {
   const handleCloseDetailsModal = () => {
     setIsDetailsModalOpen(false)
   }
-  console.log(product)
 
   return (
     <tr>
@@ -84,8 +85,8 @@ const ProductRow = ({ product, setShowConfirmDelete }) => {
       {isDetailsModalOpen && (
         <div className='fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-50'>
           <div className='bg-white p-6 rounded-lg shadow-lg max-w-lg w-full'>
-            <h2 className='text-xl font-semibold mb-4'>Detalles del Usuario</h2>
-            <p><strong>Producto:</strong> {product.marca} {product.modelo}</p>
+            <h2 className='text-xl font-semibold mb-4'>Detalles del Producto</h2>
+            <p><strong>Nombre:</strong> {product.marca} {product.modelo}</p>
             <p><strong>Matrícula:</strong> {product.matricula}</p>
             <p><strong>Año de fabricación:</strong> {product.fechaFabricacion}</p>
             <p><strong>Potencia:</strong> {product.potenciaHP}</p>
