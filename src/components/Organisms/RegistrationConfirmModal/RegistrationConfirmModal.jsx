@@ -9,9 +9,7 @@ function RegistrationConfirmModal ({ setIsOpen, newData }) {
   const { userData } = useSelector((state) => state.form)
   const { emailConfig } = useSelector((state) => state.loginRegister)
   const dispatch = useDispatch()
-
   const navigate = useNavigate()
-  console.log(newData)
 
   const handleClose = () => {
     setIsOpen(false)

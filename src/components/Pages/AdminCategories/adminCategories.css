@@ -17,7 +17,6 @@
     @apply flex items-center gap-4 space-x-4
   }
 
-
   .admin-products-pagination-container {
     @apply flex justify-between space-x-2 items-center
   }

@@ -11,7 +11,7 @@ const ButtonField = ({ items, label, selectedItems, onChange, errorMessage }) =>
       <p className='label'>{label}</p>
       <div className='flex flex-wrap gap-3'>
         {items?.map((item, index) => (
-          index !== 0 && (
+          item.nombre !== 'Todos' && (
             <button
               key={index}
               type='button'

@@ -3,7 +3,9 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
-import { AiOutlineClose, AiOutlineFileImage } from 'react-icons/ai'
+import { AiOutlineFileImage } from 'react-icons/ai'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 import '../CreateEditProductForm/createEditProductForm.css'
 import { pageLabels } from '../../../data/pageLabels'
@@ -22,12 +24,14 @@ const CreateEditCategoryForm = () => {
   const location = useLocation()
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const maxDescriptionCharacters = 200
+  const token = localStorage.getItem('token')
+
   const { categoryData, error, success, imgSuccess } = useSelector((state) => state.form)
   const { selectedCategory } = useSelector((state) => state.adminCategory)
-  // const { token } = useSelector((state) => state.loginRegister)
-  const token = localStorage.getItem('token')
+
+  const maxDescriptionCharacters = 200
   const { selectedImages, filePreviews, setFilePreviews, imagesRequiredError, setImagesRequiredError, handleFileChange } = useImageUpload()
+
   const { register, handleSubmit, setValue, formState: { errors }, clearErrors } = useForm({ mode: 'onBlur', defaultValues: categoryData })
 
   useEffect(() => {
@@ -86,20 +90,53 @@ const CreateEditCategoryForm = () => {
           formURL: `categories/update/${categoryData?.id}`,
           token
         }))
+          .unwrap()
+          .then((response) => {
+            withReactContent(Swal).fire({
+              icon: 'success',
+              text: 'Categoría modificada exitosamente',
+              showConfirmButton: false,
+              timer: 3000
+            })
+            setTimeout(() => {
+              dispatch(resetForm())
+              navigate('/administracion/categorias')
+            }, '3000')
+          })
+          .catch(() => {
+            withReactContent(Swal).fire({
+              icon: 'error',
+              text: 'No se puede modificar esta categoría',
+              showConfirmButton: false,
+              timer: 3000
+            })
+          })
       } else {
         dispatch(submitFormThunk({ formData: { ...categoryData, iconoCat: categoryData.iconoCat[0].url }, formURL: 'categories/register', token }))
+          .unwrap()
+          .then((response) => {
+            withReactContent(Swal).fire({
+              icon: 'success',
+              text: 'Categoría creada exitosamente',
+              showConfirmButton: false,
+              timer: 3000
+            })
+            setTimeout(() => {
+              dispatch(resetForm())
+              navigate('/administracion/categorias')
+            }, '3000')
+          })
+          .catch(() => {
+            withReactContent(Swal).fire({
+              icon: 'error',
+              text: 'No se puede crear esta categoría',
+              showConfirmButton: false,
+              timer: 3000
+            })
+          })
       }
     }
-  }, [imgSuccess, categoryData, dispatch, location, selectedCategory, token])
-
-  useEffect(() => {
-    if (success) {
-      setTimeout(() => {
-        dispatch(resetForm())
-        navigate('/administracion/categorias')
-      }, '3000')
-    }
-  }, [success, navigate, dispatch])
+  }, [imgSuccess, categoryData, dispatch, location, navigate, selectedCategory, token])
 
   return (
     <form className='create-product-form-container' onSubmit={handleSubmit(onSubmit)}>
@@ -203,14 +240,6 @@ const CreateEditCategoryForm = () => {
           <CancelBtn handleClick={handleCancelClick} />
         </div>
       </div>
-      {
-        success &&
-          <div className='pop-up-bg success-bg'>
-            <div className='success-box'>
-              <p className='success-text'>{location.pathname.includes('editar') ? pageLabels.createCategory.successUpdateMessage : pageLabels.createCategory.successCreateMessage}</p>
-            </div>
-          </div>
-      }
     </form>
   )
 }
