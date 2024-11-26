@@ -9,7 +9,7 @@ const Categories = () => {
   const allCategories = useSelector((state) => state.category.allCategories)
 
   return (
-    <section className='main-section categories-section'>
+    <section className='main-section mt-0 categories-section'>
       <p className='title'>{pageLabels.categories.title}</p>
       <CategoriesGrid categories={allCategories} />
       <CategoriesGridMobile categories={allCategories} />

@@ -8,11 +8,9 @@ export const pageLabels = {
     cancel: 'Cancelar'
   },
   searchBar: {
-    title: 'Buscar',
-    inputs: [
-      'Marca',
-      'Modelo'
-    ]
+    title: 'Encuentra el auto de lujo que define tu estilo y sofisticación',
+    subtitle: 'Nuestra colección está diseñada para cumplir los sueños más exigentes',
+    input: 'Busca tu auto'
   },
   categories: {
     title: 'Categorías',
