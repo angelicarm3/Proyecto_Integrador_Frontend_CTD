@@ -2,50 +2,48 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @layer components {
-  .admin-characteristics-container {
-    @apply p-4 flex flex-col mt-[68px] relative
-  }
+    .admin-categories-container {
+        @apply p-4 flex flex-col mt-[68px] relative;
+    }
 
-  .admin-characteristics-upper {
-    @apply flex items-center justify-around align-middle mb-4
-  }
+    .admin-categories-upper {
+        @apply flex items-center justify-around align-middle mb-4;
+    }
 
+    .admin-categories-dropDown-container {
+        @apply flex items-center gap-4 space-x-4;
+    }
 
-  .admin-products-dropDown-container {
-    @apply flex items-center gap-4 space-x-4
-  }
+    .admin-categories-pagination-container {
+        @apply flex justify-between space-x-2 items-center;
+    }
 
-  .admin-products-pagination-container {
-    @apply flex justify-between space-x-2 items-center
-  }
+    .admin-categories-p {
+        @apply text-gray-500;
+    }
 
-  .admin-products-p {
-    @apply text-gray-500
-  }
+    .admin-categories-confirm-delation-container {
+        @apply w-screen h-screen absolute top-[-68px] left-0;
+    }
 
-  .admin-products-confirm-delation-container {
-    @apply w-screen h-screen absolute top-[-68px] left-0
-  }
+    .admin-categories-confirm-delations-modal {
+        @apply w-8/12 h-40 flex flex-col justify-center items-center bg-white border-2 border-gray1 rounded-lg;
+    }
 
-  .admin-products-confirm-delations-modal {
-    @apply w-8/12 h-40 flex flex-col justify-center items-center bg-white border-2 border-gray1 rounded-lg
-  }
+    .admin-categories-confirm-delations-modal-p {
+        @apply text-xl text-black1;
+    }
 
-  .admin-products-confirm-delations-modal-p {
-    @apply text-xl text-black1
-  }
+    .admin-categories-confirm-delations-modal-btn {
+        @apply w-24 flex justify-center items-center bg-green1 text-base text-gray4 font-bold rounded-3xl hover:opacity-75 p-2;
+    }
 
-  .admin-products-confirm-delations-modal-btn {
-    @apply w-24 flex justify-center items-center bg-green1 text-base text-gray4 font-bold rounded-3xl hover:opacity-75 p-2
-  }
+    .admin-categories-loading {
+        @apply opacity-25 absolute w-screen h-screen top-[-68px] left-0 rounded-lg;
+    }
 
-  .admin-products-loading {
-    @apply opacity-25 absolute w-screen h-screen top-[-68px] left-0 rounded-lg
-  }
-
-  .admin-products-success {
-    @apply w-screen h-screen absolute top-[-68px] left-0 rounded-lg
-  }
+    .admin-products-success {
+        @apply w-screen h-screen absolute top-[-68px] left-0 rounded-lg;
+    }
 }
