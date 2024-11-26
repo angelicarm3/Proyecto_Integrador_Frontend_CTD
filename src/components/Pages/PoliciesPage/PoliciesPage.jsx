@@ -1,4 +1,4 @@
-import './policiesPage.css'
+import './PoliciesPage.css'
 import isoGold from '../../../assets/brand/isoGold.png'
 
 const policies = [
