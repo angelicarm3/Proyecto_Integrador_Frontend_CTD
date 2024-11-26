@@ -4,7 +4,6 @@ import './productCard.css'
 import { pageLabels } from '../../../data/pageLabels'
 import RentNowBtn from '../../Atoms/RentNowBtn/RentNowBtn'
 import ProductFeatures from '../../Molecules/ProductFeatures/ProductFeatures'
-import { useState } from 'react'
 import FavBtn from '../../Atoms/FavBtn/FavBtn.jsx'
 import NoFavBtn from '../../Atoms/FavBtn/NoFavBtn.jsx'
 import { useDispatch, useSelector } from 'react-redux'
@@ -14,29 +13,22 @@ import { addFav, removeFav } from '../../../context/slices/addFavs.js'
 const ProductCard = ({ product }) => {
   const navigate = useNavigate()
   const mainImg = product.imagenes.filter((img) => img.esPrincipal)
-  const [fav, setFav] = useState(false)
   const dispatch = useDispatch()
   const { favorites } = useSelector((state) => state.favorites)
 
-  
   const FavoritoEs = favorites.includes(product.id)
-
-
 
   const handleFav = () => {
     if (FavoritoEs) {
-      dispatch(removeFav(product.id))
+      dispatch(removeFav(product))
     } else {
-      dispatch(addFav(product.id))
+      dispatch(addFav(product))
     }
   }
-  console.log(favorites)
   
-
   const { loggedUser, isLoggedIn } = useSelector((state) => state.loginRegister)
-  console.log(loggedUser.autosFavoritos)
+  console.log("favoritos:" + favorites)
   
-
   return (
     <div className='relative'>
       <div className='product-card-container' onClick={() => navigate(`/producto/${product.id}`)}>

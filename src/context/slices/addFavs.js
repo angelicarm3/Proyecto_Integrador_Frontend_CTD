@@ -5,20 +5,24 @@ export const addFavsSlice = createSlice({
     name: 'addFavs',
     initialState: {
         isFav: false,
-        favorites: [] // acá podría traer desde LoggedUser los favs registrados
+        favorites: [], // acá podría traer desde LoggedUser los favs registrados
+        favProducts: []
     },
     reducers: {
         addFav: (state, action) => {
-            if (!state.favorites.includes(action.payload))
+            if (!state.favorites.includes(action.payload.id))
             {
-                state.favorites = [...state.favorites, action.payload]
-                console.log(state.favorites)
+                state.favorites = [...state.favorites, action.payload.id]
+                state.favProducts = [...state.favProducts, action.payload]
+                console.log("favProducts añadido:" + state.favProducts)
             }
         },
         removeFav: (state, action) => {
-            if (state.favorites.includes(action.payload))
+            if (state.favorites.includes(action.payload.id))
                 {
-                    state.favorites = state.favorites.filter((filtered) => filtered !== action.payload)
+                    state.favorites = state.favorites.filter((filtered) => filtered !== action.payload.id)
+                    state.favProducts = state.favProducts.filter((filtered) => filtered.id !== action.payload.id)
+                    console.log("favProduc Borrado" + state.favProducts)
                 }
         }
     }

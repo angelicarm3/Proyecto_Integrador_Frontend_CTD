@@ -21,6 +21,7 @@ import AdminCreateEditCategory from './components/Pages/AdminCreateEditCategory/
 import ImagesPopUp from './components/Templates/ImagesPopUp/ImagesPopUp.jsx'
 import RentNowPopUp from './components/Templates/RentNowPopUp/RentNowPopUp.jsx'
 import RegistrationConfirmModal from './components/Organisms/RegistrationConfirmModal/RegistrationConfirmModal.jsx'
+import Favorites from './components/Pages/Favorites/Favorites.jsx'
 
 function App () {
   const location = useLocation()
@@ -52,6 +53,7 @@ function App () {
         <Route element={<LayoutWithNavbarAndFooter />}>
           <Route path='/' element={<Home />} />
           <Route path='producto/:id' element={<ProductDetail />} />
+          <Route path='favoritos' element={<Favorites />} />
           <Route path='inicio-sesion' element={<RequireNoAuth><LoginRegister /></RequireNoAuth>} />
           <Route path='registro' element={<RequireNoAuth><LoginRegister /></RequireNoAuth>} />
           <Route path='*' element={<h1>404 Page Not Found</h1>} />
