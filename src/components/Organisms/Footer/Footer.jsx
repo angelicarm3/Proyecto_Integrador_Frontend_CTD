@@ -15,8 +15,13 @@ const Footer = () => {
           </Link>
         </div>
 
-        <div className='footer-copyright'>
-          <p>&copy; {new Date().getFullYear()} Royal Ride. Todos los derechos reservados.</p>
+        <div className='footer-policies'>
+          <Link to='/politicas-uso' className='footer-policy-button'>
+            Políticas de Uso
+          </Link>
+          <div className='footer-copyright'>
+            <p>&copy; {new Date().getFullYear()} Royal Ride. Todos los derechos reservados.</p>
+          </div>
         </div>
 
         <div className='footer-social'>
@@ -30,6 +35,7 @@ const Footer = () => {
             <FaLinkedin />
           </Link>
         </div>
+
       </div>
     </footer>
   )
