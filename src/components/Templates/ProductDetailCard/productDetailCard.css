@@ -6,6 +6,12 @@
   .product-detail-card-container {
     @apply lg:w-[940px] flex flex-col text-gray4 pb-8
   }
+  .features-container {
+    @apply w-full flex justify-between items-center
+  }
+  .action-btn {
+    @apply text-yellow1 text-2xl cursor-pointer hover:text-gray3
+  }
   .product-detail-info-container {
     @apply w-full flex flex-col md:flex-row justify-between gap-4
   }

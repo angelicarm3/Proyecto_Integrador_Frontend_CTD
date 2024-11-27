@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+
 import './PoliciesPage.css'
 import isoGold from '../../../assets/brand/isoGold.png'
 
@@ -55,6 +57,10 @@ const policies = [
 ]
 
 const PoliciesPage = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   return (
     <div className='main-page mt-[68px]'>
       <div className='main-section flex flex-col text-white gap-4'>
