@@ -1,16 +1,16 @@
 import { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
-import '../AdminProducts/AdminProducts.css'
 import { fetchAllCategoriesThunk, resetStatus } from '../../../context/slices/adminCategorySlice'
 import { changePage, filterData } from '../../../context/slices/paginatorSlice'
-import BackBtn from '../../Atoms/BackBtn/BackBtn'
 import AddBtn from '../../Atoms/AddBtn/AddBtn'
+import BackBtn from '../../Atoms/BackBtn/BackBtn'
 import Dropdown from '../../Atoms/DropDown/DropDown'
-import AdminTable from '../../Organisms/AdminTable/AdminTable'
 import CategoriesRow from '../../Molecules/CategoriesRow/CategoriesRow'
-import Paginator from '../../Molecules/Paginator/Paginator'
 import LoaderComponent from '../../Molecules/Loader/LoaderComponent'
+import Paginator from '../../Molecules/Paginator/Paginator'
+import AdminTable from '../../Organisms/AdminTable/AdminTable'
+import '../AdminProducts/AdminProducts.css'
 
 const AdminCategories = () => {
   const dispatch = useDispatch()

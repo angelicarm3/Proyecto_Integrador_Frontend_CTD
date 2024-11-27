@@ -1,9 +1,10 @@
 import { FaSearch } from 'react-icons/fa'
 
-import './searchBtn.css'
 import { useDispatch } from 'react-redux'
 
-const SearchBtn = ({ onSearchClick, searchTerm, selectedDates }) => {
+import './searchBtn.css'
+
+const SearchBtn = ({ onSearchClick }) => {
   const dispatch = useDispatch()
   return (
     <button className='primary-btn search-btn' onClick={() => dispatch(onSearchClick())}>

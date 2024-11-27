@@ -1,5 +1,5 @@
-import { Tooltip as ReactTooltip } from 'react-tooltip'
 import { FaUserShield } from 'react-icons/fa'
+import { Tooltip as ReactTooltip } from 'react-tooltip'
 
 const ChangeAdminBtn = ({ user, onClickChangeAdmin }) => {
   return (

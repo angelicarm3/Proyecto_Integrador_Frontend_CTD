@@ -1,33 +1,33 @@
-import { Route, Routes, Outlet, useLocation } from 'react-router-dom'
+import { Outlet, Route, Routes, useLocation } from 'react-router-dom'
 
 import './App.css'
-import Header from './components/Organisms/Header/Header.jsx'
 import Footer from './components/Organisms/Footer/Footer.jsx'
+import Header from './components/Organisms/Header/Header.jsx'
 import Home from './components/Pages/Home/Home'
-import ProductDetail from './components/Pages/ProductDetail/ProductDetail.jsx'
 import LoginRegister from './components/Pages/LoginRegister/LoginRegister.jsx'
 import PoliciesPage from './components/Pages/PoliciesPage/PoliciesPage.jsx'
+import ProductDetail from './components/Pages/ProductDetail/ProductDetail.jsx'
 
-import RequireNoAuth from './context/helpers/RequireNoAuth.jsx'
-import RequireAdmin from './context/helpers/RequireAdmin.jsx'
+import AdminCategories from './components/Pages/AdminCategories/AdminCategories.jsx'
+import AdminCharacteristics from './components/Pages/AdminCharacteristics/AdminCharacteristics.jsx'
+import AdminCreateEditCategory from './components/Pages/AdminCreateEditCategory/AdminCreateEditCategory.jsx'
+import AdminCreateEditCharacteristic from './components/Pages/AdminCreateEditCharacteristic/AdminCreateEditCharacteristic'
+import AdminCreateEditProduct from './components/Pages/AdminCreateEditProduct/AdminCreateEditProduct.jsx'
 import AdminPanel from './components/Pages/AdminPanel/AdminPanel'
 import AdminProducts from './components/Pages/AdminProducts/AdminProducts'
-import AdminCreateEditProduct from './components/Pages/AdminCreateEditProduct/AdminCreateEditProduct.jsx'
 import AdminUsers from './components/Pages/AdminUsers/AdminUsers.jsx'
-import AdminCharacteristics from './components/Pages/AdminCharacteristics/AdminCharacteristics.jsx'
-import AdminCreateEditCharacteristic from './components/Pages/AdminCreateEditCharacteristic/AdminCreateEditCharacteristic'
-import AdminCategories from './components/Pages/AdminCategories/AdminCategories.jsx'
-import AdminCreateEditCategory from './components/Pages/AdminCreateEditCategory/AdminCreateEditCategory.jsx'
+import RequireAdmin from './context/helpers/RequireAdmin.jsx'
+import RequireNoAuth from './context/helpers/RequireNoAuth.jsx'
 
+import Favorites from './components/Pages/Favorites/Favorites.jsx'
 import ImagesPopUp from './components/Templates/ImagesPopUp/ImagesPopUp.jsx'
 import RentNowPopUp from './components/Templates/RentNowPopUp/RentNowPopUp.jsx'
-import RegistrationConfirmModal from './components/Organisms/RegistrationConfirmModal/RegistrationConfirmModal.jsx'
 
-function App() {
+function App () {
   const location = useLocation()
   const previousLocation = location.state?.previousLocation
 
-  function LayoutWithNavbarAndFooter() {
+  function LayoutWithNavbarAndFooter () {
     return (
       <div className='layout bg-gray2'>
         <Header />
@@ -37,7 +37,7 @@ function App() {
     )
   }
 
-  function AdmonLayoutWithNavbarAndFooter() {
+  function AdmonLayoutWithNavbarAndFooter () {
     return (
       <div className='layout'>
         <Header />
@@ -53,6 +53,7 @@ function App() {
         <Route element={<LayoutWithNavbarAndFooter />}>
           <Route path='/' element={<Home />} />
           <Route path='producto/:id' element={<ProductDetail />} />
+          <Route path='favoritos' element={<Favorites />} />
           <Route path='inicio-sesion' element={<RequireNoAuth><LoginRegister /></RequireNoAuth>} />
           <Route path='registro' element={<RequireNoAuth><LoginRegister /></RequireNoAuth>} />
           <Route path='*' element={<h1>404 Page Not Found</h1>} />
@@ -78,7 +79,6 @@ function App() {
         previousLocation && (
           <Routes>
             <Route path='producto/:id/galeria' element={<ImagesPopUp />} />
-            <Route path='registro-exitoso' element={<RegistrationConfirmModal />} />
             <Route path='rentar' element={<RentNowPopUp />} />
           </Routes>
         )

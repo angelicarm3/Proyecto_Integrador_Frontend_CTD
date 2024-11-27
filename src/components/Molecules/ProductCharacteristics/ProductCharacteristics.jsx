@@ -1,5 +1,5 @@
-import './productCharacteristics.css'
 import { pageLabels } from '../../../data/pageLabels'
+import './productCharacteristics.css'
 
 const ProductCharacteristics = ({ characteristics }) => {
   return (

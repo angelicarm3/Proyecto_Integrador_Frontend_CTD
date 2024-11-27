@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+
 import { pageLabels } from '../../../data/pageLabels'
 
 const SignUpBtn = () => {

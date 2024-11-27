@@ -1,14 +1,14 @@
 import { useState } from 'react'
 
-import { EmailShareButton, TwitterShareButton, WhatsappShareButton } from 'react-share'
-import { FaWhatsapp } from 'react-icons/fa'
 import { AiOutlineClose } from 'react-icons/ai'
+import { FaWhatsapp } from 'react-icons/fa'
+import { MdOutlineEmail } from 'react-icons/md'
 import { RiTwitterXLine } from 'react-icons/ri'
-import { MdOutlineEmail } from "react-icons/md"
+import { EmailShareButton, TwitterShareButton, WhatsappShareButton } from 'react-share'
 
-import './ShareProduct.css'
+import './ShareProductPopUp.css'
 
-const ShareProduct = ({ product, onClose }) => {
+const ShareProductPopUp = ({ product, onClose }) => {
   const [comment, setComment] = useState('')
 
   const img = product.imagenes[0].url
@@ -89,4 +89,4 @@ const ShareProduct = ({ product, onClose }) => {
   )
 }
 
-export default ShareProduct
+export default ShareProductPopUp

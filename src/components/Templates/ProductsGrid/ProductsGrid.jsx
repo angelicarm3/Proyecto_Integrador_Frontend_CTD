@@ -1,17 +1,19 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import './productsGrid.css'
 import isoGold from '../../../assets/brand/isoGold.svg'
-import { filterData, changePage } from '../../../context/slices/paginatorSlice'
-import ProductCard from '../../Organisms/ProductCard/ProductCard'
+import { changePage, filterData } from '../../../context/slices/paginatorSlice'
 import Paginator from '../../Molecules/Paginator/Paginator'
+import ProductCard from '../../Organisms/ProductCard/ProductCard'
+import RequireLoginPopup from '../RequireLoginPopup/RequireLoginPopup'
+import './productsGrid.css'
 
 const ProductsGrid = () => {
   const gridRef = useRef()
   const dispatch = useDispatch()
   const { items } = useSelector((state) => state.paginator)
   const { totalProducts, resultsQuantity, filteredProducts } = useSelector((state) => state.product)
+  const [showRequireLoginPopup, setShowRequireLoginPopup] = useState(false)
 
   useEffect(() => {
     dispatch(filterData(filteredProducts))
@@ -31,7 +33,7 @@ const ProductsGrid = () => {
         {
           items &&
              items.map((product, index) => (
-               <ProductCard key={index} product={product} />
+               <ProductCard key={index} product={product} setShowRequireLoginPopup={setShowRequireLoginPopup} />
              ))
         }
         {
@@ -44,6 +46,11 @@ const ProductsGrid = () => {
         }
       </div>
       <Paginator totalItems={totalProducts} resultsQuantity={resultsQuantity} onClick={onClick} />
+
+      {
+        showRequireLoginPopup &&
+          <RequireLoginPopup onClose={() => setShowRequireLoginPopup(false)} />
+      }
     </section>
   )
 }

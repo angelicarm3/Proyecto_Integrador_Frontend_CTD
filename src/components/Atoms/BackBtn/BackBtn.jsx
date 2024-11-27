@@ -1,8 +1,8 @@
-import { useLocation, useNavigate } from 'react-router-dom'
 import { AiOutlineArrowLeft } from 'react-icons/ai'
+import { useLocation, useNavigate } from 'react-router-dom'
 
-import './backBtn.css'
 import { pageLabels } from '../../../data/pageLabels'
+import './backBtn.css'
 
 const BackBtn = ({ navigateTo }) => {
   const navigate = useNavigate()

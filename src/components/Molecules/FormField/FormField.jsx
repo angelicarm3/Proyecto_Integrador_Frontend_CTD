@@ -1,9 +1,9 @@
-import { useDispatch, useSelector } from 'react-redux'
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
+import { useDispatch, useSelector } from 'react-redux'
 
-import './formField.css'
 import { setShowPassword } from '../../../context/slices/formSlice'
 import FormErrorMessage from '../../Atoms/FormErrorMessage/FormErrorMessage'
+import './formField.css'
 
 const FormField = ({ autoComplete, fieldWidth, label, id, type, value, inputClass, register, validation, onChange, error, promiseError, extraErrorMessage }) => {
   const dispatch = useDispatch()

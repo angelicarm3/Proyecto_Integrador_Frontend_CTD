@@ -1,5 +1,5 @@
-import { Tooltip as ReactTooltip } from 'react-tooltip'
 import { HiTrash } from 'react-icons/hi'
+import { Tooltip as ReactTooltip } from 'react-tooltip'
 
 const DeleteBtn = ({ onClickDelete }) => {
   return (

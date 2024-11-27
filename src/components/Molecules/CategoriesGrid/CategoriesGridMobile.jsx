@@ -1,9 +1,9 @@
 import Carousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
 
-import './categoriesGrid.css'
 import { responsive } from '../../../data/responsive'
 import CategoryBtn from '../../Atoms/CategoryBtn/CategoryBtn'
+import './categoriesGrid.css'
 
 const CategoriesGridMobile = ({ categories }) => {
   return (
