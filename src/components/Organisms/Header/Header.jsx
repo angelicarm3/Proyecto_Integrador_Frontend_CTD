@@ -36,8 +36,10 @@ function Header () {
   }, [userName, error, token, navigate, dispatch])
 
   useEffect(() => {
-    if (loggedUser) {
+    if (Object.keys(loggedUser).length > 0) {
       dispatch(initializeFavorites(loggedUser.autosFavoritos))
+    } else {
+      dispatch(initializeFavorites([]))
     }
   }, [loggedUser, dispatch])
 
@@ -76,6 +78,7 @@ function Header () {
                     isAdmin &&
                       <Link to='/administracion' className='logout-button bg-transparent text-yellow1'>Panel administración</Link>
                   }
+                  <Link to='/mis-favoritos' className='logout-button bg-transparent text-yellow1'>Mis favoritos</Link>
                   <button onClick={handleLogout} className='logout-button'>Cerrar sesión</button>
                 </div>
               )

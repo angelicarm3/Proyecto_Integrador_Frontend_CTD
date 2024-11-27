@@ -1,16 +1,18 @@
-import React from 'react'
 import { useSelector } from 'react-redux'
+
+import ProductCard from '../../Organisms/ProductCard/ProductCard'
 
 const Favorites = () => {
   const { favorites } = useSelector((state) => state.favorites)
   return (
-    <div className='size-10 w-[500px] h-[500px] bg-red-500 flex justify-center'>
-      <div>
+    <div className='main-page mt-[68px] py-8'>
+      <h1 className='title mt-3'>Mis Favoritos</h1>
+      <div className='w-full md:max-w-[592px] flex flex-wrap justify-center gap-4'>
         {
-
-        //   favorites.favProduct.map((product, index) => (
-        //     <ProductCard key={index} product={product} />
-        //   ))
+          favorites &&
+          favorites.map((product, index) => (
+            <ProductCard key={index} product={product} />
+          ))
         }
       </div>
     </div>
