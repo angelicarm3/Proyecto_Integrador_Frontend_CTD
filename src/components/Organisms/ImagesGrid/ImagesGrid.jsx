@@ -1,9 +1,9 @@
-import { Link, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link, useLocation } from 'react-router-dom'
 
-import './imagesGrid.css'
-import { pageLabels } from '../../../data/pageLabels'
 import { rearrangeImagesGrid } from '../../../context/slices/productSlice'
+import { pageLabels } from '../../../data/pageLabels'
+import './imagesGrid.css'
 
 const ImagesGrid = () => {
   const location = useLocation()

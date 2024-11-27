@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 
 import { setLoginOrRegister } from '../../../context/slices/loginRegisterSlice'
-import LoginRegisterGrid from '../../Templates/LoginRegisterGrid/LoginRegisterGrid'
 import LoaderComponent from '../../Molecules/Loader/LoaderComponent'
+import LoginRegisterGrid from '../../Templates/LoginRegisterGrid/LoginRegisterGrid'
 
 const LoginRegister = () => {
   const dispatch = useDispatch()

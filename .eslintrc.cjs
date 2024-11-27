@@ -20,5 +20,6 @@ module.exports = {
     ],
     'react/prop-types': 'off',
     'react-hooks/exhaustive-deps': 'off',
+    "no-unused-vars": ["warn", { "vars": "all", "args": "after-used", "ignoreRestSiblings": true }]
   },
 };

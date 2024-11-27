@@ -1,8 +1,8 @@
 import { useSelector } from 'react-redux'
 
-import './adminCreateEditProduct.css'
-import CreateEditProductForm from '../../Organisms/CreateEditProductForm/CreateEditProductForm'
 import LoaderComponent from '../../Molecules/Loader/LoaderComponent'
+import CreateEditProductForm from '../../Organisms/CreateEditProductForm/CreateEditProductForm'
+import './adminCreateEditProduct.css'
 
 const AdminCreateEditProduct = () => {
   const { loading } = useSelector((state) => state.form)

@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 
-import './recommendationsGrid.css'
 import RecommendationCard from '../../Organisms/RecommendationCard/RecommendationCard'
+import './recommendationsGrid.css'
 
 const RecommendationsGrid = () => {
   const recommendedProducts = useSelector((state) => state.product.recommendedProducts)

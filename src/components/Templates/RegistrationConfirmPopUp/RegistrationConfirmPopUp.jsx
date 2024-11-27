@@ -1,11 +1,11 @@
-import React from 'react'
-import './registrationConfirmModal.css'
-import isoWhite from '../../../assets/brand/isoWhite.svg'
 import { useDispatch, useSelector } from 'react-redux'
-import { sendConfirmationEmailThunk } from '../../../context/slices/loginRegisterSlice'
 import { useNavigate } from 'react-router-dom'
 
-function RegistrationConfirmModal ({ setIsOpen, newData }) {
+import isoWhite from '../../../assets/brand/isoWhite.svg'
+import { sendConfirmationEmailThunk } from '../../../context/slices/loginRegisterSlice'
+import './registrationConfirmPopUp.css'
+
+function RegistrationConfirmPopUp ({ setIsOpen }) {
   const { userData } = useSelector((state) => state.form)
   const { emailConfig } = useSelector((state) => state.loginRegister)
   const dispatch = useDispatch()
@@ -47,4 +47,4 @@ function RegistrationConfirmModal ({ setIsOpen, newData }) {
   )
 }
 
-export default RegistrationConfirmModal
+export default RegistrationConfirmPopUp

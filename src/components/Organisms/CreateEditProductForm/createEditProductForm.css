@@ -4,10 +4,10 @@
 
 @layer components {
   .create-product-form-container {
-    @apply w-[630px] flex flex-col justify-center items-center bg-gray1 rounded-lg relative p-10
+    @apply w-[630px] flex flex-col justify-center items-center bg-gray1 rounded-lg relative p-10 mt-[68px]
   }
   .back-form-btn {
-    @apply w-fit flex flex-col justify-center rounded-3xl bg-black1 absolute top-10 left-10 px-3
+    @apply w-fit flex flex-col justify-center rounded-3xl bg-black1 px-3 h-10 absolute left-10 top-10 font-Roboto font-bold hover:opacity-50
   }
   .form-title {
     @apply text-black1 mb-6
@@ -16,10 +16,10 @@
     @apply w-full flex flex-wrap justify-center gap-x-10
   }
   .images-btn {
-    @apply w-[100px] h-[100px] flex flex-col justify-center items-center hover:border-gray1
+    @apply w-[100px] min-h-[100px] flex flex-col justify-center items-center hover:border-gray1
   }
   .description-input {
-    @apply h-[100px] pt-2
+    @apply min-h-[100px] pt-2
   }
   .input-counter {
     @apply text-xs font-Urbanist self-end

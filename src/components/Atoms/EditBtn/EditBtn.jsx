@@ -1,6 +1,6 @@
-import { Tooltip as ReactTooltip } from 'react-tooltip'
-import { Link } from 'react-router-dom'
 import { FaEdit } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
+import { Tooltip as ReactTooltip } from 'react-tooltip'
 
 const EditBtn = ({ navigateTo }) => {
   return (

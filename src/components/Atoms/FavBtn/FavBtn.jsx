@@ -1,10 +1,50 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
 
-const FavBtn = () => {
+import { MdFavoriteBorder, MdOutlineFavorite } from 'react-icons/md'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { useLocation } from 'react-router-dom'
+import { addFavoriteThunk, removeFavoriteThunk } from '../../../context/slices/favoritesSlice'
+
+const FavBtn = ({ product, setShowRequireLoginPopup }) => {
+  const dispatch = useDispatch()
+  const location = useLocation()
+  const token = localStorage.getItem('token')
+  const { favorites } = useSelector((state) => state.favorites)
+  const { loggedUser } = useSelector((state) => state.loginRegister)
+  const [isFavorite, setIsFavorite] = useState(false)
+
+  useEffect(() => {
+    if (favorites) {
+      const favorite = favorites.some((fav) => fav.id === product.id)
+      setIsFavorite(favorite)
+    }
+  }, [favorites, product.id])
+
+  const handleToggleFavorite = () => {
+    if (token) {
+      setIsFavorite(!isFavorite)
+      if (isFavorite) {
+        dispatch(removeFavoriteThunk({ userId: loggedUser.id, productId: product.id, token }))
+      } else {
+        dispatch(addFavoriteThunk({ userId: loggedUser.id, productId: product.id, token }))
+      }
+    } else {
+      setShowRequireLoginPopup(true)
+    }
+  }
+
   return (
-    <svg  xmlns="http://www.w3.org/2000/svg" fill="gold" viewBox="0 0 24 24" className="h-10 w-10">
-          <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-    </svg>
+    <button
+      onClick={handleToggleFavorite}
+      className={`text-3xl text-yellow1 cursor-pointer hover:text-gray3 ${location.pathname.includes('/producto/') ? '' : 'absolute top-[230px] right-0'}`}
+    >
+      {
+        isFavorite
+          ? <MdOutlineFavorite />
+          : <MdFavoriteBorder />
+      }
+    </button>
   )
 }
 

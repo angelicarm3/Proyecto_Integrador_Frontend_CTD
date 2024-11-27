@@ -1,26 +1,26 @@
 import { useEffect, useState } from 'react'
 
-import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
-import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { AiOutlineClose, AiOutlineFileImage } from 'react-icons/ai'
+import { useDispatch, useSelector } from 'react-redux'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
-import './createEditProductForm.css'
+import { fetchAllCharacteristicsThunk } from '../../../context/slices/adminCharacteristicSlice'
+import { fetchAllCategoriesThunk } from '../../../context/slices/categorySlice'
+import { clearError, resetForm, submitFormThunk, updateField, updateHasSubmited, updateImgSuccess, uploadImagesThunk } from '../../../context/slices/formSlice'
+import { fetchProductByIdThunk } from '../../../context/slices/productSlice'
 import { pageLabels } from '../../../data/pageLabels'
 import useImageUpload from '../../../hooks/useImageUpload'
 import { createProductFormFields } from '../../../service/formInputsService'
-import { fetchProductByIdThunk } from '../../../context/slices/productSlice'
-import { fetchAllCategoriesThunk } from '../../../context/slices/categorySlice'
-import { fetchAllCharacteristicsThunk } from '../../../context/slices/adminCharacteristicSlice'
-import { submitFormThunk, uploadImagesThunk, updateField, clearError, resetForm, updateHasSubmited, updateImgSuccess } from '../../../context/slices/formSlice'
 import BackBtn from '../../Atoms/BackBtn/BackBtn'
-import FormField from '../../Molecules/FormField/FormField'
 import CancelBtn from '../../Atoms/CancelBtn/CancelBtn'
-import SaveBtn from '../../Atoms/SaveBtn/SaveBtn'
 import FormErrorMessage from '../../Atoms/FormErrorMessage/FormErrorMessage'
+import SaveBtn from '../../Atoms/SaveBtn/SaveBtn'
 import ButtonField from '../../Molecules/ButtonField/ButtonField'
+import FormField from '../../Molecules/FormField/FormField'
+import './createEditProductForm.css'
 
 const CreateEditProductForm = () => {
   const { id } = useParams()
@@ -160,7 +160,7 @@ const CreateEditProductForm = () => {
 
   return (
     <form className='create-product-form-container' onSubmit={handleSubmit(onSubmit)}>
-      <div className='primary-btn back-form-btn'>
+      <div className='back-form-btn'>
         <BackBtn />
       </div>
       <p className='title form-title'>{pageLabels.createProduct.title}</p>

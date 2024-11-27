@@ -4,14 +4,13 @@ import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
+import { resetForm, submitFormThunk, updateField } from '../../../context/slices/formSlice'
+import { fetchUserByUserNameThunk } from '../../../context/slices/loginRegisterSlice'
 import { pageLabels } from '../../../data/pageLabels'
 import { loginFormFields } from '../../../service/formInputsService'
-import { fetchUserByUserNameThunk } from '../../../context/slices/loginRegisterSlice'
-import { setIsRememberMe, submitFormThunk, updateField, resetForm } from '../../../context/slices/formSlice'
 
-import FormField from '../../Molecules/FormField/FormField'
-import CheckboxButton from '../../Atoms/CheckboxButton/CheckboxButton'
 import LogInRegisterFormBtn from '../../Atoms/LogInRegisterFormBtn/LogInRegisterFormBtn'
+import FormField from '../../Molecules/FormField/FormField'
 // import CheckboxButton from './CheckboxButton'
 
 const LoginForm = () => {

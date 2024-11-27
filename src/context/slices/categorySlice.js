@@ -60,7 +60,7 @@ export const categorySlice = createSlice({
   },
 
   reducers: {
-    reset(state) {
+    reset (state) {
       state.success = false
     }
   },

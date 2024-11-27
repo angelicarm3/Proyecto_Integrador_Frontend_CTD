@@ -36,4 +36,4 @@ const signupFormFields = [
   { id: 'confirmPassword', type: 'password', label: pageLabels.loginRegister.confirmPassword }
 ]
 
-export { createProductFormFields, createCharacteristicFormFields, createCategoryFormFields, loginFormFields, signupFormFields }
+export { createCategoryFormFields, createCharacteristicFormFields, createProductFormFields, loginFormFields, signupFormFields }

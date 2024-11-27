@@ -1,7 +1,5 @@
-import { useSelector } from 'react-redux'
-
-import './rentNowForm.css'
 import { useForm } from 'react-hook-form'
+import { useSelector } from 'react-redux'
 
 const RentNowForm = () => {
   const selectedProduct = useSelector((state) => state.product.selectedProduct)

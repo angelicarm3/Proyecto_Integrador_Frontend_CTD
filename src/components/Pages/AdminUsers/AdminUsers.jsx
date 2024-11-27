@@ -2,15 +2,15 @@ import { useEffect } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 
-import '../AdminProducts/AdminProducts.css'
-import { fetchAllUsersAdminThunk, resetStatus } from '../.././../context/slices/adminUserSlice'
 import { changePage, filterData } from '../../../context/slices/paginatorSlice'
-import LoaderComponent from '../../Molecules/Loader/LoaderComponent'
+import { fetchAllUsersAdminThunk, resetStatus } from '../.././../context/slices/adminUserSlice'
 import BackBtn from '../../Atoms/BackBtn/BackBtn'
 import Dropdown from '../../Atoms/DropDown/DropDown'
-import AdminTable from '../../Organisms/AdminTable/AdminTable'
+import LoaderComponent from '../../Molecules/Loader/LoaderComponent'
 import Paginator from '../../Molecules/Paginator/Paginator'
 import UserRow from '../../Molecules/UserRow/UserRow'
+import AdminTable from '../../Organisms/AdminTable/AdminTable'
+import '../AdminProducts/AdminProducts.css'
 
 const AdminUsers = () => {
   const dispatch = useDispatch()

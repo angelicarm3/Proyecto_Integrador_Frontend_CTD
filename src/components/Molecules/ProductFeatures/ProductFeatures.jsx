@@ -1,7 +1,7 @@
 import { PiEngine, PiSpeedometer, PiTimer } from 'react-icons/pi'
 
-import './productFeatures.css'
 import { pageLabels } from '../../../data/pageLabels'
+import './productFeatures.css'
 
 const ProductFeatures = ({ product, type }) => {
   return (

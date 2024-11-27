@@ -1,7 +1,6 @@
-// formSlice.js
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import handleFileUpload from '../../service/fileUploadService'
 import axios from 'axios'
+import handleFileUpload from '../../service/fileUploadService'
 
 export const uploadImagesThunk = createAsyncThunk(
   'form/uploadImages',

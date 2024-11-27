@@ -1,23 +1,23 @@
 import { useEffect } from 'react'
 
-import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
-import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { AiOutlineFileImage } from 'react-icons/ai'
+import { useDispatch, useSelector } from 'react-redux'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
-import '../CreateEditProductForm/createEditProductForm.css'
+import { fetchCategoryByIdThunk } from '../../../context/slices/adminCategorySlice'
+import { resetForm, submitFormThunk, updateField, updateHasSubmited, updateImgSuccess, uploadImagesThunk } from '../../../context/slices/formSlice'
 import { pageLabels } from '../../../data/pageLabels'
 import useImageUpload from '../../../hooks/useImageUpload'
 import { createCategoryFormFields } from '../../../service/formInputsService'
-import { fetchCategoryByIdThunk } from '../../../context/slices/adminCategorySlice'
-import { submitFormThunk, uploadImagesThunk, updateField, resetForm, updateHasSubmited, updateImgSuccess } from '../../../context/slices/formSlice'
 import BackBtn from '../../Atoms/BackBtn/BackBtn'
-import FormField from '../../Molecules/FormField/FormField'
 import CancelBtn from '../../Atoms/CancelBtn/CancelBtn'
-import SaveBtn from '../../Atoms/SaveBtn/SaveBtn'
 import FormErrorMessage from '../../Atoms/FormErrorMessage/FormErrorMessage'
+import SaveBtn from '../../Atoms/SaveBtn/SaveBtn'
+import FormField from '../../Molecules/FormField/FormField'
+import '../CreateEditProductForm/createEditProductForm.css'
 
 const CreateEditCategoryForm = () => {
   const { id } = useParams()
@@ -26,7 +26,7 @@ const CreateEditCategoryForm = () => {
   const navigate = useNavigate()
   const token = localStorage.getItem('token')
 
-  const { categoryData, error, success, imgSuccess } = useSelector((state) => state.form)
+  const { categoryData, error, imgSuccess } = useSelector((state) => state.form)
   const { selectedCategory } = useSelector((state) => state.adminCategory)
 
   const maxDescriptionCharacters = 200
@@ -140,7 +140,7 @@ const CreateEditCategoryForm = () => {
 
   return (
     <form className='create-product-form-container' onSubmit={handleSubmit(onSubmit)}>
-      <div className='primary-btn back-form-btn'>
+      <div className='back-form-btn'>
         <BackBtn />
       </div>
       <p className='title form-title'>{pageLabels.createCategory.title}</p>

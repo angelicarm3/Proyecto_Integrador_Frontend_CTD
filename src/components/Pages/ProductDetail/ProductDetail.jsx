@@ -1,11 +1,11 @@
 import { useEffect } from 'react'
 
-import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
 
-import './productDetail.css'
 import { arrangeImagesGrid, fetchAllProductsThunk, fetchProductByIdThunk } from '../../../context/slices/productSlice'
 import ProductDetailCard from '../../Templates/ProductDetailCard/ProductDetailCard'
+import './productDetail.css'
 
 const ProductDetail = () => {
   const { id } = useParams()

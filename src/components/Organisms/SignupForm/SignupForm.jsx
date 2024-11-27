@@ -2,18 +2,16 @@ import { useEffect, useState } from 'react'
 
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
-import { useLocation, useNavigate } from 'react-router-dom'
 
+import { clearError, resetForm, submitFormThunk, updateField } from '../../../context/slices/formSlice'
+import { changeFormNumber, sendConfirmationEmailThunk } from '../../../context/slices/loginRegisterSlice'
 import { pageLabels } from '../../../data/pageLabels'
 import { signupFormFields } from '../../../service/formInputsService'
-import { submitFormThunk, updateField, resetForm, clearError } from '../../../context/slices/formSlice'
-import { changeFormNumber, sendConfirmationEmailThunk } from '../../../context/slices/loginRegisterSlice'
 
-import FormField from '../../Molecules/FormField/FormField'
-import LogInRegisterFormBtn from '../../Atoms/LogInRegisterFormBtn/LogInRegisterFormBtn'
 import { AiOutlineArrowLeft } from 'react-icons/ai'
-import RegistrationConfirmModal from '../RegistrationConfirmModal/RegistrationConfirmModal'
-// import CheckboxButton from './CheckboxButton'
+import LogInRegisterFormBtn from '../../Atoms/LogInRegisterFormBtn/LogInRegisterFormBtn'
+import FormField from '../../Molecules/FormField/FormField'
+import RegistrationConfirmPopUp from '../../Templates/RegistrationConfirmPopUp/RegistrationConfirmPopUp'
 
 const SignupForm = () => {
   const dispatch = useDispatch()
@@ -153,7 +151,7 @@ const SignupForm = () => {
       }
       {
         success &&
-          <RegistrationConfirmModal setIsOpen={setIsOpen} />
+          <RegistrationConfirmPopUp setIsOpen={setIsOpen} />
       }
     </form>
   )

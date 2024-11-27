@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom'
 
-import './recommendationCard.css'
 import { pageLabels } from '../../../data/pageLabels'
 import RentNowBtn from '../../Atoms/RentNowBtn/RentNowBtn'
 import ProductFeatures from '../../Molecules/ProductFeatures/ProductFeatures'
+import './recommendationCard.css'
 
 const RecommendationCard = ({ product }) => {
   const navigate = useNavigate()

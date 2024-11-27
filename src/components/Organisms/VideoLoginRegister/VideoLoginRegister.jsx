@@ -1,5 +1,5 @@
-import './videoLoginRegister.css'
 import banner from '../../../assets/videos/banner.mp4'
+import './videoLoginRegister.css'
 
 const VideoLoginRegister = () => {
   return (

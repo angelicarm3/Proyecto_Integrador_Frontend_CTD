@@ -56,6 +56,7 @@ import FordMustangGTCabrio3 from './products/FordMustangGTCabrio3.jpg'
 import FordMustangGTCabrio4 from './products/FordMustangGTCabrio4.jpg'
 import FordMustangGTCabrio5 from './products/FordMustangGTCabrio5.jpg'
 import LamborghiniHuracanEvoSpyder1 from './products/LamborghiniHuracanEvoSpyder1.png'
+import LamborghiniHuracanEvoSpyder10 from './products/LamborghiniHuracanEvoSpyder10.jpg'
 import LamborghiniHuracanEvoSpyder2 from './products/LamborghiniHuracanEvoSpyder2.png'
 import LamborghiniHuracanEvoSpyder3 from './products/LamborghiniHuracanEvoSpyder3.png'
 import LamborghiniHuracanEvoSpyder4 from './products/LamborghiniHuracanEvoSpyder4.png'
@@ -64,7 +65,6 @@ import LamborghiniHuracanEvoSpyder6 from './products/LamborghiniHuracanEvoSpyder
 import LamborghiniHuracanEvoSpyder7 from './products/LamborghiniHuracanEvoSpyder7.png'
 import LamborghiniHuracanEvoSpyder8 from './products/LamborghiniHuracanEvoSpyder8.png'
 import LamborghiniHuracanEvoSpyder9 from './products/LamborghiniHuracanEvoSpyder9.png'
-import LamborghiniHuracanEvoSpyder10 from './products/LamborghiniHuracanEvoSpyder10.jpg'
 import LamborghiniHuracanTecnica1 from './products/LamborghiniHuracanTecnica1.png'
 import LamborghiniHuracanTecnica2 from './products/LamborghiniHuracanTecnica2.png'
 import LamborghiniHuracanTecnica3 from './products/LamborghiniHuracanTecnica3.png'
@@ -124,12 +124,7 @@ export {
   AudiRS6Avant2,
   AudiRS6Avant3,
   AudiRS6Avant4,
-  AudiRS6Avant5,
-  BentleyContinentalGTC1,
-  BentleyContinentalGTC2,
-  BentleyContinentalGTC3,
-  BentleyContinentalGTC4,
-  BMWM4Cabrio1,
+  AudiRS6Avant5, BMWM4Cabrio1,
   BMWM4Cabrio2,
   BMWM4Cabrio3,
   BMWM4Cabrio4,
@@ -141,8 +136,10 @@ export {
   BMWX740d5,
   BMWX740d6,
   BMWX740d7,
-  BMWX740d8,
-  Ferrari296GTB1,
+  BMWX740d8, BentleyContinentalGTC1,
+  BentleyContinentalGTC2,
+  BentleyContinentalGTC3,
+  BentleyContinentalGTC4, Ferrari296GTB1,
   Ferrari296GTB2,
   Ferrari296GTB3,
   Ferrari296GTB4,
@@ -172,17 +169,14 @@ export {
   FordMustangGTCabrio3,
   FordMustangGTCabrio4,
   FordMustangGTCabrio5,
-  LamborghiniHuracanEvoSpyder1,
-  LamborghiniHuracanEvoSpyder2,
+  LamborghiniHuracanEvoSpyder1, LamborghiniHuracanEvoSpyder10, LamborghiniHuracanEvoSpyder2,
   LamborghiniHuracanEvoSpyder3,
   LamborghiniHuracanEvoSpyder4,
   LamborghiniHuracanEvoSpyder5,
   LamborghiniHuracanEvoSpyder6,
   LamborghiniHuracanEvoSpyder7,
   LamborghiniHuracanEvoSpyder8,
-  LamborghiniHuracanEvoSpyder9,
-  LamborghiniHuracanEvoSpyder10,
-  LamborghiniHuracanTecnica1,
+  LamborghiniHuracanEvoSpyder9, LamborghiniHuracanTecnica1,
   LamborghiniHuracanTecnica2,
   LamborghiniHuracanTecnica3,
   LamborghiniHuracanTecnica4,
@@ -231,3 +225,4 @@ export {
   RangeRoverSportDynamicSEMHEV3,
   RangeRoverSportDynamicSEMHEV4
 }
+

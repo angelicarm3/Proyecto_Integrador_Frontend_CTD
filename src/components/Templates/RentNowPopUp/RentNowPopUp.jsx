@@ -1,7 +1,6 @@
-import { useNavigate } from 'react-router-dom'
 import { AiOutlineClose } from 'react-icons/ai'
+import { useNavigate } from 'react-router-dom'
 
-import './rentNowPopUp.css'
 import RentNowForm from '../../Organisms/RentNowForm/RentNowForm'
 
 const RentNowPopUp = () => {

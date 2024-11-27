@@ -1,5 +1,5 @@
-import { Tooltip as ReactTooltip } from 'react-tooltip'
 import { BiSolidDetail } from 'react-icons/bi'
+import { Tooltip as ReactTooltip } from 'react-tooltip'
 
 const DetailBtn = ({ onClickDetail }) => {
   return (
