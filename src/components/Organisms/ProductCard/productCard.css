@@ -4,7 +4,7 @@
 
 @layer components {
   .product-card-container {
-    @apply w-[280px] h-[435px] flex flex-col justify-between hover:opacity-50 rounded-xl cursor-pointer pb-4 gap-3
+    @apply w-[280px] h-[465px] flex flex-col justify-between hover:opacity-50 rounded-xl cursor-pointer pb-4 gap-3
   }
   .product-card-img {
     @apply h-[187px] rounded-t-xl object-cover

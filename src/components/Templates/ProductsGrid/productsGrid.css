@@ -10,3 +10,7 @@
     @apply flex flex-wrap justify-center rounded-2xl gap-8
   }
 }
+
+.review-card:last-child {
+  border: none;
+}

@@ -4,6 +4,7 @@ import { pageLabels } from '../../../data/pageLabels'
 import FavBtn from '../../Atoms/FavBtn/FavBtn.jsx'
 import RentNowBtn from '../../Atoms/RentNowBtn/RentNowBtn'
 import ProductFeatures from '../../Molecules/ProductFeatures/ProductFeatures'
+import ProductStars from '../../Molecules/ProductStars/ProductStars.jsx'
 import './productCard.css'
 
 const ProductCard = ({ product, setShowRequireLoginPopup }) => {
@@ -22,6 +23,8 @@ const ProductCard = ({ product, setShowRequireLoginPopup }) => {
               <span className='product-day-text'>{pageLabels.productCard.dia}</span>
             </p>
           </div>
+
+          <ProductStars product={product} />
         </div>
         <div className='product-info-container h-fit'>
           <ProductFeatures product={product} type='product' />
