@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.shareProduct-container {
+  @apply fixed inset-0 flex items-center justify-center bg-popUpBg1 z-10;
+}
+.shareProduct-modal-container {
+  @apply w-11/12 md:w-10/12 bg-gray2 rounded-lg pt-12 md:pt-6 p-6 relative mx-auto overflow-auto border border-gray1;
+}
+.shareProduct-close-btn {
+  @apply absolute top-4 md:top-5 right-6 text-white hover:text-gray3 z-20 text-xl font-bold cursor-pointer;
+}
+.shareProduct-section {
+  @apply flex flex-col md:flex-row sm:flex-col;
+}
+.shareProduct-image-container {
+  @apply flex w-full md:w-1/2 md:min-h-full;
+}
+.shareProduct-image {
+  @apply rounded-md object-cover h-full w-full mb-3 md:mb-0;
+}
+.shareProduct-data-container {
+  @apply flex flex-col w-full md:w-1/2 md:ml-8 gap-3;
+}
+.shareProduct-title {
+  @apply text-3xl text-yellow1;
+}
+.shareProduct-price {
+  @apply text-2xl text-white;
+}
+.shareProduct-span {
+  @apply text-sm text-white;
+}
+.shareProduct-characteristics-container {
+  @apply flex flex-col sm:flex-row  bg-white rounded-xl justify-center items-center;
+}
+.shareProduct-characteristics-div {
+  @apply flex justify-center items-center p-2 gap-3;
+}
+.shareProduct-icons {
+  @apply max-w-6 text-black1;
+}
+.shareProduct-p {
+  @apply text-sm text-black1;
+}
+.shareProduct-description {
+  @apply text-white text-sm;
+}
+.shareProduct-textarea {
+  @apply w-full mt-4 border rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 text-black;
+}
+.shareProduct-container-icons {
+  @apply flex justify-center items-center gap-4;
+}
+.shareProduct-share-span {
+  @apply text-lg text-yellow1;
+}
+.shareProduct-icon-btn {
+  @apply pl-2 pr-2 text-white;
+}
+.shareProduct-media-btn {
+  @apply text-3xl text-white hover:text-gray3;
+}

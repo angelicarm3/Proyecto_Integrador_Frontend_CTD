@@ -6,6 +6,7 @@ import Footer from './components/Organisms/Footer/Footer.jsx'
 import Home from './components/Pages/Home/Home'
 import ProductDetail from './components/Pages/ProductDetail/ProductDetail.jsx'
 import LoginRegister from './components/Pages/LoginRegister/LoginRegister.jsx'
+import PoliciesPage from './components/Pages/PoliciesPage/PoliciesPage.jsx'
 
 import RequireNoAuth from './context/helpers/RequireNoAuth.jsx'
 import RequireAdmin from './context/helpers/RequireAdmin.jsx'
@@ -23,11 +24,11 @@ import RentNowPopUp from './components/Templates/RentNowPopUp/RentNowPopUp.jsx'
 import RegistrationConfirmModal from './components/Organisms/RegistrationConfirmModal/RegistrationConfirmModal.jsx'
 import Favorites from './components/Pages/Favorites/Favorites.jsx'
 
-function App () {
+function App() {
   const location = useLocation()
   const previousLocation = location.state?.previousLocation
 
-  function LayoutWithNavbarAndFooter () {
+  function LayoutWithNavbarAndFooter() {
     return (
       <div className='layout bg-gray2'>
         <Header />
@@ -37,7 +38,7 @@ function App () {
     )
   }
 
-  function AdmonLayoutWithNavbarAndFooter () {
+  function AdmonLayoutWithNavbarAndFooter() {
     return (
       <div className='layout'>
         <Header />
@@ -57,6 +58,7 @@ function App () {
           <Route path='inicio-sesion' element={<RequireNoAuth><LoginRegister /></RequireNoAuth>} />
           <Route path='registro' element={<RequireNoAuth><LoginRegister /></RequireNoAuth>} />
           <Route path='*' element={<h1>404 Page Not Found</h1>} />
+          <Route path='politicas-uso' element={<PoliciesPage />} />
         </Route>
 
         <Route element={<AdmonLayoutWithNavbarAndFooter />}>

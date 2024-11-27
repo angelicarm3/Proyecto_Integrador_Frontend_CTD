@@ -1,0 +1,33 @@
+.intro {
+  @apply text-lg text-gray3 text-center;
+}
+
+.policy-columns {
+  @apply flex flex-wrap justify-center;
+}
+
+.policy-card {
+  @apply w-full md:w-5/12 p-4;
+}
+
+.policy-title {
+  @apply text-lg text-white;
+}
+
+.policy-description {
+  @apply text-gray3;
+}
+
+@media (max-width: 768px) {
+  .policy-card {
+    @apply p-3;
+  }
+
+  .policy-title {
+    @apply text-lg;
+  }
+
+  .policy-description {
+    @apply text-sm;
+  }
+}
