@@ -23,11 +23,11 @@ import ImagesPopUp from './components/Templates/ImagesPopUp/ImagesPopUp.jsx'
 import RentNowPopUp from './components/Templates/RentNowPopUp/RentNowPopUp.jsx'
 import RegistrationConfirmModal from './components/Organisms/RegistrationConfirmModal/RegistrationConfirmModal.jsx'
 
-function App () {
+function App() {
   const location = useLocation()
   const previousLocation = location.state?.previousLocation
 
-  function LayoutWithNavbarAndFooter () {
+  function LayoutWithNavbarAndFooter() {
     return (
       <div className='layout bg-gray2'>
         <Header />
@@ -37,7 +37,7 @@ function App () {
     )
   }
 
-  function AdmonLayoutWithNavbarAndFooter () {
+  function AdmonLayoutWithNavbarAndFooter() {
     return (
       <div className='layout'>
         <Header />
