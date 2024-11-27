@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { fetchAllProductsThunk } from './productSlice'
 import axios from 'axios'
+import { fetchAllProductsThunk } from './productSlice'
 
 export const fetchAllProductsAdminThunk = createAsyncThunk(
   'adminProducts/fetchAllProductsAdmin',

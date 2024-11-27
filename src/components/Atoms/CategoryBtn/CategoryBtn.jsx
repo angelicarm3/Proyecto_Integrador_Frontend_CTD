@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 
-import './categoryBtn.css'
 import { getProductsByCategory } from '../../../context/slices/productSlice'
+import './categoryBtn.css'
 
 const CategoryBtn = ({ category }) => {
   const dispatch = useDispatch()

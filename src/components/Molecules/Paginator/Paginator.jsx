@@ -1,11 +1,11 @@
+import { IconContext } from 'react-icons'
+import { FaAngleLeft, FaAngleRight } from 'react-icons/fa'
 import ReactPaginate from 'react-paginate'
 import { useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
-import { FaAngleLeft, FaAngleRight } from 'react-icons/fa'
-import { IconContext } from 'react-icons'
 
-import './paginator.css'
 import { pageLabels } from '../../../data/pageLabels'
+import './paginator.css'
 
 const Paginator = ({ totalItems, resultsQuantity, onClick }) => {
   const location = useLocation()

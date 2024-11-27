@@ -1,7 +1,7 @@
+import { useSelector } from 'react-redux'
+import FormErrorMessage from '../../Atoms/FormErrorMessage/FormErrorMessage'
 import '../FormField/formField.css'
 import './buttonField.css'
-import FormErrorMessage from '../../Atoms/FormErrorMessage/FormErrorMessage'
-import { useSelector } from 'react-redux'
 
 const ButtonField = ({ items, label, selectedItems, onChange, errorMessage }) => {
   const { hasSubmited } = useSelector((state) => state.form)

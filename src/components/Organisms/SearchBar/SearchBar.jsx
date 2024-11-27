@@ -1,14 +1,14 @@
 import { useEffect } from 'react'
 
-import { useDispatch, useSelector } from 'react-redux'
-import { AiOutlineClose } from 'react-icons/ai'
-import Datepicker from 'react-tailwindcss-datepicker'
 import { useForm } from 'react-hook-form'
+import { AiOutlineClose } from 'react-icons/ai'
+import { useDispatch, useSelector } from 'react-redux'
+import Datepicker from 'react-tailwindcss-datepicker'
 
-import './searchBar.css'
-import { setSearchTerm, setSuggestions, resetFilters, getProductsBySearchTerm, resetSearchBar, fetchProductsByTimeFrameThunk, resetDatePicker, setSelectedDates } from '../../../context/slices/productSlice'
+import { fetchProductsByTimeFrameThunk, getProductsBySearchTerm, resetDatePicker, resetFilters, resetSearchBar, setSearchTerm, setSelectedDates, setSuggestions } from '../../../context/slices/productSlice'
 import { pageLabels } from '../../../data/pageLabels'
 import SearchBtn from '../../Atoms/SearchBtn/SearchBtn'
+import './searchBar.css'
 
 const SearchBar = () => {
   const dispatch = useDispatch()

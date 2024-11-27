@@ -1,5 +1,5 @@
-import './banner.css'
 import bannerVideo from '../../../assets/videos/banner2.mp4'
+import './banner.css'
 
 const Banner = () => {
   return (

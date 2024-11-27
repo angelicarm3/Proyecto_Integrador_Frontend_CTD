@@ -1,5 +1,5 @@
-import './cancelBtn.css'
 import { pageLabels } from '../../../data/pageLabels'
+import './cancelBtn.css'
 
 const CancelBtn = ({ handleClick }) => {
   return (

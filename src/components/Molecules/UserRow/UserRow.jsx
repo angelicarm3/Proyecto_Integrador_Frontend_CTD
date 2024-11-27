@@ -2,10 +2,10 @@ import { useDispatch } from 'react-redux'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
-import { modifiedAdminRole, deleteUserThunk, setSelectedUser, resetStatus, fetchAllUsersAdminThunk } from '../../../context/slices/adminUserSlice'
+import { deleteUserThunk, fetchAllUsersAdminThunk, modifiedAdminRole, resetStatus, setSelectedUser } from '../../../context/slices/adminUserSlice'
 import ChangeAdminBtn from '../../Atoms/ChangeAdminBtn/ChangeAdminBtn'
-import DetailBtn from '../../Atoms/DetailBtn/DetailBtn'
 import DeleteBtn from '../../Atoms/DeleteBtn/DeleteBtn'
+import DetailBtn from '../../Atoms/DetailBtn/DetailBtn'
 
 const UserRow = ({ user }) => {
   const dispatch = useDispatch()

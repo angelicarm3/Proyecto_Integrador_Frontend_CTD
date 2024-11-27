@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux'
 
-import { pageLabels } from '../../../data/pageLabels'
-import { setLoginOrRegister, changeFormNumber } from '../../../context/slices/loginRegisterSlice'
 import { resetForm } from '../../../context/slices/formSlice'
+import { changeFormNumber, setLoginOrRegister } from '../../../context/slices/loginRegisterSlice'
+import { pageLabels } from '../../../data/pageLabels'
 
 const LoginRegisterSwitch = () => {
   const dispatch = useDispatch()

@@ -3,9 +3,9 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
 import { deleteCategoryThunk, fetchAllCategoriesThunk, resetStatus, setSelectedCategory } from '../../../context/slices/adminCategorySlice'
-import EditBtn from '../../Atoms/EditBtn/EditBtn'
-import DetailBtn from '../../Atoms/DetailBtn/DetailBtn'
 import DeleteBtn from '../../Atoms/DeleteBtn/DeleteBtn'
+import DetailBtn from '../../Atoms/DetailBtn/DetailBtn'
+import EditBtn from '../../Atoms/EditBtn/EditBtn'
 
 const CategoriesRow = ({ category }) => {
   const dispatch = useDispatch()

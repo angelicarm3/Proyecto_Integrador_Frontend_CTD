@@ -1,11 +1,11 @@
-import { useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
 import { AiOutlineClose } from 'react-icons/ai'
 import Carousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
-import './imagesPopUp.css'
 import { responsive } from '../../../data/responsive'
+import './imagesPopUp.css'
 
 const ImagesPopUp = () => {
   const navigate = useNavigate()

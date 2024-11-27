@@ -1,4 +1,3 @@
-import { useSelector } from 'react-redux'
 import './loaderComponent.css'
 
 import { AiOutlineLoading } from 'react-icons/ai'

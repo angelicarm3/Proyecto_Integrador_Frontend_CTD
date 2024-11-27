@@ -1,5 +1,5 @@
-import './categoriesGrid.css'
 import CategoryBtn from '../../Atoms/CategoryBtn/CategoryBtn'
+import './categoriesGrid.css'
 
 const CategoriesGrid = ({ categories }) => {
   return (

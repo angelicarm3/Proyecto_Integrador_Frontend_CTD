@@ -1,8 +1,8 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import './footer.css'
 import { FaFacebook, FaInstagram, FaLinkedin } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
+
 import isoWhite from '../../../assets/brand/isoWhite.png'
+import './footer.css'
 
 const Footer = () => {
   return (

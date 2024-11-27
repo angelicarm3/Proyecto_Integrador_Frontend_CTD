@@ -1,13 +1,13 @@
-import { Link } from 'react-router-dom'
 import { FaEdit } from 'react-icons/fa'
 import { useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
 import { deleteProductThunk, fetchAllProductsAdminThunk, resetStatus, setSelectedProduct } from '../../../context/slices/adminProductSlice'
-import EditBtn from '../../Atoms/EditBtn/EditBtn'
-import DetailBtn from '../../Atoms/DetailBtn/DetailBtn'
 import DeleteBtn from '../../Atoms/DeleteBtn/DeleteBtn'
+import DetailBtn from '../../Atoms/DetailBtn/DetailBtn'
+import EditBtn from '../../Atoms/EditBtn/EditBtn'
 
 const ProductRow = ({ product }) => {
   const dispatch = useDispatch()

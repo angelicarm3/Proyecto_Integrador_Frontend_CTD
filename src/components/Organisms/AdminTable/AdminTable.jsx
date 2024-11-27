@@ -1,5 +1,3 @@
-import React from 'react'
-
 const AdminTable = ({ headers, children }) => {
   return (
     <table className='w-full border border-gray-300 '>

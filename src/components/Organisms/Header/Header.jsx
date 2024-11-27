@@ -1,22 +1,23 @@
 import { useEffect, useState } from 'react'
 
-import { Link, useNavigate } from 'react-router-dom'
 import { AiOutlineMenu } from 'react-icons/ai'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
 
-import './header.css'
 import isoTipoGold from '../../../assets/brand/isoTipoGold.svg'
-import sloganGold from '../../../assets/brand/sloganGold.png'
 import logoGold from '../../../assets/brand/logoGold.png'
-import LogInBtn from '../../Atoms/LoginBtn/LoginBtn'
+import sloganGold from '../../../assets/brand/sloganGold.png'
 import { fetchUserByUserNameThunk, resetState } from '../../../context/slices/loginRegisterSlice'
+import LogInBtn from '../../Atoms/LoginBtn/LoginBtn'
 import SignUpBtn from '../../Atoms/SignUpBtn/SignUpBtn'
+import './header.css'
+import { initializeFavorites } from '../../../context/slices/favoritesSlice'
 
 function Header () {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [isOn, setIsOn] = useState(false)
-  const { isAdmin, isLoggedIn, loggedUser, error, userName } = useSelector((state) => state.loginRegister)
+  const { isAdmin, isLoggedIn, loggedUser, error, userName, userFavorites } = useSelector((state) => state.loginRegister)
   const token = localStorage.getItem('token')
 
   const toggleDropdown = () => {
@@ -33,6 +34,12 @@ function Header () {
       navigate('/inicio-sesion')
     }
   }, [userName, error, token, navigate, dispatch])
+
+  useEffect(() => {
+    if (loggedUser) {
+      dispatch(initializeFavorites(loggedUser.autosFavoritos))
+    }
+  }, [loggedUser, dispatch])
 
   const handleLogout = () => {
     dispatch(resetState())

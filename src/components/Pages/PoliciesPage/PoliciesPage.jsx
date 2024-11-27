@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 
-import './PoliciesPage.css'
 import isoGold from '../../../assets/brand/isoGold.png'
+import './PoliciesPage.css'
 
 const policies = [
   {

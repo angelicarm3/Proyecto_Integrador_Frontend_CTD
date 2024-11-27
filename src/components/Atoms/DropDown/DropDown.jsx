@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { changeItemsToShow, filterData, resetPagination } from '../../../context/slices/paginatorSlice'
 import { useDispatch, useSelector } from 'react-redux'
+import { changeItemsToShow, filterData, resetPagination } from '../../../context/slices/paginatorSlice'
 
 const Dropdown = ({ allItems }) => {
   const dispatch = useDispatch()

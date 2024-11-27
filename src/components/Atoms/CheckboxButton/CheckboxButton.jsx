@@ -1,8 +1,8 @@
-import { TbCheckbox } from 'react-icons/tb'
 import { MdOutlineCheckBoxOutlineBlank } from 'react-icons/md'
+import { TbCheckbox } from 'react-icons/tb'
 
-import './checkboxButton.css'
 import { useSelector } from 'react-redux'
+import './checkboxButton.css'
 
 const CheckboxButton = ({ navigateTo }) => {
   const { isRememberMe } = useSelector((state) => state.form)
