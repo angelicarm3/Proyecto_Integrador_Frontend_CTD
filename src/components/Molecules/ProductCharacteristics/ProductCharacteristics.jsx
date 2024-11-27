@@ -1,10 +1,13 @@
 import { pageLabels } from '../../../data/pageLabels'
 import './productCharacteristics.css'
 
-const ProductCharacteristics = ({ characteristics }) => {
+const ProductCharacteristics = ({ characteristics, type }) => {
   return (
     <div className='product-characteristics-container'>
-      <p className='product-characteristics-title'>{pageLabels.characteristics.title}</p>
+      {
+        type !== 'share' &&
+          <p className='product-characteristics-title'>{pageLabels.characteristics.title}</p>
+      }
       <div className='product-characteristics-grid'>
         {
         characteristics.map((characteristic, index) => (

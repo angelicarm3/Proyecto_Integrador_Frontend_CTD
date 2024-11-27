@@ -6,6 +6,7 @@ import { MdOutlineEmail } from 'react-icons/md'
 import { RiTwitterXLine } from 'react-icons/ri'
 import { EmailShareButton, TwitterShareButton, WhatsappShareButton } from 'react-share'
 
+import ProductCharacteristics from '../../Molecules/ProductCharacteristics/ProductCharacteristics'
 import './ShareProductPopUp.css'
 
 const ShareProductPopUp = ({ product, onClose }) => {
@@ -39,7 +40,8 @@ const ShareProductPopUp = ({ product, onClose }) => {
             <p className='shareProduct-price'>${product.precioDia}
               <span className='shareProduct-span'>/day</span>
             </p>
-            <div className='shareProduct-characteristics-container'>
+            <ProductCharacteristics characteristics={product.caracteristicas} type='share' />
+            {/* <div className='shareProduct-characteristics-container'>
               {
                 characteristics.map((characteristic) => (
                   <div className='shareProduct-characteristics-div' key={characteristic.id}>
@@ -53,7 +55,7 @@ const ShareProductPopUp = ({ product, onClose }) => {
                   </div>
                 ))
               }
-            </div>
+            </div> */}
             <p className='shareProduct-description'>{product.descripcion}</p>
             <textarea
               placeholder='Deja tu comentario'
