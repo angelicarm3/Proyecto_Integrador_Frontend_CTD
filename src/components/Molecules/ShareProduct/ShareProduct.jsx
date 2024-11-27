@@ -1,28 +1,30 @@
 import { useState } from 'react'
+
+import { EmailShareButton, TwitterShareButton, WhatsappShareButton } from 'react-share'
+import { FaWhatsapp } from 'react-icons/fa'
+import { AiOutlineClose } from 'react-icons/ai'
+import { RiTwitterXLine } from 'react-icons/ri'
+import { MdOutlineEmail } from "react-icons/md"
+
 import './ShareProduct.css'
-
-import { WhatsappShareButton } from 'react-share'
-
-import { IoLogoWhatsapp } from 'react-icons/io'
 
 const ShareProduct = ({ product, onClose }) => {
   const [comment, setComment] = useState('')
 
   const img = product.imagenes[0].url
   const shareUrl = window.location.href
-  const title = `${product.marca} ${product.modelo}`
-  const descriptionWithComment = `${comment ? comment + '\n\n' : ''}${product.descripcion}`
+  const title = '¡Descubre este auto en alquiler!'
+  const productTitle = `${product.marca} ${product.modelo}`
+  const descriptionWithComment = `${product.descripcion + '\n\n'}${comment || ''}`
 
   const characteristics = product.caracteristicas
   return (
     <div className='shareProduct-container'>
       <div className='shareProduct-modal-container'>
-        <button
+        <AiOutlineClose
           onClick={onClose}
           className='shareProduct-close-btn'
-        >
-          ✕
-        </button>
+        />
         <section className='shareProduct-section'>
           <div className='shareProduct-image-container'>
             <img
@@ -34,7 +36,7 @@ const ShareProduct = ({ product, onClose }) => {
 
           <div className='shareProduct-data-container'>
             <h2 className='shareProduct-title'>{product.marca} {product.modelo}</h2>
-            <p className='shareProduct-price'>{product.precioDia}
+            <p className='shareProduct-price'>${product.precioDia}
               <span className='shareProduct-span'>/day</span>
             </p>
             <div className='shareProduct-characteristics-container'>
@@ -44,11 +46,9 @@ const ShareProduct = ({ product, onClose }) => {
                     <img src={characteristic.icono} className='shareProduct-icons' />
 
                     <p className='shareProduct-p'>
-                      {characteristic.nombre.length > 18
-                        ? characteristic.nombre.slice(0, 18) + '...'
-                        : characteristic.nombre.length > 10
-                          ? characteristic.nombre.slice(0, 10) + '\n' + characteristic.nombre.slice(10)
-                          : characteristic.nombre}
+                      {characteristic.nombre.length > 20
+                        ? characteristic.nombre.slice(0, 20) + '...'
+                        : characteristic.nombre}
                     </p>
                   </div>
                 ))
@@ -57,7 +57,7 @@ const ShareProduct = ({ product, onClose }) => {
             <p className='shareProduct-description'>{product.descripcion}</p>
             <textarea
               placeholder='Deja tu comentario'
-              className='shareProduct-textarea'
+              className='input h-16 text-black1 pt-2'
               value={comment}
               onChange={(e) => setComment(e.target.value)}
             />
@@ -65,14 +65,24 @@ const ShareProduct = ({ product, onClose }) => {
               <span className='shareProduct-share-span'>Compartir</span>
               <WhatsappShareButton
                 className='shareProduct-icon-btn'
-                url={`${shareUrl}\n\n${title}\n\n${descriptionWithComment}\n\n Link de la imagen : ${img}`}
+                url={`${title}\n\n${productTitle}\n${descriptionWithComment}\n\nImagen: ${img}\n\n${shareUrl}`}
               >
-                <IoLogoWhatsapp className='shareProduct-media-btn' />
+                <FaWhatsapp className='shareProduct-media-btn' />
               </WhatsappShareButton>
-
+              <TwitterShareButton
+                className='shareProduct-icon-btn'
+                url={`${title}\n\n${productTitle}\n${descriptionWithComment}\nImagen: ${img}\n${shareUrl}`}
+              >
+                <RiTwitterXLine className='shareProduct-media-btn text-2xl' />
+              </TwitterShareButton>
+              <EmailShareButton
+                className='shareProduct-icon-btn'
+                url={`${title}\n\n${productTitle}\n${descriptionWithComment}\nImagen: ${img}\n${shareUrl}`}
+              >
+                <MdOutlineEmail className='shareProduct-media-btn' />
+              </EmailShareButton>
             </div>
           </div>
-
         </section>
       </div>
     </div>

@@ -6,35 +6,30 @@
   .product-detail-card-container {
     @apply lg:w-[940px] flex flex-col text-gray4 pb-8
   }
-
   .features-container {
-    @apply flex flex-row justify-end mt-4 text-yellow1 text-lg
+    @apply w-full flex justify-between items-center
   }
-
+  .action-btn {
+    @apply text-yellow1 text-2xl cursor-pointer hover:text-gray3
+  }
   .product-detail-info-container {
     @apply w-full flex flex-col md:flex-row justify-between gap-4
   }
-
   .product-detail-text-container {
     @apply md:w-full flex flex-col mx-3 md:ml-4 md:mr-0 gap-3
   }
-
   .product-detail-name {
     @apply w-full font-semibold text-3xl text-yellow1 text-left mb-4
   }
-
   .product-detail-daily-price {
     @apply w-full font-semibold text-gray3 text-3xl
   }
-
   .product-detail-day-text {
     @apply font-semibold text-gray3 text-base
   }
-
   .product-detail-day-description {
     @apply text-sm
   }
-
   .back {
     @apply self-end
   }
