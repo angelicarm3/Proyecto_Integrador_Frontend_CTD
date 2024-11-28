@@ -27,13 +27,14 @@ const loginFormFields = [
 const signupFormFields = [
   { id: 'nombre', type: 'text', label: pageLabels.loginRegister.firstName, validation: { pattern: { value: /^[a-zA-Z]+$/, message: `${pageLabels.loginRegister.invalidNameError}` } } },
   { id: 'apellido', type: 'text', label: pageLabels.loginRegister.lastName, validation: { pattern: { value: /^[a-zA-Z]+$/, message: `${pageLabels.loginRegister.invalidLastNameError}` } } },
-  { id: 'dni', type: 'text', label: pageLabels.loginRegister.dni, validation: { pattern: { value: /^\d{10}$/, message: `${pageLabels.loginRegister.invalidDniError}` } }, extraErrorMessage: `${pageLabels.loginRegister.existingDNIError}` },
+  { id: 'dni', type: 'text', label: pageLabels.loginRegister.dni, validation: { pattern: { value: /^\d{8,11}$/, message: `${pageLabels.loginRegister.invalidDniError}` } }, extraErrorMessage: `${pageLabels.loginRegister.existingDNIError}` },
   { id: 'edad', type: 'text', label: pageLabels.loginRegister.age, validation: { pattern: { value: /^(1[89]|[2-9]\d)$/, message: `${pageLabels.loginRegister.invalidOfAgeError}` } } },
   { id: 'telefono', type: 'text', label: pageLabels.loginRegister.phone, validation: { pattern: { value: /^\d{7,15}$/, message: `${pageLabels.loginRegister.invalidPhoneError}` } } },
   { id: 'nacionalidad', type: 'text', label: pageLabels.loginRegister.nacionality, validation: { pattern: { value: /^[a-zA-Z]+$/, message: `${pageLabels.loginRegister.invalidNationalityError}` } } },
   { id: 'email', type: 'text', label: pageLabels.loginRegister.email, validation: { pattern: { value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/, message: `${pageLabels.loginRegister.invalidEmailError}` } }, extraErrorMessage: `${pageLabels.loginRegister.existingEmailError}` },
-  { id: 'password', type: 'password', label: pageLabels.loginRegister.password, validation: { pattern: { value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@.#$*])[A-Za-z0-9@.#$*]{8,20}$/, message: `${pageLabels.loginRegister.passwordRequirementsError}`, minLength: { value: 8, message: `${pageLabels.loginRegister.shortPasswordError}` }, maxLength: { value: 20, message: `${pageLabels.loginRegister.longPasswordError}` } } } },
+  { id: 'password', type: 'password', label: pageLabels.loginRegister.password, validation: { pattern: { value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@.#$*_-])[A-Za-z0-9@.#$*_-]{8,20}$/, message: `${pageLabels.loginRegister.passwordRequirementsError}`, minLength: { value: 8, message: `${pageLabels.loginRegister.shortPasswordError}` }, maxLength: { value: 20, message: `${pageLabels.loginRegister.longPasswordError}` } } } },
   { id: 'confirmPassword', type: 'password', label: pageLabels.loginRegister.confirmPassword }
 ]
 
 export { createCategoryFormFields, createCharacteristicFormFields, createProductFormFields, loginFormFields, signupFormFields }
+

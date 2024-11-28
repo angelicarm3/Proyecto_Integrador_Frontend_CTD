@@ -35,6 +35,7 @@ const AdminCategories = () => {
 
   return (
     <div className='admin-products-container'>
+      <p className='title'>Administrar Categorías</p>
       <div>
         <section className='admin-products-section'>
           <div className='flex gap-3 h-full'>

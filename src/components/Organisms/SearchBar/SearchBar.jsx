@@ -77,7 +77,6 @@ const SearchBar = () => {
               value={searchTerm}
               placeholder={pageLabels.searchBar.input}
               onChange={handleInputChange}
-              onFocus={handleDeleteSearchBar}
             />
             <SearchBtn onSearchClick={getProductsBySearchTerm} />
           </div>

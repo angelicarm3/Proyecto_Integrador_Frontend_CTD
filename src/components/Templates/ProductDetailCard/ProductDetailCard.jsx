@@ -30,7 +30,7 @@ const ProductDetailCard = ({ onSuccess }) => {
   const [canComment, setCanComment] = useState([])
 
   useEffect(() => {
-    setReviews(selectedProduct.resenas)
+    setReviews([...selectedProduct.resenas].sort((a, b) => b.id - a.id))
 
     const hasBooked = bookins.some(
       (bookin) => bookin.usuario.id === loggedUser.id && bookin.auto.id === selectedProduct.id

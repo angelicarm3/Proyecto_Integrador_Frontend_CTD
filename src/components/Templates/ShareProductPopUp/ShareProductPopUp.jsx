@@ -13,12 +13,12 @@ const ShareProductPopUp = ({ product, onClose }) => {
   const [comment, setComment] = useState('')
 
   const img = product.imagenes[0].url
-  const shareUrl = window.location.href
+  const shareUrl = location.pathname.includes('/producto/') ? window.location.href : window.location.href + `producto/${product.id}`
   const title = '¡Descubre este auto en alquiler!'
   const productTitle = `${product.marca} ${product.modelo}`
   const descriptionWithComment = `${product.descripcion + '\n\n'}${comment || ''}`
+  console.log(shareUrl)
 
-  const characteristics = product.caracteristicas
   return (
     <div className='shareProduct-container'>
       <div className='shareProduct-modal-container'>
@@ -35,7 +35,7 @@ const ShareProductPopUp = ({ product, onClose }) => {
             />
           </div>
 
-          <div className='shareProduct-data-container'>
+          <div className='shareProduct-data-container text-white'>
             <h2 className='shareProduct-title'>{product.marca} {product.modelo}</h2>
             <p className='shareProduct-price'>${product.precioDia}
               <span className='shareProduct-span'>/day</span>
