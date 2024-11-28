@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 
 import { FaRegStar, FaStar } from 'react-icons/fa'
 import Rating from 'react-rating'
+import isoGold from '../../../assets/brand/isoGold.svg'
 import { pageLabels } from '../../../data/pageLabels'
 import BackBtn from '../../Atoms/BackBtn/BackBtn'
 import FavBtn from '../../Atoms/FavBtn/FavBtn'
@@ -96,11 +97,22 @@ const ProductDetailCard = ({ onSuccess }) => {
                   emptySymbol={<FaRegStar href='#icon-star-empty' className='text-gray3 text-xl' />}
                   fullSymbol={<FaStar href='#icon-star-full' className='text-yellow1 text-xl' />}
                 />
-                <p>{review.comentario}</p>
+                {
+                  review.comentario &&
+                    <p>{review.comentario}</p>
+                }
 
               </div>
             ))
-        }
+          }
+
+          {
+            reviews?.length === 0 &&
+              <div className='w-full h-[300px] flex flex-col justify-center items-center text-gray3 text-lg'>
+                <p>Este producto aún no tiene comentarios</p>
+                <img src={isoGold} alt='Logo de la marca' className='h-[150px] mt-6' />
+              </div>
+          }
         </div>
       </div>
 

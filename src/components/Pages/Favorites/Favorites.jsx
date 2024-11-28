@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux'
 
+import isoGold from '../../../assets/brand/isoGold.svg'
 import ProductCard from '../../Organisms/ProductCard/ProductCard'
 
 const Favorites = () => {
@@ -13,6 +14,14 @@ const Favorites = () => {
           favorites.map((product, index) => (
             <ProductCard key={index} product={product} />
           ))
+        }
+
+        {
+          favorites?.length === 0 &&
+            <div className='h-[300px] flex flex-col justify-center items-center text-gray3 text-lg'>
+              <p>Aún no tienes autos favoritos</p>
+              <img src={isoGold} alt='Logo de la marca' className='h-[150px] mt-6' />
+            </div>
         }
       </div>
     </div>
