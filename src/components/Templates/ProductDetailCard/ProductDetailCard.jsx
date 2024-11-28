@@ -74,7 +74,7 @@ const ProductDetailCard = ({ onSuccess }) => {
           <RentNowBtn />
         </div>
       </div>
-      <ProductAvailability />
+      <ProductAvailability product={selectedProduct} />
       <ReviewsGrid canComment={canComment} reviews={reviews} onReviewClick={() => setShowReviewPopUp(true)} />
 
       {

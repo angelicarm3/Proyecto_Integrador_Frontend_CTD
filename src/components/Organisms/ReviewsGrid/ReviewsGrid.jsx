@@ -5,7 +5,7 @@ import isoGold from '../../../assets/brand/isoGold.svg'
 
 const ReviewsGrid = ({ canComment, reviews, onReviewClick }) => {
   return (
-    <div className='w-full flex flex-col items-center gap-8 mt-8'>
+    <div className='w-full flex flex-col items-center gap-8 mt-4'>
       <div className='w-full flex flex-col md:flex-row justify-between items-center gap-4'>
         <p className='product-detail-name w-fit mb-0 text-xl text-white text-center'>Comentarios</p>
         {

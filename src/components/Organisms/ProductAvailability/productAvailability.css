@@ -3,33 +3,30 @@
 @tailwind utilities;
 
 @layer components {
-  .images-grid-container {
-    @apply min-w-[325px] lg:min-w-[504px] h-full flex flex-col lg:flex-row gap-3 px-2 md:px-0
-  }
-  .main-img {
-    @apply lg:w-[300px] h-[217px] lg:min-h-full rounded-2xl object-cover
-  }
-  .secondary-grid {
-    @apply lg:w-[192px] h-fit flex flex-wrap justify-between gap-3
-  }
-  .other-img {
-    @apply w-[100px] lg:w-[90px] h-[85px] rounded-lg object-cover cursor-pointer hover:opacity-75
-  }
-  .see-more-btn {
-    @apply lg:w-full text-right text-yellow1 hover:opacity-75 px-2
-  }  
   .react-calendar {
-    @apply md:max-w-[350px] md:min-w-[350px] h-[250px] flex flex-col border border-gray3 rounded-lg p-4
+    @apply md:max-w-[350px] md:min-w-[350px] h-[255px] flex flex-col p-4
   }
   .react-calendar__navigation {
-    @apply w-full flex justify-between text-yellow1 text-lg mb-4
+    @apply w-full flex justify-between text-yellow1 text-lg mb-4 font-bold
   }
-  /* .react-calendar__navigation__prev2-button {
+  .react-calendar__navigation__prev2-button {
     @apply hidden
   }  
   .react-calendar__navigation__next2-button {
     @apply hidden
-  } */
+  }
+  .react-calendar__month-view {
+    @apply font-Urbanist 
+  }
+  .react-calendar__month-view__weekdays {
+    @apply text-lg text-center font-bold mb-2
+  }
+  .react-calendar__month-view__weekdays__weekday abbr {
+    @apply no-underline	text-gray6
+  }
+  .react-calendar__tile {
+
+  }
 }
 
 
