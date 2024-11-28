@@ -6,7 +6,7 @@ import './productAvailability.css'
 
 const ProductAvailability = ({ product }) => {
   const { bookins } = useSelector((state) => state.bookins)
-  const today = new Date() // Fecha actual
+  const today = new Date()
   const [activeStartDate, setActiveStartDate] = useState(new Date(today.getFullYear(), today.getMonth() + 1, today.getDate()))
 
   const disableAll = () => true
