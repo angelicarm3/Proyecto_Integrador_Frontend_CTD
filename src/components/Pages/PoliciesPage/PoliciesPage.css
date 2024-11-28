@@ -15,7 +15,7 @@
 }
 
 .policy-description {
-  @apply text-gray3;
+  @apply text-gray6;
 }
 
 @media (max-width: 768px) {

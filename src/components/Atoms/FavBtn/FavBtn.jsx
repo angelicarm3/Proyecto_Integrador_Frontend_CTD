@@ -37,7 +37,7 @@ const FavBtn = ({ product, setShowRequireLoginPopup }) => {
   return (
     <button
       onClick={handleToggleFavorite}
-      className={`text-3xl text-yellow1 cursor-pointer hover:text-gray3 ${location.pathname.includes('/producto/') ? '' : 'absolute top-[250px] right-4'}`}
+      className={`text-3xl text-red1 cursor-pointer hover:text-gray3`}
     >
       {
         isFavorite

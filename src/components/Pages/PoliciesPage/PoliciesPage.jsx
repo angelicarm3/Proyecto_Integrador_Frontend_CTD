@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 
-import isoGold from '../../../assets/brand/isoGold.png'
 import './PoliciesPage.css'
 
 const policies = [
@@ -64,10 +63,7 @@ const PoliciesPage = () => {
   return (
     <div className='main-page mt-[68px]'>
       <div className='main-section flex flex-col text-white gap-4'>
-        <div className='w-full flex justify-center items-center gap-3'>
-          <img src={isoGold} alt='Logo de la marca' className='h-[90px]' />
-          <h1 className='title w-fit underline mt-3'>Políticas de Uso</h1>
-        </div>
+        <h1 className='title underline mt-3'>Políticas de Uso</h1>
         <div className='policy-columns'>
           {policies.map((policy, index) => (
             <div key={index} className='policy-card'>
