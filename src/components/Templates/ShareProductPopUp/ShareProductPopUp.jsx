@@ -35,7 +35,7 @@ const ShareProductPopUp = ({ product, onClose }) => {
             />
           </div>
 
-          <div className='shareProduct-data-container'>
+          <div className='shareProduct-data-container text-white'>
             <h2 className='shareProduct-title'>{product.marca} {product.modelo}</h2>
             <p className='shareProduct-price'>${product.precioDia}
               <span className='shareProduct-span'>/day</span>

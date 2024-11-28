@@ -3,6 +3,9 @@ import { Outlet, Route, Routes, useLocation } from 'react-router-dom'
 import './App.css'
 import Footer from './components/Organisms/Footer/Footer.jsx'
 import Header from './components/Organisms/Header/Header.jsx'
+import RequireAdmin from './context/helpers/RequireAdmin.jsx'
+import RequireNoAuth from './context/helpers/RequireNoAuth.jsx'
+import RequireAuth from './context/helpers/RequireAuth.jsx'
 import Favorites from './components/Pages/Favorites/Favorites.jsx'
 import Home from './components/Pages/Home/Home'
 import LoginRegister from './components/Pages/LoginRegister/LoginRegister.jsx'
@@ -17,8 +20,6 @@ import AdminCreateEditProduct from './components/Pages/AdminCreateEditProduct/Ad
 import AdminPanel from './components/Pages/AdminPanel/AdminPanel'
 import AdminProducts from './components/Pages/AdminProducts/AdminProducts'
 import AdminUsers from './components/Pages/AdminUsers/AdminUsers.jsx'
-import RequireAdmin from './context/helpers/RequireAdmin.jsx'
-import RequireNoAuth from './context/helpers/RequireNoAuth.jsx'
 
 import ImagesPopUp from './components/Templates/ImagesPopUp/ImagesPopUp.jsx'
 import RentNowPopUp from './components/Templates/RentNowPopUp/RentNowPopUp.jsx'
@@ -55,7 +56,7 @@ function App () {
           <Route path='producto/:id' element={<ProductDetail />} />
           <Route path='inicio-sesion' element={<RequireNoAuth><LoginRegister /></RequireNoAuth>} />
           <Route path='registro' element={<RequireNoAuth><LoginRegister /></RequireNoAuth>} />
-          <Route path='mis-favoritos' element={<Favorites />} />
+          <Route path='mis-favoritos' element={<RequireAuth><Favorites /></RequireAuth>} />
           <Route path='politicas-uso' element={<PoliciesPage />} />
           <Route path='*' element={<h1>404 Page Not Found</h1>} />
         </Route>

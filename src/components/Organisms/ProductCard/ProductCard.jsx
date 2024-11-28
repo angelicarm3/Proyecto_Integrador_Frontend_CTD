@@ -1,15 +1,23 @@
+import { useState } from 'react'
+
 import { useNavigate } from 'react-router-dom'
 
+import { FiShare2 } from 'react-icons/fi'
 import { pageLabels } from '../../../data/pageLabels'
 import FavBtn from '../../Atoms/FavBtn/FavBtn.jsx'
 import RentNowBtn from '../../Atoms/RentNowBtn/RentNowBtn'
 import ProductFeatures from '../../Molecules/ProductFeatures/ProductFeatures'
 import ProductStars from '../../Molecules/ProductStars/ProductStars.jsx'
 import './productCard.css'
+import ShareProductPopUp from '../../Templates/ShareProductPopUp/ShareProductPopUp.jsx'
 
 const ProductCard = ({ product, setShowRequireLoginPopup }) => {
   const navigate = useNavigate()
   const mainImg = product.imagenes.filter((img) => img.esPrincipal)
+  const [isShareModalOpen, setShareModalOpen] = useState(false)
+  const handleShareClick = () => {
+    setShareModalOpen(true)
+  }
 
   return (
     <div className='relative'>
@@ -31,7 +39,18 @@ const ProductCard = ({ product, setShowRequireLoginPopup }) => {
           <RentNowBtn />
         </div>
       </div>
-      <FavBtn product={product} setShowRequireLoginPopup={setShowRequireLoginPopup} />
+      <div className='flex gap-3 absolute top-[250px] right-4'>
+        <FavBtn product={product} setShowRequireLoginPopup={setShowRequireLoginPopup} />
+        <FiShare2 className='action-btn' onClick={handleShareClick} />
+      </div>
+      {
+        isShareModalOpen && (
+          <ShareProductPopUp
+            product={product}
+            onClose={() => setShareModalOpen(false)}
+          />
+        )
+      }
     </div>
   )
 }
