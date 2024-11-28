@@ -5,7 +5,7 @@
 
 @layer components {
   .admin-products-container {
-    @apply  min-h-[794px] p-4 flex flex-col justify-between mt-[68px] relative
+    @apply h-fit p-4 flex flex-col justify-between content-between mt-[68px] relative
   }
 
   .admin-products-section {

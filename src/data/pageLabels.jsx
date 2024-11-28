@@ -104,7 +104,7 @@ export const pageLabels = {
     existingDNIError: 'Este DNI ya está registrado',
     passwordReq: [
       'La contraseña debe entre 8 y 20 caracteres',
-      'la contraseña debe contener al menos un símbolo @.#$* y un número',
+      'la contraseña debe contener al menos un símbolo @.#$*_- y un número',
       'La contraseña debe contener al menos una letra mayúscula y una minúscula'
     ]
   },

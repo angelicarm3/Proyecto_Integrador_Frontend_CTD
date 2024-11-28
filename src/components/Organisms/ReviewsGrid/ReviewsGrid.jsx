@@ -6,14 +6,14 @@ import isoGold from '../../../assets/brand/isoGold.svg'
 const ReviewsGrid = ({ canComment, reviews, onReviewClick }) => {
   return (
     <div className='w-full flex flex-col items-center gap-8 mt-4'>
-      <div className='w-full flex flex-col md:flex-row justify-between items-center gap-4'>
+      <div className='w-full md:min-w-[784px] md:max-w-[784px] flex flex-col md:flex-row justify-between items-center gap-4'>
         <p className='product-detail-name w-fit mb-0 text-xl text-white text-center'>Comentarios</p>
         {
           canComment &&
             <button onClick={onReviewClick} className='primary-btn text-black1 rounded-lg px-4'>Califica tu experiencia</button>
         }
       </div>
-      <div className='w-full md:w-[784px] max-h-[350px] flex flex-wrap justify-between items-center gap-6 overflow-y-auto'>
+      <div className='w-full md:min-w-[784px] md:max-w-[784px] max-h-[350px] flex flex-wrap justify-between items-center gap-6 overflow-y-auto'>
         {
         reviews &&
           reviews.map((review, index) => (

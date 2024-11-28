@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { useNavigate } from 'react-router-dom'
 
@@ -8,13 +8,20 @@ import FavBtn from '../../Atoms/FavBtn/FavBtn.jsx'
 import RentNowBtn from '../../Atoms/RentNowBtn/RentNowBtn'
 import ProductFeatures from '../../Molecules/ProductFeatures/ProductFeatures'
 import ProductStars from '../../Molecules/ProductStars/ProductStars.jsx'
-import './productCard.css'
 import ShareProductPopUp from '../../Templates/ShareProductPopUp/ShareProductPopUp.jsx'
+import './productCard.css'
 
 const ProductCard = ({ product, setShowRequireLoginPopup }) => {
   const navigate = useNavigate()
-  const mainImg = product.imagenes.filter((img) => img.esPrincipal)
+  const [mainImg, setMainImg] = useState()
   const [isShareModalOpen, setShareModalOpen] = useState(false)
+
+  useEffect(() => {
+    if (product) {
+      setMainImg(product.imagenes.filter((img) => img.esPrincipal))
+    }
+  }, [product])
+
   const handleShareClick = () => {
     setShareModalOpen(true)
   }
@@ -23,7 +30,10 @@ const ProductCard = ({ product, setShowRequireLoginPopup }) => {
     <div className='relative'>
       <div className='product-card-container' onClick={() => navigate(`/producto/${product.id}`)}>
         <div className='product-info-container h-full'>
-          <img className='product-card-img' src={mainImg[0].url} alt='' />
+          {
+            mainImg &&
+              <img className='product-card-img' src={mainImg[0].url} alt='' />
+          }
           <div className='h-full flex flex-col justify-between'>
             <p className='product-name'>{product.marca} {product.modelo}</p>
             <p className='product-daily-price'>

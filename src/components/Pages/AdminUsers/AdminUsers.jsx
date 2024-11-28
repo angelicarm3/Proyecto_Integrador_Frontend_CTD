@@ -38,6 +38,7 @@ const AdminUsers = () => {
 
   return (
     <div className='admin-products-container'>
+      <p className='title'>Administrar Usuarios</p>
       <div>
         <section className='admin-products-section'>
           <BackBtn navigateTo='/administracion' />
