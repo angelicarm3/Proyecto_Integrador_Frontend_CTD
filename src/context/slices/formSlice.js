@@ -93,6 +93,12 @@ const initialState = {
     descripcion: '',
     iconoCat: ''
   },
+  reviewData: {
+    usuarioId: '',
+    autoId: '',
+    puntuacion: '',
+    comentario: ''
+  },
   userData: {
     nombre: '',
     apellido: '',
@@ -152,12 +158,12 @@ const formSlice = createSlice({
         } else {
           state.characteristicData[field] = value
         }
-      } else if (form === 'createCategory') {
-        if (field === 'nombre' || field === 'descripcion') {
+      } else if (form === 'createReview') {
+        if (field === 'comentario') {
           newValue = capitalizeFirstLetter(value)
-          state.categoryData[field] = newValue
+          state.reviewData[field] = newValue
         } else {
-          state.categoryData[field] = value
+          state.reviewData[field] = value
         }
       }
     },

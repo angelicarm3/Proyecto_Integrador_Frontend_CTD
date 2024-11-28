@@ -12,26 +12,36 @@ import ProductCharacteristics from '../../Molecules/ProductCharacteristics/Produ
 import ProductFeatures from '../../Molecules/ProductFeatures/ProductFeatures'
 import ProductStars from '../../Molecules/ProductStars/ProductStars'
 import ImagesGrid from '../../Organisms/ImagesGrid/ImagesGrid'
+import CreateReviewPopUp from '../CreateReviewPopUp/CreateReviewPopUp'
 import RequireLoginPopup from '../RequireLoginPopup/RequireLoginPopup'
 import ShareProductPopUp from '../ShareProductPopUp/ShareProductPopUp'
 import './productDetailCard.css'
 
-const ProductDetailCard = () => {
+const ProductDetailCard = ({ onSuccess }) => {
   const [isShareModalOpen, setShareModalOpen] = useState(false)
   const selectedProduct = useSelector((state) => state.product.selectedProduct)
+  const { loggedUser } = useSelector((state) => state.loginRegister)
+  const { bookins } = useSelector((state) => state.bookins)
   const [showRequireLoginPopup, setShowRequireLoginPopup] = useState(false)
+  const [showReviewPopUp, setShowReviewPopUp] = useState(false)
   const [reviews, setReviews] = useState([])
+  const [canComment, setCanComment] = useState([])
 
   useEffect(() => {
     setReviews(selectedProduct.resenas)
-  }, [selectedProduct])
+
+    const hasBooked = bookins.some(
+      (bookin) => bookin.usuario.id === loggedUser.id && bookin.auto.id === selectedProduct.id
+    )
+    const hasComented = selectedProduct.resenas.some(
+      (review) => review.nombreUsuario === loggedUser.nombre
+    )
+
+    setCanComment(hasBooked && !hasComented)
+  }, [selectedProduct, loggedUser])
 
   const handleShareClick = () => {
     setShareModalOpen(true)
-  }
-
-  const ratingChanged = (newRating) => {
-    console.log(newRating)
   }
 
   return (
@@ -63,13 +73,19 @@ const ProductDetailCard = () => {
         </div>
       </div>
 
-      <div className='flex flex-col mt-8'>
-        <p className='product-detail-name text-xl text-white text-center'>Comentarios</p>
-        <div className='max-h-[350px] flex flex-wrap justify-center items-center gap-6 md:gap-x-16 overflow-y-auto'>
+      <div className='w-full flex flex-col items-center gap-8 mt-8'>
+        <div className='w-full flex flex-col md:flex-row justify-between items-center gap-4'>
+          <p className='product-detail-name w-fit mb-0 text-xl text-white text-center'>Comentarios</p>
+          {
+            canComment &&
+              <button onClick={() => setShowReviewPopUp(true)} className='primary-btn text-black1 rounded-lg px-4'>Califica tu experiencia</button>
+          }
+        </div>
+        <div className='w-full md:w-[784px] max-h-[350px] flex flex-wrap justify-between items-center gap-6 overflow-y-auto'>
           {
           reviews &&
             reviews.map((review, index) => (
-              <div key={index} className='review-card w-full md:w-5/12 flex flex-col border-b md:border-none border-gray3 px-4 pb-6 gap-2'>
+              <div key={index} className='review-card w-full md:max-w-[360px] flex flex-col border-b md:border-none border-gray3 px-4 pb-6 gap-2'>
                 <div className='flex justify-between'>
                   <p className='text-lg'>{review.nombreUsuario}</p>
                   <p className='text-gray3'>{review.fechaCreacion}</p>
@@ -99,6 +115,10 @@ const ProductDetailCard = () => {
       {
         showRequireLoginPopup &&
           <RequireLoginPopup onClose={() => setShowRequireLoginPopup(false)} />
+      }
+      {
+        showReviewPopUp &&
+          <CreateReviewPopUp onClose={() => setShowReviewPopUp(false)} onSuccess={onSuccess} />
       }
     </div>
   )

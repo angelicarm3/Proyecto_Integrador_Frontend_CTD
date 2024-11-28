@@ -3,17 +3,9 @@ import axios from 'axios'
 
 export const fetchAllBookinsThunk = createAsyncThunk(
   'reservations/fetchAllBookins',
-  async ({ userId, productId, token }, { rejectWithValue }) => {
+  async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        `https://alluring-enchantment-production.up.railway.app/users/${userId}/favorites/${productId}`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
-      )
+      const response = await axios.get('https://alluring-enchantment-production.up.railway.app/reservations/list')
       return response.data
     } catch (error) {
       return rejectWithValue(error.response?.data?.mensaje || error.response?.data?.message)
@@ -39,7 +31,7 @@ export const bookinsSlice = createSlice({
         state.error = null
       })
       .addCase(fetchAllBookinsThunk.fulfilled, (state, action) => {
-        state.bookins = action.payload.autosFavoritos
+        state.bookins = action.payload
         state.loading = false
       })
       .addCase(fetchAllBookinsThunk.rejected, (state, action) => {

@@ -5,7 +5,6 @@ import LoginRegisterSwitch from '../../Molecules/LoginRegisterSwitch/LoginRegist
 import LoginForm from '../LoginForm/LoginForm'
 import SignupForm from '../SignupForm/SignupForm'
 
-// eslint-disable-next-line react/prop-types
 const LoginRegisterComponent = () => {
   const { loginOrRegister } = useSelector((state) => state.loginRegister)
 
