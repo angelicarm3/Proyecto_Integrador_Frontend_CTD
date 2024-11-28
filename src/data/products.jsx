@@ -10,7 +10,7 @@ export const productsData = {
     {
       id: 1,
       matricula: 'QWE123',
-      descripcion: '¿Quieres vivir la sensación de conducir un SUV de alta gama? Alquila un Audi Q8 S Line y experimenta la combinación perfecta de lujo y rendimiento en un solo automóvil. Con su diseño elegante y deportivo, el Audi Q8 S Line te cautivará desde el primer momento.',
+      descripcion: 'Alquila un Audi Q8 S Line y experimenta la combinación perfecta de lujo y rendimiento en un solo automóvil. Con su diseño elegante y deportivo, el Audi Q8 S Line te cautivará desde el primer momento.',
       marca: 'Audi',
       modelo: 'Q8 S Line',
       potenciaHp: '231',
@@ -280,7 +280,7 @@ export const productsData = {
     {
       id: 7,
       matricula: 'UIO123',
-      descripcion: '',
+      descripcion: ' Alquila un Ferrari 296 GTS y sumérgete en el lujo y la emoción que solo un superdeportivo de alto rendimiento puede ofrecer. Este modelo descapotable no solo captura la esencia de la Fórmula 1 con su diseño y aerodinámica avanzada, sino que también te brinda la libertad de un convertible junto con un rendimiento excepcional.',
       marca: 'Ferrari',
       modelo: '296 GTS',
       potenciaHp: '830',

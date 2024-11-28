@@ -158,6 +158,13 @@ const formSlice = createSlice({
         } else {
           state.characteristicData[field] = value
         }
+      } else if (form === 'createCategory') {
+        if (field === 'nombre') {
+          newValue = capitalizeFirstLetter(value)
+          state.categoryData[field] = newValue
+        } else {
+          state.categoryData[field] = value
+        }
       } else if (form === 'createReview') {
         if (field === 'comentario') {
           newValue = capitalizeFirstLetter(value)
