@@ -41,21 +41,6 @@ const ShareProductPopUp = ({ product, onClose }) => {
               <span className='shareProduct-span'>/day</span>
             </p>
             <ProductCharacteristics characteristics={product.caracteristicas} type='share' />
-            {/* <div className='shareProduct-characteristics-container'>
-              {
-                characteristics.map((characteristic) => (
-                  <div className='shareProduct-characteristics-div' key={characteristic.id}>
-                    <img src={characteristic.icono} className='shareProduct-icons' />
-
-                    <p className='shareProduct-p'>
-                      {characteristic.nombre.length > 20
-                        ? characteristic.nombre.slice(0, 20) + '...'
-                        : characteristic.nombre}
-                    </p>
-                  </div>
-                ))
-              }
-            </div> */}
             <p className='shareProduct-description'>{product.descripcion}</p>
             <textarea
               placeholder='Deja tu comentario'

@@ -7,11 +7,12 @@ import { Link, useNavigate } from 'react-router-dom'
 import isoTipoGold from '../../../assets/brand/isoTipoGold.svg'
 import logoGold from '../../../assets/brand/logoGold.png'
 import sloganGold from '../../../assets/brand/sloganGold.png'
+import { fetchAllBookinsThunk } from '../../../context/slices/bookinsSlice'
+import { initializeFavorites } from '../../../context/slices/favoritesSlice'
 import { fetchUserByUserNameThunk, resetState } from '../../../context/slices/loginRegisterSlice'
 import LogInBtn from '../../Atoms/LoginBtn/LoginBtn'
 import SignUpBtn from '../../Atoms/SignUpBtn/SignUpBtn'
 import './header.css'
-import { initializeFavorites } from '../../../context/slices/favoritesSlice'
 
 function Header () {
   const dispatch = useDispatch()
@@ -20,9 +21,9 @@ function Header () {
   const { isAdmin, isLoggedIn, loggedUser, error, userName, userFavorites } = useSelector((state) => state.loginRegister)
   const token = localStorage.getItem('token')
 
-  const toggleDropdown = () => {
-    setIsOn(!isOn)
-  }
+  useEffect(() => {
+    dispatch(fetchAllBookinsThunk())
+  }, [dispatch])
 
   useEffect(() => {
     if (userName && token) {
@@ -42,6 +43,10 @@ function Header () {
       dispatch(initializeFavorites([]))
     }
   }, [loggedUser, dispatch])
+
+  const toggleDropdown = () => {
+    setIsOn(!isOn)
+  }
 
   const handleLogout = () => {
     dispatch(resetState())
