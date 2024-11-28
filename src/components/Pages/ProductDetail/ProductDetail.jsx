@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
@@ -10,6 +10,7 @@ import './productDetail.css'
 const ProductDetail = () => {
   const { id } = useParams()
   const dispatch = useDispatch()
+  const [successReview, setSuccessReview] = useState(false)
   const selectedProduct = useSelector((state) => state.product.selectedProduct)
 
   useEffect(() => {
@@ -21,13 +22,19 @@ const ProductDetail = () => {
     }
 
     fetchData()
-  }, [dispatch, id])
+  }, [dispatch, id, successReview])
+
+  useEffect(() => {
+    if (successReview) {
+      setSuccessReview(false)
+    }
+  }, [successReview])
 
   return (
     <section className='main-page products-detail-container'>
       {
       selectedProduct &&
-        <ProductDetailCard />
+        <ProductDetailCard onSuccess={() => setSuccessReview(!successReview)} />
     }
     </section>
   )

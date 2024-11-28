@@ -19,7 +19,6 @@ const ProductStars = ({ product }) => {
       setAverage(reviews.length > 0 ? parseFloat(averageScore.toFixed(1)) : 0)
     }
   }, [product])
-  console.log(product)
 
   return (
     <div className={`flex items-center  ${location.pathname.includes('/producto/') ? 'gap-3' : 'gap-2 px-4'}`}>

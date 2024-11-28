@@ -11,7 +11,6 @@ import { loginFormFields } from '../../../service/formInputsService'
 
 import LogInRegisterFormBtn from '../../Atoms/LogInRegisterFormBtn/LogInRegisterFormBtn'
 import FormField from '../../Molecules/FormField/FormField'
-// import CheckboxButton from './CheckboxButton'
 
 const LoginForm = () => {
   const dispatch = useDispatch()
