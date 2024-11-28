@@ -36,7 +36,7 @@ const ProductDetailCard = ({ onSuccess }) => {
       (bookin) => bookin.usuario.id === loggedUser.id && bookin.auto.id === selectedProduct.id
     )
     const hasComented = selectedProduct.resenas.some(
-      (review) => review.nombreUsuario === loggedUser.nombre
+      (review) => parseInt(review.usuarioId) === loggedUser.id
     )
 
     setCanComment(hasBooked && !hasComented)
