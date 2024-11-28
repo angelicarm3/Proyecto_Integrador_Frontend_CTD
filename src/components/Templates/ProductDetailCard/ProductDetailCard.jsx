@@ -37,7 +37,7 @@ const ProductDetailCard = ({ onSuccess }) => {
       (review) => review.nombreUsuario === loggedUser.nombre
     )
 
-    setCanComment(hasBooked)
+    setCanComment(hasBooked && !hasComented)
   }, [selectedProduct, loggedUser])
 
   const handleShareClick = () => {
