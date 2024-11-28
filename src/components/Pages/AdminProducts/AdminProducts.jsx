@@ -35,13 +35,13 @@ const AdminProducts = () => {
 
   return (
     <div className='admin-products-container'>
+      <p className='title'>Administrar Productos</p>
       <div>
         <section className='admin-products-section'>
           <div className='flex gap-3 h-full'>
             <BackBtn navigateTo='/administracion' />
             <AddBtn navigateTo='/administracion/agregar-producto' />
           </div>
-
           <div className='admin-products-dropDown-conatiner'>
             <span>Resultados</span>
             <Dropdown allItems={allProducts} />

@@ -11,9 +11,8 @@ const ProductAvailability = ({ product }) => {
 
   const disableAll = () => true
 
-  const timeFrame = bookins.filter(bookin =>
-    bookin.auto.id === product.id
-  ).map(item => ({
+  const timeFrame = bookins.filter(
+    bookin => bookin.auto.id === product.id).map(item => ({
     fechaInicio: item.fechaInicio,
     fechaFin: item.fechaFin
   }))
@@ -37,6 +36,14 @@ const ProductAvailability = ({ product }) => {
   }
 
   const tileClassName = ({ date }) => {
+    const dayDate = new Date(date)
+    const today = new Date()
+    today.setHours(0, 1, 0, 0)
+
+    if (dayDate < today) {
+      return 'text-gray3 line-through decoration-2 font-semibold'
+    }
+
     return isInTimeFrame(date) ? 'text-red1 line-through decoration-2 font-semibold' : 'text-green1 font-semibold'
   }
 
@@ -46,7 +53,7 @@ const ProductAvailability = ({ product }) => {
 
   return (
     <div className='w-full flex flex-col items-center gap-2 mt-8'>
-      <p className='product-detail-name w-full mb-0 text-xl text-white text-center md:text-left'>Disponibilidad</p>
+      <p className='product-detail-name w-full md:max-w-[750px] md:min-w-[750px] mb-0 text-xl text-white text-center md:text-left'>Disponibilidad</p>
       <div className='w-full md:max-w-[750px] md:min-w-[750px] flex gap-10'>
         <Calendar
           locale='es-ES'

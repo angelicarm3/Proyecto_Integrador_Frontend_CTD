@@ -13,6 +13,7 @@ import { fetchUserByUserNameThunk, resetState } from '../../../context/slices/lo
 import LogInBtn from '../../Atoms/LoginBtn/LoginBtn'
 import SignUpBtn from '../../Atoms/SignUpBtn/SignUpBtn'
 import './header.css'
+import { resetPagination } from '../../../context/slices/paginatorSlice'
 
 function Header () {
   const dispatch = useDispatch()
@@ -50,6 +51,7 @@ function Header () {
 
   const handleLogout = () => {
     dispatch(resetState())
+    dispatch(resetPagination())
     localStorage.clear()
     toggleDropdown()
   }
