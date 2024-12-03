@@ -53,8 +53,8 @@ const ProductAvailability = ({ product }) => {
 
   return (
     <div className='w-full flex flex-col items-center gap-2 mt-8'>
-      <p className='product-detail-name w-full md:max-w-[750px] md:min-w-[750px] mb-0 text-xl text-white text-center md:text-left'>Disponibilidad</p>
-      <div className='w-full md:max-w-[750px] md:min-w-[750px] flex gap-10'>
+      <p className='product-detail-name w-full md:max-w-[784px] md:min-w-[750px] mb-0 text-xl text-white text-center md:text-left'>Disponibilidad</p>
+      <div className='w-full md:max-w-[840px] md:min-w-[784px] flex justify-center gap-10'>
         <Calendar
           locale='es-ES'
           view='month'
