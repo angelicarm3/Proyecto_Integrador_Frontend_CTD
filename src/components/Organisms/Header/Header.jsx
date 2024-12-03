@@ -10,16 +10,16 @@ import sloganGold from '../../../assets/brand/sloganGold.png'
 import { fetchAllBookinsThunk } from '../../../context/slices/bookinsSlice'
 import { initializeFavorites } from '../../../context/slices/favoritesSlice'
 import { fetchUserByUserNameThunk, resetState } from '../../../context/slices/loginRegisterSlice'
+import { resetPagination } from '../../../context/slices/paginatorSlice'
 import LogInBtn from '../../Atoms/LoginBtn/LoginBtn'
 import SignUpBtn from '../../Atoms/SignUpBtn/SignUpBtn'
 import './header.css'
-import { resetPagination } from '../../../context/slices/paginatorSlice'
 
 function Header () {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [isOn, setIsOn] = useState(false)
-  const { isAdmin, isLoggedIn, loggedUser, error, userName, userFavorites } = useSelector((state) => state.loginRegister)
+  const { isAdmin, isLoggedIn, loggedUser, error, userName } = useSelector((state) => state.loginRegister)
   const token = localStorage.getItem('token')
 
   useEffect(() => {
@@ -49,6 +49,11 @@ function Header () {
     setIsOn(!isOn)
   }
 
+  const handleClickHome = () => {
+    dispatch(resetPagination())
+    navigate('/')
+  }
+
   const handleLogout = () => {
     dispatch(resetState())
     dispatch(resetPagination())
@@ -59,13 +64,13 @@ function Header () {
   return (
     <header className='header'>
       <AiOutlineMenu size={30} className='hamburguer-icon' onClick={toggleDropdown} />
-      <Link to='/' className='logo-container'>
+      <button type='button' className='logo-container' onClick={handleClickHome}>
         <img src={isoTipoGold} alt='isotipo' className='isotipo' />
         <div className='logo-slogan-container'>
           <img src={logoGold} alt='logo' className='logo' />
           <img src={sloganGold} alt='slogan' className='slogan' />
         </div>
-      </Link>
+      </button>
       {/* <Navbar /> */}
       {
         isLoggedIn
