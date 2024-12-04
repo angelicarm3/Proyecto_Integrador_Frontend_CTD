@@ -56,8 +56,8 @@ function App () {
           <Route path='producto/:id' element={<ProductDetail />} />
           <Route path='inicio-sesion' element={<RequireNoAuth><LoginRegister /></RequireNoAuth>} />
           <Route path='registro' element={<RequireNoAuth><LoginRegister /></RequireNoAuth>} />
-          <Route path='mis-favoritos' element={<RequireAuth><Favorites /></RequireAuth>} />
-          <Route path='mis-reservas' element={<RequireAuth><Bookings /></RequireAuth>} />
+          <Route path='mis-favoritos' element={<Favorites />} />
+          <Route path='mis-reservas' element={<Bookings />} />
           <Route path='politicas-uso' element={<PoliciesPage />} />
           <Route path='*' element={<h1>404 Page Not Found</h1>} />
         </Route>
