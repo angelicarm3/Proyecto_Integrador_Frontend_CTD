@@ -146,7 +146,7 @@ export const productSlice = createSlice({
     getRecommendedProducts: (state) => {
       state.recommendedProducts = state.allProducts
     },
-    arrangeImagesGrid: (state) => {
+    arrangeImagesGrid: (state, action) => {
       state.mainImg = state.selectedProduct.imagenes?.filter((img) => img.esPrincipal)
       state.otherImg = state.selectedProduct.imagenes?.filter((img) => !img.esPrincipal)
     },

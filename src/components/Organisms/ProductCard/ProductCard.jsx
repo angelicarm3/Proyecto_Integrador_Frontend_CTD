@@ -1,21 +1,39 @@
+import { useEffect, useState } from 'react'
+
 import { useNavigate } from 'react-router-dom'
 
+import { FiShare2 } from 'react-icons/fi'
 import { pageLabels } from '../../../data/pageLabels'
 import FavBtn from '../../Atoms/FavBtn/FavBtn.jsx'
 import RentNowBtn from '../../Atoms/RentNowBtn/RentNowBtn'
 import ProductFeatures from '../../Molecules/ProductFeatures/ProductFeatures'
 import ProductStars from '../../Molecules/ProductStars/ProductStars.jsx'
+import ShareProductPopUp from '../../Templates/ShareProductPopUp/ShareProductPopUp.jsx'
 import './productCard.css'
 
 const ProductCard = ({ product, setShowRequireLoginPopup }) => {
   const navigate = useNavigate()
-  const mainImg = product.imagenes.filter((img) => img.esPrincipal)
+  const [mainImg, setMainImg] = useState()
+  const [isShareModalOpen, setShareModalOpen] = useState(false)
+
+  useEffect(() => {
+    if (product) {
+      setMainImg(product.imagenes.filter((img) => img.esPrincipal))
+    }
+  }, [product])
+
+  const handleShareClick = () => {
+    setShareModalOpen(true)
+  }
 
   return (
     <div className='relative'>
       <div className='product-card-container' onClick={() => navigate(`/producto/${product.id}`)}>
         <div className='product-info-container h-full'>
-          <img className='product-card-img' src={mainImg[0].url} alt='' />
+          {
+            mainImg &&
+              <img className='product-card-img' src={mainImg[0].url} alt='' />
+          }
           <div className='h-full flex flex-col justify-between'>
             <p className='product-name'>{product.marca} {product.modelo}</p>
             <p className='product-daily-price'>
@@ -31,7 +49,18 @@ const ProductCard = ({ product, setShowRequireLoginPopup }) => {
           <RentNowBtn />
         </div>
       </div>
-      <FavBtn product={product} setShowRequireLoginPopup={setShowRequireLoginPopup} />
+      <div className='flex gap-3 absolute top-[250px] right-4'>
+        <FavBtn product={product} setShowRequireLoginPopup={setShowRequireLoginPopup} />
+        <FiShare2 className='action-btn' onClick={handleShareClick} />
+      </div>
+      {
+        isShareModalOpen && (
+          <ShareProductPopUp
+            product={product}
+            onClose={() => setShareModalOpen(false)}
+          />
+        )
+      }
     </div>
   )
 }

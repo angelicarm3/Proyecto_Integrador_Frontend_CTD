@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 
 import { fetchAllCategoriesThunk } from '../../../context/slices/categorySlice'
+import { resetPagination } from '../../../context/slices/paginatorSlice'
 import { fetchAllProductsThunk, getRecommendedProducts } from '../../../context/slices/productSlice'
 import Banner from '../../Organisms/Banner/Banner'
 import Categories from '../../Organisms/Categories/Categories'
@@ -16,6 +17,7 @@ const Home = () => {
   useEffect(() => {
     window.scrollTo(0, 0)
     const fetchData = async () => {
+      await dispatch(resetPagination())
       await dispatch(fetchAllCategoriesThunk())
       await dispatch(fetchAllProductsThunk())
       dispatch(getRecommendedProducts())

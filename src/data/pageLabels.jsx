@@ -8,8 +8,8 @@ export const pageLabels = {
     cancel: 'Cancelar'
   },
   searchBar: {
-    title: 'Encuentra el auto de lujo que define tu estilo y sofisticación',
-    subtitle: 'Nuestra colección está diseñada para cumplir los sueños más exigentes',
+    title: 'Búsqueda rápida',
+    subtitle: 'Utiliza nuestro motor de búsqueda para encontrar tu vehículo ideal',
     input: 'Busca tu auto'
   },
   categories: {
@@ -104,7 +104,7 @@ export const pageLabels = {
     existingDNIError: 'Este DNI ya está registrado',
     passwordReq: [
       'La contraseña debe entre 8 y 20 caracteres',
-      'la contraseña debe contener al menos un símbolo @.#$* y un número',
+      'la contraseña debe contener al menos un símbolo @.#$*_- y un número',
       'La contraseña debe contener al menos una letra mayúscula y una minúscula'
     ]
   },

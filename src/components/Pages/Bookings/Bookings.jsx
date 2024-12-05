@@ -5,7 +5,7 @@ import { fetchAllBookinsThunk } from '../../../context/slices/bookinsSlice';
 const Bookings = () => {
   const dispatch = useDispatch();
   const { bookins, loading, error } = useSelector((state) => state.bookins);
-  const [activeTab, setActiveTab] = useState('current');
+  const [activeTab, setActiveTab] = useState('current'); // Estado para gestionar la pestaña activa
 
   useEffect(() => {
     dispatch(fetchAllBookinsThunk());
@@ -17,7 +17,7 @@ const Bookings = () => {
 
   return (
     <div className='main-page mt-[68px] py-8'>
-      <h1 className='title mt-3 text-gold'>Mis Reservas</h1>
+      <h1 className='title mt-3 text-gold'>Mis Reservas</h1> {/* Título en dorado */}
 
       {loading && <p className="text-lg text-gray-400 animate-pulse">Cargando reservas...</p>}
       {error && <p className="text-lg text-red-500">Error: {error}</p>}
@@ -51,8 +51,8 @@ const Bookings = () => {
                         key={booking.id}
                         className="bg-gray-800 p-6 rounded-lg shadow-md hover:bg-gray-700 transition duration-300 w-full max-w-sm"
                       >
-                        <h3 className="text-xl font-bold text-gold">{booking.name}</h3>
-                        <p className="text-white mt-2">{booking.date}</p>
+                        <h3 className="text-xl font-bold text-gold">{booking.name}</h3> {/* Nombre en dorado */}
+                        <p className="text-white mt-2">{booking.date}</p> {/* Fecha en blanco */}
                       </div>
                     ))}
                   </div>
@@ -76,8 +76,8 @@ const Bookings = () => {
                         key={booking.id}
                         className="bg-gray-800 p-6 rounded-lg shadow-md hover:bg-gray-700 transition duration-300 w-full max-w-sm"
                       >
-                        <h3 className="text-xl font-bold text-gold">{booking.name}</h3>
-                        <p className="text-white mt-2">{booking.date}</p>
+                        <h3 className="text-xl font-bold text-gold">{booking.name}</h3> {/* Nombre en dorado */}
+                        <p className="text-white mt-2">{booking.date}</p> {/* Fecha en blanco */}
                       </div>
                     ))}
                   </div>
