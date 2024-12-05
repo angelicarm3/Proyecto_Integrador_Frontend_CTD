@@ -80,8 +80,6 @@ function App () {
         previousLocation && (
           <Routes>
             <Route path='producto/:id/galeria' element={<ImagesPopUp />} />
-            <Route path='producto/:id/galeria' element={<ImagesPopUp />} />
-            <Route path='rentar' element={<RentNowPopUp />} />
           </Routes>
         )
       }

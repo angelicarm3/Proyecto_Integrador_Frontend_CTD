@@ -112,6 +112,25 @@ const initialState = {
     userName: '',
     password: ''
   },
+  bookinData: {
+    fechaInicio: '',
+    fechaFin: '',
+    precioFinal: '',
+    comentario: '',
+    lugarEntrega: '',
+    lugarRecogida: '',
+    estado: true,
+    usuarioId: 0,
+    autoId: 0
+  },
+  selectedDates: {
+    startDate: null,
+    endDate: null
+  },
+  totalDays: 0,
+  totalPrice: 0,
+  selectedPickup: [],
+  selectedDropoff: [],
   showPassword: false,
   isRememberMe: false,
   response: '',
@@ -172,10 +191,12 @@ const formSlice = createSlice({
         } else {
           state.reviewData[field] = value
         }
+      } else if (form === 'bookin') {
+        state.bookinData[field] = value
       }
     },
     updateHasSubmited: (state) => {
-      state.hasSubmited = !state.hasSubmited
+      state.hasSubmited = true
     },
     updateImgSuccess: (state) => {
       state.imgSuccess = !state.imgSuccess
@@ -187,11 +208,33 @@ const formSlice = createSlice({
     setIsRememberMe: (state) => {
       state.isRememberMe = !state.isRememberMe
     },
+    setSelectedDates: (state, action) => {
+      state.selectedDates = action.payload
+      state.bookinData.fechaInicio = action.payload.startDate
+      state.bookinData.fechaFin = action.payload.endDate
+    },
+    updateTotalDays: (state, action) => {
+      state.totalDays = action.payload
+    },
+    updateTotalPrice: (state, action) => {
+      state.totalPrice = action.payload
+    },
+    updateSelectedPickup: (state, action) => {
+      state.selectedPickup = action.payload
+    },
+    updateSelectedDropoff: (state, action) => {
+      state.selectedDropoff = action.payload
+    },
     clearError: (state) => {
       state.error = null
     },
     resetForm: (state) => {
       return initialState
+    },
+    resetDatePicker: (state) => {
+      state.selectedDates = { startDate: null, endDate: null }
+      state.bookinData.fechaInicio = null
+      state.bookinData.fechaFin = null
     }
   },
   extraReducers: (builder) => {
@@ -238,5 +281,5 @@ const formSlice = createSlice({
   }
 })
 
-export const { updateField, clearError, resetForm, updateHasSubmited, updateImgSuccess, setShowPassword, setIsRememberMe } = formSlice.actions
+export const { updateField, clearError, resetForm, updateHasSubmited, updateImgSuccess, setShowPassword, setIsRememberMe, setSelectedDates, resetDatePicker, updateTotalDays, updateTotalPrice, updateSelectedPickup, updateSelectedDropoff } = formSlice.actions
 export default formSlice.reducer

@@ -6,7 +6,7 @@ import SignUpBtn from '../../Atoms/SignUpBtn/SignUpBtn'
 
 const RequireLoginPopup = ({ onClose }) => {
   return (
-    <div className=' fixed inset-0 flex items-center justify-center bg-popUpBg1 z-10'>
+    <div className='fixed inset-0 flex items-center justify-center bg-popUpBg1 z-10'>
       <div className='w-11/12 md:w-[500px] flex flex-col justify-center items-center bg-gray2 rounded-lg p-6 relative mx-auto overflow-auto border border-gray1 gap-4'>
         <AiOutlineClose
           onClick={onClose}
@@ -14,8 +14,8 @@ const RequireLoginPopup = ({ onClose }) => {
         />
         <img src={isoGold} alt='Logo de la marca' className='w-[120px]' />
         <div className='text-white text-center'>
-          <p>Para agregar este auto a tus favoritos, debes iniciar sesión </p>
-          <p>Si no tienes una cuenta, regístrate ahora</p>
+          <p>Para completar esta acción, debes iniciar sesión.</p>
+          <p>Si no tienes una cuenta, regístrate ahora.</p>
         </div>
         <div className='w-full flex justify-center gap-4'>
           <LogInBtn />
