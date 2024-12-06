@@ -108,6 +108,22 @@ export const pageLabels = {
       'La contraseña debe contener al menos una letra mayúscula y una minúscula'
     ]
   },
+  createBookin: {
+    cities: [
+      { id: 1, nombre: 'Bogotá' },
+      { id: 2, nombre: 'Cartagena' },
+      { id: 3, nombre: 'Medellín' },
+      { id: 4, nombre: 'Pasto' }
+    ],
+    title: 'Reserva',
+    subtitle: 'Define los detalles de tu reserva',
+    subtitle2: 'Confirma los detalles de tu reserva',
+    dates: 'Seleccione las fechas de alquiler',
+    pickUp: 'Selecciona el lugar de recogida',
+    dropOff: 'Selecciona el lugar de retorno',
+    comment: 'Comentario',
+    successUpdateMessage: 'Categoría actualizads con éxito!'
+  },
   adminPanel: {
     mobileMessage: 'No disponible en dispositivos móviles',
     mainTitle: 'Panel de Administración',

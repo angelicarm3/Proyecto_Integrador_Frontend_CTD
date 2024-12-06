@@ -11,9 +11,9 @@ const AdminCreateEditProduct = () => {
     <section className='main-section admin-create-product-container relative'>
       <CreateEditProductForm />
       {
-          loading &&
-            <LoaderComponent />
-        }
+        loading &&
+          <LoaderComponent />
+      }
     </section>
   )
 }

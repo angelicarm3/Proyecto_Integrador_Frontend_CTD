@@ -17,11 +17,19 @@ export const bookinsSlice = createSlice({
   name: 'bookins',
   initialState: {
     bookins: [],
+    bookinsByProduct: [],
     success: false,
     loading: false,
     error: null
   },
   reducers: {
+    getBookinsByProductId: (state, action) => {
+      state.bookinsByProduct = state.bookins.filter(
+        bookin => bookin.auto.id === action.payload).map(item => ({
+        fechaInicio: item.fechaInicio,
+        fechaFin: item.fechaFin
+      }))
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -41,6 +49,6 @@ export const bookinsSlice = createSlice({
   }
 })
 
-export const { } = bookinsSlice.actions
+export const { getBookinsByProductId } = bookinsSlice.actions
 
 export default bookinsSlice.reducer

@@ -49,7 +49,7 @@
     @apply text-red1 mb-0.5
   }
   .form-error-text {
-    @apply font-Urbanist text-[12px] text-red1
+    @apply font-Urbanist text-[12px] text-red1 font-normal
   }
 }
 

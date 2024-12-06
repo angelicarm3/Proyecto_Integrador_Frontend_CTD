@@ -17,7 +17,6 @@ const ShareProductPopUp = ({ product, onClose }) => {
   const title = '¡Descubre este auto en alquiler!'
   const productTitle = `${product.marca} ${product.modelo}`
   const descriptionWithComment = `${product.descripcion + '\n\n'}${comment || ''}`
-  console.log(shareUrl)
 
   return (
     <div className='shareProduct-container'>
