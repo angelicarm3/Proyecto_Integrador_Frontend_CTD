@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import Datepicker from 'react-tailwindcss-datepicker'
 
-import { resetDatePicker, setSelectedDates, updateField, updateHasSubmited, updateSelectedDropoff, updateSelectedPickup, updateTotalDays, updateTotalPrice } from '../../../context/slices/formSlice'
+import { resetDatePicker, setSelectedDates, updateField, updateHasSubmited, updateSelectedDropoff, updateSelectedPickup, updateTotalDays, updateTotalPrice, clearError } from '../../../context/slices/formSlice'
 import { pageLabels } from '../../../data/pageLabels'
 import CancelBtn from '../../Atoms/CancelBtn/CancelBtn'
 import FormErrorMessage from '../../Atoms/FormErrorMessage/FormErrorMessage'
@@ -20,7 +20,7 @@ const RentNowForm = ({ onClose, formNumber, setFormNumber }) => {
   const { bookinsByProduct } = useSelector((state) => state.bookins)
   const { selectedProduct } = useSelector((state) => state.product)
   const { loggedUser } = useSelector((state) => state.loginRegister)
-  const { bookinData, selectedDates, hasSubmited, selectedPickup, selectedDropoff, totalDays, totalPrice } = useSelector((state) => state.form)
+  const { bookinData, selectedDates, hasSubmited, selectedPickup, selectedDropoff, totalDays, totalPrice, error, success } = useSelector((state) => state.form)
   const { trigger } = useForm({ mode: 'onBlur', defaultValues: bookinData })
 
   const handleInputChange = (e) => {
@@ -70,6 +70,7 @@ const RentNowForm = ({ onClose, formNumber, setFormNumber }) => {
   }
 
   const handleDateChange = (dates) => {
+    dispatch(clearError())
     const stringDates = {
       startDate: dates?.startDate ? formatDateToYYYYMMDD(dates.startDate) : null,
       endDate: dates?.endDate ? formatDateToYYYYMMDD(dates.endDate) : null
@@ -133,10 +134,18 @@ const RentNowForm = ({ onClose, formNumber, setFormNumber }) => {
     const isValid = await trigger(allFields)
 
     // Si la validación es exitosa, avanza al siguiente paso
-    if (isValid && selectedPickup.length > 0 && selectedDropoff.length > 0 && !errorOverlap && (selectedDates.startDate || selectedDates.endDate)) {
+    if (isValid && selectedPickup.length > 0 && selectedDropoff.length > 0 && !errorOverlap && !error && (selectedDates.startDate || selectedDates.endDate)) {
       setFormNumber(formNumber + 1) // Cambia al siguiente paso
     }
   }
+
+  useEffect(() => {
+    if (error) {
+      setFormNumber(1)
+    } else if (success) {
+      onClose()
+    }
+  }, [error, success])
 
   return (
     <form className='w-full h-fit flex flex-col justify-center items-center'>
@@ -182,12 +191,12 @@ const RentNowForm = ({ onClose, formNumber, setFormNumber }) => {
           <p>Precio total: $<span>{totalPrice}</span></p>
         </div>
         {
-        errorOverlap && <FormErrorMessage message='Esta selección incluye fechas no disponibles' />
+        (errorOverlap || (error && error.includes('no está disponible'))) && <FormErrorMessage message='Esta selección incluye fechas no disponibles' />
         }
         {
-        hasSubmited && (!selectedDates.startDate || !selectedDates.endDate) &&
-          <FormErrorMessage message={pageLabels.createProduct.requiredError} />
-      }
+          hasSubmited && (!selectedDates.startDate || !selectedDates.endDate) &&
+            <FormErrorMessage message={pageLabels.createProduct.requiredError} />
+        }
       </div>
 
       <ButtonField

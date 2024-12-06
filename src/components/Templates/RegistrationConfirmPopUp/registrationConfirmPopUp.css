@@ -15,9 +15,6 @@
   .registration-modal-content-info{
     @apply m-[10px] sm:m-[20px] mt-[30px] sm:mt-[40px] border-2 border-white rounded-[20px] text-center flex flex-col flex-wrap items-center justify-center relative;
   }
-  .registration-modal-content-info img{
-    @apply absolute top-[-30%] sm:top-[-45%] left-1/2 transform -translate-x-1/2 m-auto h-auto;
-  }
   .registration-modal-content-info p{
     @apply m-[5px] sm:m-[10px] mt-[45px] sm:mt-[55px] text-xl text-white;
   }

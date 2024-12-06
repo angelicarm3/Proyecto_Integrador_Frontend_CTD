@@ -124,15 +124,15 @@ const initialState = {
     autoId: 0
   },
   selectedDates: {
-    startDate: null,
-    endDate: null
+    startDate: '',
+    endDate: ''
   },
   totalDays: 0,
   totalPrice: 0,
   selectedPickup: [],
   selectedDropoff: [],
   showPassword: false,
-  isRememberMe: false,
+  agreeTerms: false,
   response: '',
   loading: false,
   error: null,
@@ -205,8 +205,8 @@ const formSlice = createSlice({
       state.showPassword = !state.showPassword
       changeInputType(state.showPassword)
     },
-    setIsRememberMe: (state) => {
-      state.isRememberMe = !state.isRememberMe
+    setIsAgreeTerms: (state) => {
+      state.agreeTerms = !state.agreeTerms
     },
     setSelectedDates: (state, action) => {
       state.selectedDates = action.payload
@@ -281,5 +281,5 @@ const formSlice = createSlice({
   }
 })
 
-export const { updateField, clearError, resetForm, updateHasSubmited, updateImgSuccess, setShowPassword, setIsRememberMe, setSelectedDates, resetDatePicker, updateTotalDays, updateTotalPrice, updateSelectedPickup, updateSelectedDropoff } = formSlice.actions
+export const { updateField, clearError, resetForm, updateHasSubmited, updateImgSuccess, setShowPassword, setIsAgreeTerms, setSelectedDates, resetDatePicker, updateTotalDays, updateTotalPrice, updateSelectedPickup, updateSelectedDropoff } = formSlice.actions
 export default formSlice.reducer

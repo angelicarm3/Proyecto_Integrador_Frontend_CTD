@@ -9,6 +9,7 @@ import ProductDetailCard from '../../Templates/ProductDetailCard/ProductDetailCa
 import RentNowPopUp from '../../Templates/RentNowPopUp/RentNowPopUp'
 import RequireLoginPopup from '../../Templates/RequireLoginPopup/RequireLoginPopup'
 import './productDetail.css'
+import RegistrationConfirmPopUp from '../../Templates/RegistrationConfirmPopUp/RegistrationConfirmPopUp'
 
 const ProductDetail = () => {
   const { id } = useParams()
@@ -16,8 +17,10 @@ const ProductDetail = () => {
   const token = localStorage.getItem('token')
   const [successReview, setSuccessReview] = useState(false)
   const [showRentPopUp, setShowRentPopUp] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
 
   const [showRequireLoginPopup, setShowRequireLoginPopup] = useState(false)
+  const { success } = useSelector((state) => state.form)
   const selectedProduct = useSelector((state) => state.product.selectedProduct)
 
   useEffect(() => {
@@ -51,6 +54,12 @@ const ProductDetail = () => {
     }
   }
 
+  useEffect(() => {
+    if (success) {
+      setIsOpen(true)
+    }
+  }, [success])
+
   return (
     <section className='main-page products-detail-container'>
       {
@@ -64,6 +73,10 @@ const ProductDetail = () => {
       {
         showRequireLoginPopup &&
           <RequireLoginPopup onClose={() => setShowRequireLoginPopup(false)} />
+      }
+      {
+        success &&
+          <RegistrationConfirmPopUp type='rent' setIsOpen={setIsOpen} />
       }
     </section>
   )

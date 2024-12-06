@@ -117,6 +117,7 @@ export const pageLabels = {
     ],
     title: 'Reserva',
     subtitle: 'Define los detalles de tu reserva',
+    subtitle2: 'Confirma los detalles de tu reserva',
     dates: 'Seleccione las fechas de alquiler',
     pickUp: 'Selecciona el lugar de recogida',
     dropOff: 'Selecciona el lugar de retorno',
