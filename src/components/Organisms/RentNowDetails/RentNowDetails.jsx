@@ -35,27 +35,27 @@ const RentNowDetails = ({ onClose }) => {
   }
 
   return (
-    <div className='w-full h-fit flex flex-col justify-center items-center gap-4'>
-      <div className='w-full flex justify-center gap-5'>
-        <div className='min-w-[360px] flex flex-col'>
-          <p className='title text-xl text-left'>Vehículo</p>
-          <div className='w-full flex justify-center gap-4'>
+    <div className='w-full h-fit flex flex-col justify-center items-center lg:gap-4'>
+      <div className='w-full flex flex-col lg:flex-row justify-center gap-2 lg:gap-5'>
+        <div className='w-full lg:min-w-[360px] flex flex-col'>
+          <p className='title text-xl text-left my-2'>Vehículo</p>
+          <div className='w-full flex flex-col lg:flex-row justify-center gap-2 lg:gap-4'>
             <img src={mainImg[0]?.url} alt='' className='min-w-[100px] h-[110px] object-cover rounded-lg' />
-            <div className='w-full flex flex-col text-gray6 text-lg gap-2'>
+            <div className='w-full flex flex-col text-gray6 gap-2'>
               <p>{selectedProduct.marca} {selectedProduct.modelo}</p>
               <ProductFeatures product={selectedProduct} type='detail' />
             </div>
           </div>
         </div>
-        <div className='w-full flex flex-col text-gray6 text-lg gap-2'>
-          <p className='title text-xl text-left'>Usuario</p>
+        <div className='w-full flex flex-col text-gray6 lg:gap-2'>
+          <p className='title text-xl text-left my-2'>Usuario</p>
           <p>{loggedUser.nombre} {loggedUser.apellido}</p>
           <p>{loggedUser.email}</p>
         </div>
       </div>
-      <div className='w-full flex flex-col text-gray6 text-lg gap-2'>
-        <p className='title text-xl'>Reserva</p>
-        <div className='w-full flex justify-center gap-12'>
+      <div className='w-full flex flex-col text-gray6 gap-2'>
+        <p className='title text-xl text-left lg:text-center my-2'>Reserva</p>
+        <div className='w-full flex justify-between lg:justify-center gap-2 lg:gap-12'>
           <div className='w-fit'>
             <p className='font-semibold'>Recogida</p>
             <p>{bookinData.fechaInicio}</p>
@@ -73,7 +73,7 @@ const RentNowDetails = ({ onClose }) => {
         </div>
       </div>
 
-      <div className='w-full flex justify-center h-6 relative mt-4'>
+      <div className='w-full flex justify-center h-6 relative m-4 lg:mb-0'>
         <input
           id='rememberMe'
           type='checkbox'

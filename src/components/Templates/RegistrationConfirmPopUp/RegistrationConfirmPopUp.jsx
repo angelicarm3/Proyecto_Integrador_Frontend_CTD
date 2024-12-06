@@ -37,9 +37,8 @@ function RegistrationConfirmPopUp ({ setIsOpen, type, setReload }) {
           ✖
         </div>
         <div className='registration-modal-content-info'>
-          <div className='w-[120px] h-[100px] bg-yellow1 absolute bottom-[100px]'>
-            <img src={isoWhite} alt='isoWhite' />
-          </div>
+          <div className='w-[100px] lg:w-[120px] h-4 bg-yellow1 absolute top-[-10px]' />
+          <img src={isoWhite} alt='isoWhite' className='w-[100px] lg:w-[120px] absolute top-[-40px] lg:top-[-55px]' />
           {
             type === 'rent'
               ? <p>
