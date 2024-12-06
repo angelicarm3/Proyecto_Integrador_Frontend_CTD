@@ -8,7 +8,6 @@ import { addFavoriteThunk, removeFavoriteThunk } from '../../../context/slices/f
 
 const FavBtn = ({ product, setShowRequireLoginPopup }) => {
   const dispatch = useDispatch()
-  const location = useLocation()
   const token = localStorage.getItem('token')
   const { favorites } = useSelector((state) => state.favorites)
   const { loggedUser } = useSelector((state) => state.loginRegister)
@@ -37,7 +36,7 @@ const FavBtn = ({ product, setShowRequireLoginPopup }) => {
   return (
     <button
       onClick={handleToggleFavorite}
-      className={`text-3xl text-red1 cursor-pointer hover:text-gray3`}
+      className='text-3xl text-red1 cursor-pointer hover:text-gray3'
     >
       {
         isFavorite

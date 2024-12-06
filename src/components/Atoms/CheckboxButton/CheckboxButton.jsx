@@ -2,15 +2,14 @@ import { MdOutlineCheckBoxOutlineBlank } from 'react-icons/md'
 import { TbCheckbox } from 'react-icons/tb'
 
 import { useSelector } from 'react-redux'
-import './checkboxButton.css'
 
-const CheckboxButton = ({ navigateTo }) => {
-  const { isRememberMe } = useSelector((state) => state.form)
+const CheckboxButton = () => {
+  const { agreeTerms } = useSelector((state) => state.form)
 
   return (
-    <div className='w-4 bg-greyBrand500 z-30 cursor-pointer'>
+    <div className='w-4 text-yellow1 z-30 cursor-pointer'>
       {
-        isRememberMe
+        agreeTerms
           ? <TbCheckbox size={24} />
           : <MdOutlineCheckBoxOutlineBlank size={24} />
       }

@@ -66,7 +66,7 @@ const SearchBar = () => {
     <section className='main-section flex flex-col items-center'>
       <p className='title'>{pageLabels.searchBar.title}</p>
       <p className='search-bar-subtitle '>{pageLabels.searchBar.subtitle}</p>
-      <div className='w-full flex flex-col md:flex-row gap-3'>
+      <div className='w-full flex flex-col lg:flex-row gap-3'>
         <div className='search-bar-container'>
           <label htmlFor='searchTerm' className='label'>Buscar por palabra clave</label>
           <div className='w-full flex gap-2'>
@@ -106,9 +106,37 @@ const SearchBar = () => {
 
         <div className='search-bar-container'>
           <label htmlFor='searchTerm' className='label'>Buscar por fechas</label>
-          <div className='w-full flex gap-2'>
+          <div className='w-full hidden md:flex gap-2'>
             <Datepicker
               i18n='es'
+              startWeekOn='mon'
+              popoverDirection='down'
+              containerClassName='w-full relative font-Urbanist'
+              inputClassName='input w-full text-black1'
+              primaryColor='yellow'
+              displayFormat='DD/MM/YYYY'
+              separator='-'
+              theme='light'
+              placeholder='Seleccione las fechas'
+              value={selectedDates}
+              onChange={newValue => handleDateChange(newValue)}
+              disabledDates={[
+                {
+                  startDate: new Date(0),
+                  endDate: new Date()
+                },
+                {
+                  startDate: new Date('2024-02-11'),
+                  endDate: new Date('2024-02-12')
+                }
+              ]}
+            />
+            <SearchBtn onSearchClick={fetchProductsByTimeFrameThunk} />
+          </div>
+          <div className='w-full flex md:hidden gap-2'>
+            <Datepicker
+              i18n='es'
+              useRange={false}
               startWeekOn='mon'
               popoverDirection='down'
               containerClassName='w-full relative font-Urbanist'

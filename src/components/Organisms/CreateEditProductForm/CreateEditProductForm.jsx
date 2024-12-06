@@ -94,15 +94,17 @@ const CreateEditProductForm = () => {
     dispatch(updateField({ field: 'categorias', value: selectedCategories, form: 'createProduct' }))
     dispatch(updateField({ field: 'caracteristicas', value: selectedCharacteristics, form: 'createProduct' }))
 
-    if (selectedImages.length === 0) {
-      if (filePreviews.length === 0) {
-        setImagesRequiredError(true)
+    if (selectedCategories.length > 0 && selectedCharacteristics.length > 0) {
+      if (selectedImages.length === 0) {
+        if (filePreviews.length === 0) {
+          setImagesRequiredError(true)
+        } else {
+          dispatch(updateField({ field: 'imagenes', value: filePreviews, form: 'createProduct' }))
+          dispatch(updateImgSuccess())
+        }
       } else {
-        dispatch(updateField({ field: 'imagenes', value: filePreviews, form: 'createProduct' }))
-        dispatch(updateImgSuccess())
+        dispatch(uploadImagesThunk({ files: selectedImages, form: 'createProduct' }))
       }
-    } else {
-      dispatch(uploadImagesThunk({ files: selectedImages, form: 'createProduct' }))
     }
   }
 
@@ -192,7 +194,9 @@ const CreateEditProductForm = () => {
 
         <ButtonField
           items={allCharacteristics}
+          containerClass='field-container w-11/12'
           label={pageLabels.createProduct.characteristic}
+          labelClass='label'
           selectedItems={selectedCharacteristics}
           onChange={(item) => handleSelectionChange(item, setSelectedCharacteristics)}
           errorMessage={pageLabels.createProduct.requiredSelectionError}
@@ -200,7 +204,9 @@ const CreateEditProductForm = () => {
 
         <ButtonField
           items={allCategories}
+          containerClass='field-container w-11/12'
           label={pageLabels.createProduct.category}
+          labelClass='label'
           selectedItems={selectedCategories}
           onChange={(item) => handleSelectionChange(item, setSelectedCategories)}
           errorMessage={pageLabels.createProduct.requiredSelectionError}
