@@ -2,11 +2,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import isoWhite from '../../../assets/brand/isoWhite.png'
+import { resetForm } from '../../../context/slices/formSlice'
 import { sendConfirmationEmailThunk } from '../../../context/slices/loginRegisterSlice'
 import './registrationConfirmPopUp.css'
-import { resetForm } from '../../../context/slices/formSlice'
 
-function RegistrationConfirmPopUp ({ setIsOpen, type }) {
+function RegistrationConfirmPopUp ({ setIsOpen, type, setReload }) {
   const location = useLocation()
   const { userData } = useSelector((state) => state.form)
   const { emailConfig } = useSelector((state) => state.loginRegister)
@@ -16,8 +16,9 @@ function RegistrationConfirmPopUp ({ setIsOpen, type }) {
   const handleClose = () => {
     if (location.pathname.includes('/producto/')) {
       dispatch(resetForm())
+      window.location.reload()
     } else {
-    setIsOpen(false)
+      setIsOpen(false)
       navigate('/')
     }
   }

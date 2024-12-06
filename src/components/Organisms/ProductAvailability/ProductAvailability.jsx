@@ -10,7 +10,6 @@ const ProductAvailability = ({ product }) => {
   const [activeStartDate, setActiveStartDate] = useState(new Date(today.getFullYear(), today.getMonth() + 1, today.getDate()))
 
   const disableAll = () => true
-
   const timeFrame = bookins.filter(
     bookin => bookin.auto.id === product.id).map(item => ({
     fechaInicio: item.fechaInicio,

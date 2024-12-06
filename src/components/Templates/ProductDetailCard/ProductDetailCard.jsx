@@ -18,7 +18,7 @@ import RequireLoginPopup from '../RequireLoginPopup/RequireLoginPopup'
 import ShareProductPopUp from '../ShareProductPopUp/ShareProductPopUp'
 import './productDetailCard.css'
 
-const ProductDetailCard = ({ onSuccess, onRentClick, setShowRequireLoginPopup }) => {
+const ProductDetailCard = ({ onSuccess, onRentClick, setShowRequireLoginPopup, reload }) => {
   const [isShareModalOpen, setShareModalOpen] = useState(false)
   const selectedProduct = useSelector((state) => state.product.selectedProduct)
   const { loggedUser } = useSelector((state) => state.loginRegister)

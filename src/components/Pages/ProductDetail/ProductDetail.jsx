@@ -6,10 +6,10 @@ import { useParams } from 'react-router-dom'
 import { getBookinsByProductId } from '../../../context/slices/bookinsSlice'
 import { arrangeImagesGrid, fetchAllProductsThunk, fetchProductByIdThunk } from '../../../context/slices/productSlice'
 import ProductDetailCard from '../../Templates/ProductDetailCard/ProductDetailCard'
+import RegistrationConfirmPopUp from '../../Templates/RegistrationConfirmPopUp/RegistrationConfirmPopUp'
 import RentNowPopUp from '../../Templates/RentNowPopUp/RentNowPopUp'
 import RequireLoginPopup from '../../Templates/RequireLoginPopup/RequireLoginPopup'
 import './productDetail.css'
-import RegistrationConfirmPopUp from '../../Templates/RegistrationConfirmPopUp/RegistrationConfirmPopUp'
 
 const ProductDetail = () => {
   const { id } = useParams()
@@ -18,6 +18,7 @@ const ProductDetail = () => {
   const [successReview, setSuccessReview] = useState(false)
   const [showRentPopUp, setShowRentPopUp] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
+  const [reload, setReload] = useState(false)
 
   const [showRequireLoginPopup, setShowRequireLoginPopup] = useState(false)
   const { success } = useSelector((state) => state.form)
@@ -64,7 +65,7 @@ const ProductDetail = () => {
     <section className='main-page products-detail-container'>
       {
       selectedProduct &&
-        <ProductDetailCard onSuccess={() => setSuccessReview(!successReview)} setShowRequireLoginPopup={setShowRequireLoginPopup} onRentClick={handleRentClick} />
+        <ProductDetailCard onSuccess={() => setSuccessReview(!successReview)} setShowRequireLoginPopup={setShowRequireLoginPopup} onRentClick={handleRentClick} reload={reload} />
       }
       {
       showRentPopUp &&
@@ -76,7 +77,7 @@ const ProductDetail = () => {
       }
       {
         success &&
-          <RegistrationConfirmPopUp type='rent' setIsOpen={setIsOpen} />
+          <RegistrationConfirmPopUp type='rent' setIsOpen={setIsOpen} setReload={() => setReload(!reload)} />
       }
     </section>
   )
