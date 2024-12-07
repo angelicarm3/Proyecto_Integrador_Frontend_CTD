@@ -21,9 +21,9 @@ const LoginRegister = () => {
     <div className='main-page justify-center my-auto mt-[68px] relative bg-gray2'>
       <LoginRegisterGrid />
       {
-          loading &&
-            <LoaderComponent />
-        }
+        loading &&
+          <LoaderComponent />
+      }
     </div>
   )
 }
