@@ -13,10 +13,32 @@ export const fetchAllBookinsThunk = createAsyncThunk(
   }
 )
 
+export const fetchBookinsByIdThunk = createAsyncThunk(
+  'bookins/fetchBookinsById',
+  async ({ userId, token}, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(
+        `https://alluring-enchantment-production.up.railway.app/reservations/find/byuser/${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.mensaje || error.response?.data?.message || 'Error al obtener reservas'
+      )
+    }
+  }
+)
+
 export const bookinsSlice = createSlice({
   name: 'bookins',
   initialState: {
     bookins: [],
+    bookinsByUser:[],
     bookinsByProduct: [],
     success: false,
     loading: false,
@@ -29,11 +51,16 @@ export const bookinsSlice = createSlice({
         fechaInicio: item.fechaInicio,
         fechaFin: item.fechaFin
       }))
+    },
+    resetStatus: (state) => {
+      state.loading = false
+      state.error = null
+      state.success = false
+      state.selectedUser = {}
     }
   },
   extraReducers: (builder) => {
     builder
-      // addFavorites
       .addCase(fetchAllBookinsThunk.pending, (state) => {
         state.loading = true
         state.error = null
@@ -46,9 +73,24 @@ export const bookinsSlice = createSlice({
         state.loading = false
         state.error = action.payload || 'Error al enviar datos'
       })
+      .addCase(fetchBookinsByIdThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.success = false;
+      })
+      .addCase(fetchBookinsByIdThunk.fulfilled, (state, action) => {
+        state.bookinsByUser = action.payload;
+        state.loading = false;
+        state.success = true;
+      })
+      .addCase(fetchBookinsByIdThunk.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || 'Error al obtener las reservas';
+        state.success = false;
+      })
   }
 })
 
-export const { getBookinsByProductId } = bookinsSlice.actions
+export const { getBookinsByProductId, resetStatus } = bookinsSlice.actions
 
 export default bookinsSlice.reducer
