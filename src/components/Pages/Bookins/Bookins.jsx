@@ -1,19 +1,43 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchBookinsByIdThunk } from '../../../context/slices/bookinsSlice'
+import { changePage, filterData } from '../../../context/slices/paginatorSlice'
+import Paginator from '../../Molecules/Paginator/Paginator'
+import BookinCard from '../../Organisms/BookinCard/BookinCard'
 
 const Bookins = () => {
   const dispatch = useDispatch()
   const token = localStorage.getItem('token')
   const { loggedUser } = useSelector((state) => state.loginRegister)
   const { bookinsByUser, loading, error } = useSelector((state) => state.bookins)
+  const { items, totalItems } = useSelector((state) => state.paginator)
+
+  const [currentTab, setCurrentTab] = useState('current')
+  const [filteredBookins, setFilteredBookins] = useState([])
 
   useEffect(() => {
     if (loggedUser && token) {
-      
       dispatch(fetchBookinsByIdThunk({ userId: loggedUser.id, token }))
     }
   }, [dispatch, loggedUser, token])
+
+  useEffect(() => {
+    if (bookinsByUser) {
+      
+      const now = new Date()
+      const filtered =
+        currentTab === 'current'
+          ? bookinsByUser.filter((booking) => new Date(booking.fechaFin) >= now)
+          : bookinsByUser.filter((booking) => new Date(booking.fechaFin) < now)
+      setFilteredBookins(filtered)
+      dispatch(filterData(filtered))
+    }
+  }, [bookinsByUser, currentTab, dispatch])
+
+  const onChangePage = (page) => {
+    dispatch(changePage(page))
+    dispatch(filterData(filteredBookins))
+  }
 
   if (loading) {
     return <p className="text-center text-lg">Cargando...</p>
@@ -24,28 +48,40 @@ const Bookins = () => {
   }
 
   return (
-    <div className='main-page mt-[68px] py-8'>
-      <h1 className='title mt-3'>Mis reservas</h1>
-      {bookinsByUser.length === 0 ? (
+    <div className="main-page mt-[68px] py-8">
+      <h1 className="title mt-3">Mis reservas</h1>
+
+     
+      <div className="flex justify-center space-x-4 mb-6">
+        <button
+          className={`px-4 py-2 rounded ${
+            currentTab === 'current' ? 'bg-yellow-400 text-black' : 'bg-gray-200'
+          }`}
+          onClick={() => setCurrentTab('current')}
+        >
+          Reservas actuales
+        </button>
+        <button
+          className={`px-4 py-2 rounded ${
+            currentTab === 'previous' ? 'bg-yellow-400 text-black' : 'bg-gray-200'
+          }`}
+          onClick={() => setCurrentTab('previous')}
+        >
+          Reservas anteriores
+        </button>
+      </div>
+
+      {filteredBookins.length === 0 ? (
         <p className="text-center">No se encontraron reservas.</p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {bookinsByUser.map((booking) => (
-            <div key={booking.id} className="bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <img 
-                src={booking.auto.imagenes[0]?.url || '/default-image.jpg'} 
-                alt={`${booking.auto.marca} ${booking.auto.modelo}`} 
-                className="w-full h-40 object-cover rounded-lg mb-4"
-              />
-              <div className="flex flex-col space-y-2">
-                <h2 className="text-lg font-semibold">{booking.auto.marca} {booking.auto.modelo}</h2>
-                <p><strong>Fecha de inicio:</strong> {new Date(booking.fechaInicio).toLocaleDateString()}</p>
-                <p><strong>Fecha de entrega:</strong> {new Date(booking.fechaFin).toLocaleDateString()}</p>
-                <p><strong>Estado:</strong> {booking.estado}</p>
-              </div>
-            </div>
-          ))}
-        </div>
+        <>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {items.map((booking) => (
+              <BookinCard key={booking.id} booking={booking} />
+            ))}
+          </div>
+          <Paginator totalItems={totalItems} onClick={onChangePage} />
+        </>
       )}
     </div>
   )
