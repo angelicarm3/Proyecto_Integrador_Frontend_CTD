@@ -43,3 +43,16 @@
     @apply hidden md:flex gap-2.5 w-fit
   }
 }
+
+.logo, .slogan, .isotipo {
+  animation: blink 5s infinite alternate;
+}
+
+@keyframes blink {
+  0% {
+    filter: drop-shadow(0 0 0px red) drop-shadow(0 0 10px green);
+  }
+  100% {
+    filter: drop-shadow(0 0 20px green) drop-shadow(0 0 30px red);
+  }
+}

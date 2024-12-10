@@ -50,7 +50,7 @@ function App () {
 
   function AdmonLayoutWithNavbarAndFooter () {
     return (
-      <div className='layout relative'>
+      <div className='layout'>
         <Header />
         <WappBtn />
         <Outlet />
