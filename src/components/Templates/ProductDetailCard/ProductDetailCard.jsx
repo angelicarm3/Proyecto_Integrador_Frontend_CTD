@@ -63,7 +63,7 @@ const ProductDetailCard = ({ onSuccess, onRentClick, setShowRequireLoginPopup, r
             </p>
             <div className='flex gap-3'>
               <FavBtn product={selectedProduct} setShowRequireLoginPopup={setShowRequireLoginPopup} />
-              <FiShare2 className='action-btn' onClick={handleShareClick} />
+              <FiShare2 className='clickable action-btn' onClick={handleShareClick} />
             </div>
           </div>
           <p className='product-detail-day-description'>{selectedProduct.descripcion}</p>

@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom'
 import { FiShare2 } from 'react-icons/fi'
 import { pageLabels } from '../../../data/pageLabels'
 import FavBtn from '../../Atoms/FavBtn/FavBtn.jsx'
-import RentNowBtn from '../../Atoms/RentNowBtn/RentNowBtn'
 import ProductFeatures from '../../Molecules/ProductFeatures/ProductFeatures'
 import ProductStars from '../../Molecules/ProductStars/ProductStars.jsx'
 import ShareProductPopUp from '../../Templates/ShareProductPopUp/ShareProductPopUp.jsx'
@@ -28,7 +27,7 @@ const ProductCard = ({ product, setShowRequireLoginPopup }) => {
 
   return (
     <div className='relative'>
-      <div className='product-card-container' onClick={() => navigate(`/producto/${product.id}`)}>
+      <div className='clickable product-card-container' onClick={() => navigate(`/producto/${product.id}`)}>
         <div className='product-info-container h-full'>
           {
             mainImg &&
@@ -46,12 +45,13 @@ const ProductCard = ({ product, setShowRequireLoginPopup }) => {
         </div>
         <div className='product-info-container h-fit'>
           <ProductFeatures product={product} type='product' />
-          <RentNowBtn />
+          <div className='primary-btn rent-now-btn clickable'>Ver detalles
+          </div>
         </div>
       </div>
       <div className='flex gap-3 absolute top-[250px] right-4'>
         <FavBtn product={product} setShowRequireLoginPopup={setShowRequireLoginPopup} />
-        <FiShare2 className='action-btn' onClick={handleShareClick} />
+        <FiShare2 className='text-yellow1 text-3xl hover:text-gray3 clickable' onClick={handleShareClick} />
       </div>
       {
         isShareModalOpen && (

@@ -10,7 +10,7 @@
     @apply w-full flex justify-between items-center
   }
   .action-btn {
-    @apply text-yellow1 text-3xl cursor-pointer hover:text-gray3
+    @apply text-yellow1 text-3xl hover:text-gray3 cursor-pointer
   }
   .product-detail-info-container {
     @apply w-full flex flex-col md:flex-row justify-between gap-4

@@ -4,6 +4,6 @@
 
 @layer components {
   .save-btn {
-    @apply w-24 flex justify-center items-center bg-green1 text-base text-gray4 font-bold rounded-3xl hover:opacity-75 p-2
+    @apply w-24 flex justify-center items-center bg-green1 text-base text-gray4 font-bold rounded-3xl hover:opacity-75 p-2 cursor-pointer
   }
 }
