@@ -5,7 +5,7 @@ import withReactContent from 'sweetalert2-react-content';
 import { deleteBookinThunk, setSelectedBookin } from '../../../context/slices/bookinsSlice';
 
 const BookinCard = ({ booking, handleRefresh }) => {
-  const { auto, fechaInicio, fechaFin, estado, id } = booking;
+  const { auto, fechaInicio, fechaFin, estado, id, lugarEntrega, lugarRecogida} = booking;
   const dispatch = useDispatch()
   const token = localStorage.getItem('token')
 
@@ -90,6 +90,8 @@ const BookinCard = ({ booking, handleRefresh }) => {
         <p><strong>Fecha de entrega:</strong> {formatDate(fechaFin)}</p>
         <p><strong>Total de días:</strong> {totalDays} {totalDays === 1 ? 'día' : 'días'}</p>
         <p><strong>Estado:</strong> {estado ? 'Activa' : 'Inactiva'}</p>
+        <p><strong>Lugar de recogida:</strong> {lugarRecogida}</p>
+        <p><strong>Lugar de retorno:</strong> {lugarEntrega}</p>
         
        
         <button
