@@ -4,7 +4,7 @@
 
 @layer components {  
   .btn-item {
-    @apply w-fit h-8 flex items-center text-sm bg-gray4 rounded-lg px-2 gap-2 hover:bg-gray3 
+    @apply w-fit h-8 flex items-center text-sm bg-gray4 rounded-lg px-2 gap-2 hover:bg-gray3 cursor-pointer
   }
   .btn-selected {
     @apply bg-gray3 

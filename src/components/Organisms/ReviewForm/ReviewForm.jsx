@@ -66,6 +66,7 @@ const ReviewForm = ({ onClose, onSuccess }) => {
           Califica tu experiencia
         </label>
         <Rating
+          className='clickable'
           placeholderRating={reviewData.puntuacion}
           onChange={rate => ratingChanged(rate)}
           emptySymbol={<FaRegStar href='#icon-star-empty' className='text-gray3 text-3xl' />}

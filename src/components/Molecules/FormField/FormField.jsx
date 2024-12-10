@@ -25,11 +25,11 @@ const FormField = ({ autoComplete, fieldWidth, label, id, type, value, inputClas
 
       {
         (id === 'password' || id === 'confirmPassword') &&
-          <div className='w-6 absolute top-[44px] right-4 cursor-pointer' onClick={() => dispatch(setShowPassword())}>
+          <div className='clickable w-6 absolute top-[44px] right-4 cursor-pointer hover:opacity-75' onClick={() => dispatch(setShowPassword())}>
             {
           showPassword
-            ? <AiOutlineEye size={24} />
-            : <AiOutlineEyeInvisible size={24} />
+            ? <AiOutlineEye className='clickable' size={24} />
+            : <AiOutlineEyeInvisible className='clickable' size={24} />
         }
           </div>
       }

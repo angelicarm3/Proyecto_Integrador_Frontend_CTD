@@ -28,7 +28,7 @@ const RentNowPopUp = ({ onClose }) => {
   return (
     <div className='fixed inset-0 flex items-center justify-center bg-popUpBg1 z-10'>
       <div className='w-11/12 md:w-[695px] h-fit flex flex-col justify-center items-center bg-gray2 rounded-lg p-6 relative mx-auto border border-gray1 pt-10'>
-        <AiOutlineClose className='close-btn absolute top-4 right-4' size={30} onClick={() => handleClose()} />
+        <AiOutlineClose className='clickable close-btn absolute top-4 right-4' size={30} onClick={() => handleClose()} />
         {
           formNumber === 1
             ? <>
