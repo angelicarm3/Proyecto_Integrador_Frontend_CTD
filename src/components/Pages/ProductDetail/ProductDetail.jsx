@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
-import { getBookinsByProductId } from '../../../context/slices/bookinsSlice'
+import { getBookinsByProductId, sendConfirmationEmailThunk } from '../../../context/slices/bookinsSlice'
 import { arrangeImagesGrid, fetchAllProductsThunk, fetchProductByIdThunk } from '../../../context/slices/productSlice'
 import ProductDetailCard from '../../Templates/ProductDetailCard/ProductDetailCard'
 import RegistrationConfirmPopUp from '../../Templates/RegistrationConfirmPopUp/RegistrationConfirmPopUp'
@@ -21,8 +21,10 @@ const ProductDetail = () => {
   const [reload, setReload] = useState(false)
 
   const [showRequireLoginPopup, setShowRequireLoginPopup] = useState(false)
-  const { success } = useSelector((state) => state.form)
+  const { bookinData, success, totalDays, totalPrice } = useSelector((state) => state.form)
   const selectedProduct = useSelector((state) => state.product.selectedProduct)
+  const {emailConfig} = useSelector((state) => state.bookins)
+  const { loggedUser } = useSelector((state) => state.loginRegister)
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -58,6 +60,8 @@ const ProductDetail = () => {
   useEffect(() => {
     if (success) {
       setIsOpen(true)
+      const newData = { ...emailConfig, toUser: [loggedUser.email], name: loggedUser.nombre, details: { modelo: selectedProduct.marca + ' ' + selectedProduct.modelo, matricula: selectedProduct.matricula, salida: [bookinData.fechaInicio, bookinData.lugarRecogida], retorno: [bookinData.fechaFin, bookinData.lugarEntrega], dias: totalDays, precio: totalPrice } }
+      dispatch(sendConfirmationEmailThunk(newData))
     }
   }, [success])
 
