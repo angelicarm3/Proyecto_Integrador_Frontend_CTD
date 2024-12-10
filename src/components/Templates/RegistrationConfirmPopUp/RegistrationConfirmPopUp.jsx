@@ -33,7 +33,7 @@ function RegistrationConfirmPopUp ({ setIsOpen, type, setReload }) {
       <div
         className='registration-modal-content'
       >
-        <div className='secondary-btn registration-modal-close cursor-pointer' onClick={() => handleClose()}>
+        <div className='clickable secondary-btn registration-modal-close cursor-pointer' onClick={() => handleClose()}>
           ✖
         </div>
         <div className='registration-modal-content-info'>

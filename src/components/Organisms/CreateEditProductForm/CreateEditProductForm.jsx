@@ -266,7 +266,7 @@ const CreateEditProductForm = () => {
                 filePreviews?.map((img, index) => (
                   <div key={index} className='relative'>
                     <img src={img.url} alt={`Foto ${index + 1}`} className='preview-img' />
-                    <AiOutlineClose className='absolute top-0 right-0 cursor-pointer hover:text-gray3' size={20} onClick={() => removeImage(index)} />
+                    <AiOutlineClose className='clickable absolute top-0 right-0 cursor-pointer hover:text-gray3' size={20} onClick={() => removeImage(index)} />
                   </div>
                 ))
               }

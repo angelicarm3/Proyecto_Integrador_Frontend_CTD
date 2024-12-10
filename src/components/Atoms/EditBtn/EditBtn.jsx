@@ -6,7 +6,7 @@ const EditBtn = ({ navigateTo }) => {
   return (
     <>
       <Link
-        className=' bg-blue1 px-4 py-2 rounded text-lg'
+        className=' bg-blue1 px-4 py-2 rounded text-lg cursor-pointer'
         to={navigateTo}
         data-tooltip-id='edit-tooltip'
       >

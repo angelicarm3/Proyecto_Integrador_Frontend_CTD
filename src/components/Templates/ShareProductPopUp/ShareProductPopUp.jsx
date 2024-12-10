@@ -23,7 +23,7 @@ const ShareProductPopUp = ({ product, onClose }) => {
       <div className='shareProduct-modal-container'>
         <AiOutlineClose
           onClick={onClose}
-          className='shareProduct-close-btn'
+          className='clickable shareProduct-close-btn'
         />
         <section className='shareProduct-section'>
           <div className='shareProduct-image-container'>
@@ -50,22 +50,22 @@ const ShareProductPopUp = ({ product, onClose }) => {
             <div className='shareProduct-container-icons'>
               <span className='shareProduct-share-span'>Compartir</span>
               <WhatsappShareButton
-                className='shareProduct-icon-btn'
+                className='clickable shareProduct-icon-btn'
                 url={`${title}\n\n${productTitle}\n${descriptionWithComment}\n\nImagen: ${img}\n\n${shareUrl}`}
               >
-                <FaWhatsapp className='shareProduct-media-btn' />
+                <FaWhatsapp className='clickable shareProduct-media-btn' />
               </WhatsappShareButton>
               <TwitterShareButton
-                className='shareProduct-icon-btn'
+                className='clickable shareProduct-icon-btn'
                 url={`${title}\n\n${productTitle}\n${descriptionWithComment}\nImagen: ${img}\n${shareUrl}`}
               >
-                <RiTwitterXLine className='shareProduct-media-btn text-2xl' />
+                <RiTwitterXLine className='clickable shareProduct-media-btn text-2xl' />
               </TwitterShareButton>
               <EmailShareButton
-                className='shareProduct-icon-btn'
+                className='clickable shareProduct-icon-btn'
                 url={`${title}\n\n${productTitle}\n${descriptionWithComment}\nImagen: ${img}\n${shareUrl}`}
               >
-                <MdOutlineEmail className='shareProduct-media-btn' />
+                <MdOutlineEmail className='clickable shareProduct-media-btn' />
               </EmailShareButton>
             </div>
           </div>
