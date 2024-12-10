@@ -15,14 +15,14 @@ export const fetchAllBookinsThunk = createAsyncThunk(
 
 export const fetchBookinsByIdThunk = createAsyncThunk(
   'bookins/fetchBookinsById',
-  async ({ userId, token}, { rejectWithValue }) => {
+  async ({ userId, token }, { rejectWithValue }) => {
     try {
       const response = await axios.get(
         `https://alluring-enchantment-production.up.railway.app/reservations/find/byuser/${userId}`,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
-          },
+            Authorization: `Bearer ${token}`
+          }
         }
       )
       return response.data
@@ -57,7 +57,7 @@ export const bookinsSlice = createSlice({
   name: 'bookins',
   initialState: {
     bookins: [],
-    bookinsByUser:[],
+    bookinsByUser: [],
     bookinsByProduct: [],
     totalBookinsByUser: 0,
     success: false,
@@ -83,7 +83,7 @@ export const bookinsSlice = createSlice({
       state.selectedUser = {}
     }
   },
-  
+
   extraReducers: (builder) => {
     builder
       .addCase(fetchAllBookinsThunk.pending, (state) => {
@@ -98,6 +98,7 @@ export const bookinsSlice = createSlice({
         state.loading = false
         state.error = action.payload || 'Error al enviar datos'
       })
+      // fetch bi user id
       .addCase(fetchBookinsByIdThunk.pending, (state) => {
         state.loading = true
         state.error = null
@@ -114,6 +115,7 @@ export const bookinsSlice = createSlice({
         state.error = action.payload || 'Error al obtener las reservas'
         state.success = false
       })
+      // delete
       .addCase(deleteBookinThunk.pending, (state) => {
         state.loading = true
         state.error = null
