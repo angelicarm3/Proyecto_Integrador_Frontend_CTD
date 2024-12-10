@@ -69,7 +69,7 @@ const BookinCard = ({ booking }) => {
   }
 
   return (
-    <div className='bg-black1 text-gray6 p-4 rounded-lg shadow-lg hover:opacity-75 cursor-pointer'>
+    <div className='text-gray6 p-4 rounded-lg'>
 
       <div className='text-sm text-gray3 mb-2'>ID: {id}</div>
 
@@ -91,7 +91,7 @@ const BookinCard = ({ booking }) => {
           onClick={handleDelete}
           className='mt-12 bg-red1 text-white font-bold py-2 px-4 rounded hover:opacity-75'
         >
-          Eliminar Reserva
+          Cancelar Reserva
         </button>
       </div>
     </div>
