@@ -5,11 +5,12 @@ import { changePage, filterData } from '../../../context/slices/paginatorSlice'
 import Paginator from '../../Molecules/Paginator/Paginator'
 import BookinCard from '../../Organisms/BookinCard/BookinCard'
 
+
 const Bookins = () => {
   const dispatch = useDispatch()
   const token = localStorage.getItem('token')
   const { loggedUser } = useSelector((state) => state.loginRegister)
-  const { bookinsByUser, loading, error } = useSelector((state) => state.bookins)
+  const { bookinsByUser, loading, totalBookinsByUser, error } = useSelector((state) => state.bookins)
   const { items, totalItems } = useSelector((state) => state.paginator)
 
   const [currentTab, setCurrentTab] = useState('current')
@@ -72,7 +73,7 @@ const Bookins = () => {
       </div>
 
       {filteredBookins.length === 0 ? (
-        <p className="text-center">No se encontraron reservas.</p>
+        <p className="text-center text-white">No se encontraron reservas.</p>
       ) : (
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -80,7 +81,7 @@ const Bookins = () => {
               <BookinCard key={booking.id} booking={booking} />
             ))}
           </div>
-          <Paginator totalItems={totalItems} onClick={onChangePage} />
+          <Paginator totalItems={totalBookinsByUser} onClick={onChangePage} />
         </>
       )}
     </div>
