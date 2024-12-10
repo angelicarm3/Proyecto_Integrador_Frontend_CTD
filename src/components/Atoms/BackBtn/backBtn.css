@@ -4,6 +4,6 @@
 
 @layer components {
   .back-btn {
-    @apply w-fit flex justify-center items-center font-bold text-base text-white hover:text-gray3 gap-2 rounded-2xl px-3
+    @apply w-fit flex justify-center items-center font-bold text-base text-white hover:text-gray3 gap-2 rounded-2xl px-3 cursor-pointer
   }
 }

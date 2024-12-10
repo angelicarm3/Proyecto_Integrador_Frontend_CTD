@@ -26,7 +26,7 @@ const ImagesPopUp = () => {
                 ))
               }
             </Carousel>
-            <AiOutlineClose className='close-btn absolute top-4 right-4 text-yellow1' size={45} onClick={() => navigate(-1)} />
+            <AiOutlineClose className='clickable close-btn absolute top-4 right-4 text-yellow1' size={45} onClick={() => navigate(-1)} />
           </div>
       }
     </div>

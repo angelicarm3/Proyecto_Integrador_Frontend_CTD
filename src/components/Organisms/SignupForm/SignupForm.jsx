@@ -81,7 +81,7 @@ const SignupForm = () => {
       <div className='w-full flex justify-center text-yellow1 font-bold relative mb-3'>
         {
           formNumber !== 1 &&
-            <AiOutlineArrowLeft size={20} className='cursor-pointer absolute left-0' onClick={() => dispatch(changeFormNumber(formNumber - 1))} />
+            <AiOutlineArrowLeft size={20} className='clickable hover:opacity-75 cursor-pointer absolute left-0' onClick={() => dispatch(changeFormNumber(formNumber - 1))} />
         }
         <p className=''>Paso {formNumber}</p>
       </div>

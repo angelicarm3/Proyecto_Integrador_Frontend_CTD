@@ -63,7 +63,7 @@ function Header () {
 
   return (
     <header className='header'>
-      <AiOutlineMenu size={30} className='hamburguer-icon' onClick={toggleDropdown} />
+      <AiOutlineMenu size={30} className='clickable hamburguer-icon' onClick={toggleDropdown} />
       <button type='button' className='logo-container' onClick={handleClickHome}>
         <img src={isoTipoGold} alt='isotipo' className='isotipo' />
         <div className='logo-slogan-container'>
@@ -76,7 +76,7 @@ function Header () {
         isLoggedIn
           ? <div className='flex'>
             <h3 className='my-user-name'>{loggedUser.nombre + ' ' + loggedUser.apellido}</h3>
-            <div onClick={toggleDropdown} className='my-avatar-icon'>
+            <div onClick={toggleDropdown} className='clickable my-avatar-icon'>
               {loggedUser.nombre.charAt(0) + loggedUser.apellido.charAt(0)}
             </div>
             {
@@ -88,10 +88,10 @@ function Header () {
                   </div>
                   {
                     isAdmin &&
-                      <Link to='/administracion' className='logout-button bg-transparent text-yellow1'>Panel administración</Link>
+                      <Link to='/administracion' className='logout-button bg-transparent text-yellow1 hover:opacity-75'>Panel administración</Link>
                   }
-                  <Link to='/mis-favoritos' className='logout-button bg-transparent text-yellow1'>Mis favoritos</Link>
-                  <Link to='/mis-reservas' className='logout-button bg-transparent text-yellow1'>Mis reservas</Link>
+                  <Link to='/mis-favoritos' className='logout-button bg-transparent text-yellow1 hover:opacity-75'>Mis favoritos</Link>
+                  <Link to='/mis-reservas' className='logout-button bg-transparent text-yellow1 hover:opacity-75'>Mis reservas</Link>
                   <button onClick={handleLogout} className='logout-button'>Cerrar sesión</button>
                 </div>
               )

@@ -13,6 +13,20 @@ export const fetchAllBookinsThunk = createAsyncThunk(
   }
 )
 
+export const sendConfirmationEmailThunk = createAsyncThunk(
+  'mail/send',
+  async (emailConfig, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        'https://alluring-enchantment-production.up.railway.app/mail/send/message/reservation', emailConfig
+      )
+      return response.data
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.mensaje || error.response?.data?.message)
+    }
+  }
+)
+
 export const fetchBookinsByIdThunk = createAsyncThunk(
   'bookins/fetchBookinsById',
   async ({ userId, token }, { rejectWithValue }) => {
@@ -60,6 +74,21 @@ export const bookinsSlice = createSlice({
     bookinsByUser: [],
     bookinsByProduct: [],
     totalBookinsByUser: 0,
+    emailConfig: {
+      toUser: [],
+      subject: 'Gracias por tu reserva en Royal Ride',
+      name: '',
+      message: 'https://wa.me/+573143899603',
+      logo: 'https://tiny.one/37xv75fb',
+      details: {
+        modelo: '',
+        matricula: '',
+        salida: [],
+        retorno: [],
+        dias: '',
+        precio: ''
+      }
+    },
     success: false,
     loading: false,
     error: null
@@ -95,6 +124,20 @@ export const bookinsSlice = createSlice({
         state.loading = false
       })
       .addCase(fetchAllBookinsThunk.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload || 'Error al enviar datos'
+      })
+
+      // send email
+      .addCase(sendConfirmationEmailThunk.pending, (state) => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(sendConfirmationEmailThunk.fulfilled, (state, action) => {
+        state.loading = false
+        state.success = true
+      })
+      .addCase(sendConfirmationEmailThunk.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload || 'Error al enviar datos'
       })

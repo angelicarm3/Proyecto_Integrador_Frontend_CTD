@@ -13,7 +13,7 @@ function CreateReviewPopUp ({ onClose, onSuccess }) {
       >
         <AiOutlineClose
           onClick={onClose}
-          className='shareProduct-close-btn'
+          className='clickable shareProduct-close-btn'
         />
         <ReviewForm onClose={onClose} onSuccess={onSuccess} />
       </div>

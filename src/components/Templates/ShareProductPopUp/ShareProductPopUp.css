@@ -9,7 +9,7 @@
   @apply w-11/12 md:w-10/12 bg-gray2 rounded-lg pt-12 md:pt-6 p-6 relative mx-auto overflow-auto border border-gray1;
 }
 .shareProduct-close-btn {
-  @apply absolute top-4 md:top-5 right-6 text-white hover:text-gray3 z-20 text-xl font-bold cursor-pointer;
+  @apply absolute top-4 md:top-5 right-6 text-white hover:text-gray3 z-20 text-xl font-bold cursor-pointer  cursor-pointer
 }
 .shareProduct-section {
   @apply flex flex-col md:flex-row sm:flex-col;
@@ -57,8 +57,8 @@
   @apply text-lg text-yellow1;
 }
 .shareProduct-icon-btn {
-  @apply pl-2 pr-2 text-white;
+  @apply pl-2 pr-2 text-white cursor-pointer
 }
 .shareProduct-media-btn {
-  @apply text-3xl text-white hover:text-gray3;
+  @apply text-3xl text-white hover:text-gray3 cursor-pointer
 }

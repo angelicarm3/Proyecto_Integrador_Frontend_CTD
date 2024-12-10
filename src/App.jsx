@@ -1,16 +1,17 @@
 import { Outlet, Route, Routes, useLocation } from 'react-router-dom'
+import Snowfall from 'react-snowfall'
 
 import './App.css'
 import Footer from './components/Organisms/Footer/Footer.jsx'
 import Header from './components/Organisms/Header/Header.jsx'
-import RequireAdmin from './context/helpers/RequireAdmin.jsx'
-import RequireNoAuth from './context/helpers/RequireNoAuth.jsx'
-import RequireAuth from './context/helpers/RequireAuth.jsx'
 import Favorites from './components/Pages/Favorites/Favorites.jsx'
 import Home from './components/Pages/Home/Home'
 import LoginRegister from './components/Pages/LoginRegister/LoginRegister.jsx'
 import PoliciesPage from './components/Pages/PoliciesPage/PoliciesPage.jsx'
 import ProductDetail from './components/Pages/ProductDetail/ProductDetail.jsx'
+import RequireAdmin from './context/helpers/RequireAdmin.jsx'
+import RequireAuth from './context/helpers/RequireAuth.jsx'
+import RequireNoAuth from './context/helpers/RequireNoAuth.jsx'
 
 import AdminCategories from './components/Pages/AdminCategories/AdminCategories.jsx'
 import AdminCharacteristics from './components/Pages/AdminCharacteristics/AdminCharacteristics.jsx'
@@ -22,7 +23,7 @@ import AdminProducts from './components/Pages/AdminProducts/AdminProducts'
 import AdminUsers from './components/Pages/AdminUsers/AdminUsers.jsx'
 
 import ImagesPopUp from './components/Templates/ImagesPopUp/ImagesPopUp.jsx'
-import RentNowPopUp from './components/Templates/RentNowPopUp/RentNowPopUp.jsx'
+import WappBtn from './components/Atoms/WappBtn/WappBtn.jsx'
 import Bookins from './components/Pages/Bookins/Bookins.jsx'
 
 function App () {
@@ -31,9 +32,18 @@ function App () {
 
   function LayoutWithNavbarAndFooter () {
     return (
-      <div className='layout bg-gray2'>
+      <div className='layout bg-gray2 relative'>
         <Header />
+        <WappBtn />
         <Outlet />
+        <Snowfall
+          snowflakeCount={200}
+          style={{
+            position: 'fixed',
+            width: '100vw',
+            height: '100vh'
+          }}
+        />
         <Footer />
       </div>
     )
@@ -43,6 +53,7 @@ function App () {
     return (
       <div className='layout'>
         <Header />
+        <WappBtn />
         <Outlet />
         <Footer />
       </div>

@@ -5,7 +5,7 @@ const ChangeAdminBtn = ({ user, onClickChangeAdmin }) => {
   return (
     <>
       <button
-        className={`${user.esAdmin ? 'bg-green1' : 'bg-blue1'} 'text-black px-4 py-2 rounded text-xl'`}
+        className={`${user.esAdmin ? 'bg-green1' : 'bg-blue1'} 'text-black px-4 py-2 rounded text-xl cursor-pointer'`}
         onClick={() => onClickChangeAdmin()}
         data-tooltip-id='admin-tooltip'
       >

@@ -16,6 +16,6 @@
     @apply w-[100px] lg:w-[90px] h-[85px] rounded-lg object-cover cursor-pointer hover:opacity-75
   }
   .see-more-btn {
-    @apply lg:w-full text-right text-yellow1 hover:opacity-75 px-2
+    @apply lg:w-full text-right text-yellow1 hover:opacity-75 px-2 cursor-pointer
   }
 }

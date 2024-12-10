@@ -22,8 +22,8 @@ const ImagesGrid = () => {
           otherImg &&
           otherImg.map((imagen, index) => (
             window.innerWidth < 1024 && index < 3
-              ? <img key={index} className='other-img' src={imagen.url} alt='' onClick={() => clickChangeImg(imagen.url)} />
-              : window.innerWidth >= 1024 && index < 4 && <img key={index} className='other-img' src={imagen.url} alt='' onClick={() => clickChangeImg(imagen.url)} />
+              ? <img key={index} className='clickable other-img' src={imagen.url} alt='' onClick={() => clickChangeImg(imagen.url)} />
+              : window.innerWidth >= 1024 && index < 4 && <img key={index} className='clickable other-img' src={imagen.url} alt='' onClick={() => clickChangeImg(imagen.url)} />
           ))
         }
 
