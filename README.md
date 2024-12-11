@@ -17,10 +17,9 @@ Es una página web dedicada al alquiler de vehículos de alta gama, brindando un
 5. [Uso](#uso)
 6. [Características](#características)
 7. [Features](#features)
-8. [Contribuciones](#contribuciones)
-9. [Licencia](#licencia)
-10. [Demo](#demo)
-11. [Equipo del Proyecto](#equipo-del-proyecto)
+8. [Licencia](#licencia)
+9. [Demo](#demo)
+10. [Equipo del Proyecto](#equipo-del-proyecto)
 
 ---
 
@@ -128,23 +127,8 @@ Sigue estos pasos para instalar y ejecutar el proyecto localmente:
   - Marcar productos como favoritos.
   - Calificar y comentar sobre los vehículos reservados.
   - Compartir enlaces de productos.
-
----
-
-## Contribuciones
-
-¡Las contribuciones son bienvenidas! Si deseas colaborar:
-
-1. Haz un fork del repositorio.
-2. Crea una nueva rama para tus cambios:
-   ```bash
-   git checkout -b feature/nueva-funcionalidad
-   ```
-3. Realiza tus cambios y haz un commit:
-   ```bash
-   git commit -m "Añadida nueva funcionalidad"
-   ```
-4. Envía un Pull Request.
+  - Boton de whatsapp
+  - Internacinalizacion la pagina por defecto esta en español pero puede ser cambiada a ingles segun tu localización 
 
 ---
 
