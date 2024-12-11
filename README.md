@@ -1,6 +1,6 @@
-![logo](logoGold.png)
+![logo](src/assets/brand/logoGold.png)
 
-![logo](isoGold.png)
+![logo](src/assets/brand/isoGold.png)
 
 # Royal Ride
 
