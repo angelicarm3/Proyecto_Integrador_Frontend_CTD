@@ -1,12 +1,11 @@
-![logo](src/assets/brand/logoGold.png)
+
 
 ![logo](src/assets/brand/isoGold.png)
 
-# Royal Ride
-
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
-**Royal Ride** es una página web dedicada al alquiler de vehículos de alta gama, brindando una experiencia premium a sus usuarios. Este proyecto combina tecnologías modernas para ofrecer un diseño elegante, funcionalidad eficiente y una experiencia de usuario óptima.
+# Royal Ride
+Es una página web dedicada al alquiler de vehículos de alta gama, brindando una experiencia premium a sus usuarios. Este proyecto combina tecnologías modernas para ofrecer un diseño elegante, funcionalidad eficiente y una experiencia de usuario óptima.
 
 ---
 
@@ -198,3 +197,5 @@ Este proyecto está bajo la Licencia MIT. Consulta el archivo [LICENSE](LICENSE)
   GitHub: [vbqcid](https://github.com/vbqcid)
 
 Si deseas saber más sobre nosotros o colaborar, no dudes en contactarnos.
+
+![logo](src/assets/brand/logoGold.png)
