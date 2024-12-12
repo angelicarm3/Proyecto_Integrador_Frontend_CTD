@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -7,6 +8,7 @@ import './formField.css'
 
 const FormField = ({ autoComplete, fieldWidth, label, id, type, value, inputClass, register, validation, onChange, error, promiseError, extraErrorMessage }) => {
   const dispatch = useDispatch()
+  const { t } = useTranslation()
   const { showPassword } = useSelector((state) => state.form)
 
   return (
@@ -35,7 +37,7 @@ const FormField = ({ autoComplete, fieldWidth, label, id, type, value, inputClas
       }
       {
         error &&
-          <FormErrorMessage message={error.message} />
+          <FormErrorMessage message={t(error.message)} />
       }
       {
         promiseError && id === 'matricula' && promiseError.includes('ya existe en el sistema') && <FormErrorMessage message={extraErrorMessage} />

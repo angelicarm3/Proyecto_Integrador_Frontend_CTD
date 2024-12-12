@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 
 import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { clearError, resetForm, submitFormThunk, updateField } from '../../../context/slices/formSlice'
 import { changeFormNumber, sendConfirmationEmailThunk } from '../../../context/slices/loginRegisterSlice'
-import { pageLabels } from '../../../data/pageLabels'
 import { signupFormFields } from '../../../service/formInputsService'
 
 import { AiOutlineArrowLeft } from 'react-icons/ai'
@@ -13,8 +13,15 @@ import LogInRegisterFormBtn from '../../Atoms/LogInRegisterFormBtn/LogInRegister
 import FormField from '../../Molecules/FormField/FormField'
 import RegistrationConfirmPopUp from '../../Templates/RegistrationConfirmPopUp/RegistrationConfirmPopUp'
 
+const passwordReq = [
+  'passwordMustHave8To20Characters',
+  'passwordMustContainAtLeastASymbolAndANumber',
+  'passwordMustContainAtLeastAnUpperAndALowerCaseLetter'
+]
+
 const SignupForm = () => {
   const dispatch = useDispatch()
+  const { t } = useTranslation()
   const [isOpen, setIsOpen] = useState(false)
   const { userData, success } = useSelector((state) => state.form)
   const { formNumber, emailConfig, error } = useSelector((state) => state.loginRegister)
@@ -83,7 +90,7 @@ const SignupForm = () => {
           formNumber !== 1 &&
             <AiOutlineArrowLeft size={20} className='clickable hover:opacity-75 cursor-pointer absolute left-0' onClick={() => dispatch(changeFormNumber(formNumber - 1))} />
         }
-        <p className=''>Paso {formNumber}</p>
+        <p className=''>{t('step')} {formNumber}</p>
       </div>
       <div className='w-full flex justify-between flex-wrap'>
         {
@@ -99,24 +106,24 @@ const SignupForm = () => {
                   key={id}
                   id={id}
                   type={type}
-                  label={label}
+                  label={t(label)}
                   value={userData[id]}
                   inputClass='input-dark'
                   register={register}
                   validation={{
-                    required: { value: true, message: pageLabels.createProduct.requiredError },
+                    required: { value: true, message: 'thisFieldIsRequired' },
                     ...validation,
                     ...(id === 'confirmPassword' && {
                       validate: {
                         matchesPassword: value =>
-                          value === watch('password') || 'Las contraseñas no coinciden'
+                          value === watch('password') || 'passwordsDoNotMatch'
                       }
                     })
                   }}
                   onChange={handleInputChange}
                   error={errors[id]}
                   promiseError={error}
-                  extraErrorMessage={extraErrorMessage}
+                  extraErrorMessage={t(extraErrorMessage)}
                 />
               )
             }
@@ -133,7 +140,7 @@ const SignupForm = () => {
               className='primary-btn w-full h-[44px] text-[18px] text-black1 font-bold rounded-[36px] my-4'
               onClick={handleNextStep}
             >
-              Continuar
+              {t('continue')}
             </button>
             )
           : (
@@ -141,8 +148,8 @@ const SignupForm = () => {
               <LogInRegisterFormBtn />
               <ul className='list-disc flex flex-col gap-1'>
                 {
-                pageLabels.loginRegister.passwordReq.map((requirement, index) => (
-                  <li key={index} className='text-sm'>{requirement}</li>
+                passwordReq.map((requirement, index) => (
+                  <li key={index} className='text-sm'>{t(requirement)}</li>
                 ))
               }
               </ul>

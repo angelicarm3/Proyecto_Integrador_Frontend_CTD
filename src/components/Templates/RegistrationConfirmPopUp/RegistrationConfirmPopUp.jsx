@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
 
@@ -6,8 +7,9 @@ import { resetForm } from '../../../context/slices/formSlice'
 import { sendConfirmationEmailThunk } from '../../../context/slices/loginRegisterSlice'
 import './registrationConfirmPopUp.css'
 
-function RegistrationConfirmPopUp ({ setIsOpen, type, setReload }) {
+function RegistrationConfirmPopUp ({ setIsOpen, type }) {
   const location = useLocation()
+  const { t } = useTranslation()
   const { userData } = useSelector((state) => state.form)
   const { emailConfig } = useSelector((state) => state.loginRegister)
   const dispatch = useDispatch()
@@ -41,25 +43,21 @@ function RegistrationConfirmPopUp ({ setIsOpen, type, setReload }) {
           <img src={isoWhite} alt='isoWhite' className='w-[100px] lg:w-[120px] absolute top-[-40px] lg:top-[-55px]' />
           {
             type === 'rent'
-              ? <p>
-                Tu reserva se ha realizado con éxito.<br />
-                En breve te enviaremos un
-                <br />
-                correo de confirmación.
-              </p>
-              : <p>
-                Tu inscripción se ha realizado con éxito.<br />
-                En breve te enviaremos un
-                <br />
-                correo de confirmación.
-              </p>
+              ? <div className='flex flex-col gap-y-2 m-4 pt-8 md:m-8 md:pt-16'>
+                <p>{t('bookinCreatedSuccessfully')}</p>
+                <p>{t('weWillShortlySendAConfirmationEmail')}</p>
+              </div>
+              : <div className='flex flex-col mx-8 gap-y-2 pt-16 pb-8'>
+                <p>{t('accountCreatedSuccessfully')}</p>
+                <p>{t('weWillShortlySendAConfirmationEmail')}</p>
+              </div>
           }
         </div>
         {
           type !== 'rent' &&
             <div className='registration-modal-content-button'>
-              <span>¿No has recibido ningún correo?</span>
-              <button type='button' className='secondary-btn' onClick={() => resendEmail()}>Reenviar</button>
+              <span>{t('haveYouNotReceivedAnEmail')}</span>
+              <button type='button' className='secondary-btn' onClick={() => resendEmail()}>{t('resend')}</button>
             </div>
         }
       </div>

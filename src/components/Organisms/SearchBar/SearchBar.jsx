@@ -5,13 +5,14 @@ import { AiOutlineClose } from 'react-icons/ai'
 import { useDispatch, useSelector } from 'react-redux'
 import Datepicker from 'react-tailwindcss-datepicker'
 
+import { useTranslation } from 'react-i18next'
 import { fetchProductsByTimeFrameThunk, getProductsBySearchTerm, resetDatePicker, resetFilters, resetSearchBar, setSearchTerm, setSelectedDates, setSuggestions } from '../../../context/slices/productSlice'
-import { pageLabels } from '../../../data/pageLabels'
 import SearchBtn from '../../Atoms/SearchBtn/SearchBtn'
 import './searchBar.css'
 
 const SearchBar = () => {
   const dispatch = useDispatch()
+  const { t, i18n } = useTranslation()
   const { searchTerm, suggestions, selectedDates } = useSelector((state) => state.product)
   const { setValue } = useForm({ mode: 'onBlur', defaultValues: searchTerm })
 
@@ -64,18 +65,18 @@ const SearchBar = () => {
 
   return (
     <section className='main-section flex flex-col items-center'>
-      <p className='title'>{pageLabels.searchBar.title}</p>
-      <p className='search-bar-subtitle '>{pageLabels.searchBar.subtitle}</p>
+      <p className='title'>{t('fastSearch')}</p>
+      <p className='search-bar-subtitle '>{t('useOurSearchEngineToFindYourIdealCar')}</p>
       <div className='w-full flex flex-col lg:flex-row gap-3'>
         <div className='search-bar-container'>
-          <label htmlFor='searchTerm' className='label'>Buscar por palabra clave</label>
+          <label htmlFor='searchTerm' className='label'>{t('labelKeywordSearch')}</label>
           <div className='w-full flex gap-2'>
             <input
               className='w-full input'
               id='searchTerm'
               type='text'
               value={searchTerm}
-              placeholder={pageLabels.searchBar.input}
+              placeholder={t('lookForYourCar')}
               onChange={handleInputChange}
             />
             <SearchBtn onSearchClick={getProductsBySearchTerm} />
@@ -105,10 +106,10 @@ const SearchBar = () => {
         </div>
 
         <div className='search-bar-container'>
-          <label htmlFor='searchTerm' className='label'>Buscar por fechas</label>
+          <label htmlFor='searchTerm' className='label'>{t('labelDatesSearch')}</label>
           <div className='w-full hidden md:flex gap-2'>
             <Datepicker
-              i18n='es'
+              i18n={i18n.language}
               startWeekOn='mon'
               popoverDirection='down'
               containerClassName='w-full relative font-Urbanist'
@@ -117,17 +118,13 @@ const SearchBar = () => {
               displayFormat='DD/MM/YYYY'
               separator='-'
               theme='light'
-              placeholder='Seleccione las fechas'
+              placeholder={t('selectTheDates')}
               value={selectedDates}
               onChange={newValue => handleDateChange(newValue)}
               disabledDates={[
                 {
                   startDate: new Date(0),
                   endDate: new Date()
-                },
-                {
-                  startDate: new Date('2024-02-11'),
-                  endDate: new Date('2024-02-12')
                 }
               ]}
             />
@@ -135,7 +132,7 @@ const SearchBar = () => {
           </div>
           <div className='w-full flex md:hidden gap-2'>
             <Datepicker
-              i18n='es'
+              i18n={i18n.language}
               useRange={false}
               startWeekOn='mon'
               popoverDirection='down'
@@ -145,17 +142,13 @@ const SearchBar = () => {
               displayFormat='DD/MM/YYYY'
               separator='-'
               theme='light'
-              placeholder='Seleccione las fechas'
+              placeholder={t('selectTheDates')}
               value={selectedDates}
               onChange={newValue => handleDateChange(newValue)}
               disabledDates={[
                 {
                   startDate: new Date(0),
                   endDate: new Date()
-                },
-                {
-                  startDate: new Date('2024-02-11'),
-                  endDate: new Date('2024-02-12')
                 }
               ]}
             />

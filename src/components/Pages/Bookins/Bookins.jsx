@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
+
+import isoGold from '../../../assets/brand/isoGold.svg'
 import { fetchBookinsByIdThunk } from '../../../context/slices/bookinsSlice'
 import { changePage, filterData } from '../../../context/slices/paginatorSlice'
 import Paginator from '../../Molecules/Paginator/Paginator'
@@ -7,6 +10,7 @@ import BookinCard from '../../Organisms/BookinCard/BookinCard'
 
 const Bookins = () => {
   const dispatch = useDispatch()
+  const { t } = useTranslation()
   const token = localStorage.getItem('token')
   const { loggedUser } = useSelector((state) => state.loginRegister)
   const { bookinsByUser, loading, totalBookinsByUser, error } = useSelector((state) => state.bookins)
@@ -38,17 +42,9 @@ const Bookins = () => {
     dispatch(filterData(filteredBookins))
   }
 
-  if (loading) {
-    return <p className='text-center text-lg'>Cargando...</p>
-  }
-
-  if (error) {
-    return <p className='text-center text-lg text-red-500'>Error: {error}</p>
-  }
-
   return (
     <div className='main-page mt-[68px] py-8'>
-      <h1 className='title mt-3'>Mis reservas</h1>
+      <h1 className='title mt-3'>{t('myBookins')}</h1>
 
       <div className='flex justify-center space-x-4 mb-6'>
         <button
@@ -57,7 +53,7 @@ const Bookins = () => {
           }`}
           onClick={() => setCurrentTab('current')}
         >
-          Reservas actuales
+          {t('currentBookins')}
         </button>
         <button
           className={`px-4 py-2 rounded font-bold ${
@@ -65,18 +61,19 @@ const Bookins = () => {
           }`}
           onClick={() => setCurrentTab('previous')}
         >
-          Reservas anteriores
+          {t('previousBookins')}
         </button>
       </div>
 
       {filteredBookins.length === 0
-        ? (
-          <p className='text-center text-white'>No se encontraron reservas.</p>
-          )
+        ? <div className='h-[300px] flex flex-col justify-center items-center text-gray3 text-lg'>
+          <p>{t('youDoNotHaveBookinsYet')}</p>
+          <img src={isoGold} alt='Logo de la marca' className='h-[150px] mt-6' />
+        </div>
         : (
           <>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
-              {items.map((booking) => (
+              {items && items.map((booking) => (
                 <BookinCard key={booking.id} booking={booking} />
               ))}
             </div>

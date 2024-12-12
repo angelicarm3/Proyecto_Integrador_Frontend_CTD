@@ -23,7 +23,7 @@ const ProductDetail = () => {
   const [showRequireLoginPopup, setShowRequireLoginPopup] = useState(false)
   const { bookinData, success, totalDays, totalPrice } = useSelector((state) => state.form)
   const selectedProduct = useSelector((state) => state.product.selectedProduct)
-  const {emailConfig} = useSelector((state) => state.bookins)
+  const { emailConfig } = useSelector((state) => state.bookins)
   const { loggedUser } = useSelector((state) => state.loginRegister)
 
   useEffect(() => {

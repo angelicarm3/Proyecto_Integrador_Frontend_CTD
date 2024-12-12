@@ -1,13 +1,16 @@
+import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 
 import isoGold from '../../../assets/brand/isoGold.svg'
 import ProductCard from '../../Organisms/ProductCard/ProductCard'
 
 const Favorites = () => {
+  const { t } = useTranslation()
+
   const { favorites } = useSelector((state) => state.favorites)
   return (
     <div className='main-page mt-[68px] py-8'>
-      <h1 className='title mt-3'>Mis Favoritos</h1>
+      <h1 className='title mt-3'>{t('myFavorites')}</h1>
       <div className='w-full md:max-w-[592px] flex flex-wrap justify-center gap-4'>
         {
           favorites &&
@@ -19,7 +22,7 @@ const Favorites = () => {
         {
           favorites?.length === 0 &&
             <div className='h-[300px] flex flex-col justify-center items-center text-gray3 text-lg'>
-              <p>Aún no tienes autos favoritos</p>
+              <p>{t('youDoNotHaveFavoriteCarsYet')}</p>
               <img src={isoGold} alt='Logo de la marca' className='h-[150px] mt-6' />
             </div>
         }

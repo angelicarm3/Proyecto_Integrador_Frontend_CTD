@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 
 import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
@@ -15,6 +16,7 @@ import FormField from '../../Molecules/FormField/FormField'
 const LoginForm = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const { t } = useTranslation()
   const { loginData, response, error, success } = useSelector((state) => state.form)
   const { isAdmin, logInSuccess } = useSelector((state) => state.loginRegister)
 
@@ -60,7 +62,7 @@ const LoginForm = () => {
       {
         error?.includes('username o password incorrecto') &&
           <div className='w-full h-fit flex justify-center items-center text-sm text-red1 font-medium border-red1 border rounded p-2 mb-4'>
-            <p>{pageLabels.loginRegister.badCredentialsError}</p>
+            <p>{t('invalidEmailOrPassword')}</p>
           </div>
       }
       <div className='w-full flex flex-col'>
@@ -71,49 +73,24 @@ const LoginForm = () => {
                 key={id}
                 id={id}
                 type={type}
-                label={label}
+                label={t(label)}
                 value={loginData[id]}
                 inputClass='input-dark'
                 register={register}
                 validation={{
-                  required: { value: true, message: pageLabels.createProduct.requiredError },
+                  required: { value: true, message: 'thisFieldIsRequired' },
                   ...validation
                 }}
                 onChange={handleInputChange}
                 error={errors[id]}
                 promiseError={error}
-                extraErrorMessage={extraErrorMessage}
+                extraErrorMessage={t(extraErrorMessage)}
               />
             ))
         }
       </div>
 
-      {/* <div className='flex justify-between font-normal mb-6'>
-        <div className='flex h-6 items-start relative'>
-          <input
-            id='rememberMe'
-            type='checkbox'
-            name='rememberMe'
-          />
-          <div className='w-fit flex items-center absolute font-normal bg-black3 py-2 gap-4 top-[-10px] left-0 cursor-pointer' onClick={() => dispatch(setIsRememberMe())}>
-            <CheckboxButton />
-            <label htmlFor='rememberMe' className='cursor-pointer'>
-              {pageLabels.loginRegister.rememberMe}
-            </label>
-          </div>
-        </div>
-        <div className='text-gray3 cursor-pointer'>
-          {pageLabels.loginRegister.forgotPassword}
-        </div>
-      </div> */}
-
       <LogInRegisterFormBtn />
-
-      {/* <p className='w-full text-center'>¿No tiene una cuenta?
-        <span className='text-gray3 cursor-pointer ml-2' onClick={() => handleOptionClick('/registro')}>
-          Regístrese
-        </span>
-      </p> */}
     </form>
   )
 }

@@ -1,7 +1,10 @@
+import { useTranslation } from 'react-i18next'
 import { BiSolidDetail } from 'react-icons/bi'
 import { Tooltip as ReactTooltip } from 'react-tooltip'
 
 const DetailBtn = ({ onClickDetail }) => {
+  const { t } = useTranslation()
+
   return (
     <>
       <button
@@ -15,7 +18,7 @@ const DetailBtn = ({ onClickDetail }) => {
         id='detail-tooltip'
         place='top'
         effect='float'
-        content='Detalle'
+        content={t('detail')}
       />
     </>
   )

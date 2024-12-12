@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { FaEdit } from 'react-icons/fa'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
@@ -11,6 +12,7 @@ import EditBtn from '../../Atoms/EditBtn/EditBtn'
 
 const ProductRow = ({ product }) => {
   const dispatch = useDispatch()
+  const { t } = useTranslation()
   const token = localStorage.getItem('token')
 
   const resetTable = () => {
@@ -22,20 +24,20 @@ const ProductRow = ({ product }) => {
   const handleSelectProduct = () => {
     dispatch(setSelectedProduct(product))
     withReactContent(Swal).fire({
-      title: <p className='text-2xl font-semibold'>Detalles del Producto</p>,
+      title: <p className='text-2xl font-semibold'>{t('productDetails')}</p>,
       html: `
           <div class='w-fit flex flex-col text-left mx-auto'>
-            <p><strong>Nombre:</strong> ${product.marca} ${product.modelo}</p>
-            <p><strong>Matrícula:</strong> ${product.matricula}</p>
-            <p><strong>Año de fabricación:</strong> ${product.fechaFabricacion}</p>
-            <p><strong>Potencia:</strong> ${product.potenciaHP} HP</p>
-            <p><strong>Velocidad:</strong> ${product.velocidad} km/h</p>
-            <p><strong>Aceleración:</strong> ${product.aceleracion} s</p>
-            <p><strong>Precio por día:</strong> $${product.precioDia}</p>
-            <p><strong>Descripción:</strong> ${product.descripcion}</p>
+            <p><strong>${t('labelName')}:</strong> ${product.marca} ${product.modelo}</p>
+            <p><strong>${t('plate')}:</strong> ${product.matricula}</p>
+            <p><strong>${t('labelYearOfMaking')}:</strong> ${product.fechaFabricacion}</p>
+            <p><strong>${t('titleHorsepower')}:</strong> ${product.potenciaHP} HP</p>
+            <p><strong>${t('titleSpeed')}:</strong> ${product.velocidad} km/h</p>
+            <p><strong>${t('titleAcceleration')}:</strong> ${product.aceleracion} s</p>
+            <p><strong>${t('dayPrice')}:</strong> $${product.precioDia}</p>
+            <p><strong>${t('titleDescription')}:</strong> ${product.descripcion}</p>
           </div>
         `,
-      confirmButtonText: 'Cerrar',
+      confirmButtonText: `${t('close')}`,
       customClass: {
         confirmButton: 'bg-blue1 text-white font-bold'
       }
@@ -45,7 +47,7 @@ const ProductRow = ({ product }) => {
   const handleDelete = () => {
     dispatch(setSelectedProduct(product))
     withReactContent(Swal).fire({
-      title: <p className='text-2xl font-semibold'>¿Desea eliminar este producto?</p>,
+      title: <p className='text-2xl font-semibold'>{t('doYouWishToDeteleteThisProduct')}</p>,
       html: `
         <div class='w-fit flex flex-col items-center text-center mx-auto gap-2'>
             <p>${product.marca} ${product.modelo}</p>
@@ -53,8 +55,8 @@ const ProductRow = ({ product }) => {
         </div>
         `,
       showCancelButton: true,
-      confirmButtonText: 'Eliminar',
-      cancelButtonText: 'Cancelar',
+      confirmButtonText: `${t('delete')}`,
+      cancelButtonText: `${t('cancel')}`,
       customClass: {
         confirmButton: 'bg-green1 text-white font-bold',
         cancelButton: 'bg-red1 text-white font-bold'
@@ -66,7 +68,7 @@ const ProductRow = ({ product }) => {
           .then((response) => {
             withReactContent(Swal).fire({
               icon: 'success',
-              text: 'Producto eliminado exitosamente',
+              text: `${t('productDeletedSuccessfully')}`,
               showConfirmButton: false,
               timer: 3000
             })
@@ -75,7 +77,7 @@ const ProductRow = ({ product }) => {
           .catch(() => {
             withReactContent(Swal).fire({
               icon: 'error',
-              text: 'No se puede eliminar este producto',
+              text: `${t('weCanNotDeleteThisProduct')}`,
               showConfirmButton: false,
               timer: 3000
             })

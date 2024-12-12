@@ -28,7 +28,7 @@
     @apply w-full md:w-fit flex justify-center items-center self-center md:self-start
   }
   .isotipo {
-    @apply min-w-[70-px] h-12 mr-5
+    @apply min-w-[70-px] h-12 md:mr-5
   }
   .logo-slogan-container {
     @apply hidden md:flex flex-col justify-center items-center gap-2
