@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .wap-input-container {
+    @apply w-full h-fit flex flex-col justify-around items-center rounded-xl font-bold relative p-2
+  }
+  .wap-input {
+    @apply w-6/12 h-10 bg-gray4 rounded-lg outline-none px-4
+  }
+}

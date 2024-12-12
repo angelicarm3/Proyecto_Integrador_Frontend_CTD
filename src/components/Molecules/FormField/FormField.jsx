@@ -1,6 +1,6 @@
+import { useTranslation } from 'react-i18next'
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
 import { useDispatch, useSelector } from 'react-redux'
-import { useTranslation } from 'react-i18next'
 
 import { setShowPassword } from '../../../context/slices/formSlice'
 import FormErrorMessage from '../../Atoms/FormErrorMessage/FormErrorMessage'
