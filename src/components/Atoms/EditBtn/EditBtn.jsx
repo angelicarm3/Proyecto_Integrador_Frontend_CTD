@@ -1,8 +1,11 @@
+import { useTranslation } from 'react-i18next'
 import { FaEdit } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import { Tooltip as ReactTooltip } from 'react-tooltip'
 
 const EditBtn = ({ navigateTo }) => {
+  const { t } = useTranslation()
+
   return (
     <>
       <Link
@@ -16,7 +19,7 @@ const EditBtn = ({ navigateTo }) => {
         id='edit-tooltip'
         place='top'
         effect='float'
-        content='Editar'
+        content={t('edit')}
       />
     </>
   )

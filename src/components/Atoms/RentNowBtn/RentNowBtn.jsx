@@ -1,9 +1,11 @@
-import { pageLabels } from '../../../data/pageLabels'
+import { useTranslation } from 'react-i18next'
 
 const RentNowBtn = ({ onRentClick }) => {
+  const { t } = useTranslation()
+
   return (
     <button className='primary-btn rent-now-btn' onClick={() => onRentClick()}>
-      {pageLabels.buttons.rentNow}
+      {t('rentNow')}
     </button>
   )
 }

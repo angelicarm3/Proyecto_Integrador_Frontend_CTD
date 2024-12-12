@@ -1,12 +1,15 @@
-import { pageLabels } from '../../../data/pageLabels'
+import { useTranslation } from 'react-i18next'
+
 import './productCharacteristics.css'
 
 const ProductCharacteristics = ({ characteristics, type }) => {
+  const { t } = useTranslation()
+
   return (
     <div className='product-characteristics-container'>
       {
         type !== 'share' &&
-          <p className='product-characteristics-title'>{pageLabels.characteristics.title}</p>
+          <p className='product-characteristics-title'>{t('characteristics')}</p>
       }
       <div className='product-characteristics-grid'>
         {

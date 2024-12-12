@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 
+import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { changePage, filterData } from '../../../context/slices/paginatorSlice'
@@ -12,10 +13,12 @@ import UserRow from '../../Molecules/UserRow/UserRow'
 import AdminTable from '../../Organisms/AdminTable/AdminTable'
 import '../AdminProducts/AdminProducts.css'
 
+const headers = ['id', 'labelName', 'labelEmail', 'role', 'actions']
+
 const AdminUsers = () => {
   const dispatch = useDispatch()
+  const { t } = useTranslation()
   const token = localStorage.getItem('token')
-  const headers = ['Id', 'Nombre', 'Email', 'Rol', 'Acciones']
   const { items } = useSelector((state) => state.paginator)
   const { users, totalUsers, loading } = useSelector((state) => state.adminUsers)
 
@@ -38,13 +41,13 @@ const AdminUsers = () => {
 
   return (
     <div className='admin-products-container'>
-      <p className='title'>Administrar Usuarios</p>
+      <p className='title'>{t('usersList')}</p>
       <div>
         <section className='admin-products-section'>
           <BackBtn navigateTo='/administracion' />
 
           <div className='admin-products-dropDown-conatiner'>
-            <span>Resultados</span>
+            <span>{t('results')}</span>
             <Dropdown allItems={users} />
           </div>
         </section>

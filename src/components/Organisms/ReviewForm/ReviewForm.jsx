@@ -1,17 +1,18 @@
 import { useEffect } from 'react'
 
 import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { FaRegStar, FaStar } from 'react-icons/fa'
 import Rating from 'react-rating'
 import { resetForm, submitFormThunk, updateField } from '../../../context/slices/formSlice'
-import { pageLabels } from '../../../data/pageLabels'
 import CancelBtn from '../../Atoms/CancelBtn/CancelBtn'
 import SaveBtn from '../../Atoms/SaveBtn/SaveBtn'
 
 const ReviewForm = ({ onClose, onSuccess }) => {
   const dispatch = useDispatch()
+  const { t } = useTranslation()
   const token = localStorage.getItem('token')
   const { reviewData, success } = useSelector((state) => state.form)
   const selectedProduct = useSelector((state) => state.product.selectedProduct)
@@ -63,7 +64,7 @@ const ReviewForm = ({ onClose, onSuccess }) => {
     <form className='w-full h-full flex flex-col justify-center items-center font-Urbanist' onSubmit={handleSubmit(onSubmit)}>
       <div className='field-container w-full'>
         <label htmlFor='comentario' className='label'>
-          Califica tu experiencia
+          {t('rateYourExperience')}
         </label>
         <Rating
           className='clickable'
@@ -77,21 +78,21 @@ const ReviewForm = ({ onClose, onSuccess }) => {
 
       <div className='field-container w-full'>
         <label htmlFor='comentario' className='label'>
-          Comentario
+          {t('labelComment')}
         </label>
         <textarea
           id='comentario'
           maxLength={maxDescriptionCharacters}
           value={reviewData.comentario}
           className={`input text-black1 description-input ${errors.descripcion && 'border-red1'}`}
-          placeholder='Comentario'
+          placeholder={t('leaveYourComment')}
           onChange={(e) => {
             handleInputChange(e)
             e.target.dispatchEvent(new Event('input', { bubbles: true }))
           }}
         />
         <div className='input-counter'>
-          {maxDescriptionCharacters - (reviewData.comentario?.length || 0)} {pageLabels.createProduct.characterCount}
+          {maxDescriptionCharacters - (reviewData.comentario?.length || 0)} {t('remainingCharacters')}
         </div>
       </div>
       <div className='flex gap-6 mt-4'>

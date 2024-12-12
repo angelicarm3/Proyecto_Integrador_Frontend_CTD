@@ -1,7 +1,10 @@
+import { useTranslation } from 'react-i18next'
 import { HiTrash } from 'react-icons/hi'
 import { Tooltip as ReactTooltip } from 'react-tooltip'
 
 const DeleteBtn = ({ onClickDelete }) => {
+  const { t } = useTranslation()
+
   return (
     <>
       <button
@@ -15,7 +18,7 @@ const DeleteBtn = ({ onClickDelete }) => {
         id='delete-tooltip'
         place='top'
         effect='float'
-        content='Eliminar'
+        content={t('delete')}
       />
     </>
   )

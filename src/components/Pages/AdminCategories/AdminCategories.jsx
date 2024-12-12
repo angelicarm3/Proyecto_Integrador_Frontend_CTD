@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { fetchAllCategoriesThunk, resetStatus } from '../../../context/slices/adminCategorySlice'
@@ -12,9 +13,11 @@ import Paginator from '../../Molecules/Paginator/Paginator'
 import AdminTable from '../../Organisms/AdminTable/AdminTable'
 import '../AdminProducts/AdminProducts.css'
 
+const headers = ['id', 'labelName', 'titleDescription', 'icon', 'actions']
+
 const AdminCategories = () => {
   const dispatch = useDispatch()
-  const headers = ['Id', 'Nombre', 'Descripción', 'Icono', 'Acciones']
+  const { t } = useTranslation()
   const { items } = useSelector((state) => state.paginator)
   const { loading, allCategories, totalCategories } = useSelector((state) => state.adminCategory)
 
@@ -35,7 +38,7 @@ const AdminCategories = () => {
 
   return (
     <div className='admin-products-container'>
-      <p className='title'>Administrar Categorías</p>
+      <p className='title'>{t('administrateCategories')}</p>
       <div>
         <section className='admin-products-section'>
           <div className='flex gap-3 h-full'>
@@ -44,7 +47,7 @@ const AdminCategories = () => {
           </div>
 
           <div className='admin-products-dropDown-conatiner'>
-            <span>Resultados</span>
+            <span>{t('results')}</span>
             <Dropdown allItems={allCategories} />
           </div>
         </section>

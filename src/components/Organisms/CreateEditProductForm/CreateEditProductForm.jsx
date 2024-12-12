@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import { useTranslation } from 'react-i18next'
 
 import { fetchAllCharacteristicsThunk } from '../../../context/slices/adminCharacteristicSlice'
 import { fetchAllCategoriesThunk } from '../../../context/slices/categorySlice'
@@ -27,6 +28,7 @@ const CreateEditProductForm = () => {
   const location = useLocation()
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const { t } = useTranslation()
   const token = localStorage.getItem('token')
 
   const { productData, error, imgSuccess } = useSelector((state) => state.form)
@@ -116,7 +118,7 @@ const CreateEditProductForm = () => {
           .then((response) => {
             withReactContent(Swal).fire({
               icon: 'success',
-              text: 'Producto modificado exitosamente',
+              text: `${t('productModifiedSuccessfully')}`,
               showConfirmButton: false,
               timer: 3000
             })
@@ -128,7 +130,7 @@ const CreateEditProductForm = () => {
           .catch(() => {
             withReactContent(Swal).fire({
               icon: 'error',
-              text: 'No se puede modificar este producto',
+              text: `${t('weCanNotModifyThisProduct')}`,
               showConfirmButton: false,
               timer: 3000
             })
@@ -139,7 +141,7 @@ const CreateEditProductForm = () => {
           .then((response) => {
             withReactContent(Swal).fire({
               icon: 'success',
-              text: 'Producto creado exitosamente',
+              text: `${t('productCreatedSuccessfully')}`,
               showConfirmButton: false,
               timer: 3000
             })
@@ -151,7 +153,7 @@ const CreateEditProductForm = () => {
           .catch(() => {
             withReactContent(Swal).fire({
               icon: 'error',
-              text: 'No se puede crear este producto',
+              text: `${t('weCanNotCreateThisProduct')}`,
               showConfirmButton: false,
               timer: 3000
             })
@@ -165,7 +167,7 @@ const CreateEditProductForm = () => {
       <div className='back-form-btn'>
         <BackBtn />
       </div>
-      <p className='title form-title'>{pageLabels.createProduct.title}</p>
+      <p className='title form-title'>{t('product')}</p>
 
       <div className='form-fields-container'>
         {
@@ -176,18 +178,18 @@ const CreateEditProductForm = () => {
               autoComplete={autoComplete}
               id={id}
               type='text'
-              label={label}
+              label={t(label)}
               value={productData[id]}
               inputClass='input'
               register={register}
               validation={{
-                required: { value: true, message: pageLabels.createProduct.requiredError },
+                required: { value: true, message: 'thisFieldIsRequired' },
                 ...validation
               }}
               onChange={handleInputChange}
               error={errors[id]}
               promiseError={error}
-              extraErrorMessage={extraErrorMessage}
+              extraErrorMessage={t(extraErrorMessage)}
             />
           ))
         }
@@ -195,37 +197,37 @@ const CreateEditProductForm = () => {
         <ButtonField
           items={allCharacteristics}
           containerClass='field-container w-11/12'
-          label={pageLabels.createProduct.characteristic}
+          label={t('labelCharacteristics')}
           labelClass='label'
           selectedItems={selectedCharacteristics}
           onChange={(item) => handleSelectionChange(item, setSelectedCharacteristics)}
-          errorMessage={pageLabels.createProduct.requiredSelectionError}
+          errorMessage={t('pleaseSelectAtLeastAnOption')}
         />
 
         <ButtonField
           items={allCategories}
           containerClass='field-container w-11/12'
-          label={pageLabels.createProduct.category}
+          label={t('labelCategories')}
           labelClass='label'
           selectedItems={selectedCategories}
           onChange={(item) => handleSelectionChange(item, setSelectedCategories)}
-          errorMessage={pageLabels.createProduct.requiredSelectionError}
+          errorMessage={t('pleaseSelectAtLeastAnOption')}
         />
 
         <div className='field-container relative w-11/12'>
           <label htmlFor='descripcion' className='label'>
-            {pageLabels.createProduct.description}
+            {t('labelDescription')}
           </label>
           <textarea
             id='descripcion'
             maxLength={maxDescriptionCharacters}
             value={productData.descripcion}
             className={`input description-input ${errors.descripcion && 'border-red1'}`}
-            placeholder={pageLabels.createProduct.description}
+            placeholder={t('labelDescription')}
             {...register('descripcion', {
               required: {
                 value: true,
-                message: `${pageLabels.createProduct.requiredError}`
+                message: 'thisFieldIsRequired'
               }
             })}
             onChange={(e) => {
@@ -234,16 +236,16 @@ const CreateEditProductForm = () => {
             }}
           />
           <div className='input-counter'>
-            {maxDescriptionCharacters - (productData.descripcion?.length || 0)} {pageLabels.createProduct.characterCount}
+            {maxDescriptionCharacters - (productData.descripcion?.length || 0)} {t('remainingCharacters')}
           </div>
           {
-          errors.descripcion && <FormErrorMessage message={errors.descripcion.message} error='description' />
+          errors.descripcion && <FormErrorMessage message={t(errors.descripcion.message)} error='description' />
           }
         </div>
 
         <div className='field-container relative w-11/12'>
           <label htmlFor='imagenes' className='label'>
-            {pageLabels.createProduct.images}
+            {t('labelImages')}
           </label>
           <div className='flex gap-4'>
             <input
@@ -259,7 +261,7 @@ const CreateEditProductForm = () => {
               onClick={() => document.getElementById('imagenes').click()}
             >
               <AiOutlineFileImage size={40} className='img-icon' />
-              <p className='img-placeholder'>{pageLabels.createProduct.imgPlaceholder}</p>
+              <p className='img-placeholder'>{t('selectImages')}</p>
             </button>
             <div className='preview-grid'>
               {
@@ -273,9 +275,9 @@ const CreateEditProductForm = () => {
             </div>
           </div>
           {
-            imagesRequiredError && <FormErrorMessage message={pageLabels.createProduct.requiredError} error='images' />
+            imagesRequiredError && <FormErrorMessage message={t('thisFieldIsRequired')} error='images' />
           }
-          <p className='input-counter'>{filePreviews.length} {pageLabels.createProduct.fileCount}</p>
+          <p className='input-counter'>{filePreviews.length} {t('selectedFiles')}</p>
         </div>
 
         <div className='btn-container'>

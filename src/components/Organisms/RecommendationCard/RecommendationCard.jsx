@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 import { pageLabels } from '../../../data/pageLabels'
 import ProductFeatures from '../../Molecules/ProductFeatures/ProductFeatures'
@@ -6,6 +7,7 @@ import './recommendationCard.css'
 
 const RecommendationCard = ({ product }) => {
   const navigate = useNavigate()
+  const { t } = useTranslation()
   const mainImg = product.imagenes.filter((img) => img.esPrincipal)
 
   return (
@@ -15,10 +17,10 @@ const RecommendationCard = ({ product }) => {
         <p className='recommendation-name'>{product.marca} {product.modelo}</p>
         <p className='recommendation-daily-price'>
           ${product.precioDia}
-          <span className='recommendation-day-text'>{pageLabels.productCard.dia}</span>
+          <span className='recommendation-day-text'>{t('perDay')}</span>
         </p>
         <ProductFeatures product={product} type='recommendation' />
-        <div className='primary-btn rent-now-btn clickable'>Ver detalles
+        <div className='primary-btn rent-now-btn clickable'>{t('seeDetails')}
         </div>
       </div>
     </div>
