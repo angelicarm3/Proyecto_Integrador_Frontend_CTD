@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { fetchAllCharacteristicsThunk, resetStatus } from '../../../context/slices/adminCharacteristicSlice'
@@ -12,9 +13,11 @@ import Paginator from '../../Molecules/Paginator/Paginator'
 import AdminTable from '../../Organisms/AdminTable/AdminTable'
 import '../AdminProducts/AdminProducts.css'
 
+const headers = ['id', 'labelName', 'icon', 'actions']
+
 const AdminCharacteristics = () => {
   const dispatch = useDispatch()
-  const headers = ['Id', 'Nombre', 'Icono', 'Acciones']
+  const { t } = useTranslation()
   const { items } = useSelector((state) => state.paginator)
   const { loading, allCharacteristics, totalCharacteristics } = useSelector((state) => state.adminCharacteristic)
 
@@ -35,7 +38,7 @@ const AdminCharacteristics = () => {
 
   return (
     <div className='admin-products-container'>
-      <p className='title'>Administrar Características</p>
+      <p className='title'>{t('administrateCharacteristics')}</p>
       <div>
         <section className='admin-products-section'>
           <div className='flex gap-3 h-full'>
@@ -44,7 +47,7 @@ const AdminCharacteristics = () => {
           </div>
 
           <div className='admin-products-dropDown-conatiner'>
-            <span>Resultados</span>
+            <span>{t('results')}</span>
             <Dropdown allItems={allCharacteristics} />
           </div>
         </section>

@@ -1,4 +1,6 @@
 import { useEffect } from 'react'
+
+import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { fetchAllProductsAdminThunk, resetStatus } from '../../../context/slices/adminProductSlice'
@@ -12,9 +14,11 @@ import ProductRow from '../../Molecules/ProductRow/ProductRow'
 import AdminTable from '../../Organisms/AdminTable/AdminTable'
 import './AdminProducts.css'
 
+const headers = ['id', 'labelName', 'category', 'dayPrice', 'plate', 'actions']
+
 const AdminProducts = () => {
   const dispatch = useDispatch()
-  const headers = ['Id', 'Nombre', 'Categoria', 'Precio día', 'Matrícula', 'Acciones']
+  const { t } = useTranslation()
   const { items } = useSelector((state) => state.paginator)
   const { loading, allProducts, totalProducts } = useSelector((state) => state.adminProducts)
 
@@ -35,7 +39,7 @@ const AdminProducts = () => {
 
   return (
     <div className='admin-products-container'>
-      <p className='title'>Administrar Productos</p>
+      <p className='title'>{t('productsList')}</p>
       <div>
         <section className='admin-products-section'>
           <div className='flex gap-3 h-full'>
@@ -43,7 +47,7 @@ const AdminProducts = () => {
             <AddBtn navigateTo='/administracion/agregar-producto' />
           </div>
           <div className='admin-products-dropDown-conatiner'>
-            <span>Resultados</span>
+            <span>{t('results')}</span>
             <Dropdown allItems={allProducts} />
           </div>
         </section>

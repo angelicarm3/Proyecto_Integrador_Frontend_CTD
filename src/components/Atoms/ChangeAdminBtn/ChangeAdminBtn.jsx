@@ -1,7 +1,10 @@
 import { FaUserShield } from 'react-icons/fa'
 import { Tooltip as ReactTooltip } from 'react-tooltip'
+import { useTranslation } from 'react-i18next'
 
 const ChangeAdminBtn = ({ user, onClickChangeAdmin }) => {
+  const { t } = useTranslation()
+
   return (
     <>
       <button
@@ -15,7 +18,7 @@ const ChangeAdminBtn = ({ user, onClickChangeAdmin }) => {
         id='admin-tooltip'
         place='top'
         effect='float'
-        content='Modificar permisos'
+        content={t('modifyAdmin')}
       />
     </>
   )

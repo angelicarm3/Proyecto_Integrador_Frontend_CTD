@@ -7,6 +7,8 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
+import { useTranslation } from 'react-i18next'
+
 import { fetchCategoryByIdThunk } from '../../../context/slices/adminCategorySlice'
 import { resetForm, submitFormThunk, updateField, updateHasSubmited, updateImgSuccess, uploadImagesThunk } from '../../../context/slices/formSlice'
 import { pageLabels } from '../../../data/pageLabels'
@@ -24,6 +26,7 @@ const CreateEditCategoryForm = () => {
   const location = useLocation()
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const { t } = useTranslation()
   const token = localStorage.getItem('token')
 
   const { categoryData, error, imgSuccess } = useSelector((state) => state.form)
@@ -94,7 +97,7 @@ const CreateEditCategoryForm = () => {
           .then((response) => {
             withReactContent(Swal).fire({
               icon: 'success',
-              text: 'Categoría modificada exitosamente',
+              text: `${t('categoryModifiedSuccessfully')}`,
               showConfirmButton: false,
               timer: 3000
             })
@@ -106,7 +109,7 @@ const CreateEditCategoryForm = () => {
           .catch(() => {
             withReactContent(Swal).fire({
               icon: 'error',
-              text: 'No se puede modificar esta categoría',
+              text: `${t('weCanNotModifyThisCategory')}`,
               showConfirmButton: false,
               timer: 3000
             })
@@ -117,7 +120,7 @@ const CreateEditCategoryForm = () => {
           .then((response) => {
             withReactContent(Swal).fire({
               icon: 'success',
-              text: 'Categoría creada exitosamente',
+              text: `${t('categoryCreatedSuccessfully')}`,
               showConfirmButton: false,
               timer: 3000
             })
@@ -129,7 +132,7 @@ const CreateEditCategoryForm = () => {
           .catch(() => {
             withReactContent(Swal).fire({
               icon: 'error',
-              text: 'No se puede crear esta categoría',
+              text: `${t('weCanNotCreateThisCategory')}`,
               showConfirmButton: false,
               timer: 3000
             })
@@ -143,7 +146,7 @@ const CreateEditCategoryForm = () => {
       <div className='back-form-btn'>
         <BackBtn />
       </div>
-      <p className='title form-title'>{pageLabels.createCategory.title}</p>
+      <p className='title form-title'>{t('category')}</p>
 
       <div className='form-fields-container'>
         {
@@ -153,36 +156,36 @@ const CreateEditCategoryForm = () => {
               key={id}
               id={id}
               type='text'
-              label={label}
+              label={t(label)}
               value={categoryData[id]}
               inputClass='input'
               register={register}
               validation={{
-                required: { value: true, message: pageLabels.createProduct.requiredError },
+                required: { value: true, message: 'thisFieldIsRequired' },
                 ...validation
               }}
               onChange={handleInputChange}
               error={errors[id]}
               promiseError={error}
-              extraErrorMessage={extraErrorMessage}
+              extraErrorMessage={t(extraErrorMessage)}
             />
           ))
         }
 
         <div className='field-container relative w-11/12'>
           <label htmlFor='descripcion' className='label'>
-            {pageLabels.createProduct.description}
+            {t('labelDescription')}
           </label>
           <textarea
             id='descripcion'
             maxLength={maxDescriptionCharacters}
             value={categoryData.descripcion}
             className={`input description-input ${errors.descripcion && 'border-red1'}`}
-            placeholder={pageLabels.createCategory.description}
+            placeholder={t('labelDescription')}
             {...register('descripcion', {
               required: {
                 value: true,
-                message: `${pageLabels.createProduct.requiredError}`
+                message: 'thisFieldIsRequired'
               }
             })}
             onChange={(e) => {
@@ -191,16 +194,16 @@ const CreateEditCategoryForm = () => {
             }}
           />
           <div className='input-counter'>
-            {maxDescriptionCharacters - (categoryData.descripcion?.length || 0)} {pageLabels.createProduct.characterCount}
+            {maxDescriptionCharacters - (categoryData.descripcion?.length || 0)} {t('remainingCharacters')}
           </div>
           {
-          errors.descripcion && <FormErrorMessage message={errors.descripcion.message} error='description' />
+          errors.descripcion && <FormErrorMessage message={t(errors.descripcion.message)} error='description' />
           }
         </div>
 
         <div className='field-container relative w-11/12'>
           <label htmlFor='iconoCat' className='label'>
-            {pageLabels.createCategory.icon}
+            {t('labelIcon')}
           </label>
           <div className='flex gap-4'>
             <input
@@ -215,7 +218,7 @@ const CreateEditCategoryForm = () => {
               onClick={() => document.getElementById('iconoCat').click()}
             >
               <AiOutlineFileImage size={40} className='img-icon' />
-              <p className='img-placeholder'>{pageLabels.createCharacteristic.imgPlaceholder}</p>
+              <p className='img-placeholder'>{t('selectIcon')}</p>
             </button>
             <div className='preview-grid'>
               {
@@ -231,7 +234,7 @@ const CreateEditCategoryForm = () => {
             </div>
           </div>
           {
-            imagesRequiredError && <FormErrorMessage message={pageLabels.createProduct.requiredError} error='images' />
+            imagesRequiredError && <FormErrorMessage message={t('thisFieldIsRequired')} error='images' />
           }
         </div>
 

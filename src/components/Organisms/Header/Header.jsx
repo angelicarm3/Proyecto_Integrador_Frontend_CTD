@@ -94,7 +94,7 @@ function Header () {
                       <Link to='/administracion' className='logout-button bg-transparent text-yellow1 hover:opacity-75'>{t('adminPanel')}</Link>
                   }
                   <Link to='/mis-favoritos' className='logout-button bg-transparent text-yellow1 hover:opacity-75'>{t('myFavorites')}</Link>
-                  <Link to='/mis-reservas' className='logout-button bg-transparent text-yellow1 hover:opacity-75'>Mis reservas</Link>
+                  <Link to='/mis-reservas' className='logout-button bg-transparent text-yellow1 hover:opacity-75'>{t('myBookins')}</Link>
                   <button onClick={handleLogout} className='logout-button'>{t('logOut')}</button>
                 </div>
               )

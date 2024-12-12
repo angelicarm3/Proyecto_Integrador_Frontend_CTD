@@ -1,9 +1,12 @@
 import { useNavigate } from 'react-router-dom'
+
+import { useTranslation } from 'react-i18next'
 import { pageLabels } from '../../../data/pageLabels'
 import './AddBtn.css'
 
 const AddBtn = ({ navigateTo }) => {
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   const handleAddProduct = () => {
     navigate(navigateTo)
@@ -14,7 +17,7 @@ const AddBtn = ({ navigateTo }) => {
       onClick={handleAddProduct}
       className='primary-btn addBtn'
     >
-      {pageLabels.addBtn.label}
+      {t('add')}
     </button>
   )
 }

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import Datepicker from 'react-tailwindcss-datepicker'
 
@@ -20,6 +21,7 @@ const cities = [
 
 const RentNowForm = ({ onClose, formNumber, setFormNumber }) => {
   const dispatch = useDispatch()
+  const { t, i18n } = useTranslation()
   const [unavailableDates, setUnavailableDates] = useState([])
   const [todayDateLocal, setTodayDateLocal] = useState(null)
   const [errorOverlap, setErrorOverlap] = useState(false)
@@ -135,14 +137,12 @@ const RentNowForm = ({ onClose, formNumber, setFormNumber }) => {
     dispatch(updateHasSubmited())
     dispatch(updateField({ field: 'lugarRecogida', value: selectedPickup[0].nombre, form: 'bookin' }))
     dispatch(updateField({ field: 'lugarEntrega', value: selectedDropoff[0].nombre, form: 'bookin' }))
-    const allFields = Object.keys(bookinData) // bookinData contiene los campos del formulario.
+    const allFields = Object.keys(bookinData)
 
-    // Valida todos los campos registrados
     const isValid = await trigger(allFields)
 
-    // Si la validación es exitosa, avanza al siguiente paso
     if (isValid && selectedPickup.length > 0 && selectedDropoff.length > 0 && !errorOverlap && !error && (selectedDates.startDate || selectedDates.endDate)) {
-      setFormNumber(formNumber + 1) // Cambia al siguiente paso
+      setFormNumber(formNumber + 1)
     }
   }
 
@@ -157,10 +157,10 @@ const RentNowForm = ({ onClose, formNumber, setFormNumber }) => {
   return (
     <form className='w-full h-fit flex flex-col justify-center items-center'>
       <div className='w-full h-fit flex flex-col rounded-xl font-bold relative p-2 gap-2'>
-        <label htmlFor='dates' className='label w-full text-gray6 font-Urbanist text-left'>{pageLabels.createBookin.dates}</label>
+        <label htmlFor='dates' className='label w-full text-gray6 font-Urbanist text-left'>{t('labelBookinDates')}</label>
         <div className='datepicker-container w-full hidden md:flex gap-2'>
           <Datepicker
-            i18n='en'
+            i18n={i18n.language}
             startWeekOn='mon'
             popoverDirection='down'
             containerClassName='w-full relative font-Urbanist'
@@ -169,7 +169,7 @@ const RentNowForm = ({ onClose, formNumber, setFormNumber }) => {
             displayFormat='DD/MM/YYYY'
             separator='-'
             theme='light'
-            placeholder={pageLabels.createBookin.dates}
+            placeholder={t('labelBookinDates')}
             value={selectedDates}
             onChange={newValue => handleDateChange(newValue)}
             disabledDates={unavailableDates}
@@ -177,7 +177,7 @@ const RentNowForm = ({ onClose, formNumber, setFormNumber }) => {
         </div>
         <div className='datepicker-container w-full flex md:hidden gap-2'>
           <Datepicker
-            i18n='en'
+            i18n={i18n.language}
             useRange={false}
             startWeekOn='mon'
             popoverDirection='down'
@@ -187,67 +187,67 @@ const RentNowForm = ({ onClose, formNumber, setFormNumber }) => {
             displayFormat='DD/MM/YYYY'
             separator='-'
             theme='light'
-            placeholder={pageLabels.createBookin.dates}
+            placeholder={t('labelBookinDates')}
             value={selectedDates}
             onChange={newValue => handleDateChange(newValue)}
             disabledDates={unavailableDates}
           />
         </div>
         <div className='w-full flex gap-6 text-yellow1 text-sm font-Urbanist'>
-          <p>Número días: <span>{totalDays}</span></p>
-          <p>Precio total: $<span>{totalPrice}</span></p>
+          <p>{t('numberOfDays')}<span>{totalDays}</span></p>
+          <p>{t('totalPrice')}<span>{totalPrice}</span></p>
         </div>
         {
-        (errorOverlap || (error && error.includes('no está disponible'))) && <FormErrorMessage message='Esta selección incluye fechas no disponibles' />
+        (errorOverlap || (error && error.includes('no está disponible'))) && <FormErrorMessage message={t('thisSelectionIncludesUnavailableDays')} />
         }
         {
           hasSubmited && (!selectedDates.startDate || !selectedDates.endDate) &&
-            <FormErrorMessage message={pageLabels.createProduct.requiredError} />
+            <FormErrorMessage message={t('thisFieldIsRequired')} />
         }
       </div>
 
       <ButtonField
-        items={pageLabels.createBookin.cities}
+        items={cities}
         containerClass='field-container w-full p-2'
-        label={pageLabels.createBookin.pickUp}
+        label={t('labelPickUpDate')}
         labelClass='label w-full text-gray6 font-Urbanist text-left'
         selectedItems={selectedPickup}
         onChange={(item) => dispatch(updateSelectedPickup([item]))}
-        errorMessage={pageLabels.createProduct.requiredError}
+        errorMessage={t('thisFieldIsRequired')}
       />
 
       <ButtonField
         items={cities}
         containerClass='field-container w-full p-2'
-        label={pageLabels.createBookin.dropOff}
+        label={t('labelDropOffDate')}
         labelClass='label w-full text-gray6 font-Urbanist text-left'
         selectedItems={selectedDropoff}
         onChange={(item) => dispatch(updateSelectedDropoff([item]))}
-        errorMessage={pageLabels.createProduct.requiredError}
+        errorMessage={t('thisFieldIsRequired')}
       />
 
       <div className='field-container w-full p-2'>
         <label htmlFor='comentario' className='label w-full text-gray6 font-Urbanist text-left'>
-          {pageLabels.createBookin.comment}
+          {t('labelComment')}
         </label>
         <textarea
           id='comentario'
           maxLength={maxCommentCharacters}
           value={bookinData.comentario}
           className='input text-black1 description-input'
-          placeholder='Comentario'
+          placeholder={t('leaveYourComment')}
           onChange={(e) => {
             handleInputChange(e)
             e.target.dispatchEvent(new Event('input', { bubbles: true }))
           }}
         />
         <div className='input-counter text-gray6'>
-          {maxCommentCharacters - (bookinData.comentario?.length || 0)} {pageLabels.createProduct.characterCount}
+          {maxCommentCharacters - (bookinData.comentario?.length || 0)} {t('remainingCharacters')}
         </div>
       </div>
 
       <div className='flex gap-6 mt-4'>
-        <button type='button' className='primary-btn px-4 rounded-full text-black1' onClick={() => handleNextStep()}>Continuar</button>
+        <button type='button' className='primary-btn px-4 rounded-full text-black1' onClick={() => handleNextStep()}>{t('continue')}</button>
         <CancelBtn handleClick={onClose} />
       </div>
     </form>

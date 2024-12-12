@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 
 import isoGold from '../../../assets/brand/isoGold.svg'
@@ -11,6 +12,7 @@ import './productsGrid.css'
 const ProductsGrid = () => {
   const gridRef = useRef()
   const dispatch = useDispatch()
+  const { t } = useTranslation()
   const { items } = useSelector((state) => state.paginator)
   const { totalProducts, resultsQuantity, filteredProducts } = useSelector((state) => state.product)
   const [showRequireLoginPopup, setShowRequireLoginPopup] = useState(false)
@@ -39,8 +41,8 @@ const ProductsGrid = () => {
         {
           items?.length === 0 &&
             <div className='h-[300px] flex flex-col justify-center items-center text-gray3 text-lg'>
-              <p>Lo sentimos</p>
-              <p>No hay autos que coincidan con tu búsqueda</p>
+              <p>{t('weAreSorry')}</p>
+              <p>{t('noCarsMatchYourSearch')}</p>
               <img src={isoGold} alt='Logo de la marca' className='h-[150px] mt-6' />
             </div>
         }

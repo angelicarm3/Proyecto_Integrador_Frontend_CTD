@@ -16,7 +16,7 @@
     @apply m-[10px] sm:m-[20px] mt-[30px] sm:mt-[40px] border-2 border-white rounded-[20px] text-center flex flex-col flex-wrap items-center justify-center relative;
   }
   .registration-modal-content-info p{
-    @apply m-[5px] sm:m-[10px] mt-[45px] sm:mt-[55px] text-xl text-white;
+    @apply md:text-xl text-white;
   }
   .registration-modal-content-button{
     @apply m-[5px] sm:m-[10px] pb-2 sm:pb-4  flex flex-wrap items-center justify-center;;

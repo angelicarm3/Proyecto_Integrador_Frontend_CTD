@@ -1,13 +1,14 @@
+import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useLocation } from 'react-router-dom'
 
 import { rearrangeImagesGrid } from '../../../context/slices/productSlice'
-import { pageLabels } from '../../../data/pageLabels'
 import './imagesGrid.css'
 
 const ImagesGrid = () => {
   const location = useLocation()
   const dispatch = useDispatch()
+  const { t } = useTranslation()
   const { selectedProduct, mainImg, otherImg } = useSelector((state) => state.product)
 
   const clickChangeImg = (imgUrl) => {
@@ -28,7 +29,7 @@ const ImagesGrid = () => {
         }
 
         <Link className='see-more-btn' to={`/producto/${selectedProduct.id}/galeria`} state={{ previousLocation: location }}>
-          {pageLabels.productDetail.seeMore}
+          {t('seeMore')}
         </Link>
       </div>
     </div>

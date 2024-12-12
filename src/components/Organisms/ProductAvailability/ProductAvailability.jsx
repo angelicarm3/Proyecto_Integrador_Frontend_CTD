@@ -1,10 +1,12 @@
 import Calendar from 'react-calendar'
 import { useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 
 import { useState } from 'react'
 import './productAvailability.css'
 
 const ProductAvailability = ({ product }) => {
+  const { t, i18n } = useTranslation()
   const { bookins } = useSelector((state) => state.bookins)
   const today = new Date()
   const [activeStartDate, setActiveStartDate] = useState(new Date(today.getFullYear(), today.getMonth() + 1, today.getDate()))
@@ -52,17 +54,17 @@ const ProductAvailability = ({ product }) => {
 
   return (
     <div className='w-full flex flex-col items-center gap-2 mt-8'>
-      <p className='product-detail-name w-full md:max-w-[784px] md:min-w-[750px] mb-0 text-xl text-white text-center md:text-left'>Disponibilidad</p>
+      <p className='product-detail-name w-full md:max-w-[784px] md:min-w-[750px] mb-0 text-xl text-white text-center md:text-left'>{t('availability')}</p>
       <div className='w-full md:max-w-[840px] md:min-w-[784px] flex justify-center gap-10'>
         <Calendar
-          locale='es-ES'
+          locale={i18n.language}
           view='month'
           tileDisabled={disableAll}
           tileClassName={tileClassName}
           showNeighboringMonth={false}
         />
         <Calendar
-          locale='es-ES'
+          locale={i18n.language}
           view='month'
           activeStartDate={activeStartDate}
           onActiveStartDateChange={handleActiveStartDateChange}
