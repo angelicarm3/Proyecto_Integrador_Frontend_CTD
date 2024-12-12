@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
 
+import { useTranslation } from 'react-i18next'
 import { FiShare2 } from 'react-icons/fi'
 import { useSelector } from 'react-redux'
 
 import { pageLabels } from '../../../data/pageLabels'
+import { translateText } from '../../../service/translateText'
 import BackBtn from '../../Atoms/BackBtn/BackBtn'
 import FavBtn from '../../Atoms/FavBtn/FavBtn'
 import RentNowBtn from '../../Atoms/RentNowBtn/RentNowBtn'
@@ -14,11 +16,11 @@ import ImagesGrid from '../../Organisms/ImagesGrid/ImagesGrid'
 import ProductAvailability from '../../Organisms/ProductAvailability/ProductAvailability'
 import ReviewsGrid from '../../Organisms/ReviewsGrid/ReviewsGrid'
 import CreateReviewPopUp from '../CreateReviewPopUp/CreateReviewPopUp'
-import RequireLoginPopup from '../RequireLoginPopup/RequireLoginPopup'
 import ShareProductPopUp from '../ShareProductPopUp/ShareProductPopUp'
 import './productDetailCard.css'
 
 const ProductDetailCard = ({ onSuccess, onRentClick, setShowRequireLoginPopup, reload }) => {
+  const { i18n } = useTranslation()
   const [isShareModalOpen, setShareModalOpen] = useState(false)
   const selectedProduct = useSelector((state) => state.product.selectedProduct)
   const { loggedUser } = useSelector((state) => state.loginRegister)
@@ -26,6 +28,19 @@ const ProductDetailCard = ({ onSuccess, onRentClick, setShowRequireLoginPopup, r
   const [showReviewPopUp, setShowReviewPopUp] = useState(false)
   const [reviews, setReviews] = useState([])
   const [canComment, setCanComment] = useState([])
+
+  const [productDescription, setProductDescription] = useState()
+
+  useEffect(() => {
+    const fetchTranslation = async () => {
+      const translatedDescription = await translateText(selectedProduct.descripcion)
+      setProductDescription(translatedDescription)
+    }
+
+    if (selectedProduct.descripcion) {
+      fetchTranslation()
+    }
+  }, [selectedProduct.descripcion])
 
   useEffect(() => {
     setReviews([...selectedProduct.resenas].sort((a, b) => b.id - a.id))
@@ -66,7 +81,11 @@ const ProductDetailCard = ({ onSuccess, onRentClick, setShowRequireLoginPopup, r
               <FiShare2 className='clickable action-btn' onClick={handleShareClick} />
             </div>
           </div>
-          <p className='product-detail-day-description'>{selectedProduct.descripcion}</p>
+          {
+            i18n.language === 'en'
+              ? <p className='product-detail-day-description'>{productDescription}</p>
+              : <p className='product-detail-day-description'>{selectedProduct.descripcion}</p>
+          }
           <ProductFeatures product={selectedProduct} type='detail' />
           <ProductCharacteristics characteristics={selectedProduct.caracteristicas} />
           <RentNowBtn onRentClick={onRentClick} />
