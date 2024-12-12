@@ -1,13 +1,13 @@
 import i18n from 'i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
-// import Backend from 'i18next-http-backend'
+import Backend from 'i18next-http-backend'
 import { initReactI18next } from 'react-i18next'
 
-import en from './en.json'
-import es from './es.json'
+import en from '../../../public/locales/en/tranlations.json'
+import es from '../../../public/locales/es/tranlations.json'
 
 i18n
-//   .use(Backend)
+  .use(Backend)
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
@@ -24,9 +24,6 @@ i18n
         translation: es
       }
     }
-    // backend: {
-    //   loadPath: './{{lng}}.json'
-    // }
   })
 
 export default i18n

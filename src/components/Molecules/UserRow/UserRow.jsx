@@ -56,7 +56,7 @@ const UserRow = ({ user }) => {
           <p><strong>${t('labelDni')}:</strong> ${user.dni}</p>
           <p><strong>${t('labelAge')}:</strong> ${user.edad}</p>
           <p><strong>${t('labelPhone')}:</strong> ${user.telefono}</p>
-          <p><strong>${t('labelNacionality')}:</strong> ${user.nacionalidad}</p>
+          <p><strong>${t('labelNationality')}:</strong> ${user.nacionalidad}</p>
           <p><strong>${t('adminUser')}:</strong> ${user.esAdmin ? `${t('yes')}` : `${t('no')}`}</p></p>
         </div>
       `,
