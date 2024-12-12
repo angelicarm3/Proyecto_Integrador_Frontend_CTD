@@ -3,8 +3,11 @@ import Snowfall from 'react-snowfall'
 import './context/i18n/i18n.js'
 
 import './App.css'
+import WappBtn from './components/Atoms/WappBtn/WappBtn.jsx'
 import Footer from './components/Organisms/Footer/Footer.jsx'
 import Header from './components/Organisms/Header/Header.jsx'
+
+import Bookins from './components/Pages/Bookins/Bookins.jsx'
 import Favorites from './components/Pages/Favorites/Favorites.jsx'
 import Home from './components/Pages/Home/Home'
 import LoginRegister from './components/Pages/LoginRegister/LoginRegister.jsx'
@@ -24,7 +27,6 @@ import AdminProducts from './components/Pages/AdminProducts/AdminProducts'
 import AdminUsers from './components/Pages/AdminUsers/AdminUsers.jsx'
 
 import ImagesPopUp from './components/Templates/ImagesPopUp/ImagesPopUp.jsx'
-import WappBtn from './components/Atoms/WappBtn/WappBtn.jsx'
 
 function App () {
   const location = useLocation()
@@ -69,6 +71,7 @@ function App () {
           <Route path='inicio-sesion' element={<RequireNoAuth><LoginRegister /></RequireNoAuth>} />
           <Route path='registro' element={<RequireNoAuth><LoginRegister /></RequireNoAuth>} />
           <Route path='mis-favoritos' element={<RequireAuth><Favorites /></RequireAuth>} />
+          <Route path='mis-reservas' element={<RequireAuth><Bookins /></RequireAuth>} />
           <Route path='politicas-uso' element={<PoliciesPage />} />
           <Route path='*' element={<h1>404 Page Not Found</h1>} />
         </Route>
