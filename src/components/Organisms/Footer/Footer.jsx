@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { FaFacebook, FaInstagram, FaLinkedin } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 
@@ -5,6 +6,8 @@ import isoWhite from '../../../assets/brand/isoWhite.png'
 import './footer.css'
 
 const Footer = () => {
+  const { t } = useTranslation()
+
   return (
     <footer className='footer'>
       <div className='footer-container'>
@@ -16,11 +19,10 @@ const Footer = () => {
         </div>
 
         <div className='footer-policies'>
-          <Link to='/politicas-uso' className='footer-policy-button'>
-            Políticas de Uso
+          <Link to='/politicas-uso' className='footer-policy-button'>{t('usePolicies')}
           </Link>
           <div className='footer-copyright'>
-            <p>&copy; {new Date().getFullYear()} Royal Ride. Todos los derechos reservados.</p>
+            <p>&copy; {new Date().getFullYear()}{t('allRightsReserved')}</p>
           </div>
         </div>
 

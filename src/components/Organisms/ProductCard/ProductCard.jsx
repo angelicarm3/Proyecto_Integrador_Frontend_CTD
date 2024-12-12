@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 
+import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
 import { FiShare2 } from 'react-icons/fi'
-import { pageLabels } from '../../../data/pageLabels'
 import FavBtn from '../../Atoms/FavBtn/FavBtn.jsx'
 import ProductFeatures from '../../Molecules/ProductFeatures/ProductFeatures'
 import ProductStars from '../../Molecules/ProductStars/ProductStars.jsx'
@@ -12,6 +12,7 @@ import './productCard.css'
 
 const ProductCard = ({ product, setShowRequireLoginPopup }) => {
   const navigate = useNavigate()
+  const { t } = useTranslation()
   const [mainImg, setMainImg] = useState()
   const [isShareModalOpen, setShareModalOpen] = useState(false)
 
@@ -37,7 +38,7 @@ const ProductCard = ({ product, setShowRequireLoginPopup }) => {
             <p className='product-name'>{product.marca} {product.modelo}</p>
             <p className='product-daily-price'>
               ${product.precioDia}
-              <span className='product-day-text'>{pageLabels.productCard.dia}</span>
+              <span className='product-day-text'>{t('perDay')}</span>
             </p>
           </div>
 
@@ -45,7 +46,7 @@ const ProductCard = ({ product, setShowRequireLoginPopup }) => {
         </div>
         <div className='product-info-container h-fit'>
           <ProductFeatures product={product} type='product' />
-          <div className='primary-btn rent-now-btn clickable'>Ver detalles
+          <div className='primary-btn rent-now-btn clickable'>{t('seeDetails')}
           </div>
         </div>
       </div>

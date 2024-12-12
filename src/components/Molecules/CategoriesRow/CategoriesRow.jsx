@@ -1,6 +1,7 @@
 import { useDispatch } from 'react-redux'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import { useTranslation } from 'react-i18next'
 
 import { deleteCategoryThunk, fetchAllCategoriesThunk, resetStatus, setSelectedCategory } from '../../../context/slices/adminCategorySlice'
 import DeleteBtn from '../../Atoms/DeleteBtn/DeleteBtn'
@@ -9,6 +10,7 @@ import EditBtn from '../../Atoms/EditBtn/EditBtn'
 
 const CategoriesRow = ({ category }) => {
   const dispatch = useDispatch()
+  const { t } = useTranslation()
   const token = localStorage.getItem('token')
 
   const resetTable = () => {
@@ -20,18 +22,18 @@ const CategoriesRow = ({ category }) => {
   const handleSelectCategory = () => {
     dispatch(setSelectedCategory(category))
     withReactContent(Swal).fire({
-      title: <p className='text-2xl font-semibold'>Detalles de la Categoría</p>,
+      title: <p className='text-2xl font-semibold'>{t('characteristicDetails')}</p>,
       html: `
         <div class='w-fit flex flex-col text-left mx-auto'>
-          <p><strong>Nombre:</strong> ${category.nombre}</p>
-          <p><strong>Descripción:</strong> ${category.descripcion}</p>
+          <p><strong>${t('labelName')}:</strong> ${category.nombre}</p>
+          <p><strong>${t('titleDescription')}:</strong> ${category.descripcion}</p>
           <p class='flex gap-2'>
-            <strong>Icono:</strong>
+            <strong>${t('icon')}:</strong>
             <img src=${category.iconoCat} class='w-20' />
           </p>
         </div>
         `,
-      confirmButtonText: 'Cerrar',
+      confirmButtonText: `${t('close')}`,
       customClass: {
         confirmButton: 'bg-blue1 text-white font-bold'
       }
@@ -41,7 +43,7 @@ const CategoriesRow = ({ category }) => {
   const handleDelete = () => {
     dispatch(setSelectedCategory(category))
     withReactContent(Swal).fire({
-      title: <p className='text-2xl font-semibold'>¿Desea eliminar esta categoría?</p>,
+      title: <p className='text-2xl font-semibold'>${t('doYouWishToDeteleteThisCategory')}</p>,
       html: `
         <div class='w-fit flex flex-col items-center text-center mx-auto gap-2'>
           <p>${category.nombre}</p>
@@ -49,8 +51,8 @@ const CategoriesRow = ({ category }) => {
         </div>
         `,
       showCancelButton: true,
-      confirmButtonText: 'Eliminar',
-      cancelButtonText: 'Cancelar',
+      confirmButtonText: `${t('delete')}`,
+      cancelButtonText: `${t('cancel')}`,
       customClass: {
         confirmButton: 'bg-green1 text-white font-bold',
         cancelButton: 'bg-red1 text-white font-bold'
@@ -62,7 +64,7 @@ const CategoriesRow = ({ category }) => {
           .then((response) => {
             withReactContent(Swal).fire({
               icon: 'success',
-              text: 'Categoría eliminada exitosamente',
+              text: `${t('categoryDeletedSuccessfully')}`,
               showConfirmButton: false,
               timer: 3000
             })
@@ -71,7 +73,7 @@ const CategoriesRow = ({ category }) => {
           .catch(() => {
             withReactContent(Swal).fire({
               icon: 'error',
-              text: 'No se puede eliminar esta categoría pues está asignada a algún vehiculo',
+              text: `${t('weCanNotDeleteThisCategory')}`,
               showConfirmButton: false,
               timer: 3000
             })

@@ -1,6 +1,7 @@
 import { useDispatch } from 'react-redux'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import { useTranslation } from 'react-i18next'
 
 import { deleteUserThunk, fetchAllUsersAdminThunk, modifiedAdminRole, resetStatus, setSelectedUser } from '../../../context/slices/adminUserSlice'
 import ChangeAdminBtn from '../../Atoms/ChangeAdminBtn/ChangeAdminBtn'
@@ -9,6 +10,7 @@ import DetailBtn from '../../Atoms/DetailBtn/DetailBtn'
 
 const UserRow = ({ user }) => {
   const dispatch = useDispatch()
+  const { t } = useTranslation()
   const token = localStorage.getItem('token')
 
   const resetTable = () => {
@@ -25,7 +27,7 @@ const UserRow = ({ user }) => {
       .then((response) => {
         withReactContent(Swal).fire({
           icon: 'success',
-          text: 'Permisos modificados exitosamente',
+          text: `${t('userAdminModifiedSuccessfully')}`,
           showConfirmButton: false,
           timer: 3000
         })
@@ -34,7 +36,7 @@ const UserRow = ({ user }) => {
       .catch(() => {
         withReactContent(Swal).fire({
           icon: 'error',
-          text: 'No se pueden actualizar los permisos',
+          text: `${t('weCanNotModifyThisUserAdmin')}`,
           showConfirmButton: false,
           timer: 3000
         })
@@ -45,21 +47,20 @@ const UserRow = ({ user }) => {
   const handleSelectUser = () => {
     dispatch(setSelectedUser(user))
     withReactContent(Swal).fire({
-      title: <p className='text-2xl font-semibold'>Detalles del Usuario</p>,
+      title: <p className='text-2xl font-semibold'>{t('userDetails')}</p>,
       html: `
         <div class='w-fit flex flex-col text-left mx-auto'>
-          <p><strong>Nombre de Usuario:</strong> ${user.userName}</p>
-          <p><strong>Nombre Completo:</strong> ${user.nombre} ${user.apellido}</p>
-          <p><strong>Email:</strong> ${user.email}</p>
-          <p><strong>DNI:</strong> ${user.dni}</p>
-          <p><strong>Edad:</strong> ${user.edad}</p>
-          <p><strong>Teléfono:</strong> ${user.telefono}</p>
-          <p><strong>Nacionalidad:</strong> ${user.nacionalidad}</p>
-          <p><strong>Usuario Administrador:</strong> ${user.esAdmin ? 'Sí' : 'No'}</p>
-          <p><strong>Estado:</strong> ${user.estaActivo ? 'Activo' : 'Inactivo'}</p>
+          <p><strong>${t('userName')}:</strong> ${user.userName}</p>
+          <p><strong>${t('fullName')}:</strong> ${user.nombre} ${user.apellido}</p>
+          <p><strong>${t('labelEmail')}:</strong> ${user.email}</p>
+          <p><strong>${t('labelDni')}:</strong> ${user.dni}</p>
+          <p><strong>${t('labelAge')}:</strong> ${user.edad}</p>
+          <p><strong>${t('labelPhone')}:</strong> ${user.telefono}</p>
+          <p><strong>${t('labelNacionality')}:</strong> ${user.nacionalidad}</p>
+          <p><strong>${t('adminUser')}:</strong> ${user.esAdmin ? `${t('yes')}` : `${t('no')}`}</p></p>
         </div>
       `,
-      confirmButtonText: 'Cerrar',
+      confirmButtonText: `${t('close')}`,
       customClass: {
         confirmButton: 'bg-blue1 text-white font-bold'
       }
@@ -69,16 +70,16 @@ const UserRow = ({ user }) => {
   const handleDelete = () => {
     dispatch(setSelectedUser(user))
     withReactContent(Swal).fire({
-      title: <p className='text-2xl font-semibold'>¿Desea eliminar este usuario?</p>,
+      title: <p className='text-2xl font-semibold'>{t('doYouWishToDeteleteThisUser')}</p>,
       html: `
         <div class='w-fit flex flex-col items-center text-center mx-auto gap-2'>
-          <p><strong>Nombre Completo:</strong> ${user.nombre} ${user.apellido}</p>
-          <p><strong>Nombre de Usuario:</strong> ${user.userName}</p>
+          <p><strong>${t('fullName')}:</strong> ${user.nombre} ${user.apellido}</p>
+          <p><strong>${t('userName')}:</strong> ${user.userName}</p>
         </div>
         `,
       showCancelButton: true,
-      confirmButtonText: 'Eliminar',
-      cancelButtonText: 'Cancelar',
+      confirmButtonText: `${t('delete')}`,
+      cancelButtonText: `${t('cancel')}`,
       customClass: {
         confirmButton: 'bg-green1 text-white font-bold',
         cancelButton: 'bg-red1 text-white font-bold'
@@ -90,7 +91,7 @@ const UserRow = ({ user }) => {
           .then((response) => {
             withReactContent(Swal).fire({
               icon: 'success',
-              text: 'Usuario eliminado exitosamente',
+              text: `${t('userDeletedSuccessfully')}`,
               showConfirmButton: false,
               timer: 3000
             })
@@ -99,7 +100,7 @@ const UserRow = ({ user }) => {
           .catch(() => {
             withReactContent(Swal).fire({
               icon: 'error',
-              text: 'No se puede eliminar este usuario',
+              text: `${t('userDeletedSuccessfully')}`,
               showConfirmButton: false,
               timer: 3000
             })

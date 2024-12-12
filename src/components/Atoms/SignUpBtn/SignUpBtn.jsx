@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom'
-
-import { pageLabels } from '../../../data/pageLabels'
+import { useTranslation } from 'react-i18next'
 
 const SignUpBtn = () => {
+  const { t } = useTranslation()
+
   return (
     <Link to='/registro' className='secondary-btn log-in-btn'>
-      {pageLabels.buttons.signUp}
+      {t('signUp')}
     </Link>
   )
 }

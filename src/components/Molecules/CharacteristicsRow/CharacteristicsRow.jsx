@@ -1,6 +1,7 @@
 import { useDispatch } from 'react-redux'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import { useTranslation } from 'react-i18next'
 
 import { deleteCharacteristicThunk, fetchAllCharacteristicsThunk, resetStatus, setSelectedCharacteristic } from '../../../context/slices/adminCharacteristicSlice'
 import DeleteBtn from '../../Atoms/DeleteBtn/DeleteBtn'
@@ -9,6 +10,7 @@ import EditBtn from '../../Atoms/EditBtn/EditBtn'
 
 const CharacteristcsRow = ({ characteristic }) => {
   const dispatch = useDispatch()
+  const { t } = useTranslation()
   const token = localStorage.getItem('token')
 
   const resetTable = () => {
@@ -20,17 +22,17 @@ const CharacteristcsRow = ({ characteristic }) => {
   const handleSelectCharacteristic = () => {
     dispatch(setSelectedCharacteristic(characteristic))
     withReactContent(Swal).fire({
-      title: <p className='text-2xl font-semibold'>Detalles de la Característica</p>,
+      title: <p className='text-2xl font-semibold'>{t('characteristicDetails')}</p>,
       html: `
         <div class='w-fit flex flex-col text-left mx-auto'>
-          <p><strong>Nombre:</strong> ${characteristic.nombre}</p>
+          <p><strong>${t('labelName')}:</strong> ${characteristic.nombre}</p>
           <p class='flex gap-2'>
-            <strong>Icono:</strong>
+            <strong>${t('icon')}:</strong>
             <img src=${characteristic.icono} class='w-12' />
           </p>
         </div>
         `,
-      confirmButtonText: 'Cerrar',
+      confirmButtonText: `${t('close')}`,
       customClass: {
         confirmButton: 'bg-blue1 text-white font-bold'
       }
@@ -40,7 +42,7 @@ const CharacteristcsRow = ({ characteristic }) => {
   const handleDelete = () => {
     dispatch(setSelectedCharacteristic(characteristic))
     withReactContent(Swal).fire({
-      title: <p className='text-2xl font-semibold'>¿Desea eliminar esta característica?</p>,
+      title: <p className='text-2xl font-semibold'>${t('doYouWishToDeteleteThisCharacteristic')}</p>,
       html: `
         <div class='w-fit flex flex-col items-center text-center mx-auto gap-2'>
           <p>${characteristic.nombre}</p>
@@ -48,8 +50,8 @@ const CharacteristcsRow = ({ characteristic }) => {
         </div>
         `,
       showCancelButton: true,
-      confirmButtonText: 'Eliminar',
-      cancelButtonText: 'Cancelar',
+      confirmButtonText: `${t('delete')}`,
+      cancelButtonText: `${t('cancel')}`,
       customClass: {
         confirmButton: 'bg-green1 text-white font-bold',
         cancelButton: 'bg-red1 text-white font-bold'
@@ -61,7 +63,7 @@ const CharacteristcsRow = ({ characteristic }) => {
           .then((response) => {
             withReactContent(Swal).fire({
               icon: 'success',
-              text: 'Característica eliminada exitosamente',
+              text: `${t('characteristicDeletedSuccessfully')}`,
               showConfirmButton: false,
               timer: 3000
             })
@@ -70,7 +72,7 @@ const CharacteristcsRow = ({ characteristic }) => {
           .catch(() => {
             withReactContent(Swal).fire({
               icon: 'error',
-              text: 'No se puede eliminar esta característica pues está asignada a algún vehiculo',
+              text: `${t('weCanNotDeleteThisCharacteristic')}`,
               showConfirmButton: false,
               timer: 3000
             })

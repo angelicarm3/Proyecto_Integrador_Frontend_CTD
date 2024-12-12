@@ -1,14 +1,15 @@
+import { useTranslation } from 'react-i18next'
 import { IconContext } from 'react-icons'
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa'
 import ReactPaginate from 'react-paginate'
 import { useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 
-import { pageLabels } from '../../../data/pageLabels'
 import './paginator.css'
 
 const Paginator = ({ totalItems, resultsQuantity, onClick }) => {
   const location = useLocation()
+  const { t } = useTranslation()
   const { pageCount, startIndex, endIndex } = useSelector((state) => state.paginator)
 
   return (
@@ -33,8 +34,15 @@ const Paginator = ({ totalItems, resultsQuantity, onClick }) => {
       />
       {
         location?.pathname === '/'
-          ? <p className='results-container'>{resultsQuantity}{resultsQuantity === 1 ? pageLabels.categories.resultCountOne : pageLabels.categories.resultCount}{totalItems}</p>
-          : <p className='admin-products-p'>{`Resultados ${startIndex + 1} a ${endIndex} de ${totalItems}`}</p>
+          ? <p className='results-container'>
+            {resultsQuantity}
+            {resultsQuantity === 1
+              ? `${t('coincidenceOf')}`
+              : `${t('coincidencesOf')} ${totalItems}`}
+          </p>
+          : <p className='admin-products-p'>
+            {`${t('results')} ${startIndex + 1}-${endIndex} ${t('of')} ${totalItems}`}
+          </p>
       }
     </div>
   )

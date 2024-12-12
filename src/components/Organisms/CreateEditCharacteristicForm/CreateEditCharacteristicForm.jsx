@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 
 import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 import { AiOutlineFileImage } from 'react-icons/ai'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
@@ -9,7 +10,6 @@ import withReactContent from 'sweetalert2-react-content'
 
 import { fetchCharacteristicByIdThunk } from '../../../context/slices/adminCharacteristicSlice'
 import { resetForm, submitFormThunk, updateField, updateHasSubmited, updateImgSuccess, uploadImagesThunk } from '../../../context/slices/formSlice'
-import { pageLabels } from '../../../data/pageLabels'
 import useImageUpload from '../../../hooks/useImageUpload'
 import { createCharacteristicFormFields } from '../../../service/formInputsService'
 import BackBtn from '../../Atoms/BackBtn/BackBtn'
@@ -24,6 +24,7 @@ const CreateEditCharacteristicForm = () => {
   const location = useLocation()
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const { t } = useTranslation()
   const token = localStorage.getItem('token')
 
   const { characteristicData, error, imgSuccess } = useSelector((state) => state.form)
@@ -93,7 +94,7 @@ const CreateEditCharacteristicForm = () => {
           .then((response) => {
             withReactContent(Swal).fire({
               icon: 'success',
-              text: 'Característica modificada exitosamente',
+              text: `${t('characteristicModifiedSuccessfully')}`,
               showConfirmButton: false,
               timer: 3000
             })
@@ -105,7 +106,7 @@ const CreateEditCharacteristicForm = () => {
           .catch(() => {
             withReactContent(Swal).fire({
               icon: 'error',
-              text: 'No se puede modificar esta característica',
+              text: `${t('weCanNotModifyThisCharacteristic')}`,
               showConfirmButton: false,
               timer: 3000
             })
@@ -116,7 +117,7 @@ const CreateEditCharacteristicForm = () => {
           .then((response) => {
             withReactContent(Swal).fire({
               icon: 'success',
-              text: 'Característica creada exitosamente',
+              text: `${t('characteristicCreatedSuccessfully')}`,
               showConfirmButton: false,
               timer: 3000
             })
@@ -128,7 +129,7 @@ const CreateEditCharacteristicForm = () => {
           .catch(() => {
             withReactContent(Swal).fire({
               icon: 'error',
-              text: 'No se puede crear esta característica',
+              text: `${t('weCanNotCreateThisCharacteristic')}`,
               showConfirmButton: false,
               timer: 3000
             })
@@ -142,7 +143,7 @@ const CreateEditCharacteristicForm = () => {
       <div className='back-form-btn'>
         <BackBtn />
       </div>
-      <p className='title form-title'>{pageLabels.createCharacteristic.title}</p>
+      <p className='title form-title'>{t('characteristic')}</p>
 
       <div className='form-fields-container'>
         {
@@ -152,25 +153,25 @@ const CreateEditCharacteristicForm = () => {
               key={id}
               id={id}
               type='text'
-              label={label}
+              label={t(label)}
               value={characteristicData[id]}
               inputClass='input'
               register={register}
               validation={{
-                required: { value: true, message: pageLabels.createProduct.requiredError },
+                required: { value: true, message: 'thisFieldIsRequired' },
                 ...validation
               }}
               onChange={handleInputChange}
               error={errors[id]}
               promiseError={error}
-              extraErrorMessage={extraErrorMessage}
+              extraErrorMessage={t(extraErrorMessage)}
             />
           ))
         }
 
         <div className='field-container relative w-11/12'>
           <label htmlFor='icono' className='label'>
-            {pageLabels.createCharacteristic.icon}
+            {t('labelIcon')}
           </label>
           <div className='flex gap-4'>
             <input
@@ -185,7 +186,7 @@ const CreateEditCharacteristicForm = () => {
               onClick={() => document.getElementById('icono').click()}
             >
               <AiOutlineFileImage size={40} className='img-icon' />
-              <p className='img-placeholder'>{pageLabels.createCharacteristic.imgPlaceholder}</p>
+              <p className='img-placeholder'>{t('selectIcon')}</p>
             </button>
             <div className='preview-grid'>
               {
@@ -201,7 +202,7 @@ const CreateEditCharacteristicForm = () => {
             </div>
           </div>
           {
-            imagesRequiredError && <FormErrorMessage message={pageLabels.createProduct.requiredError} error='images' />
+            imagesRequiredError && <FormErrorMessage message={t('thisFieldIsRequired')} error='images' />
           }
         </div>
 
