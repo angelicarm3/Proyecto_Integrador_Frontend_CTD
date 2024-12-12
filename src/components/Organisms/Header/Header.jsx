@@ -14,6 +14,7 @@ import { resetPagination } from '../../../context/slices/paginatorSlice'
 import LogInBtn from '../../Atoms/LoginBtn/LoginBtn'
 import SignUpBtn from '../../Atoms/SignUpBtn/SignUpBtn'
 import './header.css'
+import LanguajeBtn from '../../Atoms/LanguajeBtn/LanguajeBtn'
 
 function Header () {
   const dispatch = useDispatch()
@@ -71,7 +72,7 @@ function Header () {
           <img src={sloganGold} alt='slogan' className='slogan' />
         </div>
       </button>
-      {/* <Navbar /> */}
+      <LanguajeBtn />
       {
         isLoggedIn
           ? <div className='flex'>

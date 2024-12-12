@@ -86,7 +86,7 @@ const RentNowDetails = ({ onClose }) => {
           </label>
           {
             !agreedTerms &&
-              <FormErrorMessage error='terms' message='Es necesario que accepte los términos de uso' />
+              <FormErrorMessage error='terms' message='Es necesario que acepte los términos de uso' />
           }
         </div>
       </div>

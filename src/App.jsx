@@ -1,5 +1,6 @@
 import { Outlet, Route, Routes, useLocation } from 'react-router-dom'
 import Snowfall from 'react-snowfall'
+import './context/i18n/i18n.js'
 
 import './App.css'
 import Footer from './components/Organisms/Footer/Footer.jsx'
