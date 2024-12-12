@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 
+import { useTranslation } from 'react-i18next'
 import { AiOutlineMenu } from 'react-icons/ai'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
@@ -11,17 +12,18 @@ import { fetchAllBookinsThunk } from '../../../context/slices/bookinsSlice'
 import { initializeFavorites } from '../../../context/slices/favoritesSlice'
 import { fetchUserByUserNameThunk, resetState } from '../../../context/slices/loginRegisterSlice'
 import { resetPagination } from '../../../context/slices/paginatorSlice'
+import LanguajeBtn from '../../Atoms/LanguajeBtn/LanguajeBtn'
 import LogInBtn from '../../Atoms/LoginBtn/LoginBtn'
 import SignUpBtn from '../../Atoms/SignUpBtn/SignUpBtn'
 import './header.css'
-import LanguajeBtn from '../../Atoms/LanguajeBtn/LanguajeBtn'
 
 function Header () {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const { t } = useTranslation()
+  const token = localStorage.getItem('token')
   const [isOn, setIsOn] = useState(false)
   const { isAdmin, isLoggedIn, loggedUser, error, userName } = useSelector((state) => state.loginRegister)
-  const token = localStorage.getItem('token')
 
   useEffect(() => {
     dispatch(fetchAllBookinsThunk())
@@ -89,10 +91,10 @@ function Header () {
                   </div>
                   {
                     isAdmin &&
-                      <Link to='/administracion' className='logout-button bg-transparent text-yellow1 hover:opacity-75'>Panel administración</Link>
+                      <Link to='/administracion' className='logout-button bg-transparent text-yellow1 hover:opacity-75'>{t('adminPanel')}</Link>
                   }
-                  <Link to='/mis-favoritos' className='logout-button bg-transparent text-yellow1 hover:opacity-75'>Mis favoritos</Link>
-                  <button onClick={handleLogout} className='logout-button hover:opacity-75'>Cerrar sesión</button>
+                  <Link to='/mis-favoritos' className='logout-button bg-transparent text-yellow1 hover:opacity-75'>{t('myFavorites')}</Link>
+                  <button onClick={handleLogout} className='logout-button hover:opacity-75'>{t('logOut')}</button>
                 </div>
               )
             }

@@ -1,21 +1,32 @@
 import i18n from 'i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
-import Backend from 'i18next-http-backend'
+// import Backend from 'i18next-http-backend'
 import { initReactI18next } from 'react-i18next'
 
+import en from './en.json'
+import es from './es.json'
+
 i18n
-  .use(Backend) // Carga archivos JSON
-  .use(LanguageDetector) // Detecta el idioma del navegador
-  .use(initReactI18next) // Conecta i18n con React
+//   .use(Backend)
+  .use(LanguageDetector)
+  .use(initReactI18next)
   .init({
-    fallbackLng: 'en', // Idioma por defecto
-    debug: true, // Habilita logs para depuración
+    fallbackLng: 'en',
+    debug: true,
     interpolation: {
-      escapeValue: false // React ya maneja el escape
+      escapeValue: false
     },
-    backend: {
-      loadPath: './{{lng}}.json' // Ruta de los archivos JSON
+    resources: {
+      en: {
+        translation: en
+      },
+      es: {
+        translation: es
+      }
     }
+    // backend: {
+    //   loadPath: './{{lng}}.json'
+    // }
   })
 
 export default i18n

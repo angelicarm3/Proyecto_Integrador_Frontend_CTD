@@ -4,12 +4,19 @@ import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import Datepicker from 'react-tailwindcss-datepicker'
 
-import { resetDatePicker, setSelectedDates, updateField, updateHasSubmited, updateSelectedDropoff, updateSelectedPickup, updateTotalDays, updateTotalPrice, clearError } from '../../../context/slices/formSlice'
+import { clearError, resetDatePicker, setSelectedDates, updateField, updateHasSubmited, updateSelectedDropoff, updateSelectedPickup, updateTotalDays, updateTotalPrice } from '../../../context/slices/formSlice'
 import { pageLabels } from '../../../data/pageLabels'
 import CancelBtn from '../../Atoms/CancelBtn/CancelBtn'
 import FormErrorMessage from '../../Atoms/FormErrorMessage/FormErrorMessage'
 import ButtonField from '../../Molecules/ButtonField/ButtonField'
 import './rentNowForm.css'
+
+const cities = [
+  { id: 1, nombre: 'Bogotá' },
+  { id: 2, nombre: 'Cartagena' },
+  { id: 3, nombre: 'Medellín' },
+  { id: 4, nombre: 'Pasto' }
+]
 
 const RentNowForm = ({ onClose, formNumber, setFormNumber }) => {
   const dispatch = useDispatch()
@@ -210,7 +217,7 @@ const RentNowForm = ({ onClose, formNumber, setFormNumber }) => {
       />
 
       <ButtonField
-        items={pageLabels.createBookin.cities}
+        items={cities}
         containerClass='field-container w-full p-2'
         label={pageLabels.createBookin.dropOff}
         labelClass='label w-full text-gray6 font-Urbanist text-left'
